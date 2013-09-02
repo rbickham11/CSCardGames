@@ -30,7 +30,7 @@ public class Deck
     public void print()
     {
         for(int card: deck)
-            System.out.println(String.format("%c%c", cardValues.get(card % 13), suitValues.get(card / 13)));
+            System.out.println(cardToString(card));
     }
     
     public void shuffle()
@@ -71,9 +71,9 @@ public class Deck
             dealtHandList.add(card2);
             
             if(gettingUserInput)
-                System.out.println(String.format("Player %d's hand is: %c%c", handsDealt, cardToString(card1), cardToString(card2)));
+                System.out.println(String.format("Player %d's hand is: %s %s", handsDealt, cardToString(card1), cardToString(card2)));
             else
-                outFile.addLine(String.format("Player %d's hand is: %c%c", handsDealt, cardToString(card1), cardToString(card2)));
+                outFile.addLine(String.format("Player %d's hand is: %s %s", handsDealt, cardToString(card1), cardToString(card2)));
         }
     }
     
@@ -86,9 +86,9 @@ public class Deck
         dealtHandList.add(card2);
         
         if(gettingUserInput)
-            System.out.println(String.format("Player %d's hand is: %c%c", handsDealt, cardToString(card1), cardToString(card2)));
+            System.out.println(String.format("Player %d's hand is: %s %s", handsDealt, cardToString(card1), cardToString(card2)));
         else
-            outFile.addLine(String.format("Player %d's hand is: %c%c", handsDealt, cardToString(card1), cardToString(card2)));
+            outFile.addLine(String.format("Player %d's hand is: %s %s", handsDealt, cardToString(card1), cardToString(card2)));
     }
     
     public void dealBoard()
