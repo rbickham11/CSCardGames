@@ -4,3 +4,5 @@
 *.jar
 *.war
 *.ear
+/PokerGameCore/build/
+/PokerGameCore/dist/
