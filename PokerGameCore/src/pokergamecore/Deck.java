@@ -27,6 +27,20 @@ public class Deck
             deck.add(i);
     }
     
+    public int getHandsDealt()
+    {
+        return handsDealt;
+    }
+    
+    public List<Integer> getDealtHandList()
+    {
+        return dealtHandList;
+    }
+    
+    public void setGettingUserInput(boolean value)
+    {
+        gettingUserInput = value;
+    }
     public void print()
     {
         for(int card: deck)
@@ -105,7 +119,7 @@ public class Deck
                 card = deck.get(0);
                 deck.remove(0);
                 board.add(card);
-                outFile.appendLine(cardToString(card));
+                outFile.appendLine(String.format("%s ", cardToString(card)));
             }
         }
         outFile.addLine();

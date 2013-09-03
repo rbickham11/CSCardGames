@@ -47,10 +47,24 @@ public class OutFile
     public void writeLinesToFile(String path)
     {
         File file = new File(path);
+        if(!file.exists())
+        {
+            try
+            {
+                file.createNewFile();
+            }
+            catch(IOException ex)
+            {
+                ex.printStackTrace(System.out);
+            }
+        }
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile())))
         {
             for(int i = 0; i < lines.size(); i++)
+            {
                 bw.write(lines.get(i));
+                bw.newLine();
+            }
             bw.close();
         }
         catch(IOException ex)
