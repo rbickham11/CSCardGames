@@ -36,7 +36,7 @@ public class Dealer
             inString = scanner.nextLine();
             if(inString.trim().equals(""))
                 break;
-            if(inString.trim().length() != 5)
+            if(inString.trim().length() != 5 || !inString.trim().contains(" "))
             {
                 System.out.println("Invalid hand");
                 continue;
@@ -116,6 +116,7 @@ public class Dealer
             catch(Exception ex)
             {
                 System.out.println("Please enter a valid number");
+                ex.printStackTrace(System.out);
             }   
         }
     }  
@@ -144,8 +145,7 @@ public class Dealer
                 }
                 deck.dealRandom(randomHands);
                 deck.dealBoard();
-                outFile.addLine();
-                outFile.addLine("(Find winner)");
+                winnerChecker.findWinner(deck.getDealtHandList(), deck.getBoard());
             }       
         }
         else
@@ -165,12 +165,21 @@ public class Dealer
                     deck.dealSpecific(specHands.get(j), specHands.get(j + 1));
                 }
                 deck.dealBoard();
-                outFile.addLine();
-                outFile.addLine("(Find winner)");
+                winnerChecker.findWinner(deck.getDealtHandList(), deck.getBoard());
             }
+        }    
+        
+        for(i = 1; i < winnerChecker.getWinCounts().size(); i++)
+        {
+            System.out.println(String.format("Player %d wins: %d (%.2f%%)", i, winnerChecker.getWinCounts().get(i), (float)winnerChecker.getWinCounts().get(i) / numHands * 100.0));
         }
-        System.out.println("(Print win stats)");
-        outFile.addTopLine("(Print win stats)");
+        System.out.println(String.format("Chopped Pots: %d (%.2f%%)", winnerChecker.getWinCounts().get(0), (float)winnerChecker.getWinCounts().get(0) / numHands * 100.0));
+        
+        outFile.addTopLine(String.format("Chopped Pots: %d (%.2f%%)", winnerChecker.getWinCounts().get(0), (float)winnerChecker.getWinCounts().get(0) / numHands * 100.0));
+        for(i = winnerChecker.getWinCounts().size() - 1; i > 0; i--)
+        {
+            outFile.addTopLine(String.format("Player %d wins: %d (%.2f%%)", i, winnerChecker.getWinCounts().get(i), (float)winnerChecker.getWinCounts().get(i) / numHands * 100.0));
+        }
         
         String filePath = "SimulationResults.txt";
         outFile.writeLinesToFile(filePath);

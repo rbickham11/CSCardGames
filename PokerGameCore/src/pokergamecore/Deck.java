@@ -37,6 +37,11 @@ public class Deck
         return dealtHandList;
     }
     
+    public List<Integer> getBoard()
+    {
+        return board;
+    }
+    
     public void setGettingUserInput(boolean value)
     {
         gettingUserInput = value;
