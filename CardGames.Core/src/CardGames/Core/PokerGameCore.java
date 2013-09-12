@@ -1,4 +1,4 @@
-package pokergamecore;
+package CardGames.Core;
 
 public class PokerGameCore 
 {

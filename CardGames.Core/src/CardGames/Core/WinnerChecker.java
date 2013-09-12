@@ -1,4 +1,4 @@
-package pokergamecore;
+package CardGames.Core;
 import java.util.*;
 public class WinnerChecker 
 {

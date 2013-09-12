@@ -1,4 +1,4 @@
-package pokergamecore;
+package CardGames.Core;
 import java.util.*;
 import java.io.*;
 public class OutFile 
