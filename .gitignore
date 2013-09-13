@@ -4,9 +4,9 @@
 *.jar
 *.war
 *.ear
-/PokerGameCore/build/
-/PokerGameCore/dist/
+/CardGames/nbproject/private/
+/CardGames/build/
+/CardGames/dist/
 
 # Output Files #
 SimulationResults.txt
-/CardGames/nbproject/private/

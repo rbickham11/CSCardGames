@@ -1,4 +1,4 @@
-package CardGames.Core;
+package cardgames.lib.utilities;
 
 import java.util.*;
 public class Deck 

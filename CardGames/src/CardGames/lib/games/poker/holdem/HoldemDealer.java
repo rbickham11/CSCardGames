@@ -1,17 +1,19 @@
-package CardGames.Core;
+package cardgames.lib.games.poker.holdem;
+
+import cardgames.lib.utilities.*;
 import java.util.*;
 import java.io.*;
 
-public class Dealer 
+public class HoldemDealer 
 {
     private final int MAX_HANDS = 10;
     
     private Deck deck;
-    private WinnerChecker winnerChecker;
+    private HoldemWinChecker winnerChecker;
     private OutFile outFile;
     private int randomHands;
     
-    public Dealer()
+    public HoldemDealer()
     {
         outFile = new OutFile();
         deck = new Deck(outFile);
@@ -123,7 +125,7 @@ public class Dealer
     
     public void runHands(int numHands, boolean randomChange)
     {
-        winnerChecker = new WinnerChecker(outFile, deck.getHandsDealt());
+        winnerChecker = new HoldemWinChecker(outFile, deck.getHandsDealt());
         List<Integer> specHands = new ArrayList<>();
         int i;
         

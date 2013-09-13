@@ -1,6 +1,8 @@
-package CardGames.Core;
+package cardgames.lib.games.poker.holdem;
+
+import cardgames.lib.utilities.*;
 import java.util.*;
-public class WinnerChecker 
+public class HoldemWinChecker 
 {
     private final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
     private final List<String> ranks = Arrays.asList("High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush");
@@ -13,7 +15,7 @@ public class WinnerChecker
     private List<Integer> winCounts;
     private BitSet dontCheck;
     
-    public WinnerChecker(OutFile file, int handsDealt)
+    public HoldemWinChecker(OutFile file, int handsDealt)
     {
         outFile = file;
         thisHand = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
