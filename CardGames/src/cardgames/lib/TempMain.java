@@ -6,6 +6,5 @@ public class TempMain
     public static void main(String[] args) 
     {
         HoldemDealer dealer = new HoldemDealer();
-        dealer.getUserInput();
     }
 }

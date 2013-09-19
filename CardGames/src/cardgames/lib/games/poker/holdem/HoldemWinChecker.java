@@ -1,13 +1,11 @@
 package cardgames.lib.games.poker.holdem;
 
-import cardgames.lib.utilities.*;
 import java.util.*;
 public class HoldemWinChecker 
 {
     private final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
     private final List<String> ranks = Arrays.asList("High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush");
     
-    private OutFile outFile;
     private List<Integer> hands;
     private List<Integer> board;
     private List<Integer> thisHand;
@@ -15,9 +13,8 @@ public class HoldemWinChecker
     private List<Integer> winCounts;
     private BitSet dontCheck;
     
-    public HoldemWinChecker(OutFile file, int handsDealt)
+    public HoldemWinChecker(int handsDealt)
     {
-        outFile = file;
         thisHand = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
         winCounts = new ArrayList<>();
         for(int i = 0; i < handsDealt + 1; i++)
@@ -129,20 +126,7 @@ public class HoldemWinChecker
             }
         }
         
-        if(winningRank == 0 || winningRank == 2 || winningRank == 3 || winningRank == 7)
-        {
-            a = "";
-        }
-        outFile.addLine();
-        outFile.addLine();
-        if(winningPlayer == 0)
-        {
-            outFile.addLine(String.format("Chop (%s)", ranks.get(winningRank)));
-        }
-        else
-        {
-            outFile.addLine(String.format("The winner is Player %d with %s%s", winningPlayer, a, ranks.get(winningRank)));
-        }
+            
         winCounts.set(winningPlayer, winCounts.get(winningPlayer) + 1);
     }
     
