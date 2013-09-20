@@ -60,7 +60,6 @@ public class Deck
     
     public void dealCards(int numCards)
     {
-        int card1, card2;
         for(int i = 0; i < numCards; i++)
         {
             dealtCards.add(deck.get(0));

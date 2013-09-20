@@ -1,10 +1,13 @@
 package cardgames.lib;
 
-import cardgames.lib.games.poker.holdem.HoldemDealer;
+import cardgames.lib.utilities.Deck;
 public class TempMain 
 {
     public static void main(String[] args) 
     {
-        HoldemDealer dealer = new HoldemDealer();
+        Deck deck = new Deck();
+        deck.print();
+        deck.shuffle();
+        deck.print();
     }
 }
