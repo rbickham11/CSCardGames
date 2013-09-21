@@ -1,8 +1,7 @@
 package cardgames.lib.utilities;
 
 import java.util.*;
-public class Deck 
-{
+public class Deck {
     private final int DECK_SIZE = 52;
     private final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
     private final List<Character> suitValues = Arrays.asList('D', 'H', 'C', 'S');
@@ -31,8 +30,7 @@ public class Deck
         Random random = new Random();
         int i, j, temp;
         
-        for(i = deck.size() - 1; i > 0; i--)
-        {
+        for(i = deck.size() - 1; i > 0; i--) {
             j = random.nextInt(i + 1);
             temp = deck.get(i);
             deck.set(i, deck.get(j));
@@ -53,8 +51,7 @@ public class Deck
     }
     
     public void dealCards(int numCards) {
-        for(int i = 0; i < numCards; i++)
-        {
+        for(int i = 0; i < numCards; i++) {
             dealtCards.add(deck.get(0));
             deck.remove(0);
         }
@@ -66,8 +63,7 @@ public class Deck
     }
     
     public boolean inDeck(int card) {
-        if(!deck.contains(card))
-        {
+        if(!deck.contains(card)) {
             System.out.println(String.format("%s was already dealt", cardToString(card)));
             return false;
         }
