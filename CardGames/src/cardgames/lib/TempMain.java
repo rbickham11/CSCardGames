@@ -1,12 +1,15 @@
 package cardgames.lib;
 
-import cardgames.lib.utilities.Deck;
+import cardgames.lib.games.poker.holdem.HoldemDealer;
 
 public class TempMain {
     public static void main(String[] args) {
-        Deck deck = new Deck();
-        deck.print();
-        deck.shuffle();
-        deck.print();
+        HoldemDealer dealer = new HoldemDealer(5000);
+        
+        dealer.addPlayer(101, 4, 5000);
+        dealer.addPlayer(112, 2, 2500);
+        dealer.addPlayer(103, 8, 4765);
+        
+        dealer.startHand();
     }
 }

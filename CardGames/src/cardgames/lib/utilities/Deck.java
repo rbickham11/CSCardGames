@@ -16,10 +16,6 @@ public class Deck {
         for(int i = 0; i < DECK_SIZE; i++)
             deck.add(i);
     }
-    
-    public List<Integer> dealtCards() {
-        return dealtCards;
-    }
 
     public void print() {
         for(int card: deck)
@@ -45,16 +41,21 @@ public class Deck {
         dealtCards = new ArrayList<>();
     }
     
-    public void dealCard() {
-        dealtCards.add(deck.get(0));
+    public int dealCard() {
+        int card = deck.get(0);
+        dealtCards.add(card);
         deck.remove(0);
+        return card;
     }
     
-    public void dealCards(int numCards) {
+    public List<Integer> dealCards(int numCards) {
+        List<Integer> cards = new ArrayList<>();
         for(int i = 0; i < numCards; i++) {
             dealtCards.add(deck.get(0));
+            cards.add(deck.get(0));
             deck.remove(0);
         }
+        return cards;
     }
     
     public void dealSpecific(int card) {
