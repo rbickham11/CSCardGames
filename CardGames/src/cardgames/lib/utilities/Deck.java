@@ -10,8 +10,7 @@ public class Deck
     private List<Integer> deck;
     private List<Integer> dealtCards;
     
-    public Deck()
-    {
+    public Deck() {
         deck = new ArrayList<>();
         dealtCards = new ArrayList<>();
         
@@ -19,19 +18,16 @@ public class Deck
             deck.add(i);
     }
     
-    public List<Integer> dealtCards()
-    {
+    public List<Integer> dealtCards() {
         return dealtCards;
     }
 
-    public void print()
-    {
+    public void print() {
         for(int card: deck)
             System.out.println(cardToString(card));
     }
     
-    public void shuffle()
-    {
+    public void shuffle() {
         Random random = new Random();
         int i, j, temp;
         
@@ -44,22 +40,19 @@ public class Deck
         }
     }
     
-    public void collectCards()
-    {
+    public void collectCards() {
         deck = new ArrayList<>();
         for(int i = 0; i < DECK_SIZE; i++)
             deck.add(i);
         dealtCards = new ArrayList<>();
     }
     
-    public void dealCard()
-    {
+    public void dealCard() {
         dealtCards.add(deck.get(0));
         deck.remove(0);
     }
     
-    public void dealCards(int numCards)
-    {
+    public void dealCards(int numCards) {
         for(int i = 0; i < numCards; i++)
         {
             dealtCards.add(deck.get(0));
@@ -67,14 +60,12 @@ public class Deck
         }
     }
     
-    public void dealSpecific(int card)
-    {
+    public void dealSpecific(int card) {
         deck.remove(new Integer(card));
         dealtCards.add(card);
     }
     
-    public boolean inDeck(int card)
-    {
+    public boolean inDeck(int card) {
         if(!deck.contains(card))
         {
             System.out.println(String.format("%s was already dealt", cardToString(card)));
@@ -82,13 +73,11 @@ public class Deck
         }
         return true;
     }
-    public int cardFromString(String card)
-    {
+    public int cardFromString(String card) {
         return 13 * suitValues.indexOf(card.charAt(1)) + cardValues.indexOf(card.charAt(0));
     }
     
-    public String cardToString(int card)
-    {
+    public String cardToString(int card) {
         return String.format("%c%c", cardValues.get(card % 13), suitValues.get(card / 13));
     }
 }
