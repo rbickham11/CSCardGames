@@ -1,15 +1,23 @@
 package cardgames.lib;
 
-import cardgames.lib.games.poker.holdem.HoldemDealer;
+import cardgames.lib.utilities.Deck;
+import java.util.*;
 
 public class TempMain {
     public static void main(String[] args) {
-        HoldemDealer dealer = new HoldemDealer(5000);
+        List<Integer> euchreCards = new ArrayList<>();
+        for(int i = 0; i < 52; i++) {
+            if(i % 13 > 6) {        //If the card is a 9, T, J, Q, K, A
+                euchreCards.add(i);
+            }
+        }
+
+        Deck euchreDeck = new Deck(euchreCards);
+        System.out.println("Unshuffled Euchre Deck: ");
+        euchreDeck.print();
         
-        dealer.addPlayer(101, 4, 5000);
-        dealer.addPlayer(112, 2, 2500);
-        dealer.addPlayer(103, 8, 4765);
-        
-        dealer.startHand();
+        euchreDeck.shuffle();
+        System.out.println("Shuffled Euchre Deck: ");
+        euchreDeck.print();
     }
 }

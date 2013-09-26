@@ -9,7 +9,8 @@ public class Deck {
     private List<Integer> deck;
     private List<Integer> dealtCards;
     
-    public Deck() {
+    //For initializing the standard 52 card deck.
+    public Deck() {                         
         deck = new ArrayList<>();
         dealtCards = new ArrayList<>();
         
@@ -17,6 +18,23 @@ public class Deck {
             deck.add(i);
     }
 
+    //For initializing the deck with a custom selection of cards from the standard deck.
+    public Deck(List<Integer> customDeck) {
+        for(int card: customDeck) {
+            if(card < 0 || card > 51) {
+                throw new IllegalArgumentException("One or more cards in the requested deck is invalid");
+            }
+        }
+        deck = new ArrayList<>(customDeck); 
+        dealtCards = new ArrayList<>();    
+    }
+    
+    //Adds another set of the standard 52 cards to the current deck (for using multiple decks).
+    public void addDeck() {
+        for(int i = 0; i < DECK_SIZE; i++)
+            deck.add(i);
+    }
+    
     public void print() {
         for(int card: deck)
             System.out.println(cardToString(card));
@@ -59,14 +77,22 @@ public class Deck {
     }
     
     public void dealSpecific(int card) {
-        deck.remove(new Integer(card));
-        dealtCards.add(card);
+        if(validCard(card) && inDeck(card)) {
+            deck.remove(new Integer(card));
+            dealtCards.add(card);
+        }
+    }
+    
+    public boolean validCard(int card) {
+        if(card < 0 || card > 51) {
+            throw new IllegalArgumentException(String.format("%d does not match a valid card", card));
+        }
+        return true;
     }
     
     public boolean inDeck(int card) {
         if(!deck.contains(card)) {
-            System.out.println(String.format("%s was already dealt", cardToString(card)));
-            return false;
+            throw new IllegalArgumentException(String.format("%s was already dealt or is not a member of this deck.", cardToString(card)));
         }
         return true;
     }
