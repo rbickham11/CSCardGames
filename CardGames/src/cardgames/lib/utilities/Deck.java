@@ -1,13 +1,14 @@
 package cardgames.lib.utilities;
 
 import java.util.*;
+
 public class Deck {
-    private final int DECK_SIZE = 52;
     private final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
     private final List<Character> suitValues = Arrays.asList('D', 'H', 'C', 'S');
     
     private List<Integer> deck;
     private List<Integer> dealtCards;
+    private int DECK_SIZE = 52;
     
     //For initializing the standard 52 card deck.
     public Deck() {                         
@@ -26,7 +27,8 @@ public class Deck {
             }
         }
         deck = new ArrayList<>(customDeck); 
-        dealtCards = new ArrayList<>();    
+        dealtCards = new ArrayList<>(); 
+        DECK_SIZE = deck.size();
     }
     
     //Adds another set of the standard 52 cards to the current deck (for using multiple decks).
@@ -44,7 +46,7 @@ public class Deck {
         Random random = new Random();
         int i, j, temp;
         
-        for(i = deck.size() - 1; i > 0; i--) {
+        for(i = DECK_SIZE - 1; i > 0; i--) {
             j = random.nextInt(i + 1);
             temp = deck.get(i);
             deck.set(i, deck.get(j));
@@ -53,10 +55,11 @@ public class Deck {
     }
     
     public void collectCards() {
-        deck = new ArrayList<>();
-        for(int i = 0; i < DECK_SIZE; i++)
-            deck.add(i);
-        dealtCards = new ArrayList<>();
+      // Add the dealt cards back to the deck.
+      for (int i = 0; i < dealtCards.size(); i++) {
+        deck.add(dealtCards.get(i));
+      }
+      dealtCards = new ArrayList<>();   // Re-initialize dealtCards list.
     }
     
     public int dealCard() {
