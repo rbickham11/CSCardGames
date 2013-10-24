@@ -1,13 +1,18 @@
 package cardgames.lib.games.poker.holdem;
 
 import cardgames.lib.utilities.*;
+import cardgames.lib.utilities.betting.*;
+
 import java.util.*;
 
 public class HoldemDealer {
     private final int MAX_PLAYERS = 10;
     
     private Deck deck;
+    private PokerBettingHelper bettingHelper;
     private List<BettingPlayer> players;
+    private List<BettingPlayer> activePlayers;
+    
     private int chipLimit;
     private int currentDealer;
     
@@ -65,6 +70,18 @@ public class HoldemDealer {
         for(Player player : players) {    //For testing
             System.out.println(String.format("Player %d's hand is %s %s", player.getSeatNumber(), 
                                             deck.cardToString(player.getHand().get(0)), deck.cardToString(player.getHand().get(1))));
+        }
+    }
+    
+    public void takeBettingAction(Action action, int chipAmount) {
+        switch(action) {
+            case BET:
+            case CALL:
+            case CHECK:
+            case FOLD:
+            case RAISE:
+            default:
+                throw new IllegalArgumentException("Invalid action");
         }
     }
 }

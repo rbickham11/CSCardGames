@@ -20,10 +20,6 @@ public class HoldemWinChecker {
         }
     }
     
-    public List<Integer> getWinCounts() {
-        return winCounts;
-    }
-    
     public void findWinner(List<Integer> inHands, List<Integer> inBoard) {
         hands = inHands;
         board = inBoard;

@@ -69,4 +69,13 @@ public class Player implements Comparable<Player> {
     public int compareTo(Player otherPlayer) {
         return seatNumber - otherPlayer.getSeatNumber();
     }
+    
+    public static Player getPlayerByHand(List<BettingPlayer> players, List<Integer> hand) {
+        for(Player player : players) {
+            if(player.getHand().equals(hand)) {
+                return player;
+            }
+        }
+        throw new IllegalArgumentException("No player found with given hand");
+    }
 }
