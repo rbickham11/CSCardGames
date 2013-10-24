@@ -1,2 +1,0 @@
-ServerGUI$ServerRunning
-ServerGUI

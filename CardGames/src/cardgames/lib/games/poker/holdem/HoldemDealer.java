@@ -15,11 +15,13 @@ public class HoldemDealer {
     
     private int chipLimit;
     private int currentDealer;
+    private int nextToAct;
     
     public HoldemDealer(int maxChips) {
         deck = new Deck();
         players = new ArrayList<>(MAX_PLAYERS);
         chipLimit = maxChips;
+        bettingHelper = new PokerBettingHelper();
         
         Random r = new Random();
         currentDealer = 0;
@@ -46,6 +48,7 @@ public class HoldemDealer {
     }
     
     public void startHand() {
+        activePlayers = new ArrayList<>(players);
         deck.collectCards();
         deck.shuffle();
         dealHands();
@@ -73,16 +76,37 @@ public class HoldemDealer {
         }
     }
     
-    public void takeBettingAction(Action action, int chipAmount) {
+    public void takeNonBettingAction(Action action) {
+        BettingPlayer player = activePlayers.get(nextToAct);
+        
         switch(action) {
-            case BET:
             case CALL:
+                bettingHelper.call(player);
+                break;
             case CHECK:
+                break;
             case FOLD:
-            case RAISE:
+                activePlayers.remove(player);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid action");
         }
+        nextToAct++;
+    }
+    
+    public void takeBettingAction(Action action, int chipAmount) {
+        BettingPlayer player = activePlayers.get(nextToAct);
+        
+        switch(action) {
+            case BET:
+                bettingHelper.bet(player, chipAmount);
+                break;
+            case RAISE:
+                bettingHelper.raise(player, chipAmount);
+            default:
+                throw new IllegalArgumentException("Invalid action");
+        }
+        nextToAct++;
     }
 }
 

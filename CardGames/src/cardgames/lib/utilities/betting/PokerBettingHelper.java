@@ -1,17 +1,12 @@
 package cardgames.lib.utilities.betting;
 
-import java.util.*;
 import cardgames.lib.utilities.BettingPlayer;
 
 public class PokerBettingHelper {
-    private List<BettingPlayer> players;
-    private Action action;
-    
     private int potSize;
     private int currentBet;
     
-    public PokerBettingHelper(List<BettingPlayer> inPlayers) {
-        players = inPlayers;
+    public PokerBettingHelper() {
         potSize = 0;
         currentBet = 0;
     }
@@ -25,8 +20,22 @@ public class PokerBettingHelper {
         potSize = 0;     
     }
     
-    public void call(BettingPlayer player)
-    {
-        
+    public void bet(BettingPlayer player, int chipAmount) {
+        potSize += chipAmount;
+        player.decrementChips(chipAmount);
+        currentBet = chipAmount;
+    }
+    
+    public void call(BettingPlayer player) {
+        potSize += currentBet;
+        player.decrementChips(currentBet);
+    }
+    
+    public void raise(BettingPlayer player, int chipAmount) {
+        if(chipAmount < currentBet * 2)
+            throw new IllegalArgumentException("Invalid raise");
+        potSize += chipAmount;
+        player.decrementChips(chipAmount);
+        currentBet = chipAmount;
     }
 }

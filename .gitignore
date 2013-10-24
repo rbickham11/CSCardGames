@@ -4,9 +4,9 @@
 *.jar
 *.war
 *.ear
-/CardGames/nbproject/private/
-/CardGames/build/
-/CardGames/dist/
+**/nbproject/private
+**/build
+**/dist
 
 # Output Files #
 SimulationResults.txt
