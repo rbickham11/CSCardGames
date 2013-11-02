@@ -1,33 +1,38 @@
 package cardgames.lib.games.poker.holdem;
 
 import java.util.*;
+import cardgames.lib.utilities.*;
+
 public class HoldemWinChecker {
     private final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
     private final List<String> ranks = Arrays.asList("High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush");
+    
+    private List<BettingPlayer> players;
+    private List<BettingPlayer> winningPlayers;
     
     private List<Integer> hands;
     private List<Integer> board;
     private List<Integer> thisHand;
     private List<Integer> handValues;
-    private List<Integer> winCounts;
+    private int winningRank;
     private BitSet dontCheck;
     
-    public HoldemWinChecker(int handsDealt) {
+    public HoldemWinChecker() {
         thisHand = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
-        winCounts = new ArrayList<>();
-        for(int i = 0; i < handsDealt + 1; i++) {
-            winCounts.add(0);
-        }
     }
     
-    public void findWinner(List<Integer> inHands, List<Integer> inBoard) {
-        hands = inHands;
+    public void findWinningHand(List<BettingPlayer> activePlayers, List<Integer> inBoard) {
+        players = activePlayers;
         board = inBoard;
+        hands = new ArrayList<>();
+        winningPlayers = new ArrayList<>();
+        
+        for(BettingPlayer player : players) {
+            hands.addAll(player.getHand());
+        }
         
         int i, j, k;
-        int winningPlayer;
         boolean handFound = false;
-        String a = "a ";
         List<Integer> rankWinners = new ArrayList<>();
         List<Integer> fiveCardHands;
         
@@ -55,10 +60,10 @@ public class HoldemWinChecker {
                 }
             }            
         }
-        int winningRank = i + 1;
+        winningRank = i + 1;
         
         if(rankWinners.size() == 2) {   //If there's only one hand with the winning rank
-            winningPlayer = hands.indexOf(rankWinners.get(0)) / 2 + 1;
+            winningPlayers.add(BettingPlayer.getPlayerByCard(players, rankWinners.get(0)));
         } else {
             fiveCardHands = getFiveCardHands(rankWinners, winningRank);
             BitSet possibleWinner = new BitSet(fiveCardHands.size() / 5);
@@ -83,24 +88,23 @@ public class HoldemWinChecker {
                     }
                 }
             }
-            
-            if(possibleCount > 1) {
-                winningPlayer = 0; //Chop
-            } else {
-                for(i = 0; i < possibleWinner.size(); i++) {
-                    if(possibleWinner.get(i)) {
-                        break;
-                    }
+
+            for(i = 0; i < possibleWinner.size(); i++) {
+                if(possibleWinner.get(i)) {
+                    winningPlayers.add(BettingPlayer.getPlayerByCard(players, rankWinners.get(i * 2)));
                 }
-                winningPlayer = hands.indexOf(rankWinners.get(i * 2)) / 2 + 1;
-            }
-        }
-        
-            
-        winCounts.set(winningPlayer, winCounts.get(winningPlayer) + 1);
+            } 
+        }           
     }
     
-    public void eliminateHands() {
+    public List<BettingPlayer> getWinningPlayers() {
+        return winningPlayers;
+    }
+    
+    public String getWinningRank() {
+        return ranks.get(winningRank);
+    }
+    private void eliminateHands() {
         int i;
         boolean draw = false;
         List<Integer> boardValues = getValueList(board);
@@ -155,7 +159,7 @@ public class HoldemWinChecker {
         }
     }
     
-    public boolean rankCheck(int rank) {
+    private boolean rankCheck(int rank) {
         int i, j, k, temp;
         List<Integer> tempHand;
         boolean pairFound = false;
@@ -246,7 +250,7 @@ public class HoldemWinChecker {
         return false;
     }
     
-    public List<Integer> getFiveCardHands(List<Integer> rankWinners, int rank) {
+    private List<Integer> getFiveCardHands(List<Integer> rankWinners, int rank) {
         int i, j, k;
         List<Integer> fiveCardHands = new ArrayList<>();
         List<Integer> sevenCardHand;
@@ -385,7 +389,7 @@ public class HoldemWinChecker {
         }
         return fiveCardHands;
     }
-    public boolean isStraight(List<Integer> hand) {
+    private boolean isStraight(List<Integer> hand) {
         List<Integer> distinctHand = new ArrayList(new HashSet(hand));
         
         if(distinctHand.get(distinctHand.size() - 1) == 12 && distinctHand.get(0) == 0 && 
@@ -400,7 +404,7 @@ public class HoldemWinChecker {
         return false;
     }
     
-    public boolean isFlush(List<Integer> hand) {
+    private boolean isFlush(List<Integer> hand) {
         hand = getSuitList(hand);
         Collections.sort(hand);
         
@@ -412,15 +416,15 @@ public class HoldemWinChecker {
         return false;
     }
     
-    public int getCardValue(int card) {
+    private int getCardValue(int card) {
         return card % 13;
     }
     
-    public int getSuit(int card) {
+    private int getSuit(int card) {
         return card / 13;
     }
     
-    public List<Integer> getValueList(List<Integer> cards) {
+    private List<Integer> getValueList(List<Integer> cards) {
         List<Integer> valueList = new ArrayList<>();
         for(int c : cards) {
             valueList.add(c % 13);
@@ -428,7 +432,7 @@ public class HoldemWinChecker {
         return valueList;
     }
     
-    public List<Integer> getSuitList(List<Integer> cards) {
+    private List<Integer> getSuitList(List<Integer> cards) {
         List<Integer> suitList = new ArrayList<>();
         for(int c : cards) {
             suitList.add(c / 13);
