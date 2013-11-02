@@ -1,6 +1,7 @@
 package cardgames.lib;
 
 import cardgames.lib.games.poker.holdem.*;
+//import cardgames.lib.games.euchre.*;
 import java.util.*;
 
 public class TempMain {
@@ -26,5 +27,14 @@ public class TempMain {
             yn = s.nextLine().charAt(0);
         }
         //******************************************************************
+        
+//        EuchreDealer euchre = new EuchreDealer();
+//        Scanner temp = new Scanner(System.in);
+//        
+//        while (euchre.getTrump() == 0) {
+//          System.out.print("Player " + euchre.getCurrentPlayer() + "'s action: ");
+//          temp.nextInt();
+//          euchre.passOnCallingTrump();
+//        }
     }
 }

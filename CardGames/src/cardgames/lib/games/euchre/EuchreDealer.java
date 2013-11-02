@@ -32,8 +32,10 @@ public class EuchreDealer {
   private int currentDealer;
   private int playersTurn;
   private char trump;
+  private boolean cardUp;
   
   public EuchreDealer() {
+    trump = 0;
     prepareEuchreDeck();
     players = new ArrayList<>(MIN_MAX_PLAYERS);
     determineDealer();
@@ -66,7 +68,7 @@ public class EuchreDealer {
     currentDealer = startDetermine;     // Set the current dealer.
     deck.collectCards();                // Collect the cards.
     deck.shuffle();                     // Shuffle the deck.
-    
+//*******************************************************************************    
     // For Testing the euchre game.
     addPlayer(1111, 0, "2, 3, 2, 3");
     addPlayer(2222, 1, "3, 3, 3, 2");
@@ -87,6 +89,7 @@ public class EuchreDealer {
     deck.print();
     System.out.println("Current Dealer: " + currentDealer);
     System.out.println("Players Turn: " + playersTurn);
+//*******************************************************************************
   }
   
   private int changeDealer(int dealer) {
@@ -141,6 +144,8 @@ public class EuchreDealer {
       dealSequence = reverseSequence(dealSequence);
       sequence = convertSequence(dealSequence);
       dealTheCards(sequence[0], sequence[1], sequence[2], sequence[3]);
+      
+      cardUp = true;
     }
   }
   
@@ -183,15 +188,38 @@ public class EuchreDealer {
   
   public void passOnCallingTrump() {
     playersTurn = changeDealer(playersTurn);
+    
+    if(playersTurn == currentDealer) {
+      cardUp = false;
+    }
   }
   
-  public void callTrump(String trump) {
+  public void callTrump(char trump) {
     // Set trump and start the hand
+    if(cardUp) {
+      this.trump = trump;
+    } else {
+      
+    }
   }
   
   public void getCardToReplace(String card) {
     // If the "top card" is called as trump,
     // have the dealer replace a card from his hand
     // with that top card.
+  }
+  
+//*******************************************************************************  
+  
+  public char getTrump() {
+    return trump;
+  }
+  
+  public int getCurrentDealer() {
+    return currentDealer;
+  }
+  
+  public int getCurrentPlayer() {
+    return playersTurn;
   }
 }
