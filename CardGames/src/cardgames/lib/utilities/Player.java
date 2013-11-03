@@ -65,6 +65,10 @@ public class Player implements Comparable<Player> {
       }
     }
     
+    public void removeCard(int card) {
+      hand.remove(card);
+    }
+    
     public void resetHand() {       //Needed whenever starting a new hand
         hand = new ArrayList<>();
     }

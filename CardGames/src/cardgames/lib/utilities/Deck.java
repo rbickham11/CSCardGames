@@ -42,6 +42,10 @@ public class Deck {
             System.out.println(cardToString(card));
     }
     
+    public String getTopCard() {
+      return cardToString(deck.get(0));
+    }
+    
     public void shuffle() {
         Random random = new Random();
         int i, j, temp;

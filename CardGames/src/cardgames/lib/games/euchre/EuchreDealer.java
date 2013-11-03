@@ -32,10 +32,12 @@ public class EuchreDealer {
   private int currentDealer;
   private int playersTurn;
   private char trump;
+  private char possibleTrump;
   private boolean cardUp;
   
   public EuchreDealer() {
     trump = 0;
+    possibleTrump = 0;
     prepareEuchreDeck();
     players = new ArrayList<>(MIN_MAX_PLAYERS);
     determineDealer();
@@ -86,7 +88,7 @@ public class EuchreDealer {
       System.out.println();
     }
     
-    deck.print();
+    displayCardUp();
     System.out.println("Current Dealer: " + currentDealer);
     System.out.println("Players Turn: " + playersTurn);
 //*******************************************************************************
@@ -95,7 +97,6 @@ public class EuchreDealer {
   private int changeDealer(int dealer) {
     // Increment the dealer to the next player at the table.
     dealer++;
-    
     if(dealer >= MIN_MAX_PLAYERS) {
       dealer = 0;
     }
@@ -111,7 +112,8 @@ public class EuchreDealer {
     
     deck.collectCards();
     deck.shuffle();
-    
+    trump = 0;
+    possibleTrump = 0;
     dealHands(players.get(currentDealer).getDealSequence());
   }
   
@@ -157,7 +159,6 @@ public class EuchreDealer {
     for(int i = 0; i < 4; i++) {
       deal[i] = Integer.parseInt(temp[i]);
     }
-    
     return deal;
   }
   
@@ -186,27 +187,55 @@ public class EuchreDealer {
     playersTurn = changeDealer(playersTurn);
   }
   
+  private void displayCardUp() {
+    System.out.println(deck.getTopCard());
+    possibleTrump = deck.getTopCard().charAt(1);
+    System.out.println("Possible Trump: " + possibleTrump);
+  }
+  
   public void passOnCallingTrump() {
-    playersTurn = changeDealer(playersTurn);
-    
     if(playersTurn == currentDealer) {
-      cardUp = false;
+      if (cardUp == true) {
+        cardUp = false;
+        System.out.println("Card Turned Down");
+      } else {
+        trump = 10;  // End loop for testing
+        System.out.println("Muck Hand");
+      }
     }
+    
+    playersTurn = changeDealer(playersTurn);
   }
   
   public void callTrump(char trump) {
     // Set trump and start the hand
-    if(cardUp) {
-      this.trump = trump;
+    if (cardUp) {
+      this.trump = possibleTrump;
+      getCardToReplace(3);
     } else {
-      
+      this.trump = trump;
     }
+    startHand();
   }
   
-  public void getCardToReplace(String card) {
+  public void getCardToReplace(int card) {
     // If the "top card" is called as trump,
     // have the dealer replace a card from his hand
     // with that top card.
+    System.out.println("Replace Card");
+    players.get(currentDealer).giveCard(deck.dealCard());
+    players.get(currentDealer).removeCard(card);
+    
+    System.out.print("Player " + currentDealer + ": ");
+    for(int cards: players.get(currentDealer).getHand()) {
+      System.out.print(deck.cardToString(cards));
+      System.out.print(", ");
+    }
+    System.out.println();
+  }
+  
+  private void startHand() {
+    System.out.println("Start Hand");
   }
   
 //*******************************************************************************  
