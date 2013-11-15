@@ -20,7 +20,6 @@ public class HoldemDealer {
     
     private List<Integer> board;
     private int chipLimit;
-    private int currentDealer;
     private int nextToAct;
    
     public HoldemDealer(int maxChips) {
@@ -32,8 +31,8 @@ public class HoldemDealer {
         chipLimit = maxChips;
 
         Random r = new Random();
-        currentDealer = 0;
-        //currentDealer = r.nextInt(MAX_PLAYERS); 
+        Collections.rotate(players, r.nextInt(MAX_PLAYERS));
+        
     }
     
     public void addPlayer(int id, int seatNum, int startingChips) {
@@ -56,6 +55,7 @@ public class HoldemDealer {
     }
     
     public void startHand() {
+        Collections.rotate(players, 1);
         activePlayers = new ArrayList<>(players);
         board = new ArrayList<>();
         deck.collectCards();
@@ -63,6 +63,7 @@ public class HoldemDealer {
             player.resetHand();
         }
         deck.shuffle();
+        System.out.printf("The dealer is Player %d\n", players.get(players.size() - 1).getSeatNumber());
         dealHands();
     }
     
@@ -71,12 +72,8 @@ public class HoldemDealer {
         int i;
         int j = 0;
         
-        for(i = currentDealer + 1; i < players.size(); i++) {
-            players.get(i).giveCard(cards.get(j));
-            players.get(i).giveCard(cards.get(j + players.size()));
-            j++;
-        }
-        for(i = 0; i <= currentDealer; i++) {
+        for(i = 0; i < players.size(); i++) {
+            System.out.printf("Dealing to Player %d\n", players.get(i).getSeatNumber());
             players.get(i).giveCard(cards.get(j));
             players.get(i).giveCard(cards.get(j + players.size()));
             j++;
