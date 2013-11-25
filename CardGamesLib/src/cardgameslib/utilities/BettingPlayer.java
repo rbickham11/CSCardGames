@@ -4,14 +4,20 @@ import java.util.*;
 
 public class BettingPlayer extends Player {   //Used for games with betting, inherits Player
     private int chips;
+    private int currentBet;
     
     public BettingPlayer(int id, int seatNum, int startingChips) {
         super(id, seatNum);
         chips = startingChips;
+        currentBet = 0;
     }
     
     public int getChips() {
         return chips;
+    }
+    
+    public int getCurrentBet() {
+        return currentBet;
     }
     
     public void incrementChips(int amount) {

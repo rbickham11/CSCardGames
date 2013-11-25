@@ -19,12 +19,12 @@ public class HoldemDealer {
     private List<BettingPlayer> activePlayers;
     
     private List<Integer> board;
-    private int chipLimit;
-    private int nextToAct;
+    
+    private int chipLimit;    
    
-    public HoldemDealer(int maxChips) {
+    public HoldemDealer(int maxChips, int bigBlind) {
         deck = new Deck();
-        bettingHelper = new PokerBettingHelper();
+        bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
         winChecker = new HoldemWinChecker();
         
         players = new ArrayList<>(MAX_PLAYERS);
@@ -73,7 +73,6 @@ public class HoldemDealer {
         int j = 0;
         
         for(i = 0; i < players.size(); i++) {
-            System.out.printf("Dealing to Player %d\n", players.get(i).getSeatNumber());
             players.get(i).giveCard(cards.get(j));
             players.get(i).giveCard(cards.get(j + players.size()));
             j++;
@@ -86,55 +85,30 @@ public class HoldemDealer {
     }
     
     public void dealFlopToBoard() {
+        int card;
         deck.dealCard(); //Burn
+        
+        System.out.print("Board: ");
         for(int i = 0; i < 3; i++) {
-            board.add(deck.dealCard());
+            card = deck.dealCard();
+            board.add(card);
+            System.out.print(deck.cardToString(card) + " ");
         }
     }
     
     public void dealCardToBoard() {   //For turn and river
         deck.dealCard(); //Burn
-        board.add(deck.dealCard());
+        int card = deck.dealCard();
+        board.add(card);
+        System.out.print(deck.cardToString(card) + " ");
     }
     
-    public void printBoard() {    //For testing
-        System.out.print("Board: ");
-        for(int card : board) {
-            System.out.print(deck.cardToString(card) + " ");
-        }
+    public void takeAction(Action action, int chipAmount) {
+        bettingHelper.takeAction(action, chipAmount);
     }
     
-    public void takeNonBettingAction(Action action) {
-        BettingPlayer player = activePlayers.get(nextToAct);
-        
-        switch(action) {
-            case CALL:
-                bettingHelper.call(player);
-                break;
-            case CHECK:
-                break;
-            case FOLD:
-                activePlayers.remove(player);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid action");
-        }
-        nextToAct++;
-    }
-    
-    public void takeBettingAction(Action action, int chipAmount) {
-        BettingPlayer player = activePlayers.get(nextToAct);
-        
-        switch(action) {
-            case BET:
-                bettingHelper.bet(player, chipAmount);
-                break;
-            case RAISE:
-                bettingHelper.raise(player, chipAmount);
-            default:
-                throw new IllegalArgumentException("Invalid action");
-        }
-        nextToAct++;
+    public boolean bettingComplete() {
+        return bettingHelper.bettingComplete();
     }
     
     public void findWinner() {
