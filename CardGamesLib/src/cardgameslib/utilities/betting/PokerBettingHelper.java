@@ -11,6 +11,8 @@ public class PokerBettingHelper {
     private int potSize;
     private int activeBet;
     private int bigBlind;
+    
+    private boolean preflop;
     private boolean allActed;
 
     public PokerBettingHelper(List<BettingPlayer> inPlayers, int bb) {
@@ -29,15 +31,33 @@ public class PokerBettingHelper {
         return activeBet;
     }
     
+    public int getPotSize() {
+        return potSize;
+    }
+    
     public void startNewRound(boolean preFlop) {
-        firstToAct = activePlayers.get(0);
-        lastToAct = activePlayers.get(activePlayers.size() - 1);
-        activeBet = 0;
+        preflop = preFlop;
         
-        if(preFlop) {
+        if(preflop){
+            firstToAct = activePlayers.get(0);
+            lastToAct = activePlayers.get(activePlayers.size() - 1);
+        }
+        activeBet = 0;
+        allActed = false;
+        
+        while(activePlayers.get(0) != firstToAct) {
+            Collections.rotate(activePlayers, -1);
+        }
+        
+        for(BettingPlayer player : activePlayers) {
+            player.resetCurrentBet();
+        }
+        
+        if(preflop) {
             bet(bigBlind / 2);
+            Collections.rotate(activePlayers, -1);
             bet(bigBlind);
-            Collections.rotate(activePlayers, -2);
+            Collections.rotate(activePlayers, -1);
         }
     }
     
@@ -50,12 +70,21 @@ public class PokerBettingHelper {
         
         switch(action) {
             case BET:
+                if(activeBet != 0) {
+                    throw new IllegalArgumentException("You cannot place an initial bet with one already active");
+                }
                 bet(chipAmount);
                 break;
             case CALL:
+                if(activeBet == 0) {
+                    throw new IllegalArgumentException("You cannot call when there has been no bet placed");
+                }
                 call();
                 break;
             case CHECK: 
+                if(activeBet != 0) {
+                    throw new IllegalArgumentException("You cannot check when a bet has been placed");
+                }
                 break;
             case FOLD:
                 if(activePlayers.get(0).equals(firstToAct)) {
@@ -64,6 +93,9 @@ public class PokerBettingHelper {
                 activePlayers.remove(0);
                 break;
             case RAISE:
+                if(activeBet == 0) {
+                    throw new IllegalArgumentException("You cannot place a raise without an initial bet being placed");
+                }
                 raise(chipAmount);
                 break;
             default:
@@ -74,32 +106,47 @@ public class PokerBettingHelper {
             Collections.rotate(activePlayers, -1);
         }
     }
-        
+    
+    public boolean isWinner() {
+        return activePlayers.size() == 1;
+    }
     public void awardPot(BettingPlayer player) {
         player.incrementChips(potSize);
         potSize = 0;     
     }
     
     public void bet(int chipAmount) {
+        if(chipAmount < bigBlind && !preflop) {
+            throw new IllegalArgumentException("Invalid bet");
+        }
+        
         potSize += chipAmount;
         activePlayers.get(0).decrementChips(chipAmount);
+        activePlayers.get(0).setCurrentBet(chipAmount);
         activeBet = chipAmount;
     }
     
     public void call() {
         potSize += activeBet;
         activePlayers.get(0).decrementChips(activeBet);
+        activePlayers.get(0).setCurrentBet(activeBet);
     }
     
     public void raise(int chipAmount) {
-        if(chipAmount < activeBet * 2)
+        if(chipAmount < activeBet)
             throw new IllegalArgumentException("Invalid raise");
-        potSize += chipAmount;
-        activePlayers.get(0).decrementChips(chipAmount);
-        activeBet = chipAmount;
+        activeBet += chipAmount;
+        potSize += activeBet;
+        activePlayers.get(0).decrementChips(activeBet);
+        activePlayers.get(0).setCurrentBet(activeBet);
     }
     
     public boolean bettingComplete() {
+        if(isWinner()) {
+            awardPot(activePlayers.get(0));
+            return true;
+        }
+        
         if(!allActed) {
             return false;
         }

@@ -25,6 +25,9 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
     }
     
     public void decrementChips(int amount) {
+        if(chips - amount < 0) {
+            throw new IllegalArgumentException("You don't have enough chips!");
+        }
         chips -= amount;
     }
     

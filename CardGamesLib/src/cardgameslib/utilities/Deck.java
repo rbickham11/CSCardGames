@@ -3,8 +3,8 @@ package cardgameslib.utilities;
 import java.util.*;
 
 public class Deck {
-    private final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
-    private final List<Character> suitValues = Arrays.asList('D', 'H', 'C', 'S');
+    private static final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
+    private static final List<Character> suitValues = Arrays.asList('D', 'H', 'C', 'S');
     
     private List<Integer> deck;
     private List<Integer> dealtCards;
@@ -103,11 +103,12 @@ public class Deck {
         }
         return true;
     }
-    public int cardFromString(String card) {
+    
+    public static int cardFromString(String card) {
         return 13 * suitValues.indexOf(card.charAt(1)) + cardValues.indexOf(card.charAt(0));
     }
     
-    public String cardToString(int card) {
+    public static String cardToString(int card) {
         return String.format("%c%c", cardValues.get(card % 13), suitValues.get(card / 13));
     }
 }

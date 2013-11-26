@@ -83,7 +83,7 @@ public class EuchreDealer {
     for(int i = 0; i < 4; i++) {
       System.out.print("Player " + i + ": ");
       for(int cards: players.get(i).getHand()) {
-        System.out.print(deck.cardToString(cards));
+        System.out.print(Deck.cardToString(cards));
         System.out.print(", ");
       }
       System.out.println();
@@ -229,7 +229,7 @@ public class EuchreDealer {
     
     System.out.print("Player " + currentDealer + ": ");
     for(int cards: players.get(currentDealer).getHand()) {
-      System.out.print(deck.cardToString(cards));
+      System.out.print(Deck.cardToString(cards));
       System.out.print(", ");
     }
     System.out.println();

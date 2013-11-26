@@ -20,14 +20,16 @@ public class HoldemDealer {
     
     private List<Integer> board;
     
-    private int chipLimit;    
+    private int chipLimit;
+    private int bigBlind;
    
-    public HoldemDealer(int maxChips, int bigBlind) {
+    public HoldemDealer(int maxChips, int bb) {
         deck = new Deck();
         players = new ArrayList<>(MAX_PLAYERS);
         bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
         winChecker = new HoldemWinChecker();
         chipLimit = maxChips;
+        bigBlind = bb;
 
         Random r = new Random();
         Collections.rotate(players, r.nextInt(MAX_PLAYERS));
@@ -58,8 +60,7 @@ public class HoldemDealer {
         activePlayers = new ArrayList<>(players);
         board = new ArrayList<>();
         deck.collectCards();
-        bettingHelper = new PokerBettingHelper(activePlayers, 200);
-        bettingHelper.startNewRound(true);
+        bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
         
         for(BettingPlayer player : players) {
             player.resetHand();
@@ -67,6 +68,7 @@ public class HoldemDealer {
         deck.shuffle();
         System.out.printf("The dealer is Player %d\n", players.get(players.size() - 1).getSeatNumber());
         dealHands();
+        bettingHelper.startNewRound(true);
     }
     
     public void dealHands() {
@@ -82,20 +84,21 @@ public class HoldemDealer {
         
         for(Player player : players) {    //For testing
             System.out.println(String.format("Player %d's hand is %s %s", player.getSeatNumber(), 
-                                            deck.cardToString(player.getHand().get(0)), deck.cardToString(player.getHand().get(1))));
+                                            Deck.cardToString(player.getHand().get(0)), Deck.cardToString(player.getHand().get(1))));
         }
     }
     
     public void dealFlopToBoard() {
         int card;
         deck.dealCard(); //Burn
-        
+        System.out.printf("\nPot Size: %d\n", getPotSize());
         System.out.print("Board: ");
         for(int i = 0; i < 3; i++) {
             card = deck.dealCard();
             board.add(card);
-            System.out.print(deck.cardToString(card) + " ");
+            System.out.print(Deck.cardToString(card) + " ");
         }
+        System.out.print("\n");
         bettingHelper.startNewRound(false);
     }
     
@@ -103,7 +106,12 @@ public class HoldemDealer {
         deck.dealCard(); //Burn
         int card = deck.dealCard();
         board.add(card);
-        System.out.print(deck.cardToString(card) + " ");
+        System.out.printf("\nPot Size: %d\n", getPotSize());     
+        System.out.print("Board: ");
+        for(int boardCard : board) {
+            System.out.print(Deck.cardToString(boardCard) + " ");
+        }
+        System.out.print("\n");
         bettingHelper.startNewRound(false);
     }
     
@@ -119,8 +127,16 @@ public class HoldemDealer {
         return bettingHelper.getCurrentBet();
     }
     
-    public int getActivePlayer() {
-        return activePlayers.get(0).getSeatNumber();
+    public int getPotSize() {
+        return bettingHelper.getPotSize();
+    }
+    
+    public BettingPlayer getActivePlayer() {
+        return activePlayers.get(0);
+    }
+    
+    public boolean isWinner() {
+        return bettingHelper.isWinner();
     }
     
     public void findWinner() {

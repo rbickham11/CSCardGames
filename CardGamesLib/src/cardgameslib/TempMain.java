@@ -1,6 +1,7 @@
 package cardgameslib;
 
 import cardgameslib.games.poker.holdem.HoldemDealer;
+import cardgameslib.utilities.*;
 import cardgameslib.utilities.betting.Action;
 import java.util.*;
 
@@ -46,13 +47,23 @@ public class TempMain {
         while(Character.toUpperCase(yn) != 'N') {
             dealer.startHand();
             startBettingRound();
-            dealer.dealFlopToBoard();
-            startBettingRound();
-            dealer.dealCardToBoard();
-            startBettingRound();
-            dealer.dealCardToBoard();
-            startBettingRound();
-            dealer.findWinner();
+            
+            if(!dealer.isWinner()) {
+                dealer.dealFlopToBoard();
+                startBettingRound();
+            }
+            if(!dealer.isWinner()) {
+                dealer.dealCardToBoard();
+                startBettingRound();
+            }
+            if(!dealer.isWinner()) {
+                dealer.dealCardToBoard();
+                startBettingRound();
+            }
+            
+            if(!dealer.isWinner()) {
+                dealer.findWinner();
+            }
             
             System.out.print("\nDo you want to start another hand? (Y/N): ");
             yn = s.nextLine().charAt(0);
@@ -64,10 +75,16 @@ public class TempMain {
         char charAction;
         Action action;
         int chipAmount = 0;
+        BettingPlayer activePlayer;
+        
         
         while(!dealer.bettingComplete()) {
+            activePlayer = dealer.getActivePlayer();
             System.out.printf("Current bet is: %d\n", dealer.getCurrentBet());
-            System.out.printf("Player %d. Enter betting action: ", dealer.getActivePlayer());
+            System.out.printf("Player %d (%s %s) - %d Chips. Enter betting action: ", activePlayer.getSeatNumber(), 
+                                Deck.cardToString(activePlayer.getHand().get(0)), 
+                                Deck.cardToString(activePlayer.getHand().get(1)),
+                                activePlayer.getChips());
             charAction = s.next().charAt(0);
             switch(Character.toUpperCase(charAction)) {
                 case 'B' :
@@ -93,7 +110,15 @@ public class TempMain {
                     System.out.println("Invalid Action!");
                     continue;
             }
-            dealer.takeAction(action, chipAmount);
+            try {
+                dealer.takeAction(action, chipAmount);
+            }
+            catch(IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        if(dealer.isWinner()) {
+            System.out.printf("The winner is Player %d\n", dealer.getActivePlayer().getSeatNumber());
         }
     }
 }
