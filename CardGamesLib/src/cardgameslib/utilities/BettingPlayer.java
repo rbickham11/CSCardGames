@@ -28,6 +28,14 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
         chips -= amount;
     }
     
+    public void setCurrentBet(int amount) {
+        currentBet = amount;
+    }
+    
+    public void resetCurrentBet() {
+        currentBet = 0;
+    }
+    
     public static BettingPlayer getPlayerByCard(List<BettingPlayer> players, int card) {
         for(BettingPlayer player : players) {
             if(player.getHand().contains(card)) {

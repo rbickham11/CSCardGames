@@ -24,10 +24,9 @@ public class HoldemDealer {
    
     public HoldemDealer(int maxChips, int bigBlind) {
         deck = new Deck();
+        players = new ArrayList<>(MAX_PLAYERS);
         bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
         winChecker = new HoldemWinChecker();
-        
-        players = new ArrayList<>(MAX_PLAYERS);
         chipLimit = maxChips;
 
         Random r = new Random();
@@ -59,6 +58,9 @@ public class HoldemDealer {
         activePlayers = new ArrayList<>(players);
         board = new ArrayList<>();
         deck.collectCards();
+        bettingHelper = new PokerBettingHelper(activePlayers, 200);
+        bettingHelper.startNewRound(true);
+        
         for(BettingPlayer player : players) {
             player.resetHand();
         }
@@ -94,6 +96,7 @@ public class HoldemDealer {
             board.add(card);
             System.out.print(deck.cardToString(card) + " ");
         }
+        bettingHelper.startNewRound(false);
     }
     
     public void dealCardToBoard() {   //For turn and river
@@ -101,6 +104,7 @@ public class HoldemDealer {
         int card = deck.dealCard();
         board.add(card);
         System.out.print(deck.cardToString(card) + " ");
+        bettingHelper.startNewRound(false);
     }
     
     public void takeAction(Action action, int chipAmount) {
@@ -109,6 +113,14 @@ public class HoldemDealer {
     
     public boolean bettingComplete() {
         return bettingHelper.bettingComplete();
+    }
+    
+    public int getCurrentBet() {
+        return bettingHelper.getCurrentBet();
+    }
+    
+    public int getActivePlayer() {
+        return activePlayers.get(0).getSeatNumber();
     }
     
     public void findWinner() {

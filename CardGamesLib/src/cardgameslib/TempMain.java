@@ -1,29 +1,16 @@
 package cardgameslib;
 
 import cardgameslib.games.poker.holdem.HoldemDealer;
+import cardgameslib.utilities.betting.Action;
 import java.util.*;
 
 public class TempMain {
+    private HoldemDealer dealer = new HoldemDealer(20000, 200);
+    
     public static void main(String[] args) {
-        //Please comment this out instead of deleting when doing other stuff!
-        Scanner s = new Scanner(System.in);
-        
-        HoldemDealer dealer = new HoldemDealer(20000, 200);
-        for(int i = 1; i < 7; i++) {
-            dealer.addPlayer(1000 + i, i, 3000 + 1000 * i);
-        }
-        
-        char yn = 'Y';
-        while(Character.toUpperCase(yn) != 'N') {
-            dealer.startHand();
-            dealer.dealFlopToBoard();
-            dealer.dealCardToBoard();
-            dealer.dealCardToBoard();
-            dealer.findWinner();
-            
-            System.out.print("\nDo you want to start another hand? (Y/N): ");
-            yn = s.nextLine().charAt(0);
-        }
+        TempMain main = new TempMain();
+        main.runPokerGame();
+
         //******************************************************************
         
 //        EuchreDealer euchre = new EuchreDealer();
@@ -43,5 +30,70 @@ public class TempMain {
 //            euchre.callTrump(trump);
 //          }
 //        }
+    }
+    
+    public void runPokerGame() {
+        Scanner s = new Scanner(System.in);
+        
+        for(int i = 1; i < 7; i++) {
+            dealer.addPlayer(1000 + i, i, 13000 + 1000 * i);
+        }
+        
+        System.out.println("Welcome to Ryan's awesome poker game!");
+        System.out.println("Use actions B (Bet), C (Call), X (Check), F (Fold), and R (Raise) for betting");
+        
+        char yn = 'Y';
+        while(Character.toUpperCase(yn) != 'N') {
+            dealer.startHand();
+            startBettingRound();
+            dealer.dealFlopToBoard();
+            startBettingRound();
+            dealer.dealCardToBoard();
+            startBettingRound();
+            dealer.dealCardToBoard();
+            startBettingRound();
+            dealer.findWinner();
+            
+            System.out.print("\nDo you want to start another hand? (Y/N): ");
+            yn = s.nextLine().charAt(0);
+        }
+    }
+    
+    public void startBettingRound() {          
+        Scanner s = new Scanner(System.in);
+        char charAction;
+        Action action;
+        int chipAmount = 0;
+        
+        while(!dealer.bettingComplete()) {
+            System.out.printf("Current bet is: %d\n", dealer.getCurrentBet());
+            System.out.printf("Player %d. Enter betting action: ", dealer.getActivePlayer());
+            charAction = s.next().charAt(0);
+            switch(Character.toUpperCase(charAction)) {
+                case 'B' :
+                    action = Action.BET;
+                    System.out.print("Bet amount: ");
+                    chipAmount = s.nextInt();
+                    break;
+                case 'C' :
+                    action = Action.CALL;
+                    break;
+                case 'X' :
+                    action = Action.CHECK;
+                    break;
+                case 'F' :
+                    action = Action.FOLD;
+                    break;
+                case 'R' :
+                    action = Action.RAISE;                    
+                    System.out.print("Raise amount: ");
+                    chipAmount = s.nextInt(); 
+                    break;
+                default :
+                    System.out.println("Invalid Action!");
+                    continue;
+            }
+            dealer.takeAction(action, chipAmount);
+        }
     }
 }
