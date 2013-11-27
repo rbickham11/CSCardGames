@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SimpleWebRTC Demo</title>
+    </head>
+    <body>
+        <h1 id="title">Card Game</h1>
+        <style>
+            #remotes video {
+                height: 150px;
+            }
+            #localVideo {
+                height: 150px;
+            }
+        </style>
+		<!--video tag to show local video of user. it will show their video, followed by each other player's video in order of how they joined the table.-->
+        <video id="localVideo"></video>
+        <div id="remotes"></div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+     <script src="http://simplewebrtc.com/latest.js"></script> 
+        <script>
+            // grab the room from the URL to know to join
+            var room = location.search && location.search.split('?')[1];
+
+            // create our SimpleWebRTC connection.
+            var webrtc = new SimpleWebRTC({
+                // the id for the element that holds the user's personal video
+                localVideoEl: 'localVideo',
+                // the id for the element that holds the other user's personal video
+                remoteVideosEl: 'remotes',
+                // ask for microphone and webcam access
+                autoRequestMedia: true,
+                log: true
+            });
+
+            // when it's ready, join if we got a room from the URL
+            webrtc.on('readyToCall', function () {
+                // you can name it anything
+                if (room) webrtc.joinRoom(room);
+            });
+            if (room) {
+               //do nothing if room exists since we already joined it
+            } else {
+				//this actually creates a new room if it does not exist. It is left in here since when I was testing it, it allowed me to test renaming the rooms. We can take it
+				// out if you guys want, not really needed for anything other than dynamically creating a new room.
+                $('form').submit(function () {
+                    var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
+                    webrtc.createRoom(val, function (err, name) {
+					//Here is where it creates the new room using the url, + a ? + the name you want
+                        var newUrl = location.pathname + '?' + name;
+                        if (!err) {
+						//If there is an error, replace the created room with the old one in the history
+                            history.replaceState({foo: 'bar'}, null, newUrl);
+                        }
+                    });
+					//So no room exists, just returns false. We can make this redirect to the 404 page if you'd like.
+                    return false;          
+                });
+            }
+			
+        </script>
+    </body>
+</html>
