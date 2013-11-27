@@ -1,4 +1,4 @@
-package cardgameslib.utilities.betting;
+package cardgameslib.games.poker.betting;
 
 import cardgameslib.utilities.BettingPlayer;
 import java.util.*;

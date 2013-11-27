@@ -8,5 +8,35 @@
 **/build
 **/dist
 
-# Output Files #
-SimulationResults.txt
+**/.metadata
+**/.gradle
+**/bin/
+**/tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+**/local.properties
+**/.settings/
+**/.loadpath
+
+# External tool builders
+**/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+**/.cproject
+
+# PDT-specific
+**/.buildpath
+
+# TeXlipse plugin
+.texlipse
+
+CardGamesWeb/logs
+CardGamesWeb/project/project
+CardGamesWeb/project/target
+CardGamesWeb/target
+CardGamesWeb/tmp

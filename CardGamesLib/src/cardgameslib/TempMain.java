@@ -2,7 +2,7 @@ package cardgameslib;
 
 import cardgameslib.games.poker.holdem.HoldemDealer;
 import cardgameslib.utilities.*;
-import cardgameslib.utilities.betting.Action;
+import cardgameslib.games.poker.betting.*;
 import java.util.*;
 
 public class TempMain {
@@ -68,6 +68,7 @@ public class TempMain {
             System.out.print("\nDo you want to start another hand? (Y/N): ");
             yn = s.nextLine().charAt(0);
         }
+        s.close();
     }
     
     public void startBettingRound() {          
@@ -119,6 +120,6 @@ public class TempMain {
         }
         if(dealer.isWinner()) {
             System.out.printf("The winner is Player %d\n", dealer.getActivePlayer().getSeatNumber());
-        }
+        }       
     }
 }

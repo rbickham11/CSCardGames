@@ -4,7 +4,6 @@ import cardgameslib.utilities.BettingPlayer;
 import java.util.*;
 
 public class HoldemWinChecker {
-    private final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
     private final List<String> ranks = Arrays.asList("High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush");
     
     private List<BettingPlayer> players;
