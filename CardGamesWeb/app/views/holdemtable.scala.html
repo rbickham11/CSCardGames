@@ -9,12 +9,13 @@
     <title>Single Portfolio Item - Modern Business - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="@routes.Assets.at("stylesheets/bootstrap.css")" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="css/game.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="@routes.Assets.at("stylesheets/modern-business.css")" rel="stylesheet">
+    <link href="@routes.Assets.at("stylesheets/game.css")" rel="stylesheet">
+    <link href="@routes.Assets.at("font-awesome/css/font-awesome.min.css")" rel="stylesheet">
   </head>
 
   <body>
@@ -165,7 +166,7 @@
               </p>
             </div>
             <div class="col-sm-4">
-              <img src="img/bickham.jpg" alt="" class="img-polaroid">
+              <img src="@routes.Assets.at("images/bickham.jpg")" alt="" class="img-polaroid">
             </div>
             <div class="col-sm-4">
               <p id='userButtons'>              
@@ -197,7 +198,7 @@
               <small><cite title="Source Title">Gotham, United Kingdom  <i class="icon-map-marker"></i></cite></small>
             </blockquote>
             <p>
-              <i class="icon-envelope"></i> masterwayne@batman.com <br>              
+              <i class="icon-envelope"></i> masterwayne@@batman.com <br>              
               <i class="icon-gift"></i> January 30, 1974
             </p>
           </div>
@@ -223,10 +224,10 @@
 
     <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/modern-business.js"></script>
-    <script src="js/bootstrap-slider.js"></script>
+    <script src="@routes.Assets.at("javascript/jquery.js")"></script>
+    <script src="@routes.Assets.at("javascript/bootstrap.js")"></script>
+    <script src="@routes.Assets.at("javascript/modern-business.js")"></script>
+    <script src="@routes.Assets.at("javascript/bootstrap-slider.js")"></script>
 
     <script> 
       $('.slider').slider()
