@@ -34,9 +34,3 @@
 
 # TeXlipse plugin
 .texlipse
-
-CardGamesWeb/logs
-CardGamesWeb/project/project
-CardGamesWeb/project/target
-CardGamesWeb/target
-CardGamesWeb/tmp
