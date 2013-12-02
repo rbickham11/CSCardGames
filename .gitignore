@@ -1,13 +1,4 @@
 *.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
-**/nbproject/private
-**/build
-**/dist
-
 **/.metadata
 **/.gradle
 **/bin/
