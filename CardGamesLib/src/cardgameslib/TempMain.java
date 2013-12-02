@@ -80,7 +80,7 @@ public class TempMain {
         
         
         while(!dealer.bettingComplete()) {
-            activePlayer = dealer.getActivePlayer();
+            activePlayer = dealer.getCurrentPlayer();
             System.out.printf("Current bet is: %d\n", dealer.getCurrentBet());
             System.out.printf("Player %d (%s %s) - %d Chips. Enter betting action: ", activePlayer.getSeatNumber(), 
                                 Deck.cardToString(activePlayer.getHand().get(0)), 
@@ -119,7 +119,7 @@ public class TempMain {
             }
         }
         if(dealer.isWinner()) {
-            System.out.printf("The winner is Player %d\n", dealer.getActivePlayer().getSeatNumber());
+            System.out.printf("The winner is Player %d\n", dealer.getCurrentPlayer().getSeatNumber());
         }       
     }
 }

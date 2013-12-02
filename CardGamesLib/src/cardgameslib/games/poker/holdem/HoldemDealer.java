@@ -39,6 +39,11 @@ public class HoldemDealer {
     public void setBigBlind(int bb) {
     	bigBlind = bb;
     }
+    
+    public List<BettingPlayer> getActivePlayers() {
+    	return activePlayers;
+    }
+    
     public void addPlayer(int id, int seatNum, int startingChips) {
         if(startingChips <= chipLimit) {
             players.add(new BettingPlayer(id, seatNum, startingChips));
@@ -51,7 +56,8 @@ public class HoldemDealer {
     public void removePlayer(int id) {
         for(BettingPlayer player : players) {
             if(player.getUserId() == id) {
-                players.remove(players.indexOf(player));
+                players.remove(player);
+                activePlayers.remove(player);
                 return;
             }
         }
@@ -134,7 +140,7 @@ public class HoldemDealer {
         return bettingHelper.getPotSize();
     }
     
-    public BettingPlayer getActivePlayer() {
+    public BettingPlayer getCurrentPlayer() {
         return activePlayers.get(0);
     }
     

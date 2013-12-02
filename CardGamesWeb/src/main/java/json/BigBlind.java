@@ -1,7 +1,7 @@
 package json;
 
 public class BigBlind {
-	String bigBlind;
+	private String bigBlind;
 	
 	public String getBigBlind() {
 		return bigBlind;
