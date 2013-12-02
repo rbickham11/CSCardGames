@@ -33,6 +33,12 @@ public class HoldemDealer {
         
     }
     
+    public int getBigBlind() {
+    	return bigBlind;
+    }
+    public void setBigBlind(int bb) {
+    	bigBlind = bb;
+    }
     public void addPlayer(int id, int seatNum, int startingChips) {
         if(startingChips <= chipLimit) {
             players.add(new BettingPlayer(id, seatNum, startingChips));
