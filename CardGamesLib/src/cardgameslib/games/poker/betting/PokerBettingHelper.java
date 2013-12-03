@@ -12,6 +12,7 @@ public class PokerBettingHelper {
     private int activeBet;
     private int bigBlind;
     
+    private Action lastAction;
     private boolean preflop;
     private boolean allActed;
 
@@ -33,6 +34,10 @@ public class PokerBettingHelper {
     
     public int getPotSize() {
         return potSize;
+    }
+    
+    public Action getLastAction() {
+    	return lastAction;
     }
     
     public void startNewRound(boolean preFlop) {
@@ -102,6 +107,7 @@ public class PokerBettingHelper {
                 throw new IllegalArgumentException("Invalid action");
         }
         
+        lastAction = action;
         if(action != Action.FOLD) {
             Collections.rotate(activePlayers, -1);
         }

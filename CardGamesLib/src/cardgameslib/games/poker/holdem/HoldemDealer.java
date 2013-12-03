@@ -45,6 +45,10 @@ public class HoldemDealer {
     	return board;
     }
     
+    public Action getLastAction() {
+    	return bettingHelper.getLastAction();
+    }
+    
     public void addPlayer(int id, int seatNum, int startingChips) {
     	for(BettingPlayer player : players) {
     		if(player.getUserId() == id) {

@@ -56,4 +56,13 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
         }
         throw new IllegalArgumentException("No player found with given hand");
     }
+    
+    public static BettingPlayer getPlayerBySeatNumber(List<BettingPlayer> players, int seatNumber) {
+        for(BettingPlayer player : players) {
+            if(player.getSeatNumber() == seatNumber) {
+                return player;
+            }
+        }
+        throw new IllegalArgumentException("No player found with given seat number");
+    }
 }
