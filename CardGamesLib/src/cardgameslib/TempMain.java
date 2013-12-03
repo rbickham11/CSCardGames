@@ -48,7 +48,7 @@ public class TempMain {
             dealer.startHand();
             startBettingRound();
             
-            if(!dealer.isWinner()) {
+            if(!dealer.isWinner()) { 
                 dealer.dealFlopToBoard();
                 startBettingRound();
             }

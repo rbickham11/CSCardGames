@@ -33,19 +33,29 @@ public class HoldemDealer {
         
     }
     
-    public int getBigBlind() {
-    	return bigBlind;
-    }
-    public void setBigBlind(int bb) {
-    	bigBlind = bb;
+    public List<BettingPlayer> getPlayers() {
+    	return players;
     }
     
     public List<BettingPlayer> getActivePlayers() {
     	return activePlayers;
     }
     
+    public List<Integer> getBoard() {
+    	return board;
+    }
+    
     public void addPlayer(int id, int seatNum, int startingChips) {
-        if(startingChips <= chipLimit) {
+    	for(BettingPlayer player : players) {
+    		if(player.getUserId() == id) {
+    			throw new IllegalArgumentException("Player with id " + id + " already on table");
+    		}
+    		if(player.getSeatNumber() == seatNum) {
+    			throw new IllegalArgumentException("Seat " + seatNum + " is taken.");
+    		}
+    	}
+        
+    	if(startingChips <= chipLimit) {
             players.add(new BettingPlayer(id, seatNum, startingChips));
             Collections.sort(players);
         } else {
@@ -65,6 +75,9 @@ public class HoldemDealer {
     }
     
     public void startHand() {
+    	if(players.size() < 2) {
+    		throw new IllegalArgumentException("At least 2 players are needed.");
+    	}
         Collections.rotate(players, 1);
         activePlayers = new ArrayList<>(players);
         board = new ArrayList<>();
