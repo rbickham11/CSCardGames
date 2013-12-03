@@ -96,6 +96,42 @@ public class HoldemTable {
     	return board;
     }
     
+    @Path("/getaction")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getActionStatus(ActionStatusRequest request) {
+    	ActionStatusResponse response = new ActionStatusResponse();
+    	boolean changed = false;
+    	try{
+    		long time = System.currentTimeMillis();
+    		while(System.currentTimeMillis() < time + 30000) {
+    			if(dealer.getCurrentPlayer().getSeatNumber() != request.getLastPlayer()) {
+    				changed = true;
+    				response.setLastAction(dealer.getLastAction().toString());
+    				response.setLastBet(dealer.getCurrentBet());
+    				List<BettingPlayer> activePlayers = dealer.getActivePlayers();
+    				response.setLastPlayer(activePlayers.get(activePlayers.size() -1).getSeatNumber());
+    				if(request.getMySeatNumber() == dealer.getCurrentPlayer().getSeatNumber()) {
+    					response.setPlayerActive(true);
+    				}
+    				else {
+    					response.setPlayerActive(false);
+    				}
+    				break;
+    			}
+    			Thread.sleep(1000);
+    		}
+    	}
+    	catch(Exception ex) {
+    		return Response.serverError().entity(ex.getMessage()).build();
+    	}
+    	if(!changed) {
+    		response.setLastPlayer(request.getLastPlayer());
+    	}
+    	return Response.ok(response, MediaType.APPLICATION_JSON).build();
+    }
+    
     @Path("/takebettingaction")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
