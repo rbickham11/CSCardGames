@@ -1,5 +1,6 @@
 package cardgameslib.games.poker.holdem;
 
+import cardgameslib.textchat.ChatServer;
 import cardgameslib.utilities.*;
 import cardgameslib.games.poker.betting.*;
 
@@ -11,6 +12,7 @@ public class HoldemDealer {
     private Deck deck;
     private PokerBettingHelper bettingHelper;
     private HoldemWinChecker winChecker;
+    private ChatServer chat;
     
     private List<BettingPlayer> players;
     private List<BettingPlayer> activePlayers;
@@ -25,6 +27,7 @@ public class HoldemDealer {
         players = new ArrayList<>(MAX_PLAYERS);
         bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
         winChecker = new HoldemWinChecker();
+        chat = new ChatServer(8081);
         chipLimit = maxChips;
         bigBlind = bb;
 
@@ -180,6 +183,14 @@ public class HoldemDealer {
         }
         for(BettingPlayer player : winningPlayers) {
             System.out.printf("\nThe winner is Player %d with %s%s", player.getSeatNumber(), a, winChecker.getWinningRank());
+        }
+    }
+    
+    public void sendPlayerMessage(int playerId, String message) {
+    	for(BettingPlayer player : players) {
+            if(player.getUserId() == playerId) {
+            	player.sendMessage(message);
+            }
         }
     }
 }
