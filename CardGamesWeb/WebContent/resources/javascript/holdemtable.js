@@ -15,6 +15,8 @@ $.fn.serializeObject = function()
     return o;
 };
 
+var myId, myUsername, mySeatNumber, myChips;
+
 $(function() {
 	$('#modal').modal({
 		  backdrop: 'static',
@@ -35,8 +37,13 @@ $(function() {
 	
 	$("#addPlayerForm").submit(function(e) {
 		var action = $(this).attr("action");
-		var data = JSON.stringify($(this).serializeObject());
-		alert(data);
+		var dataObj = $(this).serializeObject();
+		myId = dataObj.userId;
+		myUsername = dataObj.username;
+		mySeatNumber = dataObj.seatNumber;
+		myChips = dataObj.startingChips;
+		inGame = true;
+		var data = JSON.stringify(dataObj);
         $.ajax({
             type: "POST",
             url: action,
@@ -44,6 +51,7 @@ $(function() {
             contentType: "application/json; charset=utf-8;",
             success: function(data) {
                     $('#modal').modal('hide');
+                    startGame();
             },
             error: function(xhr, status, error) {
                     alert(error);
@@ -52,11 +60,17 @@ $(function() {
         });
 		e.preventDefault();
 	});
-	$("#chatButton").click(function () {
-		$.getJSON("/api/holdemtable/starthand", function(data) {
-			$.each(data, function(key, val) {
-				alert("ID: " + val.userId + "Seat Number: " + val.seatNumber + "Chips: " + val.chips);
-			});
+});
+
+function startGame() {
+	updatePlayers();
+}
+
+function updatePlayers() {
+	$.getJSON("/api/holdemtable/getallplayers", function(data) {
+		$.each(data, function(key, val) {
+			$("#player" + val.seatNumber).html("<p>" + val.username + "</p>");
+			$("#player" + val.seatNumber).append("<p>" + val.chips + "</p>");
 		});
 	});
-});
+}

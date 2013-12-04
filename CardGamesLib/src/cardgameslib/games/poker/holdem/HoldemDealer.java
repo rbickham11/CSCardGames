@@ -12,7 +12,7 @@ public class HoldemDealer {
     private Deck deck;
     private PokerBettingHelper bettingHelper;
     private HoldemWinChecker winChecker;
-    private ChatServer chat;
+    //private ChatServer chat;
     
     private List<BettingPlayer> players;
     private List<BettingPlayer> activePlayers;
@@ -27,7 +27,7 @@ public class HoldemDealer {
         players = new ArrayList<>(MAX_PLAYERS);
         bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
         winChecker = new HoldemWinChecker();
-        chat = new ChatServer(8081);
+        //chat = new ChatServer(8081);
         chipLimit = maxChips;
         bigBlind = bb;
 

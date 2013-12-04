@@ -7,13 +7,13 @@ import cardgameslib.textchat.ChatClient;
 public class BettingPlayer extends Player {   //Used for games with betting, inherits Player
     private int chips;
     private int currentBet;
-    private ChatClient chat;
+    //private ChatClient chat;
     
     public BettingPlayer(int id, String userName, int seatNum, int startingChips) {
         super(id, userName, seatNum);
         chips = startingChips;
         currentBet = 0;
-        chat = new ChatClient("localhost", 8081, Integer.toString(id));
+        //chat = new ChatClient("localhost", 8081, Integer.toString(id));
     }
     
     public int getChips() {
@@ -71,6 +71,6 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
     }
     
     public void sendMessage(String message) {
-    	chat.sendMessage(message);
+    	//chat.sendMessage(message);
     }
 }
