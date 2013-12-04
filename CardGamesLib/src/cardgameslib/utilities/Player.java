@@ -10,12 +10,11 @@ public class Player implements Comparable<Player> {
     protected String euchreDealSequence;
     protected List<Integer> hand;
     
-    public Player(int id, int seatNum) {
+    public Player(int id, String userName, int seatNum) {
         userId = id;
+        username = userName;
         seatNumber = seatNum;
         hand = new ArrayList<>();
-        //Query database using userId to get any other information needed for backend 
-        //(Total chip count, username if we need it, etc.)
     }
     
     public Player(int id, int seatNum, String dealSequence) {
@@ -29,6 +28,10 @@ public class Player implements Comparable<Player> {
     
     public int getUserId() {
         return userId;
+    }
+    
+    public String getUsername() {
+    	return username;
     }
     
     public int getSeatNumber() {

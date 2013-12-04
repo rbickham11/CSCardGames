@@ -49,7 +49,7 @@ public class HoldemDealer {
     	return bettingHelper.getLastAction();
     }
     
-    public void addPlayer(int id, int seatNum, int startingChips) {
+    public void addPlayer(int id, String username, int seatNum, int startingChips) {
     	if(seatNum < 1 || seatNum > MAX_PLAYERS) {
     		throw new IllegalArgumentException("Invalid seat number");
     	}
@@ -64,7 +64,7 @@ public class HoldemDealer {
     	}
         
     	if(startingChips <= chipLimit) {
-            players.add(new BettingPlayer(id, seatNum, startingChips));
+            players.add(new BettingPlayer(id, username, seatNum, startingChips));
             Collections.sort(players);
         } else {
             throw new IllegalArgumentException("Starting chip count exceeds maximum for this table");

@@ -27,7 +27,7 @@ public class HoldemTable {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addPlayer(SimplePlayer player) {
     	try {
-    		dealer.addPlayer(player.getPlayerId(), player.getSeatNumber(), player.getStartingChips());
+    		dealer.addPlayer(player.getUserId(), player.getUsername(), player.getSeatNumber(), player.getStartingChips());
     	}
     	catch(IllegalArgumentException ex) {
     		return Response.serverError().entity(ex.getMessage()).build();

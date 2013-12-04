@@ -6,8 +6,8 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
     private int chips;
     private int currentBet;
     
-    public BettingPlayer(int id, int seatNum, int startingChips) {
-        super(id, seatNum);
+    public BettingPlayer(int id, String userName, int seatNum, int startingChips) {
+        super(id, userName, seatNum);
         chips = startingChips;
         currentBet = 0;
     }
