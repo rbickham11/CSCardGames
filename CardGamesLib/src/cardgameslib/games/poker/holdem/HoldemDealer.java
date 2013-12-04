@@ -6,7 +6,7 @@ import cardgameslib.games.poker.betting.*;
 import java.util.*;
 
 public class HoldemDealer {
-    private final int MAX_PLAYERS = 10;
+    private final int MAX_PLAYERS = 9;
     
     private Deck deck;
     private PokerBettingHelper bettingHelper;
@@ -50,6 +50,10 @@ public class HoldemDealer {
     }
     
     public void addPlayer(int id, int seatNum, int startingChips) {
+    	if(seatNum < 1 || seatNum > MAX_PLAYERS) {
+    		throw new IllegalArgumentException("Invalid seat number");
+    	}
+    	
     	for(BettingPlayer player : players) {
     		if(player.getUserId() == id) {
     			throw new IllegalArgumentException("Player with id " + id + " already on table");
