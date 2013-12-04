@@ -4,6 +4,11 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**
+ * Class to handle setting up the server for the text chat
+ * @author Andrew Haegar
+ *
+ */
 public class ChatServer {
 	private int port;
 	private ArrayList<ClientT> client;
@@ -15,13 +20,19 @@ public class ChatServer {
 
 	// Constructor: Stores port number, creates an arrayList to keep track
 	// of the connected clients, and starts the server up.
+	/**
+	 * Constructor of the ChatServer
+	 * @param portNumber stores port number
+	 */
 	public ChatServer(int portNumber) {
 		this.port = portNumber;
 		client = new ArrayList<ClientT>();
 		start();
 	}
 
-	// Start the server up for the chat service.
+	/**
+	 * Starts up server for the chat service
+	 */
 	public void start() {
 		keepOpen = true;
 
@@ -64,13 +75,18 @@ public class ChatServer {
 
 		}
 	}
-
-	// Call to stop the server.
+	
+	/**
+	 * Function to stop the server
+	 */
 	public void stop() {
 		keepOpen = false;
 	}
 
-	// Send any message received by any client to all of the attached clients.
+	/**
+	 * Send message received by any client to all attached clients
+	 * @param message
+	 */
 	private synchronized void sendMessage(String message) {
 		System.out.println(message);
 
@@ -84,12 +100,20 @@ public class ChatServer {
 	}
 
 	// Class for client thread.
+	/**
+	 * This class handles the client threading
+	 * @author Andrew Haegar
+	 *
+	 */
 	class ClientT extends Thread {
 		Socket socket;
 		BufferedReader input;
 		PrintWriter output;
 
-		// Keep track of the socket, and the input and output options.
+		/**
+		 * Function to keep track of the socket and input/output options
+		 * @param socket
+		 */
 		ClientT(Socket socket) {
 			this.socket = socket;
 
@@ -103,6 +127,9 @@ public class ChatServer {
 		}
 
 		// Run the thread and listen for messaged from the client.
+		/**
+		 * Function to un the Client thread and listen for messages from client
+		 */
 		public void run() {
 			boolean keepOpen = true;
 
@@ -125,6 +152,11 @@ public class ChatServer {
 		}
 
 		// Send the message to the client.
+		/**
+		 * Function to send message to client
+		 * @param message String holding message sent by client
+		 * @return boolean
+		 */
 		private boolean writeMessage(String message) {
 			output.println(message);
 			return true;
