@@ -195,7 +195,7 @@ body {
 .player {
   border: 1px solid black;  
   display: block;
-  padding: 40px;
+  padding: 30px;
   margin: 15px 10px;
 }
 
@@ -206,6 +206,6 @@ body {
   margin: 15px 10px;
 }
 
-#user {
+#player5 {
   margin-left: 37%;
 }

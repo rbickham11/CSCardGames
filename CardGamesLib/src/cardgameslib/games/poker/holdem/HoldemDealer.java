@@ -1,16 +1,22 @@
 package cardgameslib.games.poker.holdem;
 
+import cardgameslib.textchat.ChatServer;
 import cardgameslib.utilities.*;
 import cardgameslib.games.poker.betting.*;
 
 import java.util.*;
-
+/**
+ * This class handles Textas Hold'em style poker
+ * @author Ryan Bickham
+ *
+ */
 public class HoldemDealer {
-    private final int MAX_PLAYERS = 10;
+    private final int MAX_PLAYERS = 9;
     
     private Deck deck;
     private PokerBettingHelper bettingHelper;
     private HoldemWinChecker winChecker;
+    //private ChatServer chat;
     
     private List<BettingPlayer> players;
     private List<BettingPlayer> activePlayers;
@@ -20,11 +26,17 @@ public class HoldemDealer {
     private int chipLimit;
     private int bigBlind;
    
+    /**
+     * Constructor for HoldemDealer
+     * @param maxChips int holding the chip limit for the table
+     * @param bb int holding the value of the big blind for the table
+     */
     public HoldemDealer(int maxChips, int bb) {
         deck = new Deck();
         players = new ArrayList<>(MAX_PLAYERS);
         bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
         winChecker = new HoldemWinChecker();
+        //chat = new ChatServer(8081);
         chipLimit = maxChips;
         bigBlind = bb;
 
@@ -33,23 +45,50 @@ public class HoldemDealer {
         
     }
     
+    /**
+     * Getter to return list of players at table
+     * @return List<BettingPlayer>
+     */
     public List<BettingPlayer> getPlayers() {
     	return players;
     }
     
+    /**
+     * Getter to return list of players at table still playing (have not folded yet)
+     * @return List<BettingPlayer>
+     */
     public List<BettingPlayer> getActivePlayers() {
     	return activePlayers;
     }
     
+    /**
+     * Getter to return the table
+     * @return List<Integer>
+     */
     public List<Integer> getBoard() {
     	return board;
     }
     
+    /**
+     * Getter to return action of last player
+     * @return Action
+     */
     public Action getLastAction() {
     	return bettingHelper.getLastAction();
     }
     
-    public void addPlayer(int id, int seatNum, int startingChips) {
+    /**
+     * Function to handle adding a new player to the table
+     * @param id int to hold player number
+     * @param username String to hold username of user
+     * @param seatNum int to hold the seat the player is at
+     * @param startingChips int to hold the number of chips the player starts with
+     */
+    public void addPlayer(int id, String username, int seatNum, int startingChips) {
+    	if(seatNum < 1 || seatNum > MAX_PLAYERS) {
+    		throw new IllegalArgumentException("Invalid seat number");
+    	}
+    	
     	for(BettingPlayer player : players) {
     		if(player.getUserId() == id) {
     			throw new IllegalArgumentException("Player with id " + id + " already on table");
@@ -60,13 +99,17 @@ public class HoldemDealer {
     	}
         
     	if(startingChips <= chipLimit) {
-            players.add(new BettingPlayer(id, seatNum, startingChips));
+            players.add(new BettingPlayer(id, username, seatNum, startingChips));
             Collections.sort(players);
         } else {
             throw new IllegalArgumentException("Starting chip count exceeds maximum for this table");
         }
     }
     
+    /**
+     * Handles removing player from Texas Hold'em table
+     * @param id int to hold which player is being removed/leaving
+     */
     public void removePlayer(int id) {
         for(BettingPlayer player : players) {
             if(player.getUserId() == id) {
@@ -78,6 +121,9 @@ public class HoldemDealer {
         throw new IllegalArgumentException(String.format("Player with id %d not found on table", id));
     }
     
+    /**
+     * Function to handle starting a hand of Texas Hold'em
+     */
     public void startHand() {
     	if(players.size() < 2) {
     		throw new IllegalArgumentException("At least 2 players are needed.");
@@ -97,6 +143,9 @@ public class HoldemDealer {
         bettingHelper.startNewRound(true);
     }
     
+    /**
+     * Function to handle dealing the Texas Hold'em hands
+     */
     public void dealHands() {
         List<Integer> cards = deck.dealCards(players.size() * 2);
         int i;
@@ -114,6 +163,9 @@ public class HoldemDealer {
         }
     }
     
+    /**
+     * Function to handle dealing the flop on the board, the first three cards
+     */
     public void dealFlopToBoard() {
         int card;
         deck.dealCard(); //Burn
@@ -128,6 +180,9 @@ public class HoldemDealer {
         bettingHelper.startNewRound(false);
     }
     
+    /**
+     * Function to handle dealing the turn and the river to the board, the fourth and fifth cards
+     */
     public void dealCardToBoard() {   //For turn and river
         deck.dealCard(); //Burn
         int card = deck.dealCard();
@@ -141,30 +196,58 @@ public class HoldemDealer {
         bettingHelper.startNewRound(false);
     }
     
+    /**
+     * Function to handle a player taking an action.
+     * @param action Action player is taking
+     * @param chipAmount int to hold chip amount used in action
+     */
     public void takeAction(Action action, int chipAmount) {
         bettingHelper.takeAction(action, chipAmount);
     }
     
+    /**
+     * Function to determine when betting is complete
+     * @return boolean
+     */
     public boolean bettingComplete() {
         return bettingHelper.bettingComplete();
     }
     
+    /**
+     * Getter to return current bet by player
+     * @return int
+     */
     public int getCurrentBet() {
         return bettingHelper.getCurrentBet();
     }
     
+    /**
+     * Getter to return the pot size
+     * @return int
+     */
     public int getPotSize() {
         return bettingHelper.getPotSize();
     }
     
+    /**
+     * Getter to return the current player
+     * @return BettingPlayer
+     */
     public BettingPlayer getCurrentPlayer() {
         return activePlayers.get(0);
     }
     
+    /**
+     * Function to determine whether player is the winner or not
+     * @return boolean
+     */
     public boolean isWinner() {
         return bettingHelper.isWinner();
     }
     
+    /**
+     * Function to figure out who won the hand
+     */
     public void findWinner() {
         winChecker.findWinningHand(activePlayers, board);
         
@@ -176,6 +259,19 @@ public class HoldemDealer {
         }
         for(BettingPlayer player : winningPlayers) {
             System.out.printf("\nThe winner is Player %d with %s%s", player.getSeatNumber(), a, winChecker.getWinningRank());
+        }
+    }
+    
+    /**
+     * Function to send a chat message to a player
+     * @param playerId int holding the player who sent the message 
+     * @param message message to be sent
+     */
+    public void sendPlayerMessage(int playerId, String message) {
+    	for(BettingPlayer player : players) {
+            if(player.getUserId() == playerId) {
+            	player.sendMessage(message);
+            }
         }
     }
 }

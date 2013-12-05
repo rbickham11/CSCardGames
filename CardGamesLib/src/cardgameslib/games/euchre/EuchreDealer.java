@@ -25,6 +25,11 @@ import java.util.*;
 // 3, 2, 3, 2       2, 3, 2, 3
 // 3, 2, 2, 3       2, 3, 3, 2
 
+/**
+ * This class is used to handle the Euchre game
+ * @author Andrew Haegar
+ *
+ */
 public class EuchreDealer {
   private final int MIN_MAX_PLAYERS = 4;
   
@@ -36,6 +41,9 @@ public class EuchreDealer {
   private char possibleTrump;
   private boolean cardUp;
   
+  /**
+   * Constructor for EuchreDealer
+   */
   public EuchreDealer() {
     trump = 0;
     possibleTrump = 0;
@@ -44,7 +52,9 @@ public class EuchreDealer {
     determineDealer();
   }
   
-  // Create a new Euchre Deck.
+  /**
+   * Creates a new Euchre Deck to be played with
+   */
   private void prepareEuchreDeck() {
     List<Integer> euchreCards = new ArrayList<>();
     for(int i = 0; i < 52; i++) {
@@ -56,7 +66,9 @@ public class EuchreDealer {
     deck.shuffle();
   }
   
-  // Determine the first dealer for the game.
+  /**
+   * Determines the first dealer for the game
+   */
   private void determineDealer() {
     Random rand = new Random();
     int startDetermine = rand.nextInt(MIN_MAX_PLAYERS);
@@ -95,6 +107,11 @@ public class EuchreDealer {
 //*******************************************************************************
   }
   
+  /**
+   * Changes dealer to the next person at the table
+   * @param dealer integer to determine who the dealer is
+   * @return int
+   */
   private int changeDealer(int dealer) {
     // Increment the dealer to the next player at the table.
     dealer++;
@@ -104,6 +121,10 @@ public class EuchreDealer {
     return dealer;
   }
   
+  /**
+   * Starts a new hand for Euchre
+   * @param newGame
+   */
   public void startNewHand(boolean newGame) {
     // Only change dealer if this is the beginning
     // of a new game.
@@ -118,11 +139,21 @@ public class EuchreDealer {
     dealHands(players.get(currentDealer).getDealSequence());
   }
   
+  /**
+   * Handles adding a new player to the table
+   * @param id int to hold the number of the person on the table
+   * @param seat int to hold the seat number that person is at
+   * @param dealSequence String that holds how cards are dealt
+   */
   public void addPlayer(int id, int seat, String dealSequence) {
     players.add(new Player(id, seat, dealSequence));
     Collections.sort(players);
   }
   
+  /**
+   * Handles a player leaving the table
+   * @param id int holding the player number of the person leaving the table
+   */
   public void removePlayer(int id) {
     for(Player player : players) {
       if(player.getUserId() == id) {
@@ -133,6 +164,10 @@ public class EuchreDealer {
     throw new IllegalArgumentException(String.format("Player with id %d not found on table", id));
   }
   
+  /**
+   * Deals the hands out to each person at the table
+   * @param dealSequence String holding how cards are dealt
+   */
   private void dealHands(String dealSequence) {
     if(players.size() == 4){    // Make sure there are 4 players.
       playersTurn = changeDealer(currentDealer);
@@ -152,6 +187,11 @@ public class EuchreDealer {
     }
   }
   
+  /**
+   * Converts the sequence into integer values to be reversed
+   * @param sequence String containing how cards were dealt
+   * @return int[]
+   */
   private int[] convertSequence(String sequence) {
     // Convert the string sequence into integer numbers.
     int[] deal = new int[4];
@@ -163,6 +203,11 @@ public class EuchreDealer {
     return deal;
   }
   
+  /**
+   * Reverses the way cards aer dealt to players
+   * @param sequence String holding how cards were originally dealt
+   * @return String
+   */
   private String reverseSequence(String sequence) {
     // Reverse the card deal sequence.
     // Replace all 2's with 3's amd 3's with 2's
@@ -172,6 +217,13 @@ public class EuchreDealer {
     return sequence;
   }
   
+  /**
+   * Deals cards out to players
+   * @param p1 int value of player 1
+   * @param p2 int value of player 2
+   * @param p3 int value of player 3
+   * @param p4 int value of player 4
+   */
   private void dealTheCards(int p1, int p2, int p3, int p4) {
     // Use the values passed in and deal that number of cards to
     // the correct players on the table.
@@ -188,12 +240,18 @@ public class EuchreDealer {
     playersTurn = changeDealer(playersTurn);
   }
   
+  /**
+   * Shows the face up card after hands are dealt
+   */
   private void displayCardUp() {
     System.out.println(deck.getTopCard());
     possibleTrump = deck.getTopCard().charAt(1);
     System.out.println("Possible Trump: " + possibleTrump);
   }
   
+  /**
+   * Handles user passing on their turn to determine trump suit
+   */
   public void passOnCallingTrump() {
     if(playersTurn == currentDealer) {
       if (cardUp == true) {
@@ -208,6 +266,10 @@ public class EuchreDealer {
     playersTurn = changeDealer(playersTurn);
   }
   
+  /**
+   * Handles player deciding what suit is trump
+   * @param trump
+   */
   public void callTrump(char trump) {
     // Set trump and start the hand
     if (cardUp) {
@@ -219,6 +281,10 @@ public class EuchreDealer {
     startHand();
   }
   
+  /**
+   * Handles replacing faceup card if the faceup card is picked up with another card from their hand
+   * @param card
+   */
   public void getCardToReplace(int card) {
     // If the "top card" is called as trump,
     // have the dealer replace a card from his hand
@@ -240,15 +306,26 @@ public class EuchreDealer {
   }
   
 //*******************************************************************************  
-  
+  /**
+   * Getter to return trump suit
+   * @return char
+   */
   public char getTrump() {
     return trump;
   }
   
+  /**
+   * Getter to return current dealer
+   * @return int
+   */
   public int getCurrentDealer() {
     return currentDealer;
   }
   
+  /**
+   * Getter to return current player
+   * @return int
+   */
   public int getCurrentPlayer() {
     return playersTurn;
   }

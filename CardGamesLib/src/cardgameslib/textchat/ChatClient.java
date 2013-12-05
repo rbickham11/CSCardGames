@@ -3,7 +3,11 @@ package cardgameslib.textchat;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-
+/**
+ * This class handles the client side of the text chatting
+ * @author Andrew Haegar
+ *
+ */
 public class ChatClient {
 	private BufferedReader input;
 	private PrintWriter output;
@@ -20,6 +24,12 @@ public class ChatClient {
 	// message will be as follows - "clientName: message"
 
 	// Constructor to start up the client.
+	/**
+	 * Constructor of ChatClient
+	 * @param host String holding name of host
+	 * @param port int holding port number
+	 * @param clientName String holding name of client
+	 */
 	public ChatClient(String host, int port, String clientName) {
 		try {
 			socket = new Socket(host, port);
@@ -61,19 +71,32 @@ public class ChatClient {
 		}
 	}
 
-	// Send the message to the server.
+	/**
+	 * Function to send the message to the server
+	 * @param message
+	 */
 	public void sendMessage(String message) {
 		output.println(clientName + ": " + message);
 	}
 
-	// Close the client by ending the loop.
+	/**
+	 * Function to close the client by ending loop
+	 */
 	public void closeClient() {
 		keepOpen = false;
 	}
 
 	// Gather any messages sent from the server.
 	// Add code under input.readLine() to append message to the chat box.
+	/**
+	 * Class to gather any messages from the server
+	 * @author Andrew Haegar
+	 *
+	 */
 	class ServerListener extends Thread {
+		/**
+		 * Function to run the server listener
+		 */
 		public void run() {
 			while (true) {
 				try {

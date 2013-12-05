@@ -2,7 +2,11 @@ package cardgameslib.games.poker.holdem;
 
 import cardgameslib.utilities.BettingPlayer;
 import java.util.*;
-
+/**
+ * Class is used to determine the winner of the Texas Hold'em poker game
+ * @author Ryan Bickham
+ *
+ */
 public class HoldemWinChecker {
     private final List<String> ranks = Arrays.asList("High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush");
     
@@ -16,10 +20,18 @@ public class HoldemWinChecker {
     private int winningRank;
     private BitSet dontCheck;
     
+    /**
+     * Constructor for HoldemWinChecker
+     */
     public HoldemWinChecker() {
         thisHand = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
     }
     
+    /**
+     * Function to determine the Wining hand
+     * @param activePlayers List of BettingPlayer that holds the players still in the round
+     * @param inBoard List of Integer to hold cards on board
+     */
     public void findWinningHand(List<BettingPlayer> activePlayers, List<Integer> inBoard) {
         players = activePlayers;
         board = inBoard;
@@ -96,13 +108,25 @@ public class HoldemWinChecker {
         }           
     }
     
+    /**
+     * Getter to return the winning player(s)
+     * @return List<BettingPlayer>
+     */
     public List<BettingPlayer> getWinningPlayers() {
         return winningPlayers;
     }
     
+    /**
+     * Getter to return the type of hand that won, ex: flush or straight
+     * @return String
+     */
     public String getWinningRank() {
         return ranks.get(winningRank);
     }
+    
+    /**
+     * Function that eliminates hands that are not possible
+     */
     private void eliminateHands() {
         int i;
         boolean draw = false;
@@ -158,6 +182,11 @@ public class HoldemWinChecker {
         }
     }
     
+    /**
+     * Function to check the rank of the hand
+     * @param rank int holding the rank of the hand
+     * @return boolean
+     */
     private boolean rankCheck(int rank) {
         int i, j, k, temp;
         List<Integer> tempHand;
@@ -249,6 +278,12 @@ public class HoldemWinChecker {
         return false;
     }
     
+    /**
+     * Function to list what five card hands are possible with the cards
+     * @param rankWinners List of Integer values to hold the winning hands
+     * @param rank int holding the rank of the hand
+     * @return List<Integer>
+     */
     private List<Integer> getFiveCardHands(List<Integer> rankWinners, int rank) {
         int i, j, k;
         List<Integer> fiveCardHands = new ArrayList<>();
@@ -388,6 +423,12 @@ public class HoldemWinChecker {
         }
         return fiveCardHands;
     }
+    
+    /**
+     * Function to determine whether the hand is a straight
+     * @param hand List of integer values representing cards in hand
+     * @return boolean
+     */
     private boolean isStraight(List<Integer> hand) {
         List<Integer> distinctHand = new ArrayList(new HashSet(hand));
         
@@ -403,6 +444,11 @@ public class HoldemWinChecker {
         return false;
     }
     
+    /**
+     * Function to determine whether the hand is a flush
+     * @param hand List of integer values representing cards in hand
+     * @return boolean
+     */
     private boolean isFlush(List<Integer> hand) {
         hand = getSuitList(hand);
         Collections.sort(hand);
@@ -415,14 +461,29 @@ public class HoldemWinChecker {
         return false;
     }
     
+    /**
+     * Getter to get the integer value assigned to a card
+     * @param card int holding which card is being checked
+     * @return int
+     */
     private int getCardValue(int card) {
         return card % 13;
     }
     
+    /**
+     * Getter to return the suit of the card
+     * @param card int holding which card is beign checked
+     * @return int
+     */
     private int getSuit(int card) {
         return card / 13;
     }
     
+    /**
+     * Getter to return the list of cards by their integer value
+     * @param cards List of integer of cards being checked
+     * @return List<Integer>
+     */
     private List<Integer> getValueList(List<Integer> cards) {
         List<Integer> valueList = new ArrayList<>();
         for(int c : cards) {
@@ -431,6 +492,11 @@ public class HoldemWinChecker {
         return valueList;
     }
     
+    /**
+     * Getter to return what suit the cards are
+     * @param cards List of integer of card being checked
+     * @return List<Integer>
+     */
     private List<Integer> getSuitList(List<Integer> cards) {
         List<Integer> suitList = new ArrayList<>();
         for(int c : cards) {

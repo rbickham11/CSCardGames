@@ -2,6 +2,11 @@ package cardgameslib.utilities;
 
 import java.util.*;
 
+/**
+ * Class to hold info about a card deck
+ * @author Ryan Bickham
+ *
+ */
 public class Deck {
     private static final List<Character> cardValues = Arrays.asList('2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A');
     private static final List<Character> suitValues = Arrays.asList('D', 'H', 'C', 'S');
@@ -10,7 +15,9 @@ public class Deck {
     private List<Integer> dealtCards;
     private int DECK_SIZE = 52;
     
-    //For initializing the standard 52 card deck.
+    /**
+     * Constructor of Deck for a standard 52 card deck
+     */
     public Deck() {                         
         deck = new ArrayList<>();
         dealtCards = new ArrayList<>();
@@ -19,7 +26,10 @@ public class Deck {
             deck.add(i);
     }
 
-    //For initializing the deck with a custom selection of cards from the standard deck.
+    /**
+     * Constructor for deck with a custom deck
+     * @param customDeck
+     */
     public Deck(List<Integer> customDeck) {
         for(int card: customDeck) {
             if(card < 0 || card > 51) {
@@ -31,21 +41,33 @@ public class Deck {
         DECK_SIZE = deck.size();
     }
     
-    //Adds another set of the standard 52 cards to the current deck (for using multiple decks).
+    /**
+     * Adds another set of a standard 52 card deck to the current deck for games using multiple decks
+     */
     public void addDeck() {
         for(int i = 0; i < DECK_SIZE; i++)
             deck.add(i);
     }
     
+    /**
+     * Function that prints out all cards in the deck
+     */
     public void print() {
         for(int card: deck)
             System.out.println(cardToString(card));
     }
     
+    /**
+     * Getter to obtain top card in the deck
+     * @return String
+     */
     public String getTopCard() {
       return cardToString(deck.get(0));
     }
     
+    /**
+     * Function to shuffle the deck
+     */
     public void shuffle() {
         Random random = new Random();
         int i, j, temp;
@@ -58,6 +80,9 @@ public class Deck {
         }
     }
     
+    /**
+     * Function that collects cards from game back to the deck
+     */
     public void collectCards() {
       // Add the dealt cards back to the deck.
       for (int i = 0; i < dealtCards.size(); i++) {
@@ -66,6 +91,10 @@ public class Deck {
       dealtCards = new ArrayList<>();   // Re-initialize dealtCards list.
     }
     
+    /**
+     * Function to deal a single card
+     * @return int
+     */
     public int dealCard() {
         int card = deck.get(0);
         dealtCards.add(card);
@@ -73,6 +102,11 @@ public class Deck {
         return card;
     }
     
+    /**
+     * Function to handle dealing multiple cards at a time
+     * @param numCards int value holding number of cards to be dealth
+     * @return List<Integer>
+     */
     public List<Integer> dealCards(int numCards) {
         List<Integer> cards = new ArrayList<>();
         for(int i = 0; i < numCards; i++) {
@@ -83,6 +117,10 @@ public class Deck {
         return cards;
     }
     
+    /**
+     * Function to deal a specific card from the deck
+     * @param card int value holding which card is to be dealt
+     */
     public void dealSpecific(int card) {
         if(validCard(card) && inDeck(card)) {
             deck.remove(new Integer(card));
@@ -90,6 +128,11 @@ public class Deck {
         }
     }
     
+    /**
+     * Function to determine whether or not a card is valid in the current deck
+     * @param card int value of card to be checked
+     * @return boolean
+     */
     public boolean validCard(int card) {
         if(card < 0 || card > 51) {
             throw new IllegalArgumentException(String.format("%d does not match a valid card", card));
@@ -97,6 +140,11 @@ public class Deck {
         return true;
     }
     
+    /**
+     * Function to see if a card is in the deck or not
+     * @param card int value of card to checked for
+     * @return boolean
+     */
     public boolean inDeck(int card) {
         if(!deck.contains(card)) {
             throw new IllegalArgumentException(String.format("%s was already dealt or is not a member of this deck.", cardToString(card)));
@@ -104,10 +152,20 @@ public class Deck {
         return true;
     }
     
+    /**
+     * Function to get a card from a string value
+     * @param card String containing the card
+     * @return int
+     */
     public static int cardFromString(String card) {
         return 13 * suitValues.indexOf(card.charAt(1)) + cardValues.indexOf(card.charAt(0));
     }
     
+    /**
+     * Function to turn a integer value representation of a card to a String representation
+     * @param card int value holding card to be represented as a String
+     * @return String
+     */
     public static String cardToString(int card) {
         return String.format("%c%c", cardValues.get(card % 13), suitValues.get(card / 13));
     }

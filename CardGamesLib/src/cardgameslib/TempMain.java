@@ -5,6 +5,11 @@ import cardgameslib.utilities.*;
 import cardgameslib.games.poker.betting.*;
 import java.util.*;
 
+/**
+ * Main class to run the project
+ * @author Ryan Bickham
+ *
+ */
 public class TempMain {
     private HoldemDealer dealer = new HoldemDealer(20000, 200);
     
@@ -33,11 +38,14 @@ public class TempMain {
 //        }
     }
     
+    /**
+     * This function begins the poker game
+     */
     public void runPokerGame() {
         Scanner s = new Scanner(System.in);
         
         for(int i = 1; i < 7; i++) {
-            dealer.addPlayer(1000 + i, i, 13000 + 1000 * i);
+           // dealer.addPlayer(1000 + i, i, 13000 + 1000 * i);
         }
         
         System.out.println("Welcome to Ryan's awesome poker game!");
@@ -70,6 +78,10 @@ public class TempMain {
         }
         s.close();
     }
+    
+    /**
+     * This function begins a round of betting
+     */
     
     public void startBettingRound() {          
         Scanner s = new Scanner(System.in);

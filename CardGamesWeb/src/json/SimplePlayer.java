@@ -1,12 +1,17 @@
 package json;
 
 public class SimplePlayer {
-	private int id;
+	private int userId;
+	private String username;
 	private int seatNumber;
 	private int startingChips;
 	
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 	
 	public int getSeatNumber() {
@@ -18,8 +23,12 @@ public class SimplePlayer {
 		return startingChips;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int playerId) {
+		this.userId = playerId;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public void setSeatNumber(int seatNumber) {

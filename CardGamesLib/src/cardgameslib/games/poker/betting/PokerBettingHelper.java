@@ -3,6 +3,11 @@ package cardgameslib.games.poker.betting;
 import cardgameslib.utilities.BettingPlayer;
 import java.util.*;
 
+/**
+ * This class is used to assist the poker type games in handling how bets work
+ * @author Ryan Bickham
+ *
+ */
 public class PokerBettingHelper {
     private List<BettingPlayer> activePlayers;
     private BettingPlayer firstToAct;
@@ -16,6 +21,11 @@ public class PokerBettingHelper {
     private boolean preflop;
     private boolean allActed;
 
+    /**
+     * Constructor for PokerBettingHelper
+     * @param inPlayers List<BettingPlayer> to hold which players are betting
+     * @param bb int holding the size of the big blind
+     */
     public PokerBettingHelper(List<BettingPlayer> inPlayers, int bb) {
         activePlayers = inPlayers;
         bigBlind = bb;
@@ -24,22 +34,42 @@ public class PokerBettingHelper {
         allActed = false;
     }
     
+    /**
+     * Getter to return the big blind
+     * @return int
+     */
     public int getBigBlind() {
         return bigBlind;
     }
     
+    /**
+     * Getter to return the current bet
+     * @return int
+     */
     public int getCurrentBet() {
         return activeBet;
     }
     
+    /**
+     * Getter to return the size of the pot
+     * @return int
+     */
     public int getPotSize() {
         return potSize;
     }
     
+    /**
+     * Getter to return the player's chosen action
+     * @return Action
+     */
     public Action getLastAction() {
     	return lastAction;
     }
     
+    /**
+     * Starts a new round of Poker
+     * @param preFlop boolean to determine whether or not pre flop occurs
+     */
     public void startNewRound(boolean preFlop) {
         preflop = preFlop;
         
@@ -66,6 +96,11 @@ public class PokerBettingHelper {
         }
     }
     
+    /**
+     * This function handles the player's action
+     * @param action Action that holds tha player's chosen Action
+     * @param chipAmount int to hold the amount the player is betting
+     */
     public void takeAction(Action action, int chipAmount) {
         if(!allActed) {
             if(activePlayers.get(0).equals(lastToAct)) {
@@ -113,14 +148,27 @@ public class PokerBettingHelper {
         }
     }
     
+    /**
+     * Returns whether or not someone has won from other players folding
+     * @return boolean
+     */
     public boolean isWinner() {
         return activePlayers.size() == 1;
     }
+    
+    /**
+     * Awards the pot to the winning player
+     * @param player BettingPlayer that is the one who won the round
+     */
     public void awardPot(BettingPlayer player) {
         player.incrementChips(potSize);
         potSize = 0;     
     }
     
+    /**
+     * Handles player choosing to bet
+     * @param chipAmount int holding the amount the player wishes to bet
+     */
     public void bet(int chipAmount) {
         if(chipAmount < bigBlind && !preflop) {
             throw new IllegalArgumentException("Invalid bet");
@@ -132,12 +180,19 @@ public class PokerBettingHelper {
         activeBet = chipAmount;
     }
     
+    /**
+     * Handles a player calling another player's raise or bet
+     */
     public void call() {
         potSize += activeBet;
         activePlayers.get(0).decrementChips(activeBet);
         activePlayers.get(0).setCurrentBet(activeBet);
     }
     
+    /**
+     * Handles player choosing to raise
+     * @param chipAmount int amount holding the size of the raise
+     */
     public void raise(int chipAmount) {
         if(chipAmount < activeBet)
             throw new IllegalArgumentException("Invalid raise");
@@ -146,7 +201,10 @@ public class PokerBettingHelper {
         activePlayers.get(0).decrementChips(activeBet);
         activePlayers.get(0).setCurrentBet(activeBet);
     }
-    
+    /**
+     * Handles whether or not the betting is done for the round
+     * @return boolean
+     */
     public boolean bettingComplete() {
         if(isWinner()) {
             awardPot(activePlayers.get(0));
