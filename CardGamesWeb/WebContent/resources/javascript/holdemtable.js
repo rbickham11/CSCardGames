@@ -110,7 +110,6 @@ function initPlayers() {
 			setTimeout(initPlayers, 5000);
 		}
 		else if(enoughPlayers == 0 && data.length == 2) {
-			alert("starthand");
 			$.getJSON("/api/holdemtable/starthand");
 			startGameWait();
 		}
