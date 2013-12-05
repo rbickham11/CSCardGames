@@ -156,7 +156,6 @@ public class PokerBettingHelper {
         lastAction = action;
         firstActed = true;
         if(action != Action.FOLD) {
-        	System.out.println("activePlayers rotated");
             Collections.rotate(activePlayers, -1);
         }
     }
