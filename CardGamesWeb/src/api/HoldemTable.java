@@ -176,6 +176,7 @@ public class HoldemTable {
     	String name = finalName[1];
     	String userPass = finalPass[1];
     	
+    	String successful = "failure";
     	try {
     		Class.forName(driver).newInstance();
     		java.sql.Connection conn = DriverManager.getConnection(url+dbName,userName,password);
@@ -190,6 +191,7 @@ public class HoldemTable {
     			if (user.equals(name)) {  
     				System.out.println("hello");
     				if (pass.equals(userPass)) {
+    					successful = "success";
     					System.out.println("Successful login");
     					break;
     				} else {
@@ -212,6 +214,6 @@ public class HoldemTable {
         String result = "Name: " + name + " --- Pass: " + userPass;
         System.out.println(result);
 
-        return Response.status(201).entity(result).build(); 
+        return Response.ok().entity(successful).build(); 
     }
 }

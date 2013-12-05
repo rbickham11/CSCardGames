@@ -63,10 +63,11 @@ $(function() {
 });
 
 function startGame() {
-	updatePlayers();
+	initPlayers();
+	
 }
 
-function updatePlayers() {
+function initPlayers() {
 	$.getJSON("/api/holdemtable/getallplayers", function(data) {
 		$.each(data, function(key, val) {
 			$("#player" + val.seatNumber).html("<p>" + val.username + "</p>");
