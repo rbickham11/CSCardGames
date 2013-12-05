@@ -57,6 +57,7 @@ public class HoldemTable {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response startHand() {
+    	System.out.println("Start hand service function");
     	try {
     		dealer.startHand();
     	}
@@ -102,8 +103,8 @@ public class HoldemTable {
     	return board;
     }
     
-    @Path("/getaction")
-    @GET
+    @Path("/gettableinfo")
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTableInformation(ActionStatusRequest request) {
@@ -111,8 +112,10 @@ public class HoldemTable {
     	boolean playerChanged = false;
     	try{
     		long time = System.currentTimeMillis();
-    		while(System.currentTimeMillis() < time + 30000) {
-    			if(dealer.getCurrentPlayer().getSeatNumber() != request.getLastPlayer()) {
+    		while(System.currentTimeMillis() < (time + 50000)) {
+    			System.out.println("Looping");
+    			if((dealer.getCurrentPlayer().getSeatNumber() != request.getLastPlayer()) ||	!dealer.getFirstActed()) {
+        			System.out.println("If true");
     				playerChanged = true;
     				response.setActivePlayers(dealer.getActivePlayers());
     				response.setBettingComplete(dealer.bettingComplete());
@@ -120,6 +123,7 @@ public class HoldemTable {
     				response.setCurrentPlayer(dealer.getCurrentPlayer().getSeatNumber());
     				response.setLastAction(dealer.getLastAction().toString());
     				if(request.getMySeatNumber() == response.getCurrentPlayer()) {
+    					System.out.println("Current player");
     					response.setPlayerActive(true);
     				}
     				else {
@@ -142,17 +146,14 @@ public class HoldemTable {
     @Path("/takebettingaction")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response takeBettingAction(ActionRequest action) {
     	try {
     		dealer.takeAction(Action.valueOf(action.getAction()), action.getChipAmount());
     	}
     	catch(Exception ex) {
-    		return Response.serverError().entity(ex.getMessage()).build();
+    		return Response.serverError().entity(ex.getStackTrace()).build();
     	}
-    	ActionResponse response = new ActionResponse();
-    	response.setBettingComplete(dealer.bettingComplete());
-    	return Response.ok(response, MediaType.APPLICATION_JSON).build();
+    	return Response.ok().build();
     }
     
     @POST

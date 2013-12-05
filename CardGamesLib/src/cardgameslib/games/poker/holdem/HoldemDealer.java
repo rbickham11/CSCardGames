@@ -77,6 +77,9 @@ public class HoldemDealer {
     	return bettingHelper.getLastAction();
     }
     
+    public boolean getFirstActed() {
+    	return bettingHelper.getFirstActed();
+    }
     /**
      * Function to handle adding a new player to the table
      * @param id int to hold player number

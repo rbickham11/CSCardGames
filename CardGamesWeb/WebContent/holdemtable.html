@@ -223,7 +223,7 @@
         </div>
 
         <div class="col-sm-3 user">
-          <a href="#"><h2 style="margin-bottom: 15px;padding: 0;font-size:27px;" class="text-center">Ryan Bickham</h2></a>
+          <a href="#"><h2 style="margin-bottom: 15px;padding: 0;font-size:27px;" class="text-center" id="bottomName"></h2></a>
             <div class="col-sm-6">
               <p id='userButtons'>  
                 <button type="button" class="btn btn-primary">User Profile</button>
@@ -238,19 +238,19 @@
         <div class="col-sm-3">
           <h2 style="margin-bottom: 15px;padding: 0;font-size:27px;" class="text-center">Place Your Bets</h2>
           <p id='userButtons'>              
-                <button type="button" class="btn btn-lg btn-primary">Call</button>
-                <button type="button" class="btn btn-lg btn-primary">Fold</button>
-                <button type="button" class="btn btn-lg btn-primary">Stand Up</button>
+                <button type="button" class="btn btn-lg btn-primary" id="checkcallbtn">Call</button>
+                <button type="button" class="btn btn-lg btn-primary" id="foldbtn">Fold</button>
+                <button type="button" class="btn btn-lg btn-primary" id="betraisebtn">Raise</button>
+                <button type="button" class="btn btn-lg btn-primary" id="standupbtn">Stand Up</button>
               </p> 
         	<div class="well">
-            <h3>Raise: </h3><div class="slider slider-horizontal" style="width: 100%;"></div>
+            <h3>Bet/Raise Amount: </h3><input type="text" id="betraiseamt">
           </div>
         </div>
 
         <div class="col-sm-3">
         	<h2 style="margin-bottom: 15px;padding: 0;font-size:27px;">Your Hand</h2>
-              <img src = "resources/images/cards/3.png" /> 
-              <img src = "resources/images/cards/3.png" /> 	
+ 			<div id = "yourhand"></div>
         </div>
 
       </div>
@@ -278,8 +278,5 @@
     <script src="resources/javascript/modern-business.js"></script>
     <script src="resources/javascript/bootstrap-slider.js"></script>
 	<script src="resources/javascript/holdemtable.js"></script>
-    <script> 
-      $('.slider').slider()
-    </script>
   </body>
 </html>
