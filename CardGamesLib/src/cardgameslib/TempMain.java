@@ -45,7 +45,7 @@ public class TempMain {
         Scanner s = new Scanner(System.in);
         
         for(int i = 1; i < 7; i++) {
-           // dealer.addPlayer(1000 + i, i, 13000 + 1000 * i);
+           dealer.addPlayer(1000 + i, "username", i, 13000 + 1000 * i);
         }
         
         System.out.println("Welcome to Ryan's awesome poker game!");
