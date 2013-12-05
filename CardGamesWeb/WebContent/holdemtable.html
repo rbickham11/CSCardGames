@@ -137,7 +137,6 @@
 
       </div>
 
-      <div class="row">
 	  <div id="remotes" style="float:left;display:block;"></div>
         <div class="col-md-10 game">
           <div class="row">
@@ -145,31 +144,31 @@
               Player 1
             </div>
             <div class="col-lg-1 info" >
-            	Name: <br />
-            	Chips<br />
+            	<span id = "#player1Name">Name: </span><br />
+            	Chips: <br />
             </div>
             <div class="col-lg-1"> </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board1">
+              <img src = "resources/images/cards/3.png" />
             </div> 
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board2">
+              <img src = "resources/images/cards/3.png" />
             </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board3">
+              <img src = "resources/images/cards/3.png" />
             </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board4">
+              <img src = "resources/images/cards/3.png" />
             </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board5">
+              <img src = "resources/images/cards/3.png" />
             </div>            
             <div class="col-lg-1 player pull-right" id="player9">
               Player 9
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div>
           </div>
           <div class="row">
@@ -178,14 +177,14 @@
             </div>
             <div class="col-lg-1 info" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div>                       
             <div class="col-lg-1 player pull-right" id="player8">
               <p>Player 8</p>
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
           </div>
           <div class="row">
@@ -194,14 +193,14 @@
             </div>
             <div class="col-lg-1 info" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
             <div class="col-lg-1 player pull-right" id="player7">
               <p>Player 7</p>
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
           </div><div class="row">
             <div class="col-lg-1 player" id="player4">
@@ -209,7 +208,7 @@
             </div>
             <div class="col-lg-1 info" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
             <div class="col-lg-1 player" id="player5">
               <p>Player 5</p>
@@ -219,22 +218,11 @@
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
           </div>
 
         </div>
-
-        <div class="col-md-2 gameDetails">          
-          <h3>Game Details</h3>
-          <ul>
-            <li>Player 1 won hand</li>
-            <li>Player 3 raised $50</li>
-            <li>Player 2 calls</li>
-            <li>Player 2 wins</li>
-          </ul>
-        </div>
-
       </div>
 
       <div class="row">
@@ -271,12 +259,9 @@
         </div>
 
         <div class="col-sm-3">
-        	<div class="col-lg-1 playerCards">
-              <p class="text-center">Card</p>
-            </div> 
-            <div class="col-lg-1 playerCards">
-              <p class="text-center">Card</p>
-            </div> 
+        	<h2 style="margin-bottom: 15px;padding: 0;font-size:27px;">Your Hand</h2>
+              <img src = "resources/images/cards/3.png" /> 
+              <img src = "resources/images/cards/3.png" /> 	
         </div>
 
       </div>

@@ -18,14 +18,14 @@ $.fn.serializeObject = function()
 var myId, myUsername, mySeatNumber, myChips;
 
 $(function() {
-	$('#modal').modal({
+	/*$('#modal').modal({
 		  backdrop: 'static',
 		  keyboard: false
 	});
 	
 	$(window).load(function() {
 		$('#modal').modal('show');
-	});
+	});*/
 	
 	$('#modal-close').click(function() {
 		window.location = "/tables.html";

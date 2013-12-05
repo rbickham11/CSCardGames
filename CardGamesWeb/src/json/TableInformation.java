@@ -23,10 +23,10 @@ public class TableInformation {
 	public void setPlayerActive(boolean playerActive) {
 		this.playerActive = playerActive;
 	}
-	public int getLastPlayer() {
+	public int getCurrentPlayer() {
 		return lastPlayer;
 	}
-	public void setLastPlayer(int lastPlayer) {
+	public void setCurrentPlayer(int lastPlayer) {
 		this.lastPlayer = lastPlayer;
 	}
 	public String getLastAction() {

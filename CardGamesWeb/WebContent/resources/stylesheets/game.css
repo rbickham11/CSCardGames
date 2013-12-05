@@ -200,9 +200,7 @@ body {
 }
 
 .dealtCards {
-  border: 1px solid black;  
   display: block;
-  padding: 40px 10px;
   margin: 15px 10px;
 }
 

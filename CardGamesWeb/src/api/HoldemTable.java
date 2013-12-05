@@ -106,7 +106,7 @@ public class HoldemTable {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getActionStatus(ActionStatusRequest request) {
+    public Response getTableInformation(ActionStatusRequest request) {
     	TableInformation response = new TableInformation();
     	boolean playerChanged = false;
     	try{
@@ -114,11 +114,12 @@ public class HoldemTable {
     		while(System.currentTimeMillis() < time + 30000) {
     			if(dealer.getCurrentPlayer().getSeatNumber() != request.getLastPlayer()) {
     				playerChanged = true;
+    				response.setActivePlayers(dealer.getActivePlayers());
+    				response.setBettingComplete(dealer.bettingComplete());
+    				response.setCurrentBet(dealer.getCurrentBet());
+    				response.setCurrentPlayer(dealer.getCurrentPlayer().getSeatNumber());
     				response.setLastAction(dealer.getLastAction().toString());
-    				response.setLastBet(dealer.getCurrentBet());
-    				List<BettingPlayer> activePlayers = dealer.getActivePlayers();
-    				response.setLastPlayer(activePlayers.get(activePlayers.size() -1).getSeatNumber());
-    				if(request.getMySeatNumber() == dealer.getCurrentPlayer().getSeatNumber()) {
+    				if(request.getMySeatNumber() == response.getCurrentPlayer()) {
     					response.setPlayerActive(true);
     				}
     				else {
@@ -133,7 +134,7 @@ public class HoldemTable {
     		return Response.serverError().entity(ex.getMessage()).build();
     	}
     	if(!playerChanged) {
-    		response.setLastPlayer(request.getLastPlayer());
+    		response.setCurrentPlayer(request.getLastPlayer());
     	}
     	return Response.ok(response, MediaType.APPLICATION_JSON).build();
     }
