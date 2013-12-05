@@ -16,7 +16,60 @@
     <link href="resources/stylesheets/modern-business.css" rel="stylesheet">
     <link href="resources/stylesheets/game.css" rel="stylesheet">
     <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+	 #remotes video {
+                height: 154px;
+                width: 155px;
+            }
+     #localVideo {
+                height: 154px;
+                width: 155px;
+            }
+	</style>
   </head>
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+     <script src="http://simplewebrtc.com/latest.js"></script> 
+        <script>
+            // grab the room from the URL to know to join
+            var room = location.search && location.search.split('?')[1];
+
+            // create our SimpleWebRTC connection.
+            var webrtc = new SimpleWebRTC({
+                // the id for the element that holds the user's personal video
+                localVideoEl: 'localVideo',
+                // the id for the element that holds the other user's personal video
+                remoteVideosEl: 'remotes',
+                // ask for microphone and webcam access
+                autoRequestMedia: true,
+                log: true
+            });
+
+            // when it's ready, join if we got a room from the URL
+            webrtc.on('readyToCall', function () {
+                // you can name it anything
+                if (room) webrtc.joinRoom(room);
+            });
+            if (room) {
+               //do nothing if room exists since we already joined it
+            } else {
+				//this actually creates a new room if it does not exist. It is left in here since when I was testing it, it allowed me to test renaming the rooms. We can take it
+				// out if you guys want, not really needed for anything other than dynamically creating a new room.
+                $('form').submit(function () {
+                    var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
+                    webrtc.createRoom(val, function (err, name) {
+					//Here is where it creates the new room using the url, + a ? + the name you want
+                        var newUrl = location.pathname + '?' + name;
+                        if (!err) {
+						//If there is an error, replace the created room with the old one in the history
+                            history.replaceState({foo: 'bar'}, null, newUrl);
+                        }
+                    });
+					//So no room exists, just returns false. We can make this redirect to the 404 page if you'd like.
+                    return false;          
+                });
+            }
+			
+        </script>
 
   <body>
 
@@ -84,39 +137,38 @@
 
       </div>
 
-      <div class="row">
-
+	  <div id="remotes" style="float:left;display:block;"></div>
         <div class="col-md-10 game">
           <div class="row">
             <div class="col-lg-1 player" id="player1">
               Player 1
             </div>
             <div class="col-lg-1 info" >
-            	Name: <br />
-            	Chips<br />
+            	<span id = "#player1Name">Name: </span><br />
+            	Chips: <br />
             </div>
             <div class="col-lg-1"> </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board1">
+              <img src = "resources/images/cards/3.png" />
             </div> 
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board2">
+              <img src = "resources/images/cards/3.png" />
             </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board3">
+              <img src = "resources/images/cards/3.png" />
             </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board4">
+              <img src = "resources/images/cards/3.png" />
             </div>
-            <div class="col-lg-1 dealtCards">
-              Card
+            <div class="col-lg-1 dealtCards" id="board5">
+              <img src = "resources/images/cards/3.png" />
             </div>            
             <div class="col-lg-1 player pull-right" id="player9">
               Player 9
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div>
           </div>
           <div class="row">
@@ -125,14 +177,14 @@
             </div>
             <div class="col-lg-1 info" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div>                       
             <div class="col-lg-1 player pull-right" id="player8">
               <p>Player 8</p>
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
           </div>
           <div class="row">
@@ -141,14 +193,14 @@
             </div>
             <div class="col-lg-1 info" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
             <div class="col-lg-1 player pull-right" id="player7">
               <p>Player 7</p>
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
           </div><div class="row">
             <div class="col-lg-1 player" id="player4">
@@ -156,7 +208,7 @@
             </div>
             <div class="col-lg-1 info" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
             <div class="col-lg-1 player" id="player5">
               <p>Player 5</p>
@@ -166,22 +218,11 @@
             </div>
             <div class="col-lg-1 info pull-right" >
             	Name: <br />
-            	Chips<br />
+            	Chips: <br />
             </div> 
           </div>
 
         </div>
-
-        <div class="col-md-2 gameDetails">          
-          <h3>Game Details</h3>
-          <ul>
-            <li>Player 1 won hand</li>
-            <li>Player 3 raised $50</li>
-            <li>Player 2 calls</li>
-            <li>Player 2 wins</li>
-          </ul>
-        </div>
-
       </div>
 
       <div class="row">
@@ -201,7 +242,7 @@
               </p>
             </div>
             <div class="col-sm-6">
-              <img src="resources/images/bickham.jpg" alt="" class="img-polaroid">
+              <video id="localVideo" style="display:inline; margin-right:40px"></video>
             </div> 
         </div>
 
@@ -218,12 +259,9 @@
         </div>
 
         <div class="col-sm-3">
-        	<div class="col-lg-1 playerCards">
-              <p class="text-center">Card</p>
-            </div> 
-            <div class="col-lg-1 playerCards">
-              <p class="text-center">Card</p>
-            </div> 
+        	<h2 style="margin-bottom: 15px;padding: 0;font-size:27px;">Your Hand</h2>
+              <img src = "resources/images/cards/3.png" /> 
+              <img src = "resources/images/cards/3.png" /> 	
         </div>
 
       </div>
