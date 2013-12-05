@@ -193,9 +193,9 @@ body {
 }
 
 .player {
-  border: 1px solid black;  
   display: block;
-  padding: 30px;
+  height: 100px;
+  white-space: nowrap;
   margin: 15px 10px;
 }
 
@@ -217,4 +217,8 @@ body {
   display: block;
   padding: 100px 65px;
   margin: 15px 10px;
+}
+
+.smallCard {
+	width: 60%;
 }
