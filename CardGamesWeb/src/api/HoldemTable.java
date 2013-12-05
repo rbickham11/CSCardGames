@@ -107,13 +107,13 @@ public class HoldemTable {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getActionStatus(ActionStatusRequest request) {
-    	ActionStatusResponse response = new ActionStatusResponse();
-    	boolean changed = false;
+    	TableInformation response = new TableInformation();
+    	boolean playerChanged = false;
     	try{
     		long time = System.currentTimeMillis();
     		while(System.currentTimeMillis() < time + 30000) {
     			if(dealer.getCurrentPlayer().getSeatNumber() != request.getLastPlayer()) {
-    				changed = true;
+    				playerChanged = true;
     				response.setLastAction(dealer.getLastAction().toString());
     				response.setLastBet(dealer.getCurrentBet());
     				List<BettingPlayer> activePlayers = dealer.getActivePlayers();
@@ -132,7 +132,7 @@ public class HoldemTable {
     	catch(Exception ex) {
     		return Response.serverError().entity(ex.getMessage()).build();
     	}
-    	if(!changed) {
+    	if(!playerChanged) {
     		response.setLastPlayer(request.getLastPlayer());
     	}
     	return Response.ok(response, MediaType.APPLICATION_JSON).build();
