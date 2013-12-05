@@ -35,42 +35,32 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="index.html">Home</a></li>
             <li><a href="tables.html">Tables</a></li>
-            <li><a href="login.html">Login</a></li>
            </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
-    </nav>
-    
-    <div id="myCarousel" class="carousel slide">
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-          <div class="item active">
-            <div class="carousel-caption">
-              <h1>Card Games Project</h1>
-              <p>One destination - Multiple ways to play</p>
-            </div>
-          </div>
-        </div>
-    </div>
+    </nav>   
 
     <div class="section">
 
-      <div class="container">
+      <div class="container well">
 
-        <div class="row">
-          <div class="col-lg-4 col-md-4">
-            <h3><i class="icon-group"></i> Start Playing Now</h3>
-            <p>Choose from many different card games, join a table, and start playing with people just like you across the globe.</p>
-          </div>
-          <div class="col-lg-4 col-md-4">
-            <h3><i class="icon-facetime-video"></i> Real-time FaceCam of Players</h3>
-            <p>FaceCams are used to give players a a brand new depth in online card playing. Don't forget to bring your best poker face!</p>
-          </div>
-          <div class="col-lg-4 col-md-4">
-            <h3><i class="icon-comments-alt"></i> Chat with Other Players</h3>
-            <p>Brag, heckle, or just chat with other players at your table. Interaction makes for a more enjoyable gaming experience.</p>
-          </div>
-        </div><!-- /.row -->
+		<h3 class="text-center">Register</h3>
+
+        <form action="/api/holdemtable/register" id="registerForm" method="POST">
+	        <div class="form-group">
+		    	<label for="name">Username</label>
+		    	<input id="name" type="text" name="userName" class="form-control" placeholder="Enter username">
+		    </div>
+		    
+		    <div class="form-group">
+		    	<label for="name">Password</label>
+		    	<input type="password" class="form-control" id="password" placeholder="Password" name="password">
+		    </div>
+	        
+	       
+	        <input type="submit" value="Register" class="btn btn-primary">	
+	        <input type="button" value="Back to Login Page" id="backLogin" class="btn btn-primary" onclick="location.href='/login.html';">        
+	    </form>
 
       </div><!-- /.container -->
 
@@ -98,7 +88,36 @@
     <script src="resources/javascript/modern-business.js"></script>
 
     <script>
-        $(".item").backstretch("resources/images/poker.jpg");
+	$('#registerForm').on('submit', function(e) {
+        
+        e.preventDefault();
+         var data = {
+                        name: $("#name").val(), 
+                        password: $("#password").val()
+                     };
+
+        $.ajax({
+          
+          type: "POST",          
+          url: "/api/holdemtable/register",
+          headers: { 
+              'Accept': 'application/json',
+              'Content-Type': 'application/json' 
+          },
+          data: data,
+          success: function(data) {
+            if(data == "success") {
+            	$(".well").append("<pre class='text-center' id='successLogin'>Successfully Registered</pre>");
+            	//window.location = "/index.html";
+            }
+            else {
+            	alert("Invalid Credentials");
+            }
+          },
+          dataType: "text"
+        });
+
+    });
     </script>
   </body>
 </html>

@@ -216,4 +216,54 @@ public class HoldemTable {
 
         return Response.ok().entity(successful).build(); 
     }
+    
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response register(String data) { 
+    	
+    	String url = "jdbc:mysql://localhost:3306/";
+    	String dbName = "CardGame";
+    	String driver = "com.mysql.jdbc.Driver";
+    	String userName = "root";
+    	String password = "";
+    	
+    	String[] nameAndUserHolder = data.split("&");
+    	
+    	String nameHolder = nameAndUserHolder[0];
+    	String userPassHolder = nameAndUserHolder[1];
+    	
+    	String[] finalName = nameAndUserHolder[0].split("=");
+    	String[] finalPass = nameAndUserHolder[1].split("=");
+    	
+    	String name = finalName[1];
+    	String userPass = finalPass[1];
+    	
+    	String successful = "failure";
+    	try {
+    		Class.forName(driver).newInstance();
+    		java.sql.Connection conn = DriverManager.getConnection(url+dbName,userName,password);
+    		
+    		java.sql.Statement st = ((java.sql.Connection) conn).createStatement();
+    		int val = st.executeUpdate("INSERT INTO login (username, password) VALUES ('" + name + "','" + userPass + "')");
+    		
+    		if(val==1) {
+    			successful = "success";
+    			System.out.print("Successfully inserted value");
+    		}                
+    		    		
+    		conn.close();
+    		
+    	} catch (Exception ex) {
+    		ex.printStackTrace();
+    	}
+    	
+
+    	
+        String result = "Name: " + name + " --- Pass: " + userPass;
+        System.out.println(result);
+
+        return Response.ok().entity(successful).build(); 
+    }
+    
 }

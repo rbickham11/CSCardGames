@@ -44,6 +44,8 @@
 
       <div class="container well">
 
+		<h3 class="text-center">Login</h3>
+
         <form action="/api/holdemtable/login" id="loginForm" method="POST">
 	        <div class="form-group">
 		    	<label for="name">Username</label>
@@ -56,7 +58,8 @@
 		    </div>
 	        
 	       
-	        <input type="submit" value="submit" class="btn btn-primary">
+	        <input type="submit" value="Submit" class="btn btn-primary">
+	        <input type="button" value="Register" id="register" class="btn btn-primary" onclick="location.href='/register.html';">
 	    </form>
 
       </div><!-- /.container -->
@@ -104,13 +107,14 @@
           data: data,
           success: function(data) {
             if(data == "success") {
-            	window.location = "/index.html";
+            	$(".well").append("<pre class='text-center' id='successLogin'>Successful Login</pre>")
+            	//window.location = "/index.html";
             }
             else {
             	alert("Invalid login");
             }
           },
-          dataType: "json"
+          dataType: "text"
         });
 
     });

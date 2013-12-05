@@ -142,4 +142,6 @@ footer {
   height: 70%; /* increases the carousel height so it looks good on phones */
 }
 
+#successLogin {
+	margin-top: 30px;
 }
