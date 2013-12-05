@@ -1,11 +1,17 @@
 
 package api;
 
+import java.sql.*;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import java.beans.Statement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.util.*;
 
+import com.sun.corba.se.pept.transport.Connection;
 import com.sun.jersey.spi.resource.Singleton;
 
 import cardgameslib.games.poker.betting.Action;
@@ -146,5 +152,66 @@ public class HoldemTable {
     	ActionResponse response = new ActionResponse();
     	response.setBettingComplete(dealer.bettingComplete());
     	return Response.ok(response, MediaType.APPLICATION_JSON).build();
+    }
+    
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response login(String data) { 
+    	
+    	String url = "jdbc:mysql://localhost:3306/";
+    	String dbName = "CardGame";
+    	String driver = "com.mysql.jdbc.Driver";
+    	String userName = "root";
+    	String password = "";
+    	
+    	String[] nameAndUserHolder = data.split("&");
+    	
+    	String nameHolder = nameAndUserHolder[0];
+    	String userPassHolder = nameAndUserHolder[1];
+    	
+    	String[] finalName = nameAndUserHolder[0].split("=");
+    	String[] finalPass = nameAndUserHolder[1].split("=");
+    	
+    	String name = finalName[1];
+    	String userPass = finalPass[1];
+    	
+    	try {
+    		Class.forName(driver).newInstance();
+    		java.sql.Connection conn = DriverManager.getConnection(url+dbName,userName,password);
+    		
+    		java.sql.Statement st = ((java.sql.Connection) conn).createStatement();
+    		ResultSet res = st.executeQuery("SELECT * FROM login");
+    		
+    		while(res.next()) {
+    			String user = res.getString("username");
+    			String pass = res.getString("password");    		
+    			
+    			if (user.equals(name)) {  
+    				System.out.println("hello");
+    				if (pass.equals(userPass)) {
+    					System.out.println("Successful login");
+    					break;
+    				} else {
+    					System.out.println("Unsuccessful");
+    					break;
+    				}
+    			}
+    			
+    			System.out.println(user + "\t" + pass);
+    		}
+    		    		
+    		conn.close();
+    		
+    	} catch (Exception ex) {
+    		ex.printStackTrace();
+    	}
+    	
+
+    	
+        String result = "Name: " + name + " --- Pass: " + userPass;
+        System.out.println(result);
+
+        return Response.status(201).entity(result).build(); 
     }
 }
