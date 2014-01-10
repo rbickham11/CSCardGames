@@ -3,67 +3,62 @@ package cardgameslib.games.poker.holdem;
 import cardgameslib.utilities.BettingPlayer;
 import java.util.*;
 /**
- * Class is used to determine the winner of the Texas Hold'em poker game
+ * Class is used to determine the winner of a Texas hold 'em hand
  * @author Ryan Bickham
  *
  */
 public class HoldemWinChecker {
-    private final List<String> ranks = Arrays.asList("High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush");
-    
+    public static final List<String> ranks = Arrays.asList("High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush");
+   
+    private List<Integer> board;
     private List<BettingPlayer> players;
     private List<BettingPlayer> winningPlayers;
-    
-    private List<Integer> hands;
-    private List<Integer> board;
-    private List<Integer> thisHand;
-    private List<Integer> handValues;
     private int winningRank;
-    private BitSet dontCheck;
-    
-    /**
-     * Constructor for HoldemWinChecker
-     */
-    public HoldemWinChecker() {
-        thisHand = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
+   
+    public List<BettingPlayer> getWinningPlayers() {
+        return winningPlayers;
     }
     
+    public int getWinningRank() {
+        return winningRank;
+    }
     /**
-     * Function to determine the Wining hand
-     * @param activePlayers List of BettingPlayer that holds the players still in the round
-     * @param inBoard List of Integer to hold cards on board
+     * Determines the winning hand
+     * @param activePlayers List of BettingPlayer that holds the players (and their hands) still in the round
+     * @param inBoard The cards on the board
      */
     public void findWinningHand(List<BettingPlayer> activePlayers, List<Integer> inBoard) {
         players = activePlayers;
-        board = inBoard;
-        hands = new ArrayList<>();
+        board = new ArrayList<>(inBoard);
         winningPlayers = new ArrayList<>();
-        
-        for(BettingPlayer player : players) {
-            hands.addAll(player.getHand());
-        }
         
         int i, j, k;
         boolean handFound = false;
         List<Integer> rankWinners = new ArrayList<>();
+        List<Integer> hands = new ArrayList<>();
         List<Integer> fiveCardHands;
+        List<Integer> thisHand = Arrays.asList(-1, -1, -1, -1, -1, -1, -1);
+
+                
+        for(BettingPlayer player : players) {
+            hands.addAll(player.getHand());
+        }
         
-        dontCheck = new BitSet(ranks.size());
-     
-        eliminateHands();
+        BitSet dontCheck = eliminateHands();    
         
+        //Assigning board values to first 5 positions of hand being checked
         for(i = 0; i < 5; i++) {
             thisHand.set(i, board.get(i));
         }
         
+        //For each rank, from high to low, until a matching hand is found.
         for(i = 8; handFound == false; i--) {
             if(!dontCheck.get(i)) {
                 for(j = 0; j < hands.size(); j += 2) {
                     thisHand.set(5, hands.get(j));
                     thisHand.set(6, hands.get(j + 1));
                     
-                    handValues = getValueList(thisHand);
-                    Collections.sort(handValues);
-                    if(rankCheck(i)) {
+                    if(rankCheck(thisHand, i)) {
                         handFound = true;
                         rankWinners.add(thisHand.get(5));
                         rankWinners.add(thisHand.get(6));
@@ -81,14 +76,23 @@ public class HoldemWinChecker {
             possibleWinner.set(0, fiveCardHands.size() / 5);
             int possibleCount = fiveCardHands.size() / 5;
             
+            //For each card position (highest ranking card to lowest)
             for(i = 4; i >= 0; i--) {
+                //If there's only one hand left (best hand found)
                 if(possibleCount == 1) {
                     break;
                 }
+                
+                //For each five card hand
                 for(j = 0; j < fiveCardHands.size(); j += 5) {
+                    //If the hand hasn't been eliminated
                     if(possibleWinner.get(j / 5)) {
+                        //For each other 5 card hand
                         for(k = 0; k < fiveCardHands.size(); k += 5) {
+                            //If the hand isn't the current one we are checking
                             if (k != j) {
+                                //If the hand we're checking this one against is a possible winner and the current card
+                                //is less than the card in the same position in the hand we are checking this one against.
                                 if(possibleWinner.get(k / 5) && fiveCardHands.get(j + i) < fiveCardHands.get(k + i)) {
                                     possibleWinner.set(j / 5, false);
                                     possibleCount--;
@@ -99,7 +103,7 @@ public class HoldemWinChecker {
                     }
                 }
             }
-
+            
             for(i = 0; i < possibleWinner.size(); i++) {
                 if(possibleWinner.get(i)) {
                     winningPlayers.add(BettingPlayer.getPlayerByCard(players, rankWinners.get(i * 2)));
@@ -109,27 +113,13 @@ public class HoldemWinChecker {
     }
     
     /**
-     * Getter to return the winning player(s)
-     * @return List<BettingPlayer>
+     * Eliminate impossible hands based on board
+     * @return Returns a BitSet with ranks not to check for set to true 
      */
-    public List<BettingPlayer> getWinningPlayers() {
-        return winningPlayers;
-    }
-    
-    /**
-     * Getter to return the type of hand that won, ex: flush or straight
-     * @return String
-     */
-    public String getWinningRank() {
-        return ranks.get(winningRank);
-    }
-    
-    /**
-     * Function that eliminates hands that are not possible
-     */
-    private void eliminateHands() {
+    private BitSet eliminateHands() {
         int i;
         boolean draw = false;
+        BitSet dontCheck = new BitSet(ranks.size());
         List<Integer> boardValues = getValueList(board);
         List<Integer> boardSuits = getSuitList(board);
         List<Integer> distinctValues = new ArrayList(new HashSet(boardValues));
@@ -141,7 +131,7 @@ public class HoldemWinChecker {
                         dontCheck.set(i, true);
                     }
                 }
-                return; //Do not need to check for straight and flush
+                return dontCheck; //Do not need to check for straight and flush
             case 3:
             case 4:
                 break;
@@ -180,21 +170,25 @@ public class HoldemWinChecker {
             dontCheck.set(4, true);
             dontCheck.set(8, true);
         }
+        return dontCheck;
     }
     
     /**
-     * Function to check the rank of the hand
-     * @param rank int holding the rank of the hand
+     * Determines whether a given seven card hand (board + hole cards) is of a certain rank.
+     * @param hand The hand to check.
+     * @param rank The rank to check the hand against.
      * @return boolean
      */
-    private boolean rankCheck(int rank) {
+    private boolean rankCheck(List<Integer> hand, int rank) {
         int i, j, k, temp;
-        List<Integer> tempHand;
         boolean pairFound = false;
+        
+        List<Integer> handValues = getValueList(hand);
+        Collections.sort(handValues);
         
         switch(rank) {
             case 8: //Straight Flush
-                tempHand = new ArrayList<>(thisHand);
+                List<Integer> tempHand = new ArrayList<>(hand);
                 Collections.sort(tempHand);
                 if(isStraight(tempHand) && isStraight(getValueList(tempHand))) { //This is a straight flush becuase thisHand values are still numbered 0-51
                                                                                  //Second check eliminates overlap (Ex: Q-K-A-2-3)
@@ -231,7 +225,7 @@ public class HoldemWinChecker {
                 }
                 return false;
             case 5: //Flush
-                if(isFlush(thisHand)) {
+                if(isFlush(hand)) {
                     return true;
                 }
                 return false;
@@ -279,27 +273,28 @@ public class HoldemWinChecker {
     }
     
     /**
-     * Function to list what five card hands are possible with the cards
-     * @param rankWinners List of Integer values to hold the winning hands
-     * @param rank int holding the rank of the hand
-     * @return List<Integer>
+     * Gets the best five card hand from each seven card hand with the winning
+     * rank for final comparison.
+     * @param highestRankedHands List of all hole cards that have the winning rank
+     * @param winningRank The winning rank
+     * @return List A list of the five card hands, ordered from lowest ranking card to highest<Integer>
      */
-    private List<Integer> getFiveCardHands(List<Integer> rankWinners, int rank) {
-        int i, j, k;
+    private List<Integer> getFiveCardHands(List<Integer> highestRankedHands, int winningRank) {
+        int i, j, k, dupCard;
         List<Integer> fiveCardHands = new ArrayList<>();
         List<Integer> sevenCardHand;
         
-        for(i = 0; i < rankWinners.size(); i += 2) {
+        for(i = 0; i < highestRankedHands.size(); i += 2) {
             sevenCardHand = new ArrayList<>(board);
-            sevenCardHand.add(rankWinners.get(i));
-            sevenCardHand.add(rankWinners.get(i + 1));
+            sevenCardHand.add(highestRankedHands.get(i));
+            sevenCardHand.add(highestRankedHands.get(i + 1));
             
-            if(rank != 5 && rank != 8) {
+            if(winningRank != 5 && winningRank != 8) {
                 sevenCardHand = getValueList(sevenCardHand);
             }
             Collections.sort(sevenCardHand);
             
-            switch(rank) {
+            switch(winningRank) {
                 case 0: //High Card
                     sevenCardHand.subList(0, 2).clear();
                     fiveCardHands.addAll(sevenCardHand);
@@ -311,12 +306,12 @@ public class HoldemWinChecker {
                             break;
                         }
                     }
-                    int dupCard = sevenCardHand.get(j);
+                    dupCard = sevenCardHand.get(j);
                     sevenCardHand.subList(j, j + 2).clear();
                     sevenCardHand.add(dupCard);
                     sevenCardHand.add(dupCard);
                     
-                    if(rank == 2) {
+                    if(winningRank == 2) {
                         for(j = sevenCardHand.size() - 4; j >= 0; j--) {
                             if(sevenCardHand.get(j) == sevenCardHand.get(j + 1)) {
                                 break;
@@ -366,13 +361,16 @@ public class HoldemWinChecker {
                     }
                     break;
                 case 6: //Full House
+                    dupCard = -1;
                     for(j = 0; j < sevenCardHand.size() - 2; j++) {
                         if(sevenCardHand.get(j) == sevenCardHand.get(j + 2)) {
-                            break;
+                            if(sevenCardHand.get(j) > dupCard) {
+                                dupCard = sevenCardHand.get(j);
+                            }
                         }
                     }
-                    dupCard = sevenCardHand.get(j);
-                    sevenCardHand.subList(j, j + 3).clear();
+                    int cardLoc = sevenCardHand.indexOf(dupCard);
+                    sevenCardHand.subList(cardLoc, cardLoc + 3).clear();
                     for(k = 0; k < 3; k++) {
                         sevenCardHand.add(dupCard);
                     }

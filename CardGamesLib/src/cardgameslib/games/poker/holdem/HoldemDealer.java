@@ -6,7 +6,7 @@ import cardgameslib.games.poker.betting.*;
 
 import java.util.*;
 /**
- * This class handles Textas Hold'em style poker
+ * This class handles Texas Hold'em style poker
  * @author Ryan Bickham
  *
  */
@@ -125,7 +125,7 @@ public class HoldemDealer {
     }
     
     /**
-     * Function to handle starting a hand of Texas Hold'em
+     * Starts a new hand
      */
     public void startHand() {
     	if(players.size() < 2) {
@@ -147,7 +147,7 @@ public class HoldemDealer {
     }
     
     /**
-     * Function to handle dealing the Texas Hold'em hands
+     * Deals hands to players
      */
     public void dealHands() {
         List<Integer> cards = deck.dealCards(players.size() * 2);
@@ -167,7 +167,7 @@ public class HoldemDealer {
     }
     
     /**
-     * Function to handle dealing the flop on the board, the first three cards
+     * Deals the first three cards (the flop) to the board
      */
     public void dealFlopToBoard() {
         int card;
@@ -184,7 +184,7 @@ public class HoldemDealer {
     }
     
     /**
-     * Function to handle dealing the turn and the river to the board, the fourth and fifth cards
+     * Deals a single card to the board (for turn and river)
      */
     public void dealCardToBoard() {   //For turn and river
         deck.dealCard(); //Burn
@@ -200,7 +200,7 @@ public class HoldemDealer {
     }
     
     /**
-     * Function to handle a player taking an action.
+     * Handles a player taking an action.
      * @param action Action player is taking
      * @param chipAmount int to hold chip amount used in action
      */
@@ -255,13 +255,13 @@ public class HoldemDealer {
         winChecker.findWinningHand(activePlayers, board);
         
         List<BettingPlayer> winningPlayers = winChecker.getWinningPlayers();
-        String winningRank = winChecker.getWinningRank();
+        String winningRankString = HoldemWinChecker.ranks.get(winChecker.getWinningRank());
         String a = "";
-        if(winningRank.equals("Pair") || winningRank.equals("Straight") || winningRank.equals("Flush") || winningRank.equals("Full House") || winningRank.equals("Straight Flush")) {
+        if(winningRankString.equals("Pair") || winningRankString.equals("Straight") || winningRankString.equals("Flush") || winningRankString.equals("Full House") || winningRankString.equals("Straight Flush")) {
             a = "a ";
         }
         for(BettingPlayer player : winningPlayers) {
-            System.out.printf("\nThe winner is Player %d with %s%s", player.getSeatNumber(), a, winChecker.getWinningRank());
+            System.out.printf("\nThe winner is Player %d with %s%s", player.getSeatNumber(), a, winningRankString);
         }
     }
     

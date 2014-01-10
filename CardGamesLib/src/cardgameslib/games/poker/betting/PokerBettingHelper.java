@@ -141,6 +141,9 @@ public class PokerBettingHelper {
                 if(activePlayers.get(0).equals(firstToAct)) {
                     firstToAct = activePlayers.get(1);
                 }
+                else if(activePlayers.get(0).equals(lastToAct)) {
+                    lastToAct = activePlayers.get(activePlayers.size() - 1);
+                }
                 activePlayers.remove(0);
                 break;
             case RAISE:
