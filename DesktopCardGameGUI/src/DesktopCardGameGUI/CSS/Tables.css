@@ -1,0 +1,57 @@
+.separator *.line
+{
+  -fx-border-style: solid;
+  -fx-border-width: 1px;
+}
+
+.containBox
+{
+  -fx-background-color: #F5F5F5;
+  -fx-border-color: #E3E3E3;
+  -fx-border-radius: 4 4 4 4;
+}
+
+.gameChoice
+{
+  -fx-background-color: #FFFFFF;
+}
+
+.gameChoice:hover
+{
+  -fx-background-color: rgba(177, 117, 117, 0.5);
+  -fx-cursor: hand;
+}
+
+.tableButtonBlock
+{
+  -fx-border-color: #000000;
+  -fx-border-style: solid;
+  -fx-border-width: 3px;
+}
+
+.gameChoice:hover .tableButtonBlock
+{
+  -fx-border-color: #FFFFFF;
+  -fx-border-style: solid;
+  -fx-border-width: 3px;
+}
+
+.tableButtonSeparator
+{
+  -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+
+.gameChoice:hover .tableButtonSeparator
+{
+  -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+.gameTitle
+{
+  -fx-text-fill: rgba(0, 0, 0, 0.7);
+}
+
+.gameChoice:hover .gameTitle
+{
+  -fx-text-fill: #FFFFFF;
+}

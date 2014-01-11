@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="CardGameSystem.GUIS.HoldEmGUIController">
+  <children>
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
+      <children>
+        <Label layoutX="51.0" layoutY="0.0" prefHeight="40.0" prefWidth="168.0" text="Card Game System">
+          <font>
+            <Font name="Arial" size="16.0" />
+          </font>
+          <textFill>
+            <Color blue="0.600" green="0.600" red="0.600" fx:id="x1" />
+          </textFill>
+        </Label>
+        <Button layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="38.0" styleClass="headerButton" text="Games">
+          <font>
+            <Font name="Arial" size="14.0" fx:id="x2" />
+          </font>
+          <stylesheets>
+            <URL value="@../CSS/Main.css" />
+          </stylesheets>
+        </Button>
+        <Button font="$x2" layoutX="1042.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="39.0" styleClass="headerButton" text="Logout">
+          <stylesheets>
+            <URL value="@../CSS/Main.css" />
+          </stylesheets>
+        </Button>
+      </children>
+      <stylesheets>
+        <URL value="@../CSS/Main.css" />
+      </stylesheets>
+    </AnchorPane>
+    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="550.0" prefWidth="1260.0">
+      <children>
+        <ImageView id="Poker Table" fitHeight="550.0" fitWidth="1250.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
+          <image>
+            <Image url="@../images/Poker%20Table.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+      </children>
+    </AnchorPane>
+    <AnchorPane layoutX="0.0" layoutY="590.0" prefHeight="180.0" prefWidth="1250.0">
+      <children>
+        <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="180.0" prefWidth="395.0">
+          <children>
+            <Label alignment="CENTER" font="$x2" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Game Summary" textFill="$x1">
+              <stylesheets>
+                <URL value="@../CSS/Main.css" />
+              </stylesheets>
+            </Label>
+            <TextArea disable="true" layoutX="0.0" layoutY="22.0" prefHeight="157.0" prefWidth="395.0" wrapText="true">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </TextArea>
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="395.0" layoutY="0.0" prefHeight="179.0" prefWidth="460.0">
+          <children>
+            <Button font="$x2" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Bet">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </Button>
+            <Button font="$x2" layoutX="100.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Call">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </Button>
+            <Button font="$x2" layoutX="190.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Raise">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </Button>
+            <Button font="$x2" layoutX="280.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Check">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </Button>
+            <Button font="$x2" layoutX="370.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Fold">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </Button>
+            <Slider id="betAmount" fx:id="betAmountSlider" layoutX="10.0" layoutY="68.0" minorTickCount="1" prefWidth="350.0" showTickLabels="false" showTickMarks="false" snapToTicks="true" />
+            <Label alignment="CENTER" layoutX="14.0" layoutY="114.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?">
+              <font>
+                <Font name="Arial" size="12.0" />
+              </font>
+            </Label>
+            <Label fx:id="betAmount" alignment="CENTER_RIGHT" labelFor="$betAmountSlider" layoutX="370.0" layoutY="63.0" prefHeight="25.0" prefWidth="80.0" style="-fx-border-color: #000000;&#10;" text="" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="855.0" layoutY="0.0" prefHeight="179.0" prefWidth="395.0">
+          <children>
+            <Label alignment="CENTER" font="$x2" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Chat" textFill="$x1">
+              <stylesheets>
+                <URL value="@../CSS/Main.css" />
+              </stylesheets>
+            </Label>
+            <TextArea layoutX="0.0" layoutY="22.0" prefHeight="135.0" prefWidth="395.0" wrapText="true">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </TextArea>
+            <TextField layoutX="0.0" layoutY="157.0" prefHeight="23.0" prefWidth="319.0" promptText="Type here to chat">
+              <stylesheets>
+                <URL value="@../CSS/HoldEm.css" />
+              </stylesheets>
+            </TextField>
+            <Button defaultButton="true" layoutX="319.0" layoutY="157.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="76.0" styleClass="headerButton" text="Send">
+              <stylesheets>
+                <URL value="@../CSS/Main.css" />
+              </stylesheets>
+            </Button>
+          </children>
+        </AnchorPane>
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>
