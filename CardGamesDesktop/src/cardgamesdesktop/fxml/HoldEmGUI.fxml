@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="CardGameSystem.GUIS.HoldEmGUIController">
+<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.HoldEmGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
       <children>
@@ -27,17 +27,17 @@
             <Font name="Arial" size="14.0" fx:id="x2" />
           </font>
           <stylesheets>
-            <URL value="@../CSS/Main.css" />
+            <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
         <Button font="$x2" layoutX="1042.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="39.0" styleClass="headerButton" text="Logout">
           <stylesheets>
-            <URL value="@../CSS/Main.css" />
+            <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
       </children>
       <stylesheets>
-        <URL value="@../CSS/Main.css" />
+        <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
     <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="550.0" prefWidth="1260.0">
@@ -55,12 +55,12 @@
           <children>
             <Label alignment="CENTER" font="$x2" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Game Summary" textFill="$x1">
               <stylesheets>
-                <URL value="@../CSS/Main.css" />
+                <URL value="@../css/Main.css" />
               </stylesheets>
             </Label>
             <TextArea disable="true" layoutX="0.0" layoutY="22.0" prefHeight="157.0" prefWidth="395.0" wrapText="true">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </TextArea>
           </children>
@@ -69,27 +69,27 @@
           <children>
             <Button font="$x2" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Bet">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
             <Button font="$x2" layoutX="100.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Call">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
             <Button font="$x2" layoutX="190.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Raise">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
             <Button font="$x2" layoutX="280.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Check">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
             <Button font="$x2" layoutX="370.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Fold">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
             <Slider id="betAmount" fx:id="betAmountSlider" layoutX="10.0" layoutY="68.0" minorTickCount="1" prefWidth="350.0" showTickLabels="false" showTickMarks="false" snapToTicks="true" />
@@ -105,22 +105,22 @@
           <children>
             <Label alignment="CENTER" font="$x2" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Chat" textFill="$x1">
               <stylesheets>
-                <URL value="@../CSS/Main.css" />
+                <URL value="@../css/Main.css" />
               </stylesheets>
             </Label>
             <TextArea layoutX="0.0" layoutY="22.0" prefHeight="135.0" prefWidth="395.0" wrapText="true">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </TextArea>
             <TextField layoutX="0.0" layoutY="157.0" prefHeight="23.0" prefWidth="319.0" promptText="Type here to chat">
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </TextField>
             <Button defaultButton="true" layoutX="319.0" layoutY="157.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="76.0" styleClass="headerButton" text="Send">
               <stylesheets>
-                <URL value="@../CSS/Main.css" />
+                <URL value="@../css/Main.css" />
               </stylesheets>
             </Button>
           </children>

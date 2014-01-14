@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DesktopCardGameGUI;
+package cardgamesdesktop;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -18,19 +18,19 @@ import javafx.stage.Stage;
 public class DesktopCardGameGUI extends Application {
     
     public static String screen1ID = "main";
-    public static String screen1File = "GUIS/MainGUI.fxml";
+    public static String screen1File = "fxml/MainGUI.fxml";
     public static String screen2ID = "login";
-    public static String screen2File = "GUIS/LoginGUI.fxml";
+    public static String screen2File = "fxml/LoginGUI.fxml";
     public static String screen3ID = "tables";
-    public static String screen3File = "GUIS/TablesGUI.fxml";
+    public static String screen3File = "fxml/TablesGUI.fxml";
     public static String screen4ID = "holdem";
-    public static String screen4File = "GUIS/HoldEmGUI.fxml";
+    public static String screen4File = "fxml/HoldEmGUI.fxml";
     public static String screen5ID = "fivecarddraw";
-    public static String screen5File = "GUIS/FiveCardDrawGUI.fxml";
+    public static String screen5File = "fxml/FiveCardDrawGUI.fxml";
     public static String screen6ID = "euchre";
-    public static String screen6File = "GUIS/EuchreGUI.fxml";
+    public static String screen6File = "fxml/EuchreGUI.fxml";
     public static String screen7ID = "blackjack";
-    public static String screen7File = "GUIS/BlackjackGUI.fxml";
+    public static String screen7File = "fxml/BlackjackGUI.fxml";
     
     @Override
     public void start(Stage stage) throws Exception {

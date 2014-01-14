@@ -4,49 +4,32 @@
  * and open the template in the editor.
  */
 
-package DesktopCardGameGUI.FXML;
+package cardgamesdesktop.fxml;
 
-import DesktopCardGameGUI.ControlledScreen;
-import DesktopCardGameGUI.DesktopCardGameGUI;
-import DesktopCardGameGUI.ScreensController;
+import cardgamesdesktop.ControlledScreen;
+import cardgamesdesktop.DesktopCardGameGUI;
+import cardgamesdesktop.ScreensController;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 
 /**
  * FXML Controller class
  *
  * @author Andrew Haeger
  */
-public class BlackjackGUIController implements Initializable, ControlledScreen {
+public class EuchreGUIController implements Initializable, ControlledScreen {
 
     ScreensController controller;
-    
-    @FXML
-    private Slider betAmountSlider;
-    
-    @FXML
-    private Label betAmount;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        betAmount.setText(Integer.toString((int)betAmountSlider.getValue()));
-        
-        betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                betAmount.setText(Integer.toString(newValue.intValue()));
-            }
-        });
+        // TODO
     }    
     
     @Override

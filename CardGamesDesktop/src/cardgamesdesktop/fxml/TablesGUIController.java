@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DesktopCardGameGUI.FXML;
+package cardgamesdesktop.fxml;
 
-import DesktopCardGameGUI.ControlledScreen;
-import DesktopCardGameGUI.DesktopCardGameGUI;
-import DesktopCardGameGUI.ScreensController;
+import cardgamesdesktop.ControlledScreen;
+import cardgamesdesktop.DesktopCardGameGUI;
+import cardgamesdesktop.ScreensController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

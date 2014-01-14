@@ -10,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="CardGameSystem.GUIS.TablesGUIController">
+<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.TablesGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
       <children>
@@ -27,12 +27,12 @@
             <Font name="Arial" size="14.0" fx:id="x2" />
           </font>
           <stylesheets>
-            <URL value="@../CSS/Main.css" />
+            <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
       </children>
       <stylesheets>
-        <URL value="@../CSS/Main.css" />
+        <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
     <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="174.0" prefWidth="1250.0">
@@ -49,7 +49,7 @@
         </Label>
         <Separator layoutX="55.0" layoutY="115.0" prefWidth="1140.0">
           <stylesheets>
-            <URL value="@../CSS/Tables.css" />
+            <URL value="@../css/Tables.css" />
           </stylesheets>
         </Separator>
         <AnchorPane layoutX="55.0" layoutY="131.0" prefHeight="40.0" prefWidth="1140.0" styleClass="containBox">
@@ -57,7 +57,7 @@
             <Label font="$x2" layoutX="14.0" layoutY="12.0" prefWidth="109.0" text="Choose a Table" textFill="$x1" />
           </children>
           <stylesheets>
-            <URL value="@../CSS/Tables.css" />
+            <URL value="@../css/Tables.css" />
           </stylesheets>
         </AnchorPane>
       </children>
@@ -73,7 +73,7 @@
                     <Font name="Arial" size="32.0" fx:id="x3" />
                   </font>
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                   <textFill>
                     <Color blue="0.000" green="0.000" opacity="0.700" red="0.000" fx:id="x4" />
@@ -81,12 +81,12 @@
                 </Label>
                 <HBox layoutX="45.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
                 <VBox layoutX="78.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </VBox>
               </children>
@@ -96,7 +96,7 @@
             </AnchorPane>
           </graphic>
           <stylesheets>
-            <URL value="@../CSS/Tables.css" />
+            <URL value="@../css/Tables.css" />
           </stylesheets>
         </Button>
         <Button depthTest="INHERIT" layoutX="340.0" layoutY="15.0" mnemonicParsing="false" onAction="#showFiveCardDrawTables" prefHeight="291.0" prefWidth="285.0" styleClass="gameChoice" text="">
@@ -105,24 +105,24 @@
               <children>
                 <Label font="$x3" layoutX="43.0" layoutY="240.0" styleClass="gameTitle" text="5 Card Draw" textFill="$x4">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </Label>
                 <HBox layoutX="46.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
                 <VBox layoutX="79.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </VBox>
               </children>
             </AnchorPane>
           </graphic>
           <stylesheets>
-            <URL value="@../CSS/Tables.css" />
+            <URL value="@../css/Tables.css" />
           </stylesheets>
         </Button>
         <Button depthTest="INHERIT" layoutX="625.0" layoutY="15.0" mnemonicParsing="false" onAction="#showEuchreTables" prefHeight="291.0" prefWidth="285.0" styleClass="gameChoice" text="">
@@ -131,24 +131,24 @@
               <children>
                 <Label font="$x3" layoutX="83.0" layoutY="240.0" styleClass="gameTitle" text="Euchre" textFill="$x4">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </Label>
                 <HBox layoutX="45.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
                 <VBox layoutX="79.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </VBox>
               </children>
             </AnchorPane>
           </graphic>
           <stylesheets>
-            <URL value="@../CSS/Tables.css" />
+            <URL value="@../css/Tables.css" />
           </stylesheets>
         </Button>
         <Button depthTest="INHERIT" layoutX="910.0" layoutY="15.0" mnemonicParsing="false" onAction="#showBlackjackTables" prefHeight="291.0" prefWidth="285.0" styleClass="gameChoice" text="">
@@ -157,24 +157,24 @@
               <children>
                 <Label font="$x3" layoutX="65.0" layoutY="240.0" styleClass="gameTitle" text="Blackjack" textFill="$x4">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </Label>
                 <HBox layoutX="46.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
                 <VBox layoutX="78.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
                   <stylesheets>
-                    <URL value="@../CSS/Tables.css" />
+                    <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </VBox>
               </children>
             </AnchorPane>
           </graphic>
           <stylesheets>
-            <URL value="@../CSS/Tables.css" />
+            <URL value="@../css/Tables.css" />
           </stylesheets>
         </Button>
       </children>
@@ -192,22 +192,22 @@
                         <Font name="Arial" size="18.0" fx:id="x7" />
                       </font>
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Blinds:  100 / 200">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  20,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="2 / 9">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
@@ -215,7 +215,7 @@
                         <Font name="Arial" size="12.0" fx:id="x8" />
                       </font>
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -224,27 +224,27 @@
                   <children>
                     <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Mid Stakes Texas Hold 'Em">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Blinds:  500 / 1,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  100,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="4 / 9">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -253,34 +253,34 @@
                   <children>
                     <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="High Stakes Texas Hold 'Em">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Blinds:  2,000 / 4,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  400,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="0 / 9">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
               </children>
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
           </content>
@@ -293,27 +293,27 @@
                   <children>
                     <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Low Stakes 5 Card Draw">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Ante:  100">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  20,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="3 / 8">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -322,27 +322,27 @@
                   <children>
                     <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Mid Stakes 5 Card Draw">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Ante:  500">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  100,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="5 / 8">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -351,34 +351,34 @@
                   <children>
                     <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="High Stakes 5 Card Draw">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Ante:  2,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  400,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="0 / 8">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
               </children>
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
           </content>
@@ -391,22 +391,22 @@
                   <children>
                     <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Beginner Level Euchre Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="480.0" styleClass="tableBlinds" text="For players who are just learning the game.">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="3 / 4">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -415,22 +415,22 @@
                   <children>
                     <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Intermediate Level Euchre Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="480.0" styleClass="tableBlinds" text="For players looking to play a relaxed game for fun.">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="2 / 4">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -439,29 +439,29 @@
                   <children>
                     <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Advance Level Euchre Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="480.0" styleClass="tableBlinds" text="For players who know the game and are looking for a challenge.">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="1 / 4">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
               </children>
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
           </content>
@@ -474,27 +474,27 @@
                   <children>
                     <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Low Stakes Blackjack">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Minimum Bet:  100">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Maximum Bet:  2,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="3 / 5">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -503,27 +503,27 @@
                   <children>
                     <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Mid Stakes Blackjack">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Minimum Bet:  500">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Maximum Bet:  10,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="4 / 5">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
@@ -532,34 +532,34 @@
                   <children>
                     <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="High Stakes Blackjack">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Minimum Bet:  2,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Maximum Bet:  40,000">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="1 / 5">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
                     <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
-                        <URL value="@../CSS/HoldEm.css" />
+                        <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
               </children>
               <stylesheets>
-                <URL value="@../CSS/HoldEm.css" />
+                <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
           </content>

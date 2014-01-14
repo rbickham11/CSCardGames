@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="CardGameSystem.GUIS.LoginGUIController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.LoginGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
       <children>
@@ -26,17 +26,17 @@
             <Font name="Arial" size="14.0" fx:id="x4" />
           </font>
           <stylesheets>
-            <URL value="@../CSS/Main.css" />
+            <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
       </children>
       <stylesheets>
-        <URL value="@../CSS/Main.css" />
+        <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
     <Separator layoutX="629.0" layoutY="57.0" orientation="VERTICAL" prefHeight="677.0">
       <stylesheets>
-        <URL value="@../CSS/Login.css" />
+        <URL value="@../css/Login.css" />
       </stylesheets>
     </Separator>
     <AnchorPane layoutX="14.0" layoutY="74.0" prefHeight="295.0" prefWidth="601.0" styleClass="containBox">
@@ -53,20 +53,20 @@
         </Label>
         <TextField layoutX="25.0" layoutY="115.0" prefHeight="34.0" prefWidth="562.0" promptText="Enter username" styleClass="inputFields">
           <stylesheets>
-            <URL value="@../CSS/Login.css" />
+            <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
         <Label font="$x2" layoutX="25.0" layoutY="168.0" text="Password" />
         <PasswordField layoutX="25.0" layoutY="192.0" prefHeight="34.0" prefWidth="562.0" promptText="Password" styleClass="inputFields">
           <stylesheets>
-            <URL value="@../CSS/Login.css" />
+            <URL value="@../css/Login.css" />
           </stylesheets>
         </PasswordField>
         <Button fx:id="loginBtn" layoutX="25.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToTablesScreen" text="Submit" />
         <Button fx:id="clearLoginBtn" layoutX="114.0" layoutY="249.0" mnemonicParsing="false" text="Clear" />
       </children>
       <stylesheets>
-        <URL value="@../CSS/Login.css" />
+        <URL value="@../css/Login.css" />
       </stylesheets>
     </AnchorPane>
     <AnchorPane layoutX="648.0" layoutY="74.0" prefHeight="517.0" prefWidth="588.0" styleClass="containBox">
@@ -106,7 +106,7 @@
         </PasswordField>
       </children>
       <stylesheets>
-        <URL value="@../CSS/Login.css" />
+        <URL value="@../css/Login.css" />
       </stylesheets>
     </AnchorPane>
     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="742.0" prefHeight="28.0" prefWidth="1250.0" text="Copyright © Company 2013" textAlignment="CENTER" wrapText="false" />

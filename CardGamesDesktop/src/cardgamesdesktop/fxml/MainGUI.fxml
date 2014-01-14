@@ -11,7 +11,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" depthTest="INHERIT" focusTraversable="false" maxHeight="770.0" maxWidth="1250.0" minHeight="770.0" minWidth="1250.0" prefHeight="770.0" prefWidth="1250.0" snapToPixel="true" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="CardGameSystem.GUIS.MainGUIController">
+<AnchorPane id="AnchorPane" depthTest="INHERIT" focusTraversable="false" maxHeight="770.0" maxWidth="1250.0" minHeight="770.0" minWidth="1250.0" prefHeight="770.0" prefWidth="1250.0" snapToPixel="true" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.MainGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
       <children>
@@ -28,12 +28,12 @@
             <Font name="Arial" size="14.0" fx:id="x2" />
           </font>
           <stylesheets>
-            <URL value="@../CSS/Main.css" />
+            <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
       </children>
       <stylesheets>
-        <URL value="@../CSS/Main.css" />
+        <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
     <AnchorPane layoutX="0.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1250.0" styleClass=", image">
@@ -50,7 +50,7 @@
         </Label>
       </children>
       <stylesheets>
-        <URL value="@../CSS/Main.css" />
+        <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
     <AnchorPane layoutX="0.0" layoutY="640.0" prefHeight="130.0" prefWidth="1250.0">

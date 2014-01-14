@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.EuchreGUIController">
+  <children>
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
+      <children>
+        <Button layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="38.0" styleClass="headerButton" text="Games">
+          <font>
+            <Font name="Arial" size="14.0" fx:id="x1" />
+          </font>
+          <stylesheets>
+            <URL value="@../css/Main.css" />
+          </stylesheets>
+        </Button>
+        <Button font="$x1" layoutX="1042.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="39.0" styleClass="headerButton" text="Logout">
+          <stylesheets>
+            <URL value="@../css/Main.css" />
+          </stylesheets>
+        </Button>
+        <Label layoutX="51.0" layoutY="0.0" prefHeight="40.0" prefWidth="168.0" text="Card Game System">
+          <font>
+            <Font name="Arial" size="16.0" />
+          </font>
+          <textFill>
+            <Color blue="0.600" green="0.600" red="0.600" fx:id="x2" />
+          </textFill>
+        </Label>
+      </children>
+      <stylesheets>
+        <URL value="@../css/Main.css" />
+      </stylesheets>
+    </AnchorPane>
+    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="550.0" prefWidth="1250.0">
+      <children>
+        <ImageView id="Euchre Table" fitHeight="550.0" fitWidth="1250.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
+          <image>
+            <Image url="@../images/Euchre%20Table.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
+      </children>
+    </AnchorPane>
+    <AnchorPane layoutX="0.0" layoutY="590.0" prefHeight="180.0" prefWidth="1250.0">
+      <children>
+        <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="180.0" prefWidth="395.0">
+          <children>
+            <Label alignment="CENTER" font="$x1" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Game Summary" textFill="$x2">
+              <stylesheets>
+                <URL value="@../css/Main.css" />
+              </stylesheets>
+            </Label>
+            <TextArea disable="true" layoutX="0.0" layoutY="22.0" prefHeight="157.0" prefWidth="395.0" wrapText="true">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </TextArea>
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="395.0" layoutY="1.0" prefHeight="179.0" prefWidth="460.0">
+          <children>
+            <Button font="$x1" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Pass">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Button>
+            <Button font="$x1" layoutX="100.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Call">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Button>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="114.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?">
+              <font>
+                <Font name="Arial" size="12.0" />
+              </font>
+            </Label>
+            <CheckBox layoutX="47.0" layoutY="70.0" mnemonicParsing="false" prefWidth="86.0" text="Go Alone" />
+            <RadioButton layoutX="249.0" layoutY="30.0" mnemonicParsing="false" text="♠" textFill="BLACK">
+              <font>
+                <Font size="16.0" fx:id="x3" />
+              </font>
+              <toggleGroup>
+                <ToggleGroup fx:id="radioButtons" />
+              </toggleGroup>
+            </RadioButton>
+            <RadioButton font="$x3" layoutX="249.0" layoutY="61.0" mnemonicParsing="false" text="♦" textFill="RED" toggleGroup="$radioButtons" />
+            <RadioButton font="$x3" layoutX="308.0" layoutY="61.0" mnemonicParsing="false" text="♣" textFill="BLACK" toggleGroup="$radioButtons" />
+            <RadioButton font="$x3" layoutX="308.0" layoutY="30.0" mnemonicParsing="false" text="♥" textFill="RED" toggleGroup="$radioButtons" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="855.0" layoutY="0.0" prefHeight="179.0" prefWidth="395.0">
+          <children>
+            <Label alignment="CENTER" font="$x1" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Chat" textFill="$x2">
+              <stylesheets>
+                <URL value="@../css/Main.css" />
+              </stylesheets>
+            </Label>
+            <TextArea layoutX="0.0" layoutY="22.0" prefHeight="135.0" prefWidth="395.0" wrapText="true">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </TextArea>
+            <TextField layoutX="0.0" layoutY="157.0" prefHeight="23.0" prefWidth="319.0" promptText="Type here to chat">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </TextField>
+            <Button defaultButton="true" layoutX="319.0" layoutY="157.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="76.0" styleClass="headerButton" text="Send">
+              <stylesheets>
+                <URL value="@../css/Main.css" />
+              </stylesheets>
+            </Button>
+          </children>
+        </AnchorPane>
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>

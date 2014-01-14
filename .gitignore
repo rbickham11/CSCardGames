@@ -25,3 +25,6 @@
 # TeXlipse plugin
 .texlipse
 /DesktopCardGameGUI/nbproject/private/
+/CardGamesDesktop/nbproject/private/
+/CardGamesDesktop/build/
+/CardGamesDesktop/dist/

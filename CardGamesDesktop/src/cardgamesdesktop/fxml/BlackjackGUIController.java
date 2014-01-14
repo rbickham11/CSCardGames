@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package DesktopCardGameGUI.FXML;
+package cardgamesdesktop.fxml;
 
-import DesktopCardGameGUI.ControlledScreen;
-import DesktopCardGameGUI.DesktopCardGameGUI;
-import DesktopCardGameGUI.ScreensController;
+import cardgamesdesktop.ControlledScreen;
+import cardgamesdesktop.DesktopCardGameGUI;
+import cardgamesdesktop.ScreensController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -24,7 +24,7 @@ import javafx.scene.control.Slider;
  *
  * @author Andrew Haeger
  */
-public class FiveCardDrawGUIController implements Initializable, ControlledScreen {
+public class BlackjackGUIController implements Initializable, ControlledScreen {
 
     ScreensController controller;
     

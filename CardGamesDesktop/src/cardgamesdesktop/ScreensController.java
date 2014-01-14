@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DesktopCardGameGUI;
+package cardgamesdesktop;
 
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
