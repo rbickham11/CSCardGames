@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 
+import cardgameslib.games.poker.holdem.*;
 /**
  * FXML Controller class
  *
@@ -116,7 +117,9 @@ public class TablesGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void goToHoldEmScreen(ActionEvent event) {
+        HoldemDealer dealer = new HoldemDealer(20000, 200);
         controller.setScreen(DesktopCardGameGUI.screen4ID);
+        
     }
     
     @FXML

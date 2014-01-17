@@ -43,8 +43,9 @@ public class HoldemDealer {
         Random r = new Random();
         Collections.rotate(players, r.nextInt(MAX_PLAYERS));
         
+        System.out.println("HoldemDealer Instance Created!");
     }
-    
+  
     /**
      * Getter to return list of players at table
      * @return List<BettingPlayer>
