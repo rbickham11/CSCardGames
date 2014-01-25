@@ -10,11 +10,11 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.EuchreGUIController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.EuchreGUIController">
   <children>
-    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
+    <AnchorPane layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
-        <Button layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="38.0" styleClass="headerButton" text="Games">
+        <Button layoutX="902.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="38.0" styleClass="headerButton" text="Games">
           <font>
             <Font name="Arial" size="14.0" fx:id="x1" />
           </font>
@@ -22,7 +22,7 @@
             <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
-        <Button font="$x1" layoutX="1042.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="39.0" styleClass="headerButton" text="Logout">
+        <Button font="$x1" layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="39.0" styleClass="headerButton" text="Logout">
           <stylesheets>
             <URL value="@../css/Main.css" />
           </stylesheets>
@@ -40,50 +40,46 @@
         <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="550.0" prefWidth="1250.0">
-      <children>
-        <ImageView id="Euchre Table" fitHeight="550.0" fitWidth="1250.0" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
-          <image>
-            <Image url="@../images/Euchre%20Table.png" preserveRatio="true" smooth="true" />
-          </image>
-        </ImageView>
-      </children>
+    <AnchorPane layoutX="0.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.5" prefWidth="1055.0" styleClass="tableImage">
+      <stylesheets>
+        <URL value="@../css/Euchre.css" />
+      </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="590.0" prefHeight="180.0" prefWidth="1250.0">
+    <AnchorPane layoutX="0.0" layoutY="501.0" minHeight="149.0" minWidth="-Infinity" prefHeight="149.0" prefWidth="1055.0">
       <children>
-        <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="180.0" prefWidth="395.0">
+        <AnchorPane layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="298.0">
           <children>
-            <Label alignment="CENTER" font="$x1" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Game Summary" textFill="$x2">
+            <Label alignment="CENTER" font="$x1" layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="297.5" styleClass="header" text="Game Summary" textFill="$x2">
               <stylesheets>
                 <URL value="@../css/Main.css" />
               </stylesheets>
             </Label>
-            <TextArea disable="true" layoutX="0.0" layoutY="22.0" prefHeight="157.0" prefWidth="395.0" wrapText="true">
+            <TextArea disable="true" layoutX="0.0" layoutY="22.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="298.0" wrapText="true">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </TextArea>
           </children>
         </AnchorPane>
-        <AnchorPane layoutX="395.0" layoutY="1.0" prefHeight="179.0" prefWidth="460.0">
+        <AnchorPane layoutX="298.0" layoutY="0.0" prefHeight="149.0" prefWidth="460.0">
           <children>
-            <Button font="$x1" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Pass">
+            <Button font="$x1" layoutX="60.0" layoutY="20.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Pass">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
-            <Button font="$x1" layoutX="100.0" layoutY="28.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Call">
+            <Button font="$x1" layoutX="150.0" layoutY="20.0" mnemonicParsing="false" prefWidth="80.0" styleClass="gameButtons" text="Call">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="114.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?">
+            <Label alignment="CENTER" layoutX="14.0" layoutY="90.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?">
               <font>
                 <Font name="Arial" size="12.0" />
               </font>
             </Label>
-            <CheckBox layoutX="47.0" layoutY="70.0" mnemonicParsing="false" prefWidth="86.0" text="Go Alone" />
-            <RadioButton layoutX="249.0" layoutY="30.0" mnemonicParsing="false" text="♠" textFill="BLACK">
+            <CheckBox layoutX="97.0" layoutY="62.0" mnemonicParsing="false" prefWidth="86.0" text="Go Alone" />
+            <RadioButton layoutX="299.0" layoutY="22.0" mnemonicParsing="false" text="♠" textFill="BLACK">
               <font>
                 <Font size="16.0" fx:id="x3" />
               </font>
@@ -91,29 +87,29 @@
                 <ToggleGroup fx:id="radioButtons" />
               </toggleGroup>
             </RadioButton>
-            <RadioButton font="$x3" layoutX="249.0" layoutY="61.0" mnemonicParsing="false" text="♦" textFill="RED" toggleGroup="$radioButtons" />
-            <RadioButton font="$x3" layoutX="308.0" layoutY="61.0" mnemonicParsing="false" text="♣" textFill="BLACK" toggleGroup="$radioButtons" />
-            <RadioButton font="$x3" layoutX="308.0" layoutY="30.0" mnemonicParsing="false" text="♥" textFill="RED" toggleGroup="$radioButtons" />
+            <RadioButton font="$x3" layoutX="299.0" layoutY="53.0" mnemonicParsing="false" text="♦" textFill="RED" toggleGroup="$radioButtons" />
+            <RadioButton font="$x3" layoutX="358.0" layoutY="53.0" mnemonicParsing="false" text="♣" textFill="BLACK" toggleGroup="$radioButtons" />
+            <RadioButton font="$x3" layoutX="358.0" layoutY="22.0" mnemonicParsing="false" text="♥" textFill="RED" toggleGroup="$radioButtons" />
           </children>
         </AnchorPane>
-        <AnchorPane layoutX="855.0" layoutY="0.0" prefHeight="179.0" prefWidth="395.0">
+        <AnchorPane layoutX="758.0" layoutY="0.0" minHeight="-Infinity" minWidth="298.0" prefHeight="149.0" prefWidth="298.0">
           <children>
-            <Label alignment="CENTER" font="$x1" layoutX="0.0" layoutY="0.0" prefHeight="22.0" prefWidth="395.0" styleClass="header" text="Chat" textFill="$x2">
+            <Label alignment="CENTER" font="$x1" layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="297.0" styleClass="header" text="Chat" textFill="$x2">
               <stylesheets>
                 <URL value="@../css/Main.css" />
               </stylesheets>
             </Label>
-            <TextArea layoutX="0.0" layoutY="22.0" prefHeight="135.0" prefWidth="395.0" wrapText="true">
+            <TextArea layoutX="0.0" layoutY="22.0" prefHeight="104.0" prefWidth="297.0" wrapText="true">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </TextArea>
-            <TextField layoutX="0.0" layoutY="157.0" prefHeight="23.0" prefWidth="319.0" promptText="Type here to chat">
+            <TextField layoutX="0.0" layoutY="126.0" prefHeight="23.0" prefWidth="221.0" promptText="Type here to chat">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </TextField>
-            <Button defaultButton="true" layoutX="319.0" layoutY="157.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="76.0" styleClass="headerButton" text="Send">
+            <Button defaultButton="true" layoutX="221.0" layoutY="126.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="76.0" styleClass="headerButton" text="Send">
               <stylesheets>
                 <URL value="@../css/Main.css" />
               </stylesheets>

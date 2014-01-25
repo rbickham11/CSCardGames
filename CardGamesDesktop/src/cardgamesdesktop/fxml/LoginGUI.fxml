@@ -9,9 +9,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.LoginGUIController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.LoginGUIController">
   <children>
-    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
         <Label layoutX="51.0" layoutY="0.0" prefHeight="40.0" prefWidth="168.0" text="Card Game System">
           <font>
@@ -21,7 +21,7 @@
             <Color blue="0.600" green="0.600" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Button layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToHomeScreen" prefHeight="39.0" prefWidth="67.0" styleClass="headerButton" text="Home" textOverrun="CLIP">
+        <Button layoutX="902.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToHomeScreen" prefHeight="38.0" prefWidth="67.0" styleClass="headerButton" text="Home" textOverrun="CLIP">
           <font>
             <Font name="Arial" size="14.0" fx:id="x4" />
           </font>
@@ -34,14 +34,14 @@
         <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
-    <Separator layoutX="629.0" layoutY="57.0" orientation="VERTICAL" prefHeight="677.0">
+    <Separator layoutX="527.0" layoutY="57.0" orientation="VERTICAL" prefHeight="579.0">
       <stylesheets>
         <URL value="@../css/Login.css" />
       </stylesheets>
     </Separator>
-    <AnchorPane layoutX="14.0" layoutY="74.0" prefHeight="295.0" prefWidth="601.0" styleClass="containBox">
+    <AnchorPane layoutX="15.0" layoutY="74.0" prefHeight="295.0" prefWidth="497.0" styleClass="containBox">
       <children>
-        <Label layoutX="278.0" layoutY="39.0" text="Login">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="39.0" prefWidth="497.0" text="Login" textAlignment="CENTER">
           <font>
             <Font name="Arial" size="18.0" fx:id="x3" />
           </font>
@@ -51,13 +51,13 @@
             <Font name="Arial Bold" size="14.0" fx:id="x2" />
           </font>
         </Label>
-        <TextField layoutX="25.0" layoutY="115.0" prefHeight="34.0" prefWidth="562.0" promptText="Enter username" styleClass="inputFields">
+        <TextField layoutX="25.0" layoutY="115.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
         <Label font="$x2" layoutX="25.0" layoutY="168.0" text="Password" />
-        <PasswordField layoutX="25.0" layoutY="192.0" prefHeight="34.0" prefWidth="562.0" promptText="Password" styleClass="inputFields">
+        <PasswordField layoutX="25.0" layoutY="192.0" prefHeight="34.0" prefWidth="447.0" promptText="Password" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
@@ -69,39 +69,39 @@
         <URL value="@../css/Login.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="648.0" layoutY="74.0" prefHeight="517.0" prefWidth="588.0" styleClass="containBox">
+    <AnchorPane layoutX="544.0" layoutY="74.0" prefHeight="517.0" prefWidth="497.0" styleClass="containBox">
       <children>
-        <Label font="$x3" layoutX="260.0" layoutY="39.0" text="Register" />
-        <Label font="$x2" layoutX="26.0" layoutY="95.0" text="First Name" />
-        <TextField layoutX="26.0" layoutY="117.0" prefHeight="34.0" prefWidth="548.0" promptText="Enter first name" styleClass="inputFields">
+        <Label alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="0.0" layoutY="34.0" prefWidth="497.0" text="Register" textAlignment="CENTER" />
+        <Label font="$x2" layoutX="25.0" layoutY="95.0" text="First Name" />
+        <TextField layoutX="25.0" layoutY="117.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter first name" styleClass="inputFields">
           <stylesheets>
-            <URL value="@Login.css" />
+            <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
-        <Label font="$x2" layoutX="26.0" layoutY="166.0" text="Last Name" />
-        <TextField layoutX="26.0" layoutY="188.0" prefHeight="34.0" prefWidth="548.0" promptText="Enter last name" styleClass="inputFields">
+        <Label font="$x2" layoutX="25.0" layoutY="166.0" text="Last Name" />
+        <TextField layoutX="25.0" layoutY="188.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter last name" styleClass="inputFields">
           <stylesheets>
-            <URL value="@Login.css" />
+            <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
-        <Label font="$x2" layoutX="26.0" layoutY="239.0" text="Username" />
-        <TextField layoutX="26.0" layoutY="261.0" prefHeight="34.0" prefWidth="548.0" promptText="Enter username" styleClass="inputFields">
+        <Label font="$x2" layoutX="25.0" layoutY="239.0" text="Username" />
+        <TextField layoutX="25.0" layoutY="261.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
           <stylesheets>
-            <URL value="@Login.css" />
+            <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
-        <Label font="$x2" layoutX="26.0" layoutY="310.0" text="Password" />
-        <Label font="$x2" layoutX="26.0" layoutY="384.0" text="Re-Enter Password" />
+        <Label font="$x2" layoutX="25.0" layoutY="310.0" text="Password" />
+        <Label font="$x2" layoutX="25.0" layoutY="384.0" text="Re-Enter Password" />
         <Button fx:id="registerBtn" layoutX="21.0" layoutY="468.0" mnemonicParsing="false" text="Submit" />
         <Button fx:id="clearRegisterBtn" layoutX="114.0" layoutY="469.0" mnemonicParsing="false" text="Clear" />
-        <PasswordField layoutX="26.0" layoutY="333.0" prefHeight="34.0" prefWidth="548.0" promptText="Enter password" styleClass="inputFields">
+        <PasswordField layoutX="25.0" layoutY="333.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
           <stylesheets>
-            <URL value="@Login.css" />
+            <URL value="@../css/Login.css" />
           </stylesheets>
         </PasswordField>
-        <PasswordField layoutX="26.0" layoutY="407.0" prefHeight="34.0" prefWidth="548.0" promptText="Enter password" styleClass="inputFields">
+        <PasswordField layoutX="25.0" layoutY="407.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
           <stylesheets>
-            <URL value="@Login.css" />
+            <URL value="@../css/Login.css" />
           </stylesheets>
         </PasswordField>
       </children>
@@ -109,8 +109,7 @@
         <URL value="@../css/Login.css" />
       </stylesheets>
     </AnchorPane>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="742.0" prefHeight="28.0" prefWidth="1250.0" text="Copyright © Company 2013" textAlignment="CENTER" wrapText="false" />
-    <Label fx:id="loginStatus" alignment="CENTER" font="$x4" layoutX="14.0" layoutY="40.0" prefHeight="34.0" prefWidth="601.0" text="Login Successful" textFill="RED" />
-    <Label fx:id="registrationStatus" alignment="CENTER" font="$x4" layoutX="648.0" layoutY="40.0" prefHeight="34.0" prefWidth="588.0" text="Registration Successful" textFill="RED" />
+    <Label fx:id="loginStatus" alignment="CENTER" font="$x4" layoutX="14.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="Login Successful" textFill="RED" />
+    <Label fx:id="registrationStatus" alignment="CENTER" font="$x4" layoutX="544.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="Registration Successful" textFill="RED" />
   </children>
 </AnchorPane>

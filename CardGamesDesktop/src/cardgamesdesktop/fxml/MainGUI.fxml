@@ -11,9 +11,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" depthTest="INHERIT" focusTraversable="false" maxHeight="770.0" maxWidth="1250.0" minHeight="770.0" minWidth="1250.0" prefHeight="770.0" prefWidth="1250.0" snapToPixel="true" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.MainGUIController">
+<AnchorPane id="AnchorPane" depthTest="INHERIT" focusTraversable="false" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" snapToPixel="true" style="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.MainGUIController">
   <children>
-    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
         <Label layoutX="51.0" layoutY="0.0" prefHeight="40.0" prefWidth="168.0" text="Card Game System">
           <font>
@@ -23,7 +23,7 @@
             <Color blue="0.600" green="0.600" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Button layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="39.0" styleClass="headerButton" text="Sign in / Sign up" textOverrun="CLIP">
+        <Button layoutX="778.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="38.0" styleClass="headerButton" text="Sign in / Sign up" textOverrun="CLIP">
           <font>
             <Font name="Arial" size="14.0" fx:id="x2" />
           </font>
@@ -36,14 +36,14 @@
         <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1250.0" styleClass=", image">
+    <AnchorPane layoutX="0.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="1055.0" styleClass=", image">
       <children>
-        <Label alignment="CENTER" layoutX="2.0" layoutY="315.0" prefHeight="60.0" prefWidth="1244.0" text="Legion Games" textAlignment="LEFT">
+        <Label alignment="CENTER" layoutX="2.0" layoutY="299.0" prefHeight="60.0" prefWidth="1055.0" text="Legion Games" textAlignment="LEFT">
           <font>
             <Font name="Arial" size="50.0" />
           </font>
         </Label>
-        <Label alignment="CENTER" layoutX="2.0" layoutY="375.0" prefHeight="34.0" prefWidth="1250.0" text="One destination - Multiple ways to play" textFill="#b17575">
+        <Label alignment="CENTER" layoutX="2.0" layoutY="359.0" prefHeight="34.0" prefWidth="1055.0" text="One destination - Multiple ways to play" textFill="#b17575">
           <font>
             <Font name="Arial" size="20.0" fx:id="x4" />
           </font>
@@ -53,19 +53,19 @@
         <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="640.0" prefHeight="130.0" prefWidth="1250.0">
+    <AnchorPane layoutX="0.0" layoutY="546.0" prefHeight="130.0" prefWidth="1136.0">
       <children>
-        <GridPane layoutX="2.0" layoutY="0.0" prefHeight="102.0" prefWidth="1250.0">
+        <GridPane layoutX="2.0" layoutY="0.0" prefHeight="102.0" prefWidth="1055.0">
           <children>
             <Label font="$x2" prefHeight="60.0" prefWidth="415.0" text="Choose from many different card games, join a table, and start playing with people just like you across the globe." wrapText="true" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
               <GridPane.margin>
-                <Insets left="35.0" right="35.0" fx:id="x3" />
+                <Insets left="35.0" right="35.0" top="5.0" fx:id="x3" />
               </GridPane.margin>
             </Label>
             <Label font="$x2" prefHeight="60.0" prefWidth="415.0" text="FaceCams are used to give players a brand new depth in online card playing.  Don't forget to bring your best poker face!" wrapText="true" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Label font="$x2" prefHeight="60.0" prefWidth="415.0" text="Brag, heckle, or just chat with other players at your table. Interaction makes for a more enjoyable gaming experience." wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP">
               <GridPane.margin>
-                <Insets left="33.0" right="30.0" />
+                <Insets left="33.0" right="30.0" top="5.0" />
               </GridPane.margin>
             </Label>
             <HBox minHeight="40.0" prefHeight="40.0" prefWidth="417.0" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.valignment="CENTER">
@@ -131,7 +131,6 @@
             <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="102.0" prefHeight="28.0" prefWidth="1250.0" text="Copyright © Company 2013" textAlignment="CENTER" wrapText="false" />
       </children>
     </AnchorPane>
   </children>

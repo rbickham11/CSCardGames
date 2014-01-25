@@ -51,8 +51,8 @@ public class DesktopCardGameGUI extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        stage.setWidth(1256);
-        stage.setHeight(800);
+        stage.setWidth(1061);
+        stage.setHeight(680);
         stage.getIcons().add(new Image(DesktopCardGameGUI.class.getResourceAsStream("images/CardGameIcon.png")));
         stage.setTitle("Legion Games");
     }

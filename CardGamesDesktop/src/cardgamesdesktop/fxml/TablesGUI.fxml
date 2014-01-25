@@ -10,9 +10,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="770.0" prefWidth="1250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.TablesGUIController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.TablesGUIController">
   <children>
-    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1250.0" styleClass="header">
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
         <Label layoutX="51.0" layoutY="0.0" prefHeight="40.0" prefWidth="168.0" text="Card Game System">
           <font>
@@ -22,7 +22,7 @@
             <Color blue="0.600" green="0.600" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Button layoutX="972.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="38.0" prefWidth="-1.0" styleClass="headerButton" text="Logout" AnchorPane.bottomAnchor="1.0">
+        <Button layoutX="902.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="38.0" prefWidth="-1.0" styleClass="headerButton" text="Logout" AnchorPane.bottomAnchor="1.0">
           <font>
             <Font name="Arial" size="14.0" fx:id="x2" />
           </font>
@@ -35,24 +35,24 @@
         <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="174.0" prefWidth="1250.0">
+    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="174.0" prefWidth="1055.0">
       <children>
-        <Label layoutX="55.0" layoutY="32.0" prefHeight="51.0" prefWidth="1140.0" text="Start Your Interactive Card Gaming Experience">
+        <Label layoutX="55.0" layoutY="20.0" prefHeight="42.0" prefWidth="945.0" text="Start Your Interactive Card Gaming Experience">
           <font>
             <Font name="Arial" size="36.0" />
           </font>
         </Label>
-        <Label layoutX="55.0" layoutY="67.0" prefHeight="51.0" prefWidth="1140.0" text="-  Choose a game type and the table that best suits your play style.  -" textFill="$x1">
+        <Label layoutX="55.0" layoutY="62.0" prefHeight="30.0" prefWidth="945.0" text="-  Choose a game type and the table that best suits your play style.  -" textFill="$x1">
           <font>
             <Font name="Arial" size="24.0" />
           </font>
         </Label>
-        <Separator layoutX="55.0" layoutY="115.0" prefWidth="1140.0">
+        <Separator layoutX="55.0" layoutY="92.0" prefWidth="945.0">
           <stylesheets>
             <URL value="@../css/Tables.css" />
           </stylesheets>
         </Separator>
-        <AnchorPane layoutX="55.0" layoutY="131.0" prefHeight="40.0" prefWidth="1140.0" styleClass="containBox">
+        <AnchorPane layoutX="55.0" layoutY="131.0" prefHeight="40.0" prefWidth="945.0" styleClass="containBox">
           <children>
             <Label font="$x2" layoutX="14.0" layoutY="12.0" prefWidth="109.0" text="Choose a Table" textFill="$x1" />
           </children>
@@ -62,15 +62,15 @@
         </AnchorPane>
       </children>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="214.0" padding="$x5" prefHeight="320.0" prefWidth="1250.0">
+    <AnchorPane layoutX="0.0" layoutY="214.0" padding="$x5" prefHeight="270.0" prefWidth="1055.0">
       <children>
-        <Button layoutX="55.0" layoutY="15.0" mnemonicParsing="false" onAction="#showHoldEmTables" prefHeight="291.0" prefWidth="285.0" styleClass="gameChoice" text="">
+        <Button layoutX="55.0" layoutY="15.0" mnemonicParsing="false" onAction="#showHoldEmTables" prefHeight="240.0" prefWidth="236.0" styleClass="gameChoice" text="">
           <graphic>
-            <AnchorPane focusTraversable="false" prefHeight="291.0" prefWidth="285.0">
+            <AnchorPane focusTraversable="false" prefHeight="238.0" prefWidth="226.0">
               <children>
-                <Label layoutX="20.0" layoutY="240.0" styleClass="gameTitle" text="Texas Hold 'Em">
+                <Label alignment="CENTER" layoutX="0.0" layoutY="203.0" prefWidth="216.0" styleClass="gameTitle" text="Texas Hold 'Em">
                   <font>
-                    <Font name="Arial" size="32.0" fx:id="x3" />
+                    <Font name="Arial" size="30.0" />
                   </font>
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
@@ -79,12 +79,12 @@
                     <Color blue="0.000" green="0.000" opacity="0.700" red="0.000" fx:id="x4" />
                   </textFill>
                 </Label>
-                <HBox layoutX="45.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
+                <HBox layoutX="28.0" layoutY="181.0" prefHeight="5.0" prefWidth="160.0" styleClass="tableButtonSeparator">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
-                <VBox layoutX="78.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
+                <VBox layoutX="58.0" layoutY="20.0" prefHeight="140.0" prefWidth="100.0" styleClass="tableButtonBlock">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
@@ -99,21 +99,24 @@
             <URL value="@../css/Tables.css" />
           </stylesheets>
         </Button>
-        <Button depthTest="INHERIT" layoutX="340.0" layoutY="15.0" mnemonicParsing="false" onAction="#showFiveCardDrawTables" prefHeight="291.0" prefWidth="285.0" styleClass="gameChoice" text="">
+        <Button depthTest="INHERIT" layoutX="291.0" layoutY="15.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#showFiveCardDrawTables" prefHeight="243.0" prefWidth="236.0" styleClass="gameChoice" text="">
           <graphic>
-            <AnchorPane prefHeight="291.0" prefWidth="293.0">
+            <AnchorPane prefHeight="238.0" prefWidth="236.0">
               <children>
-                <Label font="$x3" layoutX="43.0" layoutY="240.0" styleClass="gameTitle" text="5 Card Draw" textFill="$x4">
+                <Label alignment="CENTER" layoutX="0.0" layoutY="203.0" prefWidth="216.0" styleClass="gameTitle" text="5 Card Draw" textFill="$x4">
+                  <font>
+                    <Font name="Arial" size="32.0" fx:id="x3" />
+                  </font>
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </Label>
-                <HBox layoutX="46.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
+                <HBox layoutX="28.0" layoutY="181.0" prefHeight="5.0" prefWidth="160.0" styleClass="tableButtonSeparator">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
-                <VBox layoutX="79.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
+                <VBox layoutX="58.0" layoutY="20.0" prefHeight="140.0" prefWidth="100.0" styleClass="tableButtonBlock">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
@@ -125,21 +128,21 @@
             <URL value="@../css/Tables.css" />
           </stylesheets>
         </Button>
-        <Button depthTest="INHERIT" layoutX="625.0" layoutY="15.0" mnemonicParsing="false" onAction="#showEuchreTables" prefHeight="291.0" prefWidth="285.0" styleClass="gameChoice" text="">
+        <Button depthTest="INHERIT" layoutX="527.0" layoutY="15.0" mnemonicParsing="false" onAction="#showEuchreTables" prefHeight="243.0" prefWidth="236.0" styleClass="gameChoice" text="">
           <graphic>
-            <AnchorPane prefHeight="291.0" prefWidth="293.0">
+            <AnchorPane prefHeight="238.0" prefWidth="236.0">
               <children>
-                <Label font="$x3" layoutX="83.0" layoutY="240.0" styleClass="gameTitle" text="Euchre" textFill="$x4">
+                <Label alignment="CENTER" font="$x3" layoutX="0.0" layoutY="203.0" prefWidth="216.0" styleClass="gameTitle" text="Euchre" textFill="$x4">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </Label>
-                <HBox layoutX="45.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
+                <HBox layoutX="28.0" layoutY="181.0" prefHeight="5.0" prefWidth="160.0" styleClass="tableButtonSeparator">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
-                <VBox layoutX="79.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
+                <VBox layoutX="58.0" layoutY="20.0" prefHeight="140.0" prefWidth="100.0" styleClass="tableButtonBlock">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
@@ -151,21 +154,21 @@
             <URL value="@../css/Tables.css" />
           </stylesheets>
         </Button>
-        <Button depthTest="INHERIT" layoutX="910.0" layoutY="15.0" mnemonicParsing="false" onAction="#showBlackjackTables" prefHeight="291.0" prefWidth="285.0" styleClass="gameChoice" text="">
+        <Button depthTest="INHERIT" layoutX="763.0" layoutY="15.0" mnemonicParsing="false" onAction="#showBlackjackTables" prefHeight="243.0" prefWidth="236.0" styleClass="gameChoice" text="">
           <graphic>
-            <AnchorPane prefHeight="291.0" prefWidth="293.0">
+            <AnchorPane prefHeight="238.0" prefWidth="236.0">
               <children>
-                <Label font="$x3" layoutX="65.0" layoutY="240.0" styleClass="gameTitle" text="Blackjack" textFill="$x4">
+                <Label alignment="CENTER" font="$x3" layoutX="0.0" layoutY="203.0" prefWidth="216.0" styleClass="gameTitle" text="Blackjack" textFill="$x4">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </Label>
-                <HBox layoutX="46.0" layoutY="225.0" prefHeight="5.0" prefWidth="175.0" styleClass="tableButtonSeparator">
+                <HBox layoutX="28.0" layoutY="181.0" prefHeight="5.0" prefWidth="160.0" styleClass="tableButtonSeparator">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
                 </HBox>
-                <VBox layoutX="78.0" layoutY="38.0" prefHeight="150.0" prefWidth="110.0" styleClass="tableButtonBlock">
+                <VBox layoutX="58.0" layoutY="20.0" prefHeight="140.0" prefWidth="100.0" styleClass="tableButtonBlock">
                   <stylesheets>
                     <URL value="@../css/Tables.css" />
                   </stylesheets>
@@ -179,15 +182,15 @@
         </Button>
       </children>
     </AnchorPane>
-    <AnchorPane layoutX="1.0" layoutY="542.0" prefHeight="200.0" prefWidth="1250.0">
+    <AnchorPane layoutX="0.0" layoutY="484.0" prefHeight="166.0" prefWidth="1055.0">
       <children>
-        <ScrollPane fx:id="holdemTables" depthTest="INHERIT" layoutX="55.0" layoutY="0.0" prefHeight="200.0" prefWidth="1140.0" visible="false">
+        <ScrollPane fx:id="holdemTables" depthTest="INHERIT" layoutX="55.0" layoutY="0.0" prefHeight="166.0" prefWidth="945.0" visible="false">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="198.0" prefWidth="1138.0" styleClass="scrollContain">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="164.0" prefWidth="943.0" styleClass="scrollContain">
               <children>
-                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="943.0">
                   <children>
-                    <Label layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Low Stakes Texas Hold 'Em">
+                    <Label layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="Low Stakes Texas Hold 'Em">
                       <font>
                         <Font name="Arial" size="18.0" fx:id="x7" />
                       </font>
@@ -195,22 +198,22 @@
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Blinds:  100 / 200">
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableBlinds" text="Blinds:  100 / 200">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  20,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Max Buy-in:  20,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="2 / 9">
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="2 / 9">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Button layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Button layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <font>
                         <Font name="Arial" size="12.0" fx:id="x8" />
                       </font>
@@ -220,156 +223,58 @@
                     </Button>
                   </children>
                 </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="943.0">
                   <children>
-                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Mid Stakes Texas Hold 'Em">
+                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="Mid Stakes Texas Hold 'Em">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Blinds:  500 / 1,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="199.0" styleClass="tableBlinds" text="Blinds:  500 / 1,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  100,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Max Buy-in:  100,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="4 / 9">
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="4 / 9">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" prefWidth="76.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="943.0">
                   <children>
-                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="High Stakes Texas Hold 'Em">
+                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="High Stakes Texas Hold 'Em">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Blinds:  2,000 / 4,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="199.0" styleClass="tableBlinds" text="Blinds:  2,000 / 4,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  400,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Max Buy-in:  400,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="0 / 9">
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="0 / 9">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Button>
-                  </children>
-                </AnchorPane>
-              </children>
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
-        <ScrollPane fx:id="fivecarddrawTables" layoutX="55.0" layoutY="0.0" prefHeight="200.0" prefWidth="1140.0" visible="false">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="198.0" prefWidth="1138.0" styleClass="scrollContain">
-              <children>
-                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="1138.0">
-                  <children>
-                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Low Stakes 5 Card Draw">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Ante:  100">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  20,000">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="3 / 8">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Button>
-                  </children>
-                </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="1138.0">
-                  <children>
-                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Mid Stakes 5 Card Draw">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Ante:  500">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  100,000">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="5 / 8">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Button>
-                  </children>
-                </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="1138.0">
-                  <children>
-                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="High Stakes 5 Card Draw">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Ante:  2,000">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Max Buy-in:  400,000">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="0 / 8">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToHoldEmScreen" prefHeight="30.0" prefWidth="76.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
@@ -383,76 +288,91 @@
             </AnchorPane>
           </content>
         </ScrollPane>
-        <ScrollPane fx:id="euchreTables" layoutX="55.0" layoutY="0.0" prefHeight="200.0" prefWidth="1140.0" visible="false">
+        <ScrollPane fx:id="fivecarddrawTables" layoutX="55.0" layoutY="0.0" prefHeight="166.0" prefWidth="945.0" visible="false">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="198.0" prefWidth="1138.0" styleClass="scrollContain">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="164.0" prefWidth="943.0" styleClass="scrollContain" visible="true">
               <children>
-                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="945.0">
                   <children>
-                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Beginner Level Euchre Table">
+                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="Low Stakes 5 Card Draw">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="480.0" styleClass="tableBlinds" text="For players who are just learning the game.">
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableBlinds" text="Ante:  100">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="3 / 4">
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Max Buy-in:  20,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="3 / 8">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="945.0">
                   <children>
-                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Intermediate Level Euchre Table">
+                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="Mid Stakes 5 Card Draw">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="480.0" styleClass="tableBlinds" text="For players looking to play a relaxed game for fun.">
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableBlinds" text="Ante:  500">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="2 / 4">
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Max Buy-in:  100,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="5 / 8">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="945.0">
                   <children>
-                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Advance Level Euchre Table">
+                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="High Stakes 5 Card Draw">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="480.0" styleClass="tableBlinds" text="For players who know the game and are looking for a challenge.">
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableBlinds" text="Ante:  2,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="1 / 4">
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Max Buy-in:  400,000">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="0 / 8">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToFiveCardDrawScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
@@ -466,91 +386,174 @@
             </AnchorPane>
           </content>
         </ScrollPane>
-        <ScrollPane fx:id="blackjackTables" layoutX="55.0" layoutY="0.0" prefHeight="200.0" prefWidth="1140.0" visible="false">
+        <ScrollPane fx:id="euchreTables" layoutX="55.0" layoutY="0.0" prefHeight="166.0" prefWidth="945.0" visible="false">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="198.0" prefWidth="1138.0" styleClass="scrollContain">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="164.0" prefWidth="943.0" styleClass="scrollContain">
               <children>
-                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="945.0">
                   <children>
-                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Low Stakes Blackjack">
+                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="275.0" styleClass="tableName" text="Beginner Level Euchre Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Minimum Bet:  100">
+                    <Label alignment="CENTER" font="$x6" layoutX="289.0" layoutY="0.0" prefHeight="50.0" prefWidth="400.0" styleClass="tableBlinds" text="For players who are just learning the game.">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Maximum Bet:  2,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="689.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="3 / 4">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="3 / 5">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="945.0">
                   <children>
-                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="Mid Stakes Blackjack">
+                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="275.0" styleClass="tableName" text="Intermediate Level Euchre Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Minimum Bet:  500">
+                    <Label alignment="CENTER" font="$x6" layoutX="289.0" layoutY="0.0" prefHeight="50.0" prefWidth="400.0" styleClass="tableBlinds" text="For players looking to play a relaxed game.">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Maximum Bet:  10,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="689.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="2 / 4">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="4 / 5">
-                      <stylesheets>
-                        <URL value="@../css/HoldEm.css" />
-                      </stylesheets>
-                    </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Button>
                   </children>
                 </AnchorPane>
-                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="1138.0">
+                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="945.0">
                   <children>
-                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="306.0" styleClass="tableName" text="High Stakes Blackjack">
+                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="275.0" styleClass="tableName" text="Advance Level Euchre Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="320.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableBlinds" text="Minimum Bet:  2,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="289.0" layoutY="0.0" prefHeight="50.0" prefWidth="400.0" styleClass="tableBlinds" text="For players who are looking for a challenge.">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="560.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableMaxBuyIn" text="Maximum Bet:  40,000">
+                    <Label alignment="CENTER" font="$x6" layoutX="689.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="1 / 4">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Label alignment="CENTER" font="$x6" layoutX="800.0" layoutY="0.0" prefHeight="50.0" prefWidth="240.0" styleClass="tableCapacity" text="1 / 5">
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToEuchreScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Button>
+                  </children>
+                </AnchorPane>
+              </children>
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <ScrollPane fx:id="blackjackTables" layoutX="55.0" layoutY="0.0" prefHeight="166.0" prefWidth="945.0" visible="false">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" pickOnBounds="true" prefHeight="164.0" prefWidth="943.0" styleClass="scrollContain">
+              <children>
+                <AnchorPane layoutX="0.0" layoutY="-1.0" minHeight="-1.0" prefHeight="50.0" prefWidth="945.0">
+                  <children>
+                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="Low Stakes Blackjack">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
                     </Label>
-                    <Button font="$x8" layoutX="1040.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableBlinds" text="Minimum Bet:  100">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Maximum Bet:  2,000">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="3 / 5">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Button>
+                  </children>
+                </AnchorPane>
+                <AnchorPane layoutX="0.0" layoutY="50.0" prefHeight="50.0" prefWidth="945.0">
+                  <children>
+                    <Label font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="Mid Stakes Blackjack">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableBlinds" text="Minimum Bet:  500">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Maximum Bet:  10,000">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="4 / 5">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Button>
+                  </children>
+                </AnchorPane>
+                <AnchorPane layoutX="0.0" layoutY="100.0" prefHeight="50.0" prefWidth="945.0">
+                  <children>
+                    <Label alignment="CENTER_LEFT" font="$x7" layoutX="14.0" layoutY="0.0" prefHeight="50.0" prefWidth="259.0" styleClass="tableName" text="High Stakes Blackjack">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="273.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableBlinds" text="Minimum Bet:  2,000">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="472.0" layoutY="0.0" prefHeight="50.0" prefWidth="198.5" styleClass="tableMaxBuyIn" text="Maximum Bet:  40,000">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Label alignment="CENTER" font="$x6" layoutX="671.0" layoutY="0.0" prefHeight="50.0" prefWidth="165.0" styleClass="tableCapacity" text="1 / 5">
+                      <stylesheets>
+                        <URL value="@../css/HoldEm.css" />
+                      </stylesheets>
+                    </Label>
+                    <Button font="$x8" layoutX="850.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToBlackjackScreen" prefHeight="30.0" styleClass="joinTableBtn" text="Join Table">
                       <stylesheets>
                         <URL value="@../css/HoldEm.css" />
                       </stylesheets>
@@ -566,6 +569,5 @@
         </ScrollPane>
       </children>
     </AnchorPane>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="0.0" layoutY="742.0" prefHeight="28.0" prefWidth="1250.0" text="Copyright © Company 2013" textAlignment="CENTER" wrapText="false" />
   </children>
 </AnchorPane>
