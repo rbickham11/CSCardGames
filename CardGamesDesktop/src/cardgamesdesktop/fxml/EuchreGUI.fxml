@@ -14,7 +14,7 @@
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
-        <Button layoutX="902.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="38.0" styleClass="headerButton" text="Games">
+        <Button layoutX="832.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="36.0" styleClass="headerButton" text="Games">
           <font>
             <Font name="Arial" size="14.0" fx:id="x1" />
           </font>
@@ -22,7 +22,7 @@
             <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
-        <Button font="$x1" layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="39.0" styleClass="headerButton" text="Logout">
+        <Button font="$x1" layoutX="902.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="36.0" styleClass="headerButton" text="Logout">
           <stylesheets>
             <URL value="@../css/Main.css" />
           </stylesheets>
@@ -41,6 +41,163 @@
       </stylesheets>
     </AnchorPane>
     <AnchorPane layoutX="0.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.5" prefWidth="1055.0" styleClass="tableImage">
+      <children>
+        <AnchorPane layoutX="423.0" layoutY="350.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+          <children>
+            <AnchorPane fx:id="player1Image" layoutX="0.0" layoutY="0.0" onMouseClicked="#showUserStatisticsScreen" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="75.0" layoutY="188.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="423.0" layoutY="14.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="791.0" layoutY="188.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="14.0" layoutY="350.0" prefHeight="84.0" prefWidth="270.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="28.0" prefWidth="270.0">
+              <children>
+                <Label layoutX="0.0" layoutY="0.0" prefHeight="28.0" prefWidth="45.0" styleClass="scoreboardHeadings" text="Trump">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+                <Label layoutX="44.0" layoutY="0.0" prefHeight="28.0" prefWidth="138.0" styleClass="scoreboardHeadings" text="Teams">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+                <Label layoutX="181.0" layoutY="0.0" prefHeight="28.0" prefWidth="45.0" styleClass="scoreboardHeadings" text="Tricks">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+                <Label layoutX="225.0" layoutY="0.0" prefHeight="28.0" prefWidth="45.0" styleClass="scoreboardHeadings" text="Points">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+            </AnchorPane>
+            <AnchorPane layoutX="44.0" layoutY="28.0" prefHeight="28.0" prefWidth="226.0">
+              <children>
+                <Label layoutX="0.0" layoutY="-1.0" prefHeight="28.0" prefWidth="138.0" styleClass="scoreboardLabels" text="Team One">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="137.0" layoutY="-1.0" prefHeight="28.0" prefWidth="45.0" styleClass="scoreboardLabels" text="0" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="-1.0" prefHeight="28.0" prefWidth="45.0" styleClass="scoreboardLabels" text="0" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+            </AnchorPane>
+            <AnchorPane layoutX="44.0" layoutY="56.0" prefHeight="28.0" prefWidth="226.0">
+              <children>
+                <Label layoutX="0.0" layoutY="-2.0" prefHeight="30.0" prefWidth="138.0" styleClass="scoreboardLabels" text="Team Two">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="137.0" layoutY="-2.0" prefHeight="30.0" prefWidth="45.0" styleClass="scoreboardLabels" text="0" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="-2.0" prefHeight="30.0" prefWidth="45.0" styleClass="scoreboardLabels" text="0" textAlignment="CENTER">
+                  <stylesheets>
+                    <URL value="@../css/Euchre.css" />
+                  </stylesheets>
+                </Label>
+              </children>
+            </AnchorPane>
+            <AnchorPane layoutX="0.0" layoutY="27.0" prefHeight="57.0" prefWidth="45.0" styleClass="scoreboardLabels">
+              <stylesheets>
+                <URL value="@../css/Euchre.css" />
+              </stylesheets>
+            </AnchorPane>
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="378.0" layoutY="304.0" prefHeight="46.0" prefWidth="45.0" />
+        <AnchorPane layoutX="306.0" layoutY="142.0" prefHeight="46.0" prefWidth="45.0" />
+        <AnchorPane layoutX="633.0" layoutY="99.0" prefHeight="46.0" prefWidth="45.0" />
+        <AnchorPane layoutX="714.0" layoutY="273.0" prefHeight="46.0" prefWidth="45.0" />
+        <AnchorPane layoutX="507.0" layoutY="252.0" prefHeight="46.0" prefWidth="42.0" />
+        <AnchorPane layoutX="463.0" layoutY="208.0" prefHeight="46.0" prefWidth="42.0" rotate="90.0" />
+        <AnchorPane layoutX="507.0" layoutY="164.0" prefHeight="46.0" prefWidth="42.0" rotate="180.0" />
+        <AnchorPane layoutX="551.0" layoutY="208.0" prefHeight="46.0" prefWidth="42.0" rotate="270.0" />
+      </children>
       <stylesheets>
         <URL value="@../css/Euchre.css" />
       </stylesheets>

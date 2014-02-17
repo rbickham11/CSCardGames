@@ -22,7 +22,7 @@
             <Color blue="0.600" green="0.600" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Button layoutX="902.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="38.0" styleClass="headerButton" text="Games">
+        <Button layoutX="832.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToTablesScreen" prefHeight="36.0" styleClass="headerButton" text="Games">
           <font>
             <Font name="Arial" size="14.0" fx:id="x2" />
           </font>
@@ -30,7 +30,7 @@
             <URL value="@../css/Main.css" />
           </stylesheets>
         </Button>
-        <Button font="$x2" layoutX="972.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="38.0" styleClass="headerButton" text="Logout">
+        <Button font="$x2" layoutX="902.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="36.0" styleClass="headerButton" text="Logout">
           <stylesheets>
             <URL value="@../css/Main.css" />
           </stylesheets>
@@ -40,7 +40,286 @@
         <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="460.5" prefWidth="1055.0" styleClass="tableImage">
+    <AnchorPane layoutX="1.0" layoutY="40.0" prefHeight="460.5" prefWidth="1055.0" styleClass="tableImage">
+      <children>
+        <AnchorPane layoutX="456.0" layoutY="336.0" opacity="1.0" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="258.0" layoutY="336.0" opacity="0.5" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="658.0" layoutY="336.0" opacity="0.5" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="64.0" layoutY="264.0" opacity="1.0" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="64.0" layoutY="108.0" opacity="0.5" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="258.0" layoutY="23.0" opacity="1.0" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="658.0" layoutY="23.0" opacity="0.5" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="871.0" layoutY="108.0" opacity="0.5" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="871.0" layoutY="264.0" opacity="1.0" prefHeight="85.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="84.0" layoutY="65.0" prefHeight="20.0" prefWidth="86.0" styleClass="chipCount" text="" textAlignment="LEFT">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="84.0" layoutY="46.0" prefHeight="20.0" prefWidth="86.0" styleClass="userName" text="Empty">
+              <stylesheets>
+                <URL value="@../css/HoldEm.css" />
+              </stylesheets>
+            </Label>
+            <AnchorPane layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="128.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <Label alignment="CENTER" layoutX="428.0" layoutY="115.0" prefWidth="230.0" text="Pot Size:  $0" textAlignment="CENTER">
+          <font>
+            <Font name="Arial" size="12.0" fx:id="x5" />
+          </font>
+          <textFill>
+            <Color blue="0.345" green="0.796" red="0.075" fx:id="x3" />
+          </textFill>
+        </Label>
+        <AnchorPane layoutX="428.0" layoutY="131.0" prefHeight="46.0" prefWidth="230.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="47.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="94.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="141.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+            <AnchorPane layoutX="188.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="455.0" layoutY="285.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="114.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <Label alignment="CENTER" layoutX="0.0" layoutY="33.0" prefWidth="114.0" text="" textFill="$x3">
+              <font>
+                <Font name="Arial" size="10.0" fx:id="x4" />
+              </font>
+            </Label>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="258.0" layoutY="286.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="114.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="0.0" layoutY="33.0" prefWidth="114.0" text="" textFill="$x3" />
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="657.0" layoutY="286.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="114.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="0.0" layoutY="33.0" prefWidth="114.0" text="" textFill="$x3" />
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="701.0" layoutY="234.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="114.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="0.0" layoutY="33.0" prefWidth="114.0" text="" textFill="$x3" />
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="701.0" layoutY="176.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="114.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="0.0" layoutY="33.0" prefWidth="114.0" text="" textFill="$x3" />
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="658.0" layoutY="115.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="114.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="0.0" layoutY="33.0" prefWidth="114.0" text="" textFill="$x3" />
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="258.0" layoutY="115.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="114.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="0.0" layoutY="33.0" prefWidth="114.0" text="" textFill="$x3" />
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="234.0" layoutY="234.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <AnchorPane layoutX="56.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="56.0" layoutY="34.0" prefWidth="114.0" text="">
+              <textFill>
+                <Color blue="0.345" green="0.796" red="0.075" fx:id="x6" />
+              </textFill>
+            </Label>
+          </children>
+        </AnchorPane>
+        <AnchorPane layoutX="234.0" layoutY="176.0" prefHeight="45.0" prefWidth="170.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="46.0" prefWidth="56.0" />
+            <AnchorPane layoutX="56.0" layoutY="0.0" prefHeight="33.0" prefWidth="114.0" />
+            <Label alignment="CENTER" font="$x4" layoutX="56.0" layoutY="34.0" prefWidth="114.0" text="" textFill="$x6" />
+          </children>
+        </AnchorPane>
+      </children>
       <stylesheets>
         <URL value="@../css/HoldEm.css" />
       </stylesheets>
@@ -89,11 +368,7 @@
               </stylesheets>
             </Button>
             <Slider id="betAmount" fx:id="betAmountSlider" layoutX="10.0" layoutY="68.0" minorTickCount="1" prefWidth="350.0" showTickLabels="false" showTickMarks="false" snapToTicks="true" />
-            <Label alignment="CENTER" layoutX="14.0" layoutY="90.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?">
-              <font>
-                <Font name="Arial" size="12.0" />
-              </font>
-            </Label>
+            <Label alignment="CENTER" font="$x5" layoutX="14.0" layoutY="90.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?" />
             <Label fx:id="betAmount" alignment="CENTER_RIGHT" labelFor="$betAmountSlider" layoutX="370.0" layoutY="63.0" prefHeight="25.0" prefWidth="80.0" style="-fx-border-color: #000000;&#10;" text="" />
           </children>
         </AnchorPane>

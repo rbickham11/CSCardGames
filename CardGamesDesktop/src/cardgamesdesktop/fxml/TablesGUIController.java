@@ -57,8 +57,6 @@ public class TablesGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void showHoldEmTables(ActionEvent event) {
-        System.out.println("show holdem");
-        
         fivecarddrawTables.setVisible(false);
         euchreTables.setVisible(false);
         blackjackTables.setVisible(false);
@@ -72,8 +70,6 @@ public class TablesGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void showFiveCardDrawTables(ActionEvent event) {
-        System.out.println("show five card draw");
-        
         holdemTables.setVisible(false);
         euchreTables.setVisible(false);
         blackjackTables.setVisible(false);
@@ -87,8 +83,6 @@ public class TablesGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void showEuchreTables(ActionEvent event) {
-        System.out.println("show euchre");
-        
         holdemTables.setVisible(false);
         fivecarddrawTables.setVisible(false);
         blackjackTables.setVisible(false);
@@ -102,8 +96,6 @@ public class TablesGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void showBlackjackTables(ActionEvent event) {
-        System.out.println("show blackjack");
-        
         holdemTables.setVisible(false);
         fivecarddrawTables.setVisible(false);
         euchreTables.setVisible(false);
@@ -114,26 +106,31 @@ public class TablesGUIController implements Initializable, ControlledScreen {
             blackjackTables.setVisible(false);
         }
     }
-
+    
+    @FXML
+    private void goToAccountSettingsScreen(ActionEvent event) {
+        controller.setScreen(DesktopCardGameGUI.screen4ID);
+    }
+    
     @FXML
     private void goToHoldEmScreen(ActionEvent event) {
         HoldemDealer dealer = new HoldemDealer(20000, 200);
-        controller.setScreen(DesktopCardGameGUI.screen4ID);
+        controller.setScreen(DesktopCardGameGUI.screen5ID);
         
     }
     
     @FXML
     private void goToFiveCardDrawScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen5ID);
-    }
-    
-    @FXML
-    private void goToEuchreScreen(ActionEvent event) {
         controller.setScreen(DesktopCardGameGUI.screen6ID);
     }
     
     @FXML
-    private void goToBlackjackScreen(ActionEvent event) {
+    private void goToEuchreScreen(ActionEvent event) {
         controller.setScreen(DesktopCardGameGUI.screen7ID);
+    }
+    
+    @FXML
+    private void goToBlackjackScreen(ActionEvent event) {
+        controller.setScreen(DesktopCardGameGUI.screen8ID);
     }
 }

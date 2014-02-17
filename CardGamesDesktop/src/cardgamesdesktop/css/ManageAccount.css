@@ -1,0 +1,15 @@
+.manageOptions
+{
+    -fx-background-color: #F5F5F5;
+    -fx-border-color: #E3E3E3;
+    -fx-border-radius: 0 0 0 0;
+    -fx-text-fill: #0093FF
+}
+
+.manageOptions:hover, .manageOptions:focused
+{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #0093FF;
+    -fx-border-color: #0093FF;
+    -fx-cursor: hand;
+}

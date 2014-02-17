@@ -23,14 +23,18 @@ public class DesktopCardGameGUI extends Application {
     public static String screen2File = "fxml/LoginGUI.fxml";
     public static String screen3ID = "tables";
     public static String screen3File = "fxml/TablesGUI.fxml";
-    public static String screen4ID = "holdem";
-    public static String screen4File = "fxml/HoldEmGUI.fxml";
-    public static String screen5ID = "fivecarddraw";
-    public static String screen5File = "fxml/FiveCardDrawGUI.fxml";
-    public static String screen6ID = "euchre";
-    public static String screen6File = "fxml/EuchreGUI.fxml";
-    public static String screen7ID = "blackjack";
-    public static String screen7File = "fxml/BlackjackGUI.fxml";
+    public static String screen4ID = "accountsettings";
+    public static String screen4File = "fxml/ManageAccountGUI.fxml";
+    public static String screen5ID = "holdem";
+    public static String screen5File = "fxml/HoldEmGUI.fxml";
+    public static String screen6ID = "fivecarddraw";
+    public static String screen6File = "fxml/FiveCardDrawGUI.fxml";
+    public static String screen7ID = "euchre";
+    public static String screen7File = "fxml/EuchreGUI.fxml";
+    public static String screen8ID = "blackjack";
+    public static String screen8File = "fxml/BlackjackGUI.fxml";
+    public static String screen9ID = "userstatistics";
+    public static String screen9File = "fxml/UserStatisticsGUI.fxml";
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -42,6 +46,8 @@ public class DesktopCardGameGUI extends Application {
         container.loadScreen(DesktopCardGameGUI.screen5ID, DesktopCardGameGUI.screen5File);
         container.loadScreen(DesktopCardGameGUI.screen6ID, DesktopCardGameGUI.screen6File);
         container.loadScreen(DesktopCardGameGUI.screen7ID, DesktopCardGameGUI.screen7File);
+        container.loadScreen(DesktopCardGameGUI.screen8ID, DesktopCardGameGUI.screen8File);
+        container.loadScreen(DesktopCardGameGUI.screen9ID, DesktopCardGameGUI.screen9File);
 
         container.setScreen(DesktopCardGameGUI.screen1ID);
 

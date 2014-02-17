@@ -22,10 +22,15 @@
             <Color blue="0.600" green="0.600" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Button layoutX="902.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="38.0" prefWidth="-1.0" styleClass="headerButton" text="Logout" AnchorPane.bottomAnchor="1.0">
+        <Button layoutX="902.0" mnemonicParsing="false" onAction="#goToLoginScreen" prefHeight="36.0" prefWidth="-1.0" styleClass="headerButton" text="Logout" AnchorPane.bottomAnchor="1.0">
           <font>
             <Font name="Arial" size="14.0" fx:id="x2" />
           </font>
+          <stylesheets>
+            <URL value="@../css/Main.css" />
+          </stylesheets>
+        </Button>
+        <Button font="$x2" layoutX="720.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToAccountSettingsScreen" prefHeight="36.0" styleClass="headerButton" text="Change Account Settings">
           <stylesheets>
             <URL value="@../css/Main.css" />
           </stylesheets>

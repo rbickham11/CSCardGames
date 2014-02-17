@@ -21,7 +21,7 @@
             <Color blue="0.600" green="0.600" red="0.600" fx:id="x1" />
           </textFill>
         </Label>
-        <Button layoutX="902.0" layoutY="0.0" mnemonicParsing="false" onAction="#goToHomeScreen" prefHeight="38.0" prefWidth="67.0" styleClass="headerButton" text="Home" textOverrun="CLIP">
+        <Button layoutX="902.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToHomeScreen" prefHeight="36.0" prefWidth="67.0" styleClass="headerButton" text="Home" textOverrun="CLIP">
           <font>
             <Font name="Arial" size="14.0" fx:id="x4" />
           </font>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.UserStatisticsGUIController">
+  <children>
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
+      <children>
+        <Label layoutX="51.0" layoutY="0.0" prefHeight="40.0" prefWidth="168.0" text="Card Game System" textFill="#999999">
+          <font>
+            <Font name="Arial" size="16.0" />
+          </font>
+        </Label>
+        <Button layoutX="902.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToEuchreTableScreen" prefHeight="36.0" prefWidth="67.0" styleClass="headerButton" text="Back" textOverrun="CLIP">
+          <font>
+            <Font name="Arial" size="14.0" fx:id="x1" />
+          </font>
+          <stylesheets>
+            <URL value="@../css/Main.css" />
+          </stylesheets>
+        </Button>
+      </children>
+      <stylesheets>
+        <URL value="@../css/Main.css" />
+      </stylesheets>
+    </AnchorPane>
+    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="610.0" prefWidth="1055.0">
+      <children>
+        <Label layoutX="14.0" layoutY="38.0" styleClass="heading" text="Someone's Profile">
+          <font>
+            <Font name="Arial" size="24.0" />
+          </font>
+          <stylesheets>
+            <URL value="@../css/UserStatistics.css" />
+          </stylesheets>
+        </Label>
+        <AnchorPane layoutX="14.0" layoutY="66.0" prefHeight="120.0" prefWidth="400.0" styleClass="containBox">
+          <children>
+            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="90.0" prefWidth="90.0" styleClass="userImage">
+              <stylesheets>
+                <URL value="@../css/UserStatistics.css" />
+              </stylesheets>
+            </AnchorPane>
+            <Label layoutX="110.0" layoutY="17.0" styleClass="labels" text="Name:">
+              <stylesheets>
+                <URL value="@../css/UserStatistics.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="110.0" layoutY="34.0" styleClass="labels" text="Email:">
+              <stylesheets>
+                <URL value="@../css/UserStatistics.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="110.0" layoutY="51.0" styleClass="labels" text="Favorite Game:">
+              <stylesheets>
+                <URL value="@../css/UserStatistics.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="110.0" layoutY="68.0" styleClass="labels" text="Time Played:">
+              <stylesheets>
+                <URL value="@../css/UserStatistics.css" />
+              </stylesheets>
+            </Label>
+            <Label layoutX="110.0" layoutY="85.0" styleClass="labels" text="Total Chips:">
+              <stylesheets>
+                <URL value="@../css/UserStatistics.css" />
+              </stylesheets>
+            </Label>
+            <Label font="$x1" layoutX="161.0" layoutY="17.0" prefWidth="225.0" text="" />
+            <Label font="$x1" layoutX="161.0" layoutY="34.0" prefWidth="225.0" text="" />
+            <Label font="$x1" layoutX="220.0" layoutY="51.0" prefWidth="166.0" text="" />
+            <Label font="$x1" layoutX="205.0" layoutY="68.0" prefWidth="181.0" text="" />
+            <Label font="$x1" layoutX="200.0" layoutY="85.0" prefWidth="186.0" text="" />
+          </children>
+          <stylesheets>
+            <URL value="@../css/Login.css" />
+          </stylesheets>
+        </AnchorPane>
+        <Label layoutX="469.0" layoutY="38.0" styleClass="heading" text="Someone's Statistics">
+          <stylesheets>
+            <URL value="@../css/UserStatistics.css" />
+          </stylesheets>
+        </Label>
+        <AnchorPane layoutX="469.0" layoutY="66.0" prefHeight="338.0" prefWidth="572.0">
+          <children>
+            <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="25.0" prefWidth="572.0">
+              <children>
+                <Button layoutX="228.0" layoutY="0.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#showEuchreStats" prefHeight="25.0" prefWidth="114.0" styleClass="statisticsOptions" text="Euchre">
+                  <stylesheets>
+                    <URL value="@../css/UserStatistics.css" />
+                  </stylesheets>
+                </Button>
+                <Button layoutX="342.0" layoutY="0.0" mnemonicParsing="false" onAction="#showBlackjackStats" prefHeight="25.0" prefWidth="114.0" styleClass="statisticsOptions" text="Blackjack">
+                  <stylesheets>
+                    <URL value="@../css/UserStatistics.css" />
+                  </stylesheets>
+                </Button>
+                <Button layoutX="456.0" layoutY="0.0" mnemonicParsing="false" onAction="#showFiveCardDrawStats" prefHeight="25.0" prefWidth="116.0" styleClass="statisticsOptions" text="Five Card Draw">
+                  <stylesheets>
+                    <URL value="@../css/UserStatistics.css" />
+                  </stylesheets>
+                </Button>
+                <Button layoutX="114.0" layoutY="0.0" mnemonicParsing="false" onAction="#showTexasHoldemStats" prefHeight="25.0" prefWidth="114.0" styleClass="statisticsOptions" text="Texas Hold'em">
+                  <stylesheets>
+                    <URL value="@../css/UserStatistics.css" />
+                  </stylesheets>
+                </Button>
+                <Button layoutX="0.0" layoutY="0.0" mnemonicParsing="false" onAction="#showOverallStats" prefHeight="25.0" prefWidth="114.0" styleClass="statisticsOptions" text="Overall">
+                  <stylesheets>
+                    <URL value="@../css/UserStatistics.css" />
+                  </stylesheets>
+                </Button>
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="overallStats" layoutX="0.0" layoutY="25.0" prefHeight="313.0" prefWidth="572.0" styleClass="containBox" visible="true">
+              <children>
+                <Label layoutX="246.0" layoutY="141.0" text="Overall Section" />
+              </children>
+              <stylesheets>
+                <URL value="@../css/Login.css" />
+              </stylesheets>
+            </AnchorPane>
+            <AnchorPane id="texasHoldemStats" fx:id="texasholdemStats" layoutX="0.0" layoutY="25.0" prefHeight="313.0" prefWidth="572.0" styleClass="containBox" visible="false">
+              <children>
+                <Label layoutX="226.0" layoutY="149.0" text="Texas Hold'em Section" />
+              </children>
+              <stylesheets>
+                <URL value="@../css/Login.css" />
+              </stylesheets>
+            </AnchorPane>
+            <AnchorPane fx:id="euchreStats" layoutX="0.0" layoutY="25.0" prefHeight="313.0" prefWidth="572.0" styleClass="containBox" visible="false">
+              <children>
+                <Label layoutX="247.0" layoutY="149.0" text="Euchre Section" />
+              </children>
+              <stylesheets>
+                <URL value="@../css/Login.css" />
+              </stylesheets>
+            </AnchorPane>
+            <AnchorPane fx:id="blackjackStats" layoutX="0.0" layoutY="25.0" prefHeight="313.0" prefWidth="572.0" styleClass="containBox" visible="false">
+              <children>
+                <Label layoutX="241.0" layoutY="149.0" text="Blackjack Section" />
+              </children>
+              <stylesheets>
+                <URL value="@../css/Login.css" />
+              </stylesheets>
+            </AnchorPane>
+            <AnchorPane fx:id="fivecarddrawStats" layoutX="0.0" layoutY="25.0" prefHeight="313.0" prefWidth="572.0" styleClass="containBox" visible="false">
+              <children>
+                <Label layoutX="225.0" layoutY="149.0" text="Five Card Draw Section" />
+              </children>
+              <stylesheets>
+                <URL value="@../css/Login.css" />
+              </stylesheets>
+            </AnchorPane>
+          </children>
+        </AnchorPane>
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>

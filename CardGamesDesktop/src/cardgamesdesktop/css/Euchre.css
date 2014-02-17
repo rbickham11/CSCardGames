@@ -4,3 +4,18 @@
   -fx-background-size: 100% 100%;
   -fx-background-repeat: stretch;
 }
+
+.scoreboardHeadings
+{
+    -fx-font-weight: bold;
+}
+
+.scoreboardLabels, .scoreboardHeadings
+{
+    -fx-background-color: #191919;
+    -fx-border-color: #00E3FF;
+    -fx-font-family: "Arial";
+    -fx-font-size: 12;
+    -fx-text-fill: #00E3FF;
+    -fx-padding: 0 0 0 3;
+}

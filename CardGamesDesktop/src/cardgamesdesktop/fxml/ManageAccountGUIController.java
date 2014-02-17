@@ -21,21 +21,50 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class EuchreGUIController implements Initializable, ControlledScreen {
+public class ManageAccountGUIController implements Initializable, ControlledScreen {
 
     ScreensController controller;
     
+    @FXML 
+    private AnchorPane changePassword;
+    
     @FXML
-    private AnchorPane player1Image;
+    private AnchorPane changeDisplayName;
+    
+    @FXML 
+    private AnchorPane changeEmail;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
     
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
+    @Override public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
+    }
+    
+    @FXML
+    private void showChangePassword(ActionEvent event) {
+        changeDisplayName.setVisible(false);
+        changeEmail.setVisible(false);
+        
+        changePassword.setVisible(true);
+    }
+    
+    @FXML
+    private void showChangeDisplayName(ActionEvent event) {
+        changePassword.setVisible(false);
+        changeEmail.setVisible(false);
+        
+        changeDisplayName.setVisible(true);
+    }
+    
+    @FXML
+    private void showChangeEmail(ActionEvent event) {
+        changePassword.setVisible(false);
+        changeDisplayName.setVisible(false);
+        
+        changeEmail.setVisible(true);
     }
     
     @FXML
@@ -46,10 +75,5 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     @FXML
     private void goToLoginScreen(ActionEvent event) {
         controller.setScreen(DesktopCardGameGUI.screen2ID);
-    }
-    
-    @FXML
-    private void showUserStatisticsScreen() {
-        controller.setScreen(DesktopCardGameGUI.screen9ID);
     }
 }
