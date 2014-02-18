@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cardgamesdesktop.fxml;
 
 import cardgamesdesktop.ControlledScreen;
@@ -13,6 +8,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -22,6 +20,26 @@ import javafx.fxml.Initializable;
 public class LoginGUIController implements Initializable, ControlledScreen {
 
     ScreensController controller;
+
+    @FXML
+    private Label registrationStatus;
+    @FXML
+    private TextField registerFirstName;
+    @FXML
+    private TextField registerLastName;
+    @FXML
+    private TextField registerUsername;
+    @FXML
+    private PasswordField registerPassword;
+    @FXML
+    private PasswordField registerPasswordVerify;
+
+    @FXML
+    private Label loginStatus;
+    @FXML
+    private TextField loginUsername;
+    @FXML
+    private PasswordField loginPassword;
 
     /**
      * Initializes the controller class.
@@ -35,14 +53,36 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
     }
-    
+
     @FXML
-    private void goToHomeScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen1ID);
+    private void registerNewUser(ActionEvent event) {
+        
     }
     
     @FXML
-    private void goToTablesScreen(ActionEvent event) {
+    private void clearRegisterForm(ActionEvent event) {
+        registerFirstName.clear();
+        registerLastName.clear();
+        registerUsername.clear();
+        registerPassword.clear();
+        registerPasswordVerify.clear();
+    }
+    
+    @FXML
+    private void login(ActionEvent event) {
+        
+        
         controller.setScreen(DesktopCardGameGUI.screen3ID);
+    }
+    
+    @FXML
+    private void clearLoginForm(ActionEvent event) {
+        loginUsername.clear();
+        loginPassword.clear();
+    }
+
+    @FXML
+    private void goToHomeScreen(ActionEvent event) {
+        controller.setScreen(DesktopCardGameGUI.screen1ID);
     }
 }

@@ -51,19 +51,19 @@
             <Font name="Arial Bold" size="14.0" fx:id="x2" />
           </font>
         </Label>
-        <TextField layoutX="25.0" layoutY="115.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
+        <TextField fx:id="loginUsername" layoutX="25.0" layoutY="115.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
         <Label font="$x2" layoutX="25.0" layoutY="168.0" text="Password" />
-        <PasswordField layoutX="25.0" layoutY="192.0" prefHeight="34.0" prefWidth="447.0" promptText="Password" styleClass="inputFields">
+        <PasswordField fx:id="loginPassword" layoutX="25.0" layoutY="192.0" prefHeight="34.0" prefWidth="447.0" promptText="Password" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </PasswordField>
-        <Button fx:id="loginBtn" layoutX="25.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToTablesScreen" text="Submit" />
-        <Button fx:id="clearLoginBtn" layoutX="114.0" layoutY="249.0" mnemonicParsing="false" text="Clear" />
+        <Button id="loginBtn" layoutX="25.0" layoutY="249.0" mnemonicParsing="false" onAction="#login" text="Submit" />
+        <Button id="clearLoginBtn" layoutX="114.0" layoutY="249.0" mnemonicParsing="false" onAction="#clearLoginForm" text="Clear" />
       </children>
       <stylesheets>
         <URL value="@../css/Login.css" />
@@ -73,33 +73,33 @@
       <children>
         <Label alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="0.0" layoutY="34.0" prefWidth="497.0" text="Register" textAlignment="CENTER" />
         <Label font="$x2" layoutX="25.0" layoutY="95.0" text="First Name" />
-        <TextField layoutX="25.0" layoutY="117.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter first name" styleClass="inputFields">
+        <TextField fx:id="registerFirstName" layoutX="25.0" layoutY="117.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter first name" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
         <Label font="$x2" layoutX="25.0" layoutY="166.0" text="Last Name" />
-        <TextField layoutX="25.0" layoutY="188.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter last name" styleClass="inputFields">
+        <TextField fx:id="registerLastName" layoutX="25.0" layoutY="188.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter last name" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
         <Label font="$x2" layoutX="25.0" layoutY="239.0" text="Username" />
-        <TextField layoutX="25.0" layoutY="261.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
+        <TextField fx:id="registerUsername" layoutX="25.0" layoutY="261.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
         <Label font="$x2" layoutX="25.0" layoutY="310.0" text="Password" />
         <Label font="$x2" layoutX="25.0" layoutY="384.0" text="Re-Enter Password" />
-        <Button fx:id="registerBtn" layoutX="21.0" layoutY="468.0" mnemonicParsing="false" text="Submit" />
-        <Button fx:id="clearRegisterBtn" layoutX="114.0" layoutY="469.0" mnemonicParsing="false" text="Clear" />
-        <PasswordField layoutX="25.0" layoutY="333.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
+        <Button id="registerBtn" layoutX="21.0" layoutY="468.0" mnemonicParsing="false" onAction="#registerNewUser" text="Submit" />
+        <Button id="clearRegisterBtn" layoutX="114.0" layoutY="469.0" mnemonicParsing="false" onAction="#clearRegisterForm" text="Clear" />
+        <PasswordField fx:id="registerPassword" layoutX="25.0" layoutY="333.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </PasswordField>
-        <PasswordField layoutX="25.0" layoutY="407.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
+        <PasswordField fx:id="registerPasswordVerify" layoutX="25.0" layoutY="407.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
@@ -109,7 +109,7 @@
         <URL value="@../css/Login.css" />
       </stylesheets>
     </AnchorPane>
-    <Label fx:id="loginStatus" alignment="CENTER" font="$x4" layoutX="14.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="Login Successful" textFill="RED" />
-    <Label fx:id="registrationStatus" alignment="CENTER" font="$x4" layoutX="544.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="Registration Successful" textFill="RED" />
+    <Label fx:id="loginStatus" alignment="CENTER" font="$x4" layoutX="14.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="" textFill="RED" />
+    <Label fx:id="registrationStatus" alignment="CENTER" font="$x4" layoutX="544.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="" textFill="RED" />
   </children>
 </AnchorPane>
