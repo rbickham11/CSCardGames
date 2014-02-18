@@ -16,6 +16,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import cardgameslib.games.poker.holdem.HoldemDealer;
+
 /**
  * FXML Controller class
  *
@@ -30,6 +32,7 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     //      6   5   4
     
     ScreensController controller;
+    private HoldemDealer dealer;
 
     @FXML
     private AnchorPane player1Image;
@@ -215,6 +218,7 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        dealer = new HoldemDealer(100000, 1000);
         betAmount.setText(Integer.toString((int)betAmountSlider.getValue()));
         
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {

@@ -1,6 +1,5 @@
 package cardgameslib.games.poker.holdem;
 
-import cardgameslib.textchat.ChatServer;
 import cardgameslib.utilities.*;
 import cardgameslib.games.poker.betting.*;
 
@@ -11,20 +10,17 @@ import java.util.*;
  *
  */
 public class HoldemDealer {
-    private final int MAX_PLAYERS = 9;
+    private static final int MAX_PLAYERS = 9;
+   
+    private final Deck deck = new Deck();
+    private final List<BettingPlayer> players = new ArrayList<>(MAX_PLAYERS);
+
+    private final int chipLimit;
+    private final int bigBlind;
     
-    private Deck deck;
     private PokerBettingHelper bettingHelper;
-    private HoldemWinChecker winChecker;
-    //private ChatServer chat;
-    
-    private List<BettingPlayer> players;
     private List<BettingPlayer> activePlayers;
-    
     private List<Integer> board;
-    
-    private int chipLimit;
-    private int bigBlind;
    
     /**
      * Constructor for HoldemDealer
@@ -32,13 +28,9 @@ public class HoldemDealer {
      * @param bb int holding the value of the big blind for the table
      */
     public HoldemDealer(int maxChips, int bb) {
-        deck = new Deck();
-        players = new ArrayList<>(MAX_PLAYERS);
-        bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
-        winChecker = new HoldemWinChecker();
-        //chat = new ChatServer(8081);
         chipLimit = maxChips;
         bigBlind = bb;
+        bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
 
         Random r = new Random();
         Collections.rotate(players, r.nextInt(MAX_PLAYERS));
@@ -253,6 +245,7 @@ public class HoldemDealer {
      * Function to figure out who won the hand
      */
     public void findWinner() {
+        HoldemWinChecker winChecker = new HoldemWinChecker();
         winChecker.findWinningHand(activePlayers, board);
         
         List<BettingPlayer> winningPlayers = winChecker.getWinningPlayers();

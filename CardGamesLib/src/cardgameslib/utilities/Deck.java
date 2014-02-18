@@ -15,7 +15,7 @@ public class Deck {
 
     private List<Integer> deck;
     private List<Integer> dealtCards;
-    private int DECK_SIZE = 52;
+    private int deckSize = 52;
 
     /**
      * Constructor of Deck for a standard 52 card deck
@@ -24,7 +24,7 @@ public class Deck {
         deck = new ArrayList<>();
         dealtCards = new ArrayList<>();
 
-        for (int i = 0; i < DECK_SIZE; i++) {
+        for (int i = 0; i < deckSize; i++) {
             deck.add(i);
         }
     }
@@ -42,7 +42,7 @@ public class Deck {
         }
         deck = new ArrayList<>(customDeck);
         dealtCards = new ArrayList<>();
-        DECK_SIZE = deck.size();
+        deckSize = deck.size();
     }
 
     /**
@@ -50,7 +50,7 @@ public class Deck {
      * using multiple decks
      */
     public void addDeck() {
-        for (int i = 0; i < DECK_SIZE; i++) {
+        for (int i = 0; i < deckSize; i++) {
             deck.add(i);
         }
     }
@@ -80,7 +80,7 @@ public class Deck {
         Random random = new Random();
         int i, j, temp;
 
-        for (i = DECK_SIZE - 1; i > 0; i--) {
+        for (i = deckSize - 1; i > 0; i--) {
             j = random.nextInt(i + 1);
             temp = deck.get(i);
             deck.set(i, deck.get(j));
