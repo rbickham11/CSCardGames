@@ -69,11 +69,11 @@ public class ManageAccountGUIController implements Initializable, ControlledScre
     
     @FXML
     private void goToTablesScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen3ID);
+        controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
     private void goToLoginScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen2ID);
+        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
 }

@@ -72,7 +72,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     private void login(ActionEvent event) {
         
         
-        controller.setScreen(DesktopCardGameGUI.screen3ID);
+        controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
@@ -83,6 +83,6 @@ public class LoginGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void goToHomeScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen1ID);
+        controller.setScreen(DesktopCardGameGUI.homeScreen);
     }
 }

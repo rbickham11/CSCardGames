@@ -102,6 +102,6 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     
     @FXML
     private void goToEuchreTableScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen7ID);
+        controller.setScreen(DesktopCardGameGUI.euchreScreen);
     }
 }

@@ -29,6 +29,6 @@ public class MainGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void goToLoginScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen2ID);
+        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
 }

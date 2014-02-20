@@ -10,11 +10,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import cardgameslib.games.poker.holdem.*;
+import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+
+import cardgameslib.utilities.Game;
 /**
  * FXML Controller class
  *
@@ -69,37 +73,38 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
+        addNewEuchreTable("Intermediate Euchre Table", "For a relaxed game.", "", "3 / 4");
     }
 
     public void addNewHoldemTable(String tableName, String blind, String maxBuyIn, String capacity) {
-        AnchorPane contain = createNewTableEntry(tableName, blind, maxBuyIn, capacity);
+        AnchorPane contain = createNewTableEntry(Game.HOLDEM, tableName, blind, maxBuyIn, capacity);
         contain.setLayoutY((holdem.size() + 1) * 50);
         holdemTablesList.getChildren().add(contain);
         holdem.add(contain);
     }
     
     public void addNewFiveCardDrawTable(String tableName, String ante, String maxBuyIn, String capacity) {
-        AnchorPane contain = createNewTableEntry(tableName, ante, maxBuyIn, capacity);
+        AnchorPane contain = createNewTableEntry(Game.FIVECARDDRAW, tableName, ante, maxBuyIn, capacity);
         contain.setLayoutY((fivecarddraw.size() + 1) * 50);
         fivecarddrawTablesList.getChildren().add(contain);
         fivecarddraw.add(contain);
     }
     
     public void addNewEuchreTable(String tableName, String info1, String info2, String capacity) {
-        AnchorPane contain = createNewTableEntry(tableName, info1, info2, capacity);
+        AnchorPane contain = createNewTableEntry(Game.EUCHRE, tableName, info1, info2, capacity);
         contain.setLayoutY((euchre.size() + 1) * 50);
         euchreTablesList.getChildren().add(contain);
         euchre.add(contain);
     }
     
     public void addNewBlackjackTable(String tableName, String minBet, String maxBet, String capacity) {
-        AnchorPane contain = createNewTableEntry(tableName, minBet, maxBet, capacity);
+        AnchorPane contain = createNewTableEntry(Game.BLACKJACK, tableName, minBet, maxBet, capacity);
         contain.setLayoutY((blackjack.size() + 1) * 50);
         blackjackTablesList.getChildren().add(contain);
         blackjack.add(contain);
     }
     
-    private AnchorPane createNewTableEntry(String name, String info1, String info2, String capacity) {
+    private AnchorPane createNewTableEntry(final Game game, String name, String info1, String info2, String capacity) {
         AnchorPane contain = new AnchorPane();
         Label field1 = new Label(name);
         Label field2 = new Label(info1);
@@ -138,6 +143,27 @@ public class TablesGUIController implements Initializable, ControlledScreen {
         join.setMinHeight(BUTTON_HEIGHT);
         join.setMinWidth(BUTTON_WIDTH);
         join.getStyleClass().add("joinTableBtn");
+        join.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                switch(game)
+                {
+                    case HOLDEM:
+                        controller.setScreen(DesktopCardGameGUI.holdemScreen);
+                        break;
+                    case FIVECARDDRAW:
+                        controller.setScreen(DesktopCardGameGUI.fivecarddrawScreen);
+                        break;
+                    case EUCHRE:
+                        controller.setScreen(DesktopCardGameGUI.euchreScreen);
+                        break;
+                    case BLACKJACK:
+                        controller.setScreen(DesktopCardGameGUI.blackjackScreen);
+                        break;
+                    default: break;
+                }
+            }
+        });
         
         contain.setMinHeight(50);
         contain.setMinWidth(943);
@@ -159,7 +185,7 @@ public class TablesGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void goToLoginScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen2ID);
+        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
 
     @FXML
@@ -216,28 +242,6 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void goToAccountSettingsScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen4ID);
-    }
-    
-    @FXML
-    private void goToHoldEmScreen(ActionEvent event) {
-        HoldemDealer dealer = new HoldemDealer(20000, 200);
-        controller.setScreen(DesktopCardGameGUI.screen5ID);
-        
-    }
-    
-    @FXML
-    private void goToFiveCardDrawScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen6ID);
-    }
-    
-    @FXML
-    private void goToEuchreScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen7ID);
-    }
-    
-    @FXML
-    private void goToBlackjackScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen8ID);
+        controller.setScreen(DesktopCardGameGUI.accountScreen);
     }
 }

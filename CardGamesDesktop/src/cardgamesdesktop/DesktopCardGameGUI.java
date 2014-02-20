@@ -17,39 +17,39 @@ import javafx.stage.Stage;
  */
 public class DesktopCardGameGUI extends Application {
     
-    public static String screen1ID = "main";
-    public static String screen1File = "fxml/MainGUI.fxml";
-    public static String screen2ID = "login";
-    public static String screen2File = "fxml/LoginGUI.fxml";
-    public static String screen3ID = "tables";
-    public static String screen3File = "fxml/TablesGUI.fxml";
-    public static String screen4ID = "accountsettings";
-    public static String screen4File = "fxml/ManageAccountGUI.fxml";
-    public static String screen5ID = "holdem";
-    public static String screen5File = "fxml/HoldEmGUI.fxml";
-    public static String screen6ID = "fivecarddraw";
-    public static String screen6File = "fxml/FiveCardDrawGUI.fxml";
-    public static String screen7ID = "euchre";
-    public static String screen7File = "fxml/EuchreGUI.fxml";
-    public static String screen8ID = "blackjack";
-    public static String screen8File = "fxml/BlackjackGUI.fxml";
-    public static String screen9ID = "userstatistics";
-    public static String screen9File = "fxml/UserStatisticsGUI.fxml";
+    public static String homeScreen = "main";
+    public static String homeScreenFile = "fxml/MainGUI.fxml";
+    public static String loginScreen = "login";
+    public static String loginScreenFile = "fxml/LoginGUI.fxml";
+    public static String tablesScreen = "tables";
+    public static String tablesScreenFile = "fxml/TablesGUI.fxml";
+    public static String accountScreen = "accountsettings";
+    public static String accountScreenFile = "fxml/ManageAccountGUI.fxml";
+    public static String holdemScreen = "holdem";
+    public static String holdemScreenFile = "fxml/HoldEmGUI.fxml";
+    public static String fivecarddrawScreen = "fivecarddraw";
+    public static String fivecarddrawScreenFile = "fxml/FiveCardDrawGUI.fxml";
+    public static String euchreScreen = "euchre";
+    public static String euchreScreenFile = "fxml/EuchreGUI.fxml";
+    public static String blackjackScreen = "blackjack";
+    public static String blackjackScreenFile = "fxml/BlackjackGUI.fxml";
+    public static String statisticsScreen = "userstatistics";
+    public static String statisticsScreenFile = "fxml/UserStatisticsGUI.fxml";
     
     @Override
     public void start(Stage stage) throws Exception {
         ScreensController container = new ScreensController();
-        container.loadScreen(DesktopCardGameGUI.screen1ID, DesktopCardGameGUI.screen1File);
-        container.loadScreen(DesktopCardGameGUI.screen2ID, DesktopCardGameGUI.screen2File);
-        container.loadScreen(DesktopCardGameGUI.screen3ID, DesktopCardGameGUI.screen3File);
-        container.loadScreen(DesktopCardGameGUI.screen4ID, DesktopCardGameGUI.screen4File);
-        container.loadScreen(DesktopCardGameGUI.screen5ID, DesktopCardGameGUI.screen5File);
-        container.loadScreen(DesktopCardGameGUI.screen6ID, DesktopCardGameGUI.screen6File);
-        container.loadScreen(DesktopCardGameGUI.screen7ID, DesktopCardGameGUI.screen7File);
-        container.loadScreen(DesktopCardGameGUI.screen8ID, DesktopCardGameGUI.screen8File);
-        container.loadScreen(DesktopCardGameGUI.screen9ID, DesktopCardGameGUI.screen9File);
+        container.loadScreen(DesktopCardGameGUI.homeScreen, DesktopCardGameGUI.homeScreenFile);
+        container.loadScreen(DesktopCardGameGUI.loginScreen, DesktopCardGameGUI.loginScreenFile);
+        container.loadScreen(DesktopCardGameGUI.tablesScreen, DesktopCardGameGUI.tablesScreenFile);
+        container.loadScreen(DesktopCardGameGUI.accountScreen, DesktopCardGameGUI.accountScreenFile);
+        container.loadScreen(DesktopCardGameGUI.holdemScreen, DesktopCardGameGUI.holdemScreenFile);
+        container.loadScreen(DesktopCardGameGUI.fivecarddrawScreen, DesktopCardGameGUI.fivecarddrawScreenFile);
+        container.loadScreen(DesktopCardGameGUI.euchreScreen, DesktopCardGameGUI.euchreScreenFile);
+        container.loadScreen(DesktopCardGameGUI.blackjackScreen, DesktopCardGameGUI.blackjackScreenFile);
+        container.loadScreen(DesktopCardGameGUI.statisticsScreen, DesktopCardGameGUI.statisticsScreenFile);
 
-        container.setScreen(DesktopCardGameGUI.screen1ID);
+        container.setScreen(DesktopCardGameGUI.homeScreen);
 
         Group root = new Group();
         root.getChildren().addAll(container);

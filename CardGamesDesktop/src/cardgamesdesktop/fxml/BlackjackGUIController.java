@@ -143,12 +143,12 @@ public class BlackjackGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void goToTablesScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen3ID);
+        controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
     private void goToLoginScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen2ID);
+        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
     
     @FXML

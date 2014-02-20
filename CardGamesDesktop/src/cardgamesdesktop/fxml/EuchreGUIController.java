@@ -151,17 +151,17 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void goToTablesScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen3ID);
+        controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
     private void goToLoginScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.screen2ID);
+        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
     
     @FXML
     private void showUserStatisticsScreen() {
-        controller.setScreen(DesktopCardGameGUI.screen9ID);
+        controller.setScreen(DesktopCardGameGUI.statisticsScreen);
     }
     
     @FXML

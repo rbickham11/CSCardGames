@@ -41,3 +41,6 @@
 *.jar
 *.war
 *.ear
+
+#jfx-impl backup files
+jfx-impl_backup*.xml
