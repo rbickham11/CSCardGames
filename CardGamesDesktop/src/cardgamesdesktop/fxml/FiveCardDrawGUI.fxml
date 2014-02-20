@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" minHeight="653.0" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.FiveCardDrawGUIController">
   <children>
-    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
+    <AnchorPane layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
         <Label layoutX="51.0" layoutY="0.0" prefHeight="40.0" prefWidth="168.0" text="Card Game System">
           <font>
@@ -41,7 +41,7 @@
         <URL value="@../css/Main.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="40.0" prefHeight="460.5" prefWidth="1055.0" styleClass="tableImage">
+    <AnchorPane layoutX="0.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.5" prefWidth="1055.0" styleClass="tableImage">
       <children>
         <AnchorPane layoutX="423.0" layoutY="341.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
           <children>

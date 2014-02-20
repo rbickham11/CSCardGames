@@ -10,29 +10,6 @@
     -fx-background-color: #FFFFFF;
 }
 
-.tableName
-{
-    -fx-text-fill: #333333;
-}
-
-.tableBlinds, .tableMaxBuyIn, .tableCapacity
-{
-    -fx-text-fill: #948C7B;
-}
-
-.joinTableBtn
-{
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #948C7B;
-}
-
-.joinTableBtn:hover
-{
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: rgba(71, 65, 52, .7);
-    -fx-cursor: hand;
-}
-
 .text-area, .text-field
 {
     -fx-border-width: 1px;
