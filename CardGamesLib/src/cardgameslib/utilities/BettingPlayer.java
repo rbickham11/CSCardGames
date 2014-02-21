@@ -2,8 +2,6 @@ package cardgameslib.utilities;
 
 import java.util.*;
 
-import cardgameslib.textchat.ChatClient;
-
 /**
  * Class to handle player who is able to bet
  * @author Ryan Bickham
@@ -12,7 +10,6 @@ import cardgameslib.textchat.ChatClient;
 public class BettingPlayer extends Player {   //Used for games with betting, inherits Player
     private int chips;
     private int currentBet;
-    //private ChatClient chat;
     /**
      * Constructor for BettingPlayer
      * @param id int value holding player number
@@ -24,7 +21,6 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
         super(id, userName, seatNum);
         chips = startingChips;
         currentBet = 0;
-        //chat = new ChatClient("localhost", 8081, Integer.toString(id));
     }
     
     /**
@@ -120,13 +116,5 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
             }
         }
         throw new IllegalArgumentException("No player found with given seat number");
-    }
-    
-    /**
-     * Function to send a message
-     * @param message String holding message to be sent
-     */
-    public void sendMessage(String message) {
-    	//chat.sendMessage(message);
     }
 }

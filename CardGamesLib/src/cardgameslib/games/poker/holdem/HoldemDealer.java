@@ -258,18 +258,5 @@ public class HoldemDealer {
             System.out.printf("\nThe winner is Player %d with %s%s", player.getSeatNumber(), a, winningRankString);
         }
     }
-    
-    /**
-     * Function to send a chat message to a player
-     * @param playerId int holding the player who sent the message 
-     * @param message message to be sent
-     */
-    public void sendPlayerMessage(int playerId, String message) {
-    	for(BettingPlayer player : players) {
-            if(player.getUserId() == playerId) {
-            	player.sendMessage(message);
-            }
-        }
-    }
 }
 
