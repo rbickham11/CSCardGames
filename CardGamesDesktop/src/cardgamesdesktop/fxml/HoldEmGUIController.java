@@ -16,8 +16,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import cardgameslib.games.poker.holdem.HoldemDealer;
-
+import cardgamesdesktop.utilities.*;
+import java.rmi.RemoteException;
+import javafx.beans.property.StringProperty;
 /**
  * FXML Controller class
  *
@@ -31,9 +32,9 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     //  7               3
     //      6   5   4
     
-    ScreensController controller;
-    private HoldemDealer dealer;
 
+
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     @FXML
     private AnchorPane player1Image;
     @FXML
@@ -211,15 +212,22 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     @FXML
     private Slider betAmountSlider;
     @FXML
-    private Label betAmount;
+    private Label betAmount;    
+    // </editor-fold>
+    
+    ScreensController controller;
+    private ChatClient chatClient;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dealer = new HoldemDealer(100000, 1000);
-        betAmount.setText(Integer.toString((int)betAmountSlider.getValue()));
+        StringProperty chatBoxText = chatBox.textProperty();
+        try{
+            chatClient = new ChatClient(chatBoxText);
+        }
+        catch(RemoteException ex){ex.printStackTrace(System.out);}
         
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -228,7 +236,7 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
             }
         });
     }
-
+    
     @Override
     public void setScreenParent(ScreensController screenParent) {
         controller = screenParent;
@@ -271,6 +279,9 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void sendMessage(ActionEvent event) {
-        
+        chatClient.sendChatMessage(chatMessage.getText());
+        chatMessage.setText("");
     }
+    
+    
 }
