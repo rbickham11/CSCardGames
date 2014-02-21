@@ -200,8 +200,8 @@ public class HoldemWinChecker {
                     if(handValues.get(i) == handValues.get(i - 3)) {
                         return true;
                     }
-                    return false;
                 }
+                return false;
             case 6: //Full House
                 for(i = 2; i < handValues.size(); i++) {
                     if(handValues.get(i) == handValues.get(i - 2)) {
