@@ -2,14 +2,12 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.LoginGUIController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cardgamesdesktop.fxml.LoginGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
@@ -72,34 +70,28 @@
     <AnchorPane layoutX="544.0" layoutY="74.0" prefHeight="517.0" prefWidth="497.0" styleClass="containBox">
       <children>
         <Label alignment="CENTER" contentDisplay="CENTER" font="$x3" layoutX="0.0" layoutY="34.0" prefWidth="497.0" text="Register" textAlignment="CENTER" />
-        <Label font="$x2" layoutX="25.0" layoutY="95.0" text="First Name" />
-        <TextField fx:id="registerFirstName" layoutX="25.0" layoutY="117.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter first name" styleClass="inputFields">
+        <Label font="$x2" layoutX="25.0" layoutY="95.0" text="Email" />
+        <TextField fx:id="registerEmail" layoutX="25.0" layoutY="117.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter email" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
-        <Label font="$x2" layoutX="25.0" layoutY="166.0" text="Last Name" />
-        <TextField fx:id="registerLastName" layoutX="25.0" layoutY="188.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter last name" styleClass="inputFields">
+        <Label font="$x2" layoutX="26.0" layoutY="167.0" text="Username" />
+        <TextField fx:id="registerUsername" layoutX="26.0" layoutY="189.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </TextField>
-        <Label font="$x2" layoutX="25.0" layoutY="239.0" text="Username" />
-        <TextField fx:id="registerUsername" layoutX="25.0" layoutY="261.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter username" styleClass="inputFields">
-          <stylesheets>
-            <URL value="@../css/Login.css" />
-          </stylesheets>
-        </TextField>
-        <Label font="$x2" layoutX="25.0" layoutY="310.0" text="Password" />
-        <Label font="$x2" layoutX="25.0" layoutY="384.0" text="Re-Enter Password" />
+        <Label font="$x2" layoutX="26.0" layoutY="238.0" text="Password" />
+        <Label font="$x2" layoutX="26.0" layoutY="312.0" text="Re-Enter Password" />
         <Button id="registerBtn" layoutX="21.0" layoutY="468.0" mnemonicParsing="false" onAction="#registerNewUser" text="Submit" />
         <Button id="clearRegisterBtn" layoutX="114.0" layoutY="469.0" mnemonicParsing="false" onAction="#clearRegisterForm" text="Clear" />
-        <PasswordField fx:id="registerPassword" layoutX="25.0" layoutY="333.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
+        <PasswordField fx:id="registerPassword" layoutX="26.0" layoutY="261.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>
         </PasswordField>
-        <PasswordField fx:id="registerPasswordVerify" layoutX="25.0" layoutY="407.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
+        <PasswordField fx:id="registerPasswordVerify" layoutX="26.0" layoutY="335.0" prefHeight="34.0" prefWidth="447.0" promptText="Enter password" styleClass="inputFields">
           <stylesheets>
             <URL value="@../css/Login.css" />
           </stylesheets>

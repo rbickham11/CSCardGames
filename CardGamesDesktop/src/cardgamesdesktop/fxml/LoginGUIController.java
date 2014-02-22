@@ -27,9 +27,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     @FXML
     private Label registrationStatus;
     @FXML
-    private TextField registerFirstName;
-    @FXML
-    private TextField registerLastName;
+    private TextField registerEmail;
     @FXML
     private TextField registerUsername;
     @FXML
@@ -65,7 +63,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
         String password = registerPassword.getText();
         
         if(user.trim().equals("") || password.trim().equals("")) {
-            registrationStatus.setText("Please enter a Username and Password");
+            registrationStatus.setText("Please enter a Username, Password, and Email");
             return;
         }
         if(!password.equals(registerPasswordVerify.getText())) {
@@ -75,7 +73,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
         
         try {
             if(!dbMgr.userExists(user)) {
-                dbMgr.addUser(user, registerPassword.getText());
+                dbMgr.addUser(user, registerPassword.getText(), registerEmail.getText());
                 registrationStatus.setText("Registration Successful!");
             }
             else {
@@ -90,8 +88,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void clearRegisterForm(ActionEvent event) {
-        registerFirstName.clear();
-        registerLastName.clear();
+        registerEmail.clear();
         registerUsername.clear();
         registerPassword.clear();
         registerPasswordVerify.clear();

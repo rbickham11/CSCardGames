@@ -21,13 +21,14 @@ public class DBMgr {
         }
     }
     
-    public void addUser(String userName, String password) {
+    public void addUser(String userName, String password, String email) {
         try {
             String saltedHash = PasswordHash.createHash(password);
-            String query = "INSERT INTO user (userName, password) VALUES ('" + userName + "','" + saltedHash + "')";
+            String query = "INSERT INTO user (userName, password, email) VALUES ('" + userName + "','" + saltedHash + "','" + email + "')";
             statement.executeUpdate(query);
             System.out.println("User: " + userName + " added.");
             System.out.println("Password: " + saltedHash + " added. ");
+            System.out.println("Email: " + email + " added. ");
         }
         catch(Exception ex) {
             ex.printStackTrace(System.out);
@@ -35,18 +36,16 @@ public class DBMgr {
     }
     
     public boolean userExists(String username) throws SQLException {
-        String query = "SELECT userName FROM user WHERE userName = '" + username + "' LIMIT 1";
+        String query = "SELECT userName, password FROM user WHERE userName = '" + username + "' LIMIT 1";
         resultSet = statement.executeQuery(query);
         return resultSet.next();     
     }
     
     public boolean validateUser(String username, String password) {
-        String query = "SELECT * from user WHERE userName = '" + username + "'";
         String correctHash;
         
         try {
-            resultSet = statement.executeQuery(query);
-            if(resultSet.next()) {
+            if(userExists(username)) {
                 correctHash = resultSet.getString("password");
                 if(PasswordHash.validatePassword(password, correctHash)) {
                     System.out.println("Login Successful!");
@@ -62,6 +61,5 @@ public class DBMgr {
             ex.printStackTrace(System.out);
             return false;
         }
-    }
-    
+    }    
 }
