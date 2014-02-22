@@ -9,7 +9,7 @@ import cardgameslib.utilities.*;
 import cardgameslib.games.poker.betting.*;
 import cardgameslib.games.euchre.*;
 import cardgameslib.chatserver.*;
-
+import cardgameslib.utilities.*;
 
 /**
  * Main class to run the project
@@ -25,6 +25,7 @@ public class CardGamesServer {
         CardGamesServer server = new CardGamesServer();
         //server.runPokerGame();
         //server.runEuchreGame();
+        
         registry = LocateRegistry.createRegistry(PORT);
         registerObject(ChatServer.class.getSimpleName(), new ChatServerImpl());
     }

@@ -11,6 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import java.sql.SQLException;
+
+import cardgamesdesktop.utilities.DBMgr;
 
 /**
  * FXML Controller class
@@ -41,6 +44,8 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     @FXML
     private PasswordField loginPassword;
 
+    private final DBMgr dbMgr = new DBMgr();
+    
     /**
      * Initializes the controller class.
      */
@@ -56,7 +61,31 @@ public class LoginGUIController implements Initializable, ControlledScreen {
 
     @FXML
     private void registerNewUser(ActionEvent event) {
+        String user = registerUsername.getText();
+        String password = registerPassword.getText();
         
+        if(user.trim().equals("") || password.trim().equals("")) {
+            registrationStatus.setText("Please enter a Username and Password");
+            return;
+        }
+        if(!password.equals(registerPasswordVerify.getText())) {
+            registrationStatus.setText("Passwords do not match");
+            return;
+        }
+        
+        try {
+            if(!dbMgr.userExists(user)) {
+                dbMgr.addUser(user, registerPassword.getText());
+                registrationStatus.setText("Registration Successful!");
+            }
+            else {
+                registrationStatus.setText("User " + user + " already exists!");
+            }
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace(System.out);
+            registrationStatus.setText("An error occurred connecting to the database. Please try again.");
+        }
     }
     
     @FXML
@@ -70,9 +99,13 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void login(ActionEvent event) {
-        
-        
-        controller.setScreen(DesktopCardGameGUI.tablesScreen);
+        if(dbMgr.validateUser(loginUsername.getText(), loginPassword.getText())) {
+            loginStatus.setText("Login Successful!");
+            controller.setScreen(DesktopCardGameGUI.tablesScreen);
+        }
+        else {
+            loginStatus.setText("Your username or password is incorrect. Try again");
+        }
     }
     
     @FXML
