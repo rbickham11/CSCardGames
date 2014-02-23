@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cardgamesdesktop.fxml.ManageAccountGUIController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.ManageAccountGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
@@ -28,7 +28,8 @@
           <stylesheets>
             <URL value="@../css/Main.css" />
           </stylesheets>
-        </Button><Label fx:id="loggedInHeader" layoutX="635.0" layoutY="12.0" styleClass="loggedInHeader" text="Logged in as Username" />
+        </Button>
+        <Label fx:id="loggedInHeader" layoutX="635.0" layoutY="12.0" styleClass="loggedInHeader" text="Logged in as Username" />
       </children>
       <stylesheets>
         <URL value="@../css/Main.css" />
@@ -68,13 +69,13 @@
                 <Font name="Arial Bold" size="14.0" fx:id="x2" />
               </font>
             </Label>
+            <PasswordField fx:id="oldPassword" layoutX="27.0" layoutY="82.0" prefHeight="34.0" prefWidth="447.0" promptText="Password" />
             <Label font="$x2" layoutX="27.0" layoutY="133.0" text="New Password" />
             <PasswordField fx:id="newPassword" layoutX="27.0" layoutY="157.0" prefHeight="34.0" prefWidth="447.0" promptText="Password" styleClass="inputFields">
               <stylesheets>
                 <URL value="@../css/Login.css" />
               </stylesheets>
             </PasswordField>
-            <PasswordField fx:id="oldPassword" layoutX="27.0" layoutY="82.0" prefHeight="34.0" prefWidth="447.0" promptText="Password" />
             <Label font="$x2" layoutX="27.0" layoutY="207.0" text="Confirm New Password" />
             <PasswordField fx:id="confirmNewPassword" layoutX="27.0" layoutY="231.0" prefHeight="34.0" prefWidth="447.0" promptText="Password" styleClass="inputFields">
               <stylesheets>
@@ -82,11 +83,15 @@
               </stylesheets>
             </PasswordField>
             <Button id="loginBtn" fx:id="passwordSubmit" layoutX="27.0" layoutY="279.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="25.0" prefWidth="70.0" text="Submit" />
-            <Button id="clearLoginBtn" fx:id="passwordClear" layoutX="116.0" layoutY="279.0" mnemonicParsing="false" onAction="#clearPasswordForm" prefHeight="25.0" prefWidth="60.0" text="Clear" /><Label fx:id="passwordSuccess" layoutX="193.0" layoutY="283.0" text="You have successfully changed your password." textFill="#22bf1f">
-<font>
-<Font size="14.0" />
-</font>
-</Label>
+            <Button id="clearLoginBtn" fx:id="passwordClear" layoutX="116.0" layoutY="279.0" mnemonicParsing="false" onAction="#clearPasswordForm" prefHeight="25.0" prefWidth="60.0" text="Clear" />
+            <Label fx:id="passwordSuccess" layoutX="193.0" layoutY="283.0" text="You have successfully changed your password.">
+              <font>
+                <Font size="14.0" fx:id="x6" />
+              </font>
+              <textFill>
+                <Color blue="0.122" green="0.749" red="0.133" fx:id="x5" />
+              </textFill>
+            </Label>
           </children>
           <stylesheets>
             <URL value="@../css/Login.css" />
@@ -95,8 +100,6 @@
         <AnchorPane fx:id="changeDisplayName" layoutX="278.0" layoutY="111.0" prefHeight="326.0" prefWidth="500.0" styleClass="containBox" visible="false">
           <children>
             <Label font="$x3" layoutX="160.0" layoutY="25.0" text="Change Display Name" />
-            <Button id="loginBtn" fx:id="displayNameSubmit" layoutX="27.0" layoutY="279.0" mnemonicParsing="false" onAction="#changeDisplayName" prefHeight="25.0" prefWidth="70.0" text="Submit" />
-            <Button id="clearLoginBtn" fx:id="displayNameClear" layoutX="116.0" layoutY="279.0" mnemonicParsing="false" onAction="#clearDisplayNameForm" prefHeight="25.0" prefWidth="60.0" text="Clear" />
             <Label font="$x2" layoutX="27.0" layoutY="84.0" text="Current Display Name:" />
             <Label fx:id="currentDisplayName" font="$x1" layoutX="185.0" layoutY="84.0" prefWidth="301.0" text="">
               <textFill>
@@ -104,11 +107,14 @@
               </textFill>
             </Label>
             <Label font="$x2" layoutX="27.0" layoutY="139.0" text="New Display Name (Note: This will NOT change your username)" />
-            <TextField fx:id="newDisplayName" layoutX="27.0" layoutY="163.0" prefHeight="34.0" prefWidth="459.0" promptText="Display Name" /><Label fx:id="displayNameSuccess" layoutX="193.0" layoutY="283.0" text="You have successfully changed your display name." textFill="#22bf1f">
-<font>
-<Font size="13.0" />
-</font>
-</Label>
+            <TextField fx:id="newDisplayName" layoutX="27.0" layoutY="163.0" prefHeight="34.0" prefWidth="459.0" promptText="Display Name" />
+            <Button id="loginBtn" fx:id="displayNameSubmit" layoutX="27.0" layoutY="279.0" mnemonicParsing="false" onAction="#changeDisplayName" prefHeight="25.0" prefWidth="70.0" text="Submit" />
+            <Button id="clearLoginBtn" fx:id="displayNameClear" layoutX="116.0" layoutY="279.0" mnemonicParsing="false" onAction="#clearDisplayNameForm" prefHeight="25.0" prefWidth="60.0" text="Clear" />
+            <Label fx:id="displayNameSuccess" layoutX="193.0" layoutY="283.0" text="You have successfully changed your display name." textFill="$x5">
+              <font>
+                <Font size="13.0" />
+              </font>
+            </Label>
           </children>
           <stylesheets>
             <URL value="@../css/Login.css" />
@@ -117,15 +123,13 @@
         <AnchorPane fx:id="changeEmail" layoutX="278.0" layoutY="111.0" prefHeight="326.0" prefWidth="500.0" styleClass="containBox" visible="false">
           <children>
             <Label font="$x3" layoutX="193.0" layoutY="25.0" text="Change Email" />
-            <Button id="loginBtn" fx:id="emailSubmit" layoutX="27.0" layoutY="279.0" mnemonicParsing="false" onAction="#changeEmail" prefHeight="25.0" prefWidth="70.0" text="Submit" />
-            <Button id="clearLoginBtn" fx:id="emailClear" layoutX="116.0" layoutY="279.0" mnemonicParsing="false" onAction="#clearEmailForm" prefHeight="25.0" prefWidth="60.0" text="Clear" />
             <Label font="$x2" layoutX="27.0" layoutY="84.0" text="Current Email:" />
             <Label fx:id="currentEmail" font="$x1" layoutX="130.0" layoutY="84.0" prefWidth="356.0" text="" textFill="$x4" />
             <Label font="$x2" layoutX="27.0" layoutY="140.0" text="New Email" />
-            <TextField fx:id="newEmail" layoutX="27.0" layoutY="164.0" prefHeight="34.0" prefWidth="459.0" promptText="Email" /><Label fx:id="emailSuccess" layoutX="193.0" layoutY="283.0" text="You have successfully changed your email." textFill="#22bf1f">
-<font>
-<Font size="14.0" />
-</font></Label>
+            <TextField fx:id="newEmail" layoutX="27.0" layoutY="164.0" prefHeight="34.0" prefWidth="459.0" promptText="Email" />
+            <Button id="loginBtn" fx:id="emailSubmit" layoutX="27.0" layoutY="279.0" mnemonicParsing="false" onAction="#changeEmail" prefHeight="25.0" prefWidth="70.0" text="Submit" />
+            <Button id="clearLoginBtn" fx:id="emailClear" layoutX="116.0" layoutY="279.0" mnemonicParsing="false" onAction="#clearEmailForm" prefHeight="25.0" prefWidth="60.0" text="Clear" />
+            <Label fx:id="emailSuccess" font="$x6" layoutX="193.0" layoutY="283.0" text="You have successfully changed your email." textFill="$x5" />
           </children>
           <stylesheets>
             <URL value="@../css/Login.css" />

@@ -46,6 +46,11 @@
   -fx-background-color: rgba(255, 255, 255, 0.3);
 }
 
+.scroll-pane
+{
+    -fx-background-color: #FFFFFF;
+}
+
 .gameTitle
 {
   -fx-text-fill: rgba(0, 0, 0, 0.7);

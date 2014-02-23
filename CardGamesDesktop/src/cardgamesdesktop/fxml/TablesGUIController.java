@@ -70,35 +70,39 @@ public class TablesGUIController implements Initializable, ControlledScreen {
         loggedInHeader.setVisible(false);
 
         addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
-        addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
+        addNewHoldemTable("Mid Stakes Texas Hold'em", "Blinds: 500 / 1000", "Max Buy-in: 100,000", "0 / 9");
         addNewEuchreTable("Intermediate Euchre Table", "For a relaxed game.", "", "3 / 4");
     }
 
     public void addNewHoldemTable(String tableName, String blind, String maxBuyIn, String capacity) {
         AnchorPane contain = createNewTableEntry(Game.HOLDEM, tableName, blind, maxBuyIn, capacity);
-        contain.setLayoutY((holdem.size() + 1) * 50);
+        contain.setLayoutY((holdem.size()) * 50);
         holdemTablesList.getChildren().add(contain);
+        holdemTablesList.setPrefHeight(holdemTablesList.getPrefHeight() + 50);
         holdem.add(contain);
     }
     
     public void addNewFiveCardDrawTable(String tableName, String ante, String maxBuyIn, String capacity) {
         AnchorPane contain = createNewTableEntry(Game.FIVECARDDRAW, tableName, ante, maxBuyIn, capacity);
-        contain.setLayoutY((fivecarddraw.size() + 1) * 50);
+        contain.setLayoutY((fivecarddraw.size()) * 50);
         fivecarddrawTablesList.getChildren().add(contain);
+        fivecarddrawTablesList.setPrefHeight(fivecarddrawTablesList.getPrefHeight() + 50);
         fivecarddraw.add(contain);
     }
     
     public void addNewEuchreTable(String tableName, String info1, String info2, String capacity) {
         AnchorPane contain = createNewTableEntry(Game.EUCHRE, tableName, info1, info2, capacity);
-        contain.setLayoutY((euchre.size() + 1) * 50);
+        contain.setLayoutY((euchre.size()) * 50);
         euchreTablesList.getChildren().add(contain);
+        euchreTablesList.setPrefHeight(euchreTablesList.getPrefHeight() + 50);
         euchre.add(contain);
     }
     
     public void addNewBlackjackTable(String tableName, String minBet, String maxBet, String capacity) {
         AnchorPane contain = createNewTableEntry(Game.BLACKJACK, tableName, minBet, maxBet, capacity);
-        contain.setLayoutY((blackjack.size() + 1) * 50);
+        contain.setLayoutY((blackjack.size()) * 50);
         blackjackTablesList.getChildren().add(contain);
+        blackjackTablesList.setPrefHeight(blackjackTablesList.getPrefHeight() + 50);
         blackjack.add(contain);
     }
     
