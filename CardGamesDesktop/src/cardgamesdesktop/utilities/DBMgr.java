@@ -7,7 +7,7 @@ import java.sql.*;
  * @author Ryan
  */
 public class DBMgr {
-    private static final String URL = "jdbc:mysql://localhost:3306/cardgamesdb";
+    private static final String URL = "jdbc:mysql://localhost:3307/cardgamesdb";
     private static final String USER = "root";
     private static final String PASS = "cgadmin490";
     
