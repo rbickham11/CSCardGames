@@ -1,5 +1,9 @@
 package cardgamesdesktop.utilities;
 
+/**
+ * Holds user information in a static context for use throughout the session
+ * @author Ryan
+ */
 public class UserSessionVars {
     private static int userId;
     private static String username;

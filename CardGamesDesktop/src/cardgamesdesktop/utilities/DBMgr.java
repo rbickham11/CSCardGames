@@ -2,6 +2,10 @@ package cardgamesdesktop.utilities;
 
 import java.sql.*;
 
+/**
+ * For managing the connection to the database and querying the database
+ * @author Ryan
+ */
 public class DBMgr {
     private static final String URL = "jdbc:mysql://localhost:3306/cardgamesdb";
     private static final String USER = "root";
@@ -11,6 +15,9 @@ public class DBMgr {
     private Statement statement;
     private ResultSet resultSet;
     
+    /**
+     * Connects to the database 
+     */
     public DBMgr() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -22,27 +29,43 @@ public class DBMgr {
         }
     }
     
+    /**
+     * Adds a new user to the database, including a salted password for security.
+     * @param userName The username for the new user
+     * @param password The password for the new user
+     * @param email  The email address for the new user
+     */
     public void addUser(String userName, String password, String email) {
         try {
+            //Get salted password hash
             String saltedHash = PasswordHash.createHash(password);
             query = "INSERT INTO user (userName, password, email, displayName) VALUES ('" + userName + "','" + saltedHash + "','" + email + "','" + userName + "')";
             statement.executeUpdate(query);
             System.out.println("User: " + userName + " added.");
-            System.out.println("Password: " + saltedHash + " added. ");
-            System.out.println("Email: " + email + " added. ");
-            System.out.println("Display name: " + userName + " added.");
         }
         catch(Exception ex) {
             ex.printStackTrace(System.out);
         }
     }
     
+    /**
+     * Checks if a given user exists in the database
+     * @param username The username to check
+     * @return true if the user exists
+     * @throws SQLException 
+     */
     public boolean userExists(String username) throws SQLException {
         query = "SELECT * FROM user WHERE userName = '" + username + "' LIMIT 1";
         resultSet = statement.executeQuery(query);
         return resultSet.next();     
     }
     
+    /**
+     * Checks if a username and password combination is valid
+     * @param username The username to check
+     * @param password The password to check
+     * @return true if the user is valid
+     */
     public boolean validateUser(String username, String password) {
         String correctHash;
         
@@ -66,6 +89,11 @@ public class DBMgr {
         }
     }
     
+    /**
+     * Sets a new password for a user
+     * @param userId The user id to set the new password for
+     * @param newPassword The new password
+     */
     public void setPassword(int userId, String newPassword) {
         try {
             String saltedHash = PasswordHash.createHash(newPassword);
@@ -77,6 +105,11 @@ public class DBMgr {
         }
     }
     
+    /**
+     * Sets a new display name for a user
+     * @param userId The user id to set the new display name for
+     * @param newDisplayName The new display name
+     */
     public void setDisplayName(int userId, String newDisplayName) {
         try {
             query = "UPDATE user SET displayName = '" + newDisplayName + "' WHERE id = '" + userId + "'";
@@ -87,7 +120,11 @@ public class DBMgr {
         }
     }
 
-        
+    /**
+     * Sets a new email for a user
+     * @param userId The user id to set the new email for
+     * @param newEmail The new email
+     */
     public void setEmail(int userId, String newEmail) {
         try {
             query = "UPDATE user SET email = '" + newEmail + "' WHERE id = '" + userId + "'";
@@ -98,6 +135,10 @@ public class DBMgr {
         }
     }
     
+    /**
+     * Sets session variables with the current values in the database
+     * @param username The username of the user to set values for
+     */
     public void setSession(String username) {
         try {
             if(userExists(username))
