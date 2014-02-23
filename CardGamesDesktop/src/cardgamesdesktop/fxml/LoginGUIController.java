@@ -76,6 +76,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
         try {
             if(!dbMgr.userExists(user)) {
                 dbMgr.addUser(user, registerPassword.getText(), registerEmail.getText());
+                clearRegisterForm(new ActionEvent());
                 registrationStatus.setText("Registration Successful!");
             }
             else {

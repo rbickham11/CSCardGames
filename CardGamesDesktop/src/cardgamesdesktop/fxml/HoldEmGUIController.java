@@ -283,7 +283,8 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     @FXML
     private void sendMessage(ActionEvent event) {
         try {
-            chatClient.sendChatMessage(chatMessage.getText());
+            String message = UserSessionVars.getDisplayName() + ": " + chatMessage.getText();
+            chatClient.sendChatMessage(message);
         }
         catch(NullPointerException ex) {
             chatBox.setText("The chat server is currently unavailable.");
