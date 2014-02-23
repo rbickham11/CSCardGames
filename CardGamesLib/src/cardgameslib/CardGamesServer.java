@@ -5,7 +5,6 @@ import java.rmi.*;
 import java.rmi.registry.*;
 
 import cardgameslib.games.poker.holdem.HoldemDealer;
-import cardgameslib.utilities.*;
 import cardgameslib.games.poker.betting.*;
 import cardgameslib.games.euchre.*;
 import cardgameslib.chatserver.*;

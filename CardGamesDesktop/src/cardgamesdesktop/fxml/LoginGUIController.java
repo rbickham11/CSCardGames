@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 
 import cardgamesdesktop.utilities.DBMgr;
+import cardgamesdesktop.utilities.UserSessionVars;
 
 /**
  * FXML Controller class
@@ -62,6 +63,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
         String user = registerUsername.getText();
         String password = registerPassword.getText();
         
+        registrationStatus.setVisible(true);
         if(user.trim().equals("") || password.trim().equals("")) {
             registrationStatus.setText("Please enter a Username, Password, and Email");
             return;
@@ -97,10 +99,12 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     @FXML
     private void login(ActionEvent event) {
         if(dbMgr.validateUser(loginUsername.getText(), loginPassword.getText())) {
-            loginStatus.setText("Login Successful!");
+            loginStatus.setVisible(false);
+            registrationStatus.setVisible(false);
             controller.setScreen(DesktopCardGameGUI.tablesScreen);
         }
         else {
+            loginStatus.setVisible(true);
             loginStatus.setText("Your username or password is incorrect. Try again");
         }
     }

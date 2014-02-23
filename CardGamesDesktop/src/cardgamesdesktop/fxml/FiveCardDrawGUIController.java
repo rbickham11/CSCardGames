@@ -31,6 +31,8 @@ public class FiveCardDrawGUIController implements Initializable, ControlledScree
     ScreensController controller;
     
     @FXML
+    private Label loggedInHeader;
+    @FXML
     private AnchorPane player1Image;
     @FXML
     private AnchorPane player1Card1;
@@ -212,6 +214,7 @@ public class FiveCardDrawGUIController implements Initializable, ControlledScree
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        loggedInHeader.setVisible(false);
         betAmount.setText(Integer.toString((int)betAmountSlider.getValue()));
         
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {

@@ -36,6 +36,8 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
 
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     @FXML
+    private Label loggedInHeader;
+    @FXML
     private AnchorPane player1Image;
     @FXML
     private AnchorPane player1Card1;
@@ -223,6 +225,7 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        loggedInHeader.setVisible(false);
         StringProperty chatBoxText = chatBox.textProperty();
         try{
             chatClient = new ChatClient(chatBoxText);
@@ -279,7 +282,12 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     
     @FXML
     private void sendMessage(ActionEvent event) {
-        chatClient.sendChatMessage(chatMessage.getText());
+        try {
+            chatClient.sendChatMessage(chatMessage.getText());
+        }
+        catch(NullPointerException ex) {
+            chatBox.setText("The chat server is currently unavailable.");
+        }
         chatMessage.setText("");
     }
     

@@ -23,3 +23,11 @@
   -fx-text-fill: #FFFFFF;
   -fx-cursor: hand;
 }
+
+.loggedInHeader
+{
+	-fx-alignment: center-right;
+	-fx-pref-height: 17;
+	-fx-pref-width: 200;
+	-fx-text-fill: #999999;
+}

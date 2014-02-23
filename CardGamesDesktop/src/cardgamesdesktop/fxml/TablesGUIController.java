@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import cardgameslib.games.poker.holdem.*;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -42,7 +41,9 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     private static final int BUTTON_HEIGHT = 30;
     private static final int BUTTON_X = 850;
     private static final int BUTTON_Y = 10;
-    
+  
+    @FXML
+    private Label loggedInHeader;
     @FXML
     private ScrollPane holdemTables;
     @FXML
@@ -71,7 +72,9 @@ public class TablesGUIController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        loggedInHeader.setVisible(false);
+
+        addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
         addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
         addNewEuchreTable("Intermediate Euchre Table", "For a relaxed game.", "", "3 / 4");
     }

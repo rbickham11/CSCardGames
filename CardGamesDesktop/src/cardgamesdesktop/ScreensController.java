@@ -48,6 +48,7 @@ public class ScreensController extends StackPane {
 
             return true;
         } catch (Exception e) {
+            e.printStackTrace(System.out);
             System.out.println(e.getMessage());
             return false;
         }

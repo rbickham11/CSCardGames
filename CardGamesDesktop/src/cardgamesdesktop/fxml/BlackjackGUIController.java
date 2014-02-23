@@ -29,6 +29,8 @@ public class BlackjackGUIController implements Initializable, ControlledScreen {
     ScreensController controller;
     
     @FXML
+    private Label loggedInHeader;
+    @FXML
     private AnchorPane player1Image;
     @FXML
     private AnchorPane player1Card1;
@@ -126,6 +128,7 @@ public class BlackjackGUIController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        loggedInHeader.setVisible(false);
         betAmount.setText(Integer.toString((int)betAmountSlider.getValue()));
         
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {

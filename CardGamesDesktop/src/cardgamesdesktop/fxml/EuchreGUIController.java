@@ -30,6 +30,9 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     ScreensController controller;
     
     @FXML
+    private Label loggedInHeader;
+    
+    @FXML
     private AnchorPane player0Image;
     @FXML
     private AnchorPane player0Card1;
@@ -141,7 +144,7 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        loggedInHeader.setVisible(false);
     }    
     
     @Override
