@@ -1,20 +1,15 @@
 package cardgamesdesktop.fxml;
 
-import cardgamesdesktop.ControlledScreen;
-import cardgamesdesktop.DesktopCardGameGUI;
-import cardgamesdesktop.ScreensController;
+import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import cardgameslib.utilities.Game;

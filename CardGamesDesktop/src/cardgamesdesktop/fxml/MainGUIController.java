@@ -1,13 +1,10 @@
 package cardgamesdesktop.fxml;
 
-import cardgamesdesktop.ControlledScreen;
-import cardgamesdesktop.DesktopCardGameGUI;
-import cardgamesdesktop.ScreensController;
+import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 
 /**
  *
