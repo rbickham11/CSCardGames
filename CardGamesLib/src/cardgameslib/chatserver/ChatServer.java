@@ -2,7 +2,7 @@ package cardgameslib.chatserver;
 
 import java.rmi.*;
 /**
- *
+ * RMI remote interface that defines ChatServer class structure. 
  * @author Ryan Bickham
  */
 public interface ChatServer extends Remote {

@@ -5,7 +5,7 @@ import java.rmi.server.*;
 import java.util.*;
 
 /**
- *
+ * Implementation of ChatServer that represents the server side of the chat session.
  * @author Ryan Bickham
  */
 public class ChatServerImpl extends UnicastRemoteObject implements ChatServer{
@@ -13,18 +13,32 @@ public class ChatServerImpl extends UnicastRemoteObject implements ChatServer{
     
     public ChatServerImpl() throws RemoteException{}
     
+    /**
+     * Adds a client chat listener to the list of active clients
+     * @param cl The ChatListener passed from the client
+     */
     @Override
     public void addChatListener(ChatListener cl) {
         System.out.println("Adding Listener");
         chatListeners.add(cl);
     }
 
+    /**
+     * Removes client chat listener from the list, removing the client from the
+     * session.
+     * @param cl The client ChatListener to remove
+     */
     @Override
     public void removeChatListener(ChatListener cl) {
         System.out.println("Removing Listener");
         chatListeners.remove(cl);
     }
 
+    /**
+     * Sends a chat message to each active client ChatListener 
+     * @param message The message to send
+     * @throws RemoteException 
+     */
     @Override
     public synchronized void sendChatMessage(String message) throws RemoteException {
         try {

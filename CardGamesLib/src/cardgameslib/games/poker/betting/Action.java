@@ -1,7 +1,7 @@
 package cardgameslib.games.poker.betting;
 
 /**
- * Holds enums to determine player's choice
+ * Enumeration type for available poker actions 
  * @author Ryan Bickham
  *
  */

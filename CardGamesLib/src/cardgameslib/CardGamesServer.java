@@ -11,15 +11,22 @@ import cardgameslib.chatserver.*;
 import cardgameslib.utilities.*;
 
 /**
- * Main class to run the project
- *
- * @author Ryan Bickham
+ * Main class that starts the RMI registry. Also contains test console versions
+ * of implemented games.
+ * @author Ryan Bickham, Andrew Haeger
  *
  */
 public class CardGamesServer {
     public static final int PORT = 1099;
     private static Registry registry;
     
+    /**
+     * Program entry point. Also creates RMI registry and registers a ChatServer
+     * instance. 
+     * @param args
+     * @throws RemoteException
+     * @throws AlreadyBoundException 
+     */
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
         CardGamesServer server = new CardGamesServer();
         //server.runPokerGame();
