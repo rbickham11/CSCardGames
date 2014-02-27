@@ -13,12 +13,11 @@ public class BettingPlayer extends Player {   //Used for games with betting, inh
     /**
      * Constructor for BettingPlayer
      * @param id int value holding player number
-     * @param userName String holding user name of player
      * @param seatNum int holding seat player is at
      * @param startingChips int holding chips player starts with
      */
-    public BettingPlayer(int id, String userName, int seatNum, int startingChips) {
-        super(id, userName, seatNum);
+    public BettingPlayer(int id, int seatNum, int startingChips) {
+        super(id, seatNum);
         chips = startingChips;
         currentBet = 0;
     }

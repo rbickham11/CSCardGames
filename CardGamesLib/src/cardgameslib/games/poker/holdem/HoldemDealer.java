@@ -80,22 +80,22 @@ public class HoldemDealer {
      * @param seatNum int to hold the seat the player is at
      * @param startingChips int to hold the number of chips the player starts with
      */
-    public void addPlayer(int id, String username, int seatNum, int startingChips) {
+    public void addPlayer(int id, int seatNum, int startingChips) {
     	if(seatNum < 1 || seatNum > MAX_PLAYERS) {
     		throw new IllegalArgumentException("Invalid seat number");
     	}
     	
     	for(BettingPlayer player : players) {
-    		if(player.getUserId() == id) {
-    			throw new IllegalArgumentException("Player with id " + id + " already on table");
-    		}
-    		if(player.getSeatNumber() == seatNum) {
-    			throw new IllegalArgumentException("Seat " + seatNum + " is taken.");
-    		}
+            if(player.getUserId() == id) {
+                    throw new IllegalArgumentException("Player with id " + id + " already on table");
+            }
+            if(player.getSeatNumber() == seatNum) {
+                    throw new IllegalArgumentException("Seat " + seatNum + " is taken.");
+            }
     	}
         
     	if(startingChips <= chipLimit) {
-            players.add(new BettingPlayer(id, username, seatNum, startingChips));
+            players.add(new BettingPlayer(id, seatNum, startingChips));
             Collections.sort(players);
         } else {
             throw new IllegalArgumentException("Starting chip count exceeds maximum for this table");
@@ -143,14 +143,10 @@ public class HoldemDealer {
      * Deals hands to players
      */
     public void dealHands() {
-        List<Integer> cards = deck.dealCards(players.size() * 2);
-        int i;
-        int j = 0;
-        
-        for(i = 0; i < players.size(); i++) {
-            players.get(i).giveCard(cards.get(j));
-            players.get(i).giveCard(cards.get(j + players.size()));
-            j++;
+        List<Integer> cards = deck.dealCards(players.size() * 2);        
+        for(int i = 0; i < players.size(); i++) {
+            players.get(i).giveCard(cards.get(i));
+            players.get(i).giveCard(cards.get(i + players.size()));
         }
         
         for(Player player : players) {    //For testing

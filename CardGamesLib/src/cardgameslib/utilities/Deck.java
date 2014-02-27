@@ -15,7 +15,6 @@ public class Deck {
 
     private List<Integer> deck;
     private List<Integer> dealtCards;
-    private int deckSize = 52;
 
     /**
      * Constructor of Deck for a standard 52 card deck
@@ -24,7 +23,7 @@ public class Deck {
         deck = new ArrayList<>();
         dealtCards = new ArrayList<>();
 
-        for (int i = 0; i < deckSize; i++) {
+        for (int i = 0; i < 52; i++) {
             deck.add(i);
         }
     }
@@ -42,7 +41,6 @@ public class Deck {
         }
         deck = new ArrayList<>(customDeck);
         dealtCards = new ArrayList<>();
-        deckSize = deck.size();
     }
 
     /**
@@ -50,7 +48,7 @@ public class Deck {
      * using multiple decks
      */
     public void addDeck() {
-        for (int i = 0; i < deckSize; i++) {
+        for (int i = 0; i < 52; i++) {
             deck.add(i);
         }
     }
@@ -73,6 +71,10 @@ public class Deck {
         return cardToString(deck.get(0));
     }
 
+    public int getSize() {
+        return deck.size();
+    }
+    
     /**
      * Function to shuffle the deck
      */
@@ -80,7 +82,7 @@ public class Deck {
         Random random = new Random();
         int i, j, temp;
 
-        for (i = deckSize - 1; i > 0; i--) {
+        for (i = deck.size() - 1; i > 0; i--) {
             j = random.nextInt(i + 1);
             temp = deck.get(i);
             deck.set(i, deck.get(j));

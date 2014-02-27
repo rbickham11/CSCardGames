@@ -5,6 +5,7 @@ import java.rmi.*;
 import java.rmi.registry.*;
 
 import cardgameslib.games.poker.holdem.HoldemDealer;
+import cardgameslib.games.blackjack.BlackjackDealer;
 import cardgameslib.games.poker.betting.*;
 import cardgameslib.games.euchre.*;
 import cardgameslib.chatserver.*;
@@ -31,9 +32,10 @@ public class CardGamesServer {
         CardGamesServer server = new CardGamesServer();
         //server.runPokerGame();
         //server.runEuchreGame();
+        server.runBlackjackGame();
         
-        registry = LocateRegistry.createRegistry(PORT);
-        registerObject(ChatServer.class.getSimpleName(), new ChatServerImpl());
+        //registry = LocateRegistry.createRegistry(PORT);
+        //registerObject(ChatServer.class.getSimpleName(), new ChatServerImpl());
     }
     
     public static void registerObject(String name, Remote remoteObj) throws RemoteException, AlreadyBoundException {
@@ -50,7 +52,7 @@ public class CardGamesServer {
         Scanner s = new Scanner(System.in);
 
         for (int i = 1; i < 7; i++) {
-            dealer.addPlayer(1000 + i, "username", i, 13000 + 1000 * i);
+            dealer.addPlayer(1000 + i, i, 13000 + 1000 * i);
         }
 
         System.out.println("Welcome to Ryan's awesome poker game!");
@@ -142,10 +144,10 @@ public class CardGamesServer {
         EuchreDealer euchre = new EuchreDealer();
         Scanner temp = new Scanner(System.in);
 
-        euchre.addPlayer(1111, "User 1", 0);
-        euchre.addPlayer(2222, "User 2", 1);
-        euchre.addPlayer(3333, "User 3", 2);
-        euchre.addPlayer(4444, "User 4", 3);
+        euchre.addPlayer(1111, 0);
+        euchre.addPlayer(2222, 1);
+        euchre.addPlayer(3333, 2);
+        euchre.addPlayer(4444, 3);
 
         euchre.startNewEuchreGame();
         euchre.displayPlayersHands();
@@ -187,5 +189,12 @@ public class CardGamesServer {
             euchre.displayPlayersHands();
         }
         euchre.startNewHand(false);
+    }
+    
+    public void runBlackjackGame() {
+        BlackjackDealer dealer = new BlackjackDealer(100, 10000);
+        dealer.addPlayer(111, 1, 5000);
+        dealer.addPlayer(222, 4, 10000);
+        dealer.dealHands();
     }
 }

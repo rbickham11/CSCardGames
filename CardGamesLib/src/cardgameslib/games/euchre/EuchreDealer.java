@@ -84,8 +84,8 @@ public class EuchreDealer {
         deck.shuffle();
     }
 
-    public void addPlayer(int id, String username, int seat) {
-        players.add(new Player(id, username, seat));
+    public void addPlayer(int id , int seat) {
+        players.add(new Player(id, seat));
         Collections.sort(players);
     }
 
