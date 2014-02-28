@@ -93,7 +93,7 @@ public class CardGamesServer {
     public void startBettingRound(HoldemDealer dealer) {
         Scanner s = new Scanner(System.in);
         char charAction;
-        Action action;
+        PokerAction action;
         int chipAmount = 0;
         BettingPlayer activePlayer;
 
@@ -107,21 +107,21 @@ public class CardGamesServer {
             charAction = s.next().charAt(0);
             switch (Character.toUpperCase(charAction)) {
                 case 'B':
-                    action = Action.BET;
+                    action = PokerAction.BET;
                     System.out.print("Bet amount: ");
                     chipAmount = s.nextInt();
                     break;
                 case 'C':
-                    action = Action.CALL;
+                    action = PokerAction.CALL;
                     break;
                 case 'X':
-                    action = Action.CHECK;
+                    action = PokerAction.CHECK;
                     break;
                 case 'F':
-                    action = Action.FOLD;
+                    action = PokerAction.FOLD;
                     break;
                 case 'R':
-                    action = Action.RAISE;
+                    action = PokerAction.RAISE;
                     System.out.print("Raise amount: ");
                     chipAmount = s.nextInt();
                     break;

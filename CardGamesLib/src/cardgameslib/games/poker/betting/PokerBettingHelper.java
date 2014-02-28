@@ -17,7 +17,7 @@ public class PokerBettingHelper {
     private int activeBet;
     private int bigBlind;
     
-    private Action lastAction;
+    private PokerAction lastAction;
     private boolean preflop;
     private boolean allActed;
     private boolean firstActed;  //Whether or not the first player has acted
@@ -64,7 +64,7 @@ public class PokerBettingHelper {
      * Getter to return the last action taken
      * @return Action
      */
-    public Action getLastAction() {
+    public PokerAction getLastAction() {
     	return lastAction;
     }
     
@@ -80,7 +80,7 @@ public class PokerBettingHelper {
      * @param preFlop boolean to determine whether or not it is the beginning of a hand
      */
     public void startNewRound(boolean preFlop) {
-    	lastAction = Action.CHECK;
+    	lastAction = PokerAction.CHECK;
     	firstActed = false;
         preflop = preFlop;
         
@@ -112,7 +112,7 @@ public class PokerBettingHelper {
      * @param action Action that holds tha player's chosen Action
      * @param chipAmount int to hold the amount the player is betting
      */
-    public void takeAction(Action action, int chipAmount) {
+    public void takeAction(PokerAction action, int chipAmount) {
         if(!allActed) {
             if(activePlayers.get(0).equals(lastToAct)) {
                 allActed = true;
@@ -158,7 +158,7 @@ public class PokerBettingHelper {
         
         lastAction = action;
         firstActed = true;
-        if(action != Action.FOLD) {
+        if(action != PokerAction.FOLD) {
             Collections.rotate(activePlayers, -1);
         }
     }

@@ -66,7 +66,7 @@ public class HoldemDealer {
      * Getter to return action of last player
      * @return Action
      */
-    public Action getLastAction() {
+    public PokerAction getLastAction() {
     	return bettingHelper.getLastAction();
     }
     
@@ -76,7 +76,6 @@ public class HoldemDealer {
     /**
      * Function to handle adding a new player to the table
      * @param id int to hold player number
-     * @param username String to hold username of user
      * @param seatNum int to hold the seat the player is at
      * @param startingChips int to hold the number of chips the player starts with
      */
@@ -193,7 +192,7 @@ public class HoldemDealer {
      * @param action Action player is taking
      * @param chipAmount int to hold chip amount used in action
      */
-    public void takeAction(Action action, int chipAmount) {
+    public void takeAction(PokerAction action, int chipAmount) {
         bettingHelper.takeAction(action, chipAmount);
     }
     

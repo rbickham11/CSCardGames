@@ -5,5 +5,5 @@ package cardgameslib.games.poker.betting;
  * @author Ryan Bickham
  *
  */
-public enum Action {BET, CALL, CHECK, FOLD, RAISE};
+public enum PokerAction {BET, CALL, CHECK, FOLD, RAISE};
 
