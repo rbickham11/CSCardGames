@@ -9,6 +9,7 @@ import cardgameslib.games.blackjack.BlackjackDealer;
 import cardgameslib.games.poker.betting.*;
 import cardgameslib.games.euchre.*;
 import cardgameslib.chatserver.*;
+import cardgameslib.games.blackjack.BlackjackAction;
 import cardgameslib.utilities.*;
 
 /**
@@ -193,8 +194,80 @@ public class CardGamesServer {
     
     public void runBlackjackGame() {
         BlackjackDealer dealer = new BlackjackDealer(100, 10000);
+        Scanner s = new Scanner(System.in);
+        
+        System.out.println("Welcome to Blackjack!");
+        System.out.println("Actions: H-Hit, S-Stand, D-Double Down, P-Split, U-Surrender");
+        List<BettingPlayer> players;
         dealer.addPlayer(111, 1, 5000);
         dealer.addPlayer(222, 4, 10000);
-        dealer.dealHands();
+        
+        while(true) {
+            dealer.startHand();
+            players = dealer.getActivePlayers();
+            for(BettingPlayer player : players) {
+                System.out.printf("Player %d (%d) enter bet: ", player.getSeatNumber(), player.getChips());
+                dealer.takeBet(player.getSeatNumber(), s.nextInt());
+            }
+            s.nextLine();
+            dealer.dealHands();
+
+            String handString;
+            char action;
+            int numPlayers = players.size();
+            for(int i = 0; i < numPlayers; i++) {
+                BettingPlayer activePlayer = players.get(0);
+                handString = "";
+                for(int card : activePlayer.getHand()) {
+                    handString += (Deck.cardToString(card) + " ");
+                }
+                System.out.printf("Player %d, your hand is %s (%s)\n", activePlayer.getSeatNumber(), handString, dealer.getHandValueString(activePlayer.getSeatNumber()));                
+                do {            
+                    do {
+                        System.out.print("Enter action: ");
+                        action = s.nextLine().toUpperCase().charAt(0);
+                    } while(action != 'H' && action != 'S' && action != 'D' & action != 'P' && action != 'U');
+                    switch(action) {
+                        case 'H':
+                            dealer.takeAction(BlackjackAction.HIT);
+                            break;
+                        case 'S':
+                            dealer.takeAction(BlackjackAction.STAND);
+                            break;
+                        case 'D':
+                            dealer.takeAction(BlackjackAction.DOUBLEDOWN);
+                            break;
+                        case 'P':
+                            dealer.takeAction(BlackjackAction.SPLIT);
+                            break;
+                        case 'U':
+                            dealer.takeAction(BlackjackAction.SURRENDER);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    handString = "";
+                    for(int card : activePlayer.getHand()) {
+                        handString += (Deck.cardToString(card) + " ");
+                    }
+                    System.out.printf("Player %d, your hand is %s (%s)\n", activePlayer.getSeatNumber(), handString, dealer.getHandValueString(activePlayer.getSeatNumber()));    
+                } while(!dealer.getPlayerFinished());
+            }
+            dealer.completeHand();
+            
+            handString = "";
+            for(int card : dealer.getDealerHand()) {
+                handString += (Deck.cardToString(card) + " ");
+            }
+            System.out.printf("The dealer's hand is %s (%s)\n", handString, dealer.getHandValueString(0));
+            
+            char yn;
+            do {
+                System.out.print("Do you want to start another hand? (Y/N): ");
+                yn = s.nextLine().toUpperCase().charAt(0);
+            } while(yn != 'Y' && yn != 'N');
+            if(yn == 'N') break;
+        }
     }
 }

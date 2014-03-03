@@ -17,6 +17,9 @@ public class BlackjackDealer {
     private final List<BettingPlayer> players = new ArrayList<>();
     private final List<Integer> dealerHand = new ArrayList<>();
     
+    private final Map<Integer, Integer[]> handValues = new HashMap<>();
+
+    
     private List<BettingPlayer> activePlayers = new ArrayList<>();
     private boolean playerFinished;
     
@@ -28,6 +31,7 @@ public class BlackjackDealer {
             deck.addDeck();
         }
         deck.shuffle();
+        handValues.put(0, new Integer[] {0, 0});  //Dealer hand
     }
     
     public void addPlayer(int id, int seatNum, int startingChips) {
@@ -43,6 +47,7 @@ public class BlackjackDealer {
             }
     	}
         players.add(new BettingPlayer(id, seatNum, startingChips));
+        handValues.put(seatNum, new Integer[] {0, 0});
         Collections.sort(players);
     }
     
@@ -59,12 +64,16 @@ public class BlackjackDealer {
     
     public void startHand() {
         activePlayers = new ArrayList<>(players);
-        for(BettingPlayer player : players) {
+        for(BettingPlayer player : activePlayers){
+            player.resetHand();
             player.resetCurrentBet();
         }
-        dealHands();
+        dealerHand.clear();
+        for(Integer key : handValues.keySet()) {
+            handValues.get(key)[0] = 0;
+            handValues.get(key)[1] = 0;
+        }
     }
-    
     public void dealHands() {
         if(deck.getSize() < (DECK_COUNT * 52) / 4) {
             deck.collectCards();
@@ -72,21 +81,22 @@ public class BlackjackDealer {
         }
         
         List<Integer> cards = deck.dealCards(activePlayers.size() * 2 + 2);
+        BettingPlayer player;
         
-        for(int i = 0; i < players.size() + 1; i++) {
+        for(int i = 0; i < activePlayers.size() + 1; i++) {
             if(i == players.size()) {
                 dealerHand.add(cards.get(i));
                 dealerHand.add(cards.get(i + activePlayers.size()));
+                incrementHandValue(0, cards.get(i));
+                incrementHandValue(0, cards.get(i + activePlayers.size()));
             } 
             else {
-                activePlayers.get(i).giveCard(cards.get(i));
-                activePlayers.get(i).giveCard(cards.get(i + players.size()));
+                player = activePlayers.get(i);
+                player.giveCard(cards.get(i));
+                player.giveCard(cards.get(i + activePlayers.size()));
+                incrementHandValue(player.getSeatNumber(), cards.get(i));
+                incrementHandValue(player.getSeatNumber(), cards.get(i + activePlayers.size()));
             }
-        }
-        
-        for(BettingPlayer player : activePlayers) {    //For testing
-            System.out.printf("Player %d's hand is %s %s\n", player.getSeatNumber(), 
-                                            Deck.cardToString(player.getHand().get(0)), Deck.cardToString(player.getHand().get(1)));
         }
         
         System.out.printf("The dealer's upcard is: %s\n", Deck.cardToString(dealerHand.get(0)));
@@ -111,19 +121,29 @@ public class BlackjackDealer {
         if(currentPlayer.getHand().size() == 2) {
             playerFinished = false;
         }    
+        int card;
         switch(action) {
             case HIT:
-                currentPlayer.giveCard(deck.dealCard());
+                card = deck.dealCard();
+                currentPlayer.giveCard(card);
+                incrementHandValue(currentPlayer.getSeatNumber(), card);
+                if(handValues.get(currentPlayer.getSeatNumber())[0] > 21) {
+                    playerFinished = true;
+                    activePlayers.remove(currentPlayer);
+                }
                 break;
             case STAND:
                 playerFinished = true;
-                Collections.rotate(players, -1);
+                Collections.rotate(activePlayers, -1);
                 break;
             case DOUBLEDOWN:
+                card = deck.dealCard();
+                currentPlayer.giveCard(card);
+                incrementHandValue(currentPlayer.getSeatNumber(), card);
                 currentPlayer.decrementChips(currentPlayer.getCurrentBet());
                 currentPlayer.setCurrentBet(currentPlayer.getCurrentBet() * 2);
                 playerFinished = true;
-                Collections.rotate(players, -1);
+                Collections.rotate(activePlayers, -1);
                 break;
             case SPLIT:
                 break;
@@ -134,5 +154,85 @@ public class BlackjackDealer {
         }
     }
     
+    public String getHandValueString (int seatNumber) {
+        int lowAceValue = handValues.get(seatNumber)[0];
+        int highAceValue = handValues.get(seatNumber)[1];
+        
+        if(lowAceValue != highAceValue && highAceValue <= 21) {
+            return String.format("%d/%d", lowAceValue, highAceValue);
+        }
+        else if(lowAceValue > 21) {
+            return Integer.toString(lowAceValue) + " -Bust";
+        }
+        else {
+            return Integer.toString(lowAceValue);
+        }
+    }
+    
+    public void completeHand() {
+        boolean dealerBust = false;
+        int dealerValue;
+        
+        while(true) {
+            int card = deck.dealCard();
+            dealerHand.add(card);
+            incrementHandValue(0, card);
+            if(handValues.get(0)[1] >= 17 && handValues.get(0)[1] <= 21) {
+                dealerValue = handValues.get(0)[1];
+                break;
+            }
+            if(handValues.get(0)[0] >= 17) {
+                dealerValue = handValues.get(0)[0];
+                break;
+            }
+        }
+        if(dealerValue > 21) dealerBust = true;
+        
+        for(BettingPlayer player : activePlayers) {
+            if(dealerBust) {
+                player.incrementChips(player.getCurrentBet());
+            }
+            else {
+                int playerValue;
+                if(handValues.get(player.getSeatNumber())[1] > 21) {
+                    playerValue = handValues.get(player.getSeatNumber())[0];
+                }
+                else {
+                    playerValue = handValues.get(player.getSeatNumber())[1];
+                }
+                if(playerValue > dealerValue) {
+                    player.incrementChips(player.getCurrentBet() * 2);
+                }
+                else if(playerValue == dealerValue) {
+                    player.incrementChips(player.getCurrentBet());
+                }
+            }
+        }
+    }
+    
+    private void incrementHandValue(int seatNumber, int card) {
+        int rawValue = card % 13;
+        int blackjackValue; 
+        if(rawValue < 8) { //If the card is a 2 - 9
+            blackjackValue = rawValue + 2;
+        }
+        else if(rawValue == 12) { //Ace
+            blackjackValue = 1;
+        }
+        else //T, J, Q, K
+            blackjackValue = 10;
+
+        if(blackjackValue == 1 && handValues.get(seatNumber)[0] == handValues.get(seatNumber)[1]) {
+            handValues.get(seatNumber)[1] += 11;
+        }
+        else {
+            handValues.get(seatNumber)[1] += blackjackValue;
+        }
+        handValues.get(seatNumber)[0] += blackjackValue;
+
+    }
+    
+    public List<BettingPlayer> getActivePlayers() {return activePlayers;}
+    public List<Integer> getDealerHand() {return dealerHand;}
     public boolean getPlayerFinished() {return playerFinished;}
 }
