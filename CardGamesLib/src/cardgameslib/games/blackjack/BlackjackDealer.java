@@ -190,7 +190,7 @@ public class BlackjackDealer {
         
         for(BettingPlayer player : activePlayers) {
             if(dealerBust) {
-                player.incrementChips(player.getCurrentBet());
+                player.incrementChips(player.getCurrentBet() * 2);
             }
             else {
                 int playerValue;
