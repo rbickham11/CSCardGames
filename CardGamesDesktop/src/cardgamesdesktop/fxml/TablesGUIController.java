@@ -20,6 +20,7 @@ import cardgameslib.utilities.Game;
  */
 public class TablesGUIController implements Initializable, ControlledScreen {
 
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
     
     private static final int NAME_WIDTH = 259;
@@ -61,7 +62,8 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     private ArrayList<AnchorPane> fivecarddraw = new ArrayList<>();
     private ArrayList<AnchorPane> euchre = new ArrayList<>();
     private ArrayList<AnchorPane> blackjack = new ArrayList<>();
-
+    // </editor-fold>
+    
     /**
      * Initializes the controller class.
      */

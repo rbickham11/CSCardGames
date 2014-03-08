@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ManageAccountGUIController implements Initializable, ControlledScreen {
 
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
    
     @FXML
@@ -54,6 +55,7 @@ public class ManageAccountGUIController implements Initializable, ControlledScre
     private TextField newEmail;
     @FXML
     private Label emailSuccess;
+    // </editor-fold>
        
     private String textInputStyle;
     

@@ -21,6 +21,7 @@ public class FiveCardDrawGUIController implements Initializable, ControlledScree
     //  6               2
     //      5   4   3
     
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
     
     @FXML
@@ -201,6 +202,7 @@ public class FiveCardDrawGUIController implements Initializable, ControlledScree
     private Slider betAmountSlider;
     @FXML
     private Label betAmount;
+    // </editor-fold>
     
     /**
      * Initializes the controller class.

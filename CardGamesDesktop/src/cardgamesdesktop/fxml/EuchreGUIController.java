@@ -20,6 +20,7 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     //  1       3
     //      0
     
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
     
     @FXML
@@ -134,6 +135,7 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     private TextArea chatBox;
     @FXML
     private TextField chatMessage;
+    // </editor-fold>
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class UserStatisticsGUIController implements Initializable, ControlledScreen {
 
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
     
     @FXML
@@ -35,6 +36,7 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     
     @FXML
     private AnchorPane fivecarddrawStats;
+    // </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

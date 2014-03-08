@@ -2,10 +2,7 @@ package cardgamesdesktop.fxml;
 
 import cardgamesdesktop.*;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.ProgressIndicator;
 
@@ -36,6 +33,6 @@ public class MainGUIController implements Initializable, ControlledScreen {
     private void goToLoginScreen() {
         System.out.println("show");
         progress.toFront();
-//        controller.setScreen(DesktopCardGameGUI.loginScreen);
+        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
 }

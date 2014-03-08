@@ -19,6 +19,7 @@ public class BlackjackGUIController implements Initializable, ControlledScreen {
     // Seat Configuration
     //  1   2   3   4   5
     
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
     
     @FXML
@@ -115,6 +116,7 @@ public class BlackjackGUIController implements Initializable, ControlledScreen {
     private Slider betAmountSlider;
     @FXML
     private Label betAmount;
+    // </editor-fold>
     
     /**
      * Initializes the controller class.
