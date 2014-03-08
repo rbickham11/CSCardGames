@@ -25,8 +25,6 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     //  7               3
     //      6   5   4
     
-
-
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     @FXML
     private Label loggedInHeader;
@@ -208,9 +206,10 @@ public class HoldEmGUIController implements Initializable, ControlledScreen {
     private Slider betAmountSlider;
     @FXML
     private Label betAmount;    
-    // </editor-fold>
     
     ScreensController controller;
+    // </editor-fold>
+    
     private ChatClient chatClient;
     
     /**

@@ -103,5 +103,6 @@
     </AnchorPane>
     <Label fx:id="loginStatus" alignment="CENTER" font="$x4" layoutX="14.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="" textFill="RED" />
     <Label fx:id="registrationStatus" alignment="CENTER" font="$x4" layoutX="544.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="" textFill="RED" />
+    <ProgressIndicator fx:id="progress" layoutX="500.0" layoutY="295.0" prefHeight="60.0" prefWidth="60.0" progress="-1.0" visible="false" />
   </children>
 </AnchorPane>

@@ -6,9 +6,12 @@
 package cardgamesdesktop;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.*;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -49,7 +52,7 @@ public class DesktopCardGameGUI extends Application {
         container.loadScreen(DesktopCardGameGUI.statisticsScreen, DesktopCardGameGUI.statisticsScreenFile);
 
         container.setScreen(DesktopCardGameGUI.homeScreen);
-
+        
         Group root = new Group();
         root.getChildren().addAll(container);
         Scene scene = new Scene(root);
@@ -60,6 +63,15 @@ public class DesktopCardGameGUI extends Application {
         stage.setHeight(680);
         stage.getIcons().add(new Image(DesktopCardGameGUI.class.getResourceAsStream("images/CardGameIcon.png")));
         stage.setTitle("Legion Games");
+        
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                
+                //Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 
     /**

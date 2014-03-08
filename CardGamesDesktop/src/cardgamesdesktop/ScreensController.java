@@ -6,13 +6,9 @@
 package cardgamesdesktop;
 
 import java.util.HashMap;
-import javafx.animation.*;
-import javafx.beans.property.DoubleProperty;
-import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
 /**
  *
@@ -20,70 +16,52 @@ import javafx.util.Duration;
  */
 public class ScreensController extends StackPane {
 
-    private HashMap<String, Node> screens = new HashMap<>();
+    private HashMap<String, String> screens = new HashMap<>();
 
     public ScreensController() {
         super();
     }
 
-    public void addScreen(String name, Node screen) {
+    public void addScreen(String name, String screen) {
         screens.put(name, screen);
     }
 
-    public Node getScreen(String name) {
+    public String getScreen(String name) {
         return screens.get(name);
     }
 
-    public boolean loadScreen(String name, String resource) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-            Parent loadScreen = (Parent) loader.load();
-            ControlledScreen controller = ((ControlledScreen) loader.getController());
-            controller.setScreenParent(this);
-            addScreen(name, loadScreen);
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-            System.out.println(e.getMessage());
-            return false;
-        }
+    public void loadScreen(String name, String resource) {
+        addScreen(name, resource);
     }
 
-    public boolean setScreen(final String name) {
+    public void setScreen(final String name) {
         if (screens.get(name) != null) {
-            final DoubleProperty opacity = opacityProperty();
-
-            if (!getChildren().isEmpty()) {
-                Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)), new KeyFrame(new Duration(500), new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent t) {
-                        getChildren().remove(0);
-                        getChildren().add(0, screens.get(name));
-                        Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(new Duration(500), new KeyValue(opacity, 1.0)));
-                        fadeIn.play();
-                    }
-                }, new KeyValue(opacity, 0.0)));
-                fade.play();
-            } else {
-                setOpacity(0.0);
-                getChildren().add(screens.get(name));
-                Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)), new KeyFrame(new Duration(1), new KeyValue(opacity, 1.0)));
-                fadeIn.play();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(screens.get(name)));
+                Parent loadScreen = (Parent) loader.load();
+                ControlledScreen controller = ((ControlledScreen) loader.getController());
+                controller.setScreenParent(this);
+                if (!getChildren().isEmpty()) {
+                    getChildren().remove(0);
+                    getChildren().add(0, loadScreen);
+                } else {
+                    getChildren().add(loadScreen);
+                }
+            } catch (Exception e) {
+                e.printStackTrace(System.out);
+                System.out.println(e.getMessage());
             }
-            return true;
-        } else {
-            System.out.println("screen hasn't been loaded!\n");
-            return false;
-        }
-    }
-
-    public boolean unloadScreen(String name) {
-        if (screens.remove(name) == null) {
-            System.out.println("Screen didn't exist");
-            return false;
-        } else {
-            return true;
         }
     }
 }
+
+// Change HaseTable to String, String
+// Only load name, values into hash table.
+// On setScreen remove and get child, then load FXML and other items.
+// Change name of files and maybe method names to hide possible connection
+//  to website used to get basic idea of screen handler.
+
+// Add "Are you sure?" prompt on closing of the form.  Figure out how to cancel
+// the close if use does not want to close.
+// https://blogs.oracle.com/javajungle/entry/dialogfx_a_new_approach_to
+// http://sourceforge.jp/projects/jfxmessagebox/wiki/JfxMessageBox

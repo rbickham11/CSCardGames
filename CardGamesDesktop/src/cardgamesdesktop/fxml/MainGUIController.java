@@ -2,9 +2,12 @@ package cardgamesdesktop.fxml;
 
 import cardgamesdesktop.*;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.control.ProgressIndicator;
 
 /**
  *
@@ -12,8 +15,13 @@ import javafx.fxml.*;
  */
 public class MainGUIController implements Initializable, ControlledScreen {
 
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
-
+    
+    @FXML
+    ProgressIndicator progress;
+    // </editor-fold>
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -25,7 +33,9 @@ public class MainGUIController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    private void goToLoginScreen(ActionEvent event) {
-        controller.setScreen(DesktopCardGameGUI.loginScreen);
+    private void goToLoginScreen() {
+        System.out.println("show");
+        progress.toFront();
+//        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
 }

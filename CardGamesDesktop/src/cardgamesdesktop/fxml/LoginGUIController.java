@@ -17,6 +17,7 @@ import cardgamesdesktop.utilities.DBMgr;
  */
 public class LoginGUIController implements Initializable, ControlledScreen {
 
+    // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
 
     @FXML
@@ -36,6 +37,10 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     private TextField loginUsername;
     @FXML
     private PasswordField loginPassword;
+    
+    @FXML
+    ProgressIndicator progress;
+    // </editor-fold>
 
     private final DBMgr dbMgr = new DBMgr();
     
@@ -44,7 +49,9 @@ public class LoginGUIController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        progress.setVisible(true);
+        System.out.println("Testing");
+        progress.setVisible(false);
     }
 
     @Override
