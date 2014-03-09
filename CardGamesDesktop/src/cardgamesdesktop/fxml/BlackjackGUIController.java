@@ -4,7 +4,6 @@ import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -14,13 +13,14 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class BlackjackGUIController implements Initializable, ControlledScreen {
+public class BlackjackGUIController implements Initializable, Screens {
 
     // Seat Configuration
     //  1   2   3   4   5
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
     
     @FXML
     private Label loggedInHeader;
@@ -135,57 +135,62 @@ public class BlackjackGUIController implements Initializable, ControlledScreen {
     }    
     
     @Override
-    public void setScreenParent(ScreensController screenParent) {
-        controller = screenParent;
+    public void setScreenController(ScreensController controller) {
+        this.controller = controller;
+    }
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
     }
     
     @FXML
-    private void goToTablesScreen(ActionEvent event) {
+    private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
-    private void goToLoginScreen(ActionEvent event) {
+    private void goToLoginScreen() {
         controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
     
     @FXML
-    private void bet(ActionEvent event) {
+    private void bet() {
         
     }
     
     @FXML
-    private void insurance(ActionEvent event) {
+    private void insurance() {
         
     }
     
     @FXML
-    private void split(ActionEvent event) {
+    private void split() {
         
     }
     
     @FXML
-    private void doubleDown(ActionEvent event) {
+    private void doubleDown() {
         
     }
     
     @FXML
-    private void hit(ActionEvent event) {
+    private void hit() {
         
     }
     
     @FXML
-    private void stand(ActionEvent event) {
+    private void stand() {
         
     }
     
     @FXML
-    private void surrender(ActionEvent event) {
+    private void surrender() {
         
     }
     
     @FXML
-    private void sendMessage(ActionEvent event) {
+    private void sendMessage() {
         
     }
 }

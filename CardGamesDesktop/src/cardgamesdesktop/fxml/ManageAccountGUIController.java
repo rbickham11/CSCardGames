@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cardgamesdesktop.fxml;
 
 import cardgamesdesktop.*;
 import cardgamesdesktop.utilities.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -20,10 +13,11 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class ManageAccountGUIController implements Initializable, ControlledScreen {
+public class ManageAccountGUIController implements Initializable, Screens {
 
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
    
     @FXML
     private Label loggedInHeader;
@@ -68,58 +62,64 @@ public class ManageAccountGUIController implements Initializable, ControlledScre
         textInputStyle = oldPassword.getStyle();
     }    
     
-    @Override public void setScreenParent(ScreensController screenParent) {
-        controller = screenParent;
+    @Override
+    public void setScreenController(ScreensController controller) {
+        this.controller = controller;
+    }
+    
+    @Override 
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
     }
     
     @FXML
-    private void showChangePassword(ActionEvent event) {
+    private void showChangePassword() {
         changeDisplayName.setVisible(false);
         changeEmail.setVisible(false);
         
         changePassword.setVisible(true);
-        clearPasswordForm(new ActionEvent());
+        clearPasswordForm();
         passwordSuccess.setVisible(false);
     }
     
     @FXML
-    private void showChangeDisplayName(ActionEvent event) {
+    private void showChangeDisplayName() {
         currentDisplayName.setText(UserSessionVars.getDisplayName());
         changePassword.setVisible(false);
         changeEmail.setVisible(false);
         
         changeDisplayName.setVisible(true);
-        clearDisplayNameForm(new ActionEvent());
+        clearDisplayNameForm();
         displayNameSuccess.setVisible(false);
     }
     
     @FXML
-    private void showChangeEmail(ActionEvent event) {
+    private void showChangeEmail() {
         currentEmail.setText(UserSessionVars.getEmail());
         changePassword.setVisible(false);
         changeDisplayName.setVisible(false);
         
         changeEmail.setVisible(true);
-        clearEmailForm(new ActionEvent());
+        clearEmailForm();
         emailSuccess.setVisible(false);
     }
     
     @FXML
-    private void goToTablesScreen(ActionEvent event) {
+    private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
-    private void goToLoginScreen(ActionEvent event) {
+    private void goToLoginScreen() {
         controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
     
     @FXML
-    private void changePassword(ActionEvent event) {    
+    private void changePassword() {    
         if(dbMgr.validateUser(UserSessionVars.getUsername(), oldPassword.getText())) {
             if(newPassword.getText().equals(confirmNewPassword.getText())) {
                 dbMgr.setPassword(UserSessionVars.getUserId(), newPassword.getText());
-                clearPasswordForm(new ActionEvent());
+                clearPasswordForm();
                 passwordSuccess.setVisible(true);
             }
             else {
@@ -133,7 +133,7 @@ public class ManageAccountGUIController implements Initializable, ControlledScre
     }
     
     @FXML 
-    private void clearPasswordForm(ActionEvent event) {
+    private void clearPasswordForm() {
        oldPassword.setStyle(textInputStyle);
        confirmNewPassword.setStyle(textInputStyle);
        oldPassword.clear();
@@ -142,11 +142,11 @@ public class ManageAccountGUIController implements Initializable, ControlledScre
     }
    
     @FXML
-    private void changeDisplayName(ActionEvent event) {
+    private void changeDisplayName() {
         if(!newDisplayName.getText().trim().equals("")) {
             dbMgr.setDisplayName(UserSessionVars.getUserId(), newDisplayName.getText());
             dbMgr.setSession(UserSessionVars.getUsername());
-            showChangeDisplayName(new ActionEvent());
+            showChangeDisplayName();
             displayNameSuccess.setVisible(true);
         }
         else {
@@ -155,17 +155,17 @@ public class ManageAccountGUIController implements Initializable, ControlledScre
     }
    
     @FXML
-    private void clearDisplayNameForm(ActionEvent event) {
+    private void clearDisplayNameForm() {
         newDisplayName.clear();
         newDisplayName.setStyle(textInputStyle);
     }
    
     @FXML
-    private void changeEmail(ActionEvent event) {
+    private void changeEmail() {
         if(!newEmail.getText().trim().equals("")) {
             dbMgr.setEmail(UserSessionVars.getUserId(), newEmail.getText());
             dbMgr.setSession(UserSessionVars.getUsername());
-            showChangeEmail(new ActionEvent());
+            showChangeEmail();
             emailSuccess.setVisible(true);
         }
         else {
@@ -174,7 +174,7 @@ public class ManageAccountGUIController implements Initializable, ControlledScre
     }
    
     @FXML
-    private void clearEmailForm(ActionEvent event) {
+    private void clearEmailForm() {
         newEmail.clear();
         newEmail.setStyle(textInputStyle);
     }

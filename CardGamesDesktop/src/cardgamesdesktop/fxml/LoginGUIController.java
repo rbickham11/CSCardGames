@@ -3,7 +3,6 @@ package cardgamesdesktop.fxml;
 import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import java.sql.SQLException;
@@ -15,10 +14,11 @@ import cardgamesdesktop.utilities.DBMgr;
  *
  * @author Andrew Haeger
  */
-public class LoginGUIController implements Initializable, ControlledScreen {
+public class LoginGUIController implements Initializable, Screens {
 
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
 
     @FXML
     private Label registrationStatus;
@@ -37,9 +37,6 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     private TextField loginUsername;
     @FXML
     private PasswordField loginPassword;
-    
-    @FXML
-    ProgressIndicator progress;
     // </editor-fold>
 
     private final DBMgr dbMgr = new DBMgr();
@@ -49,18 +46,21 @@ public class LoginGUIController implements Initializable, ControlledScreen {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        progress.setVisible(true);
-        System.out.println("Testing");
-        progress.setVisible(false);
+        
     }
 
     @Override
-    public void setScreenParent(ScreensController screenParent) {
-        controller = screenParent;
+    public void setScreenController(ScreensController controller) {
+        this.controller = controller;
+    }
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
     }
 
     @FXML
-    private void registerNewUser(ActionEvent event) {
+    private void registerNewUser() {
         String user = registerUsername.getText();
         String password = registerPassword.getText();
         
@@ -77,7 +77,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
         try {
             if(!dbMgr.userExists(user)) {
                 dbMgr.addUser(user, registerPassword.getText(), registerEmail.getText());
-                clearRegisterForm(new ActionEvent());
+                clearRegisterForm();
                 registrationStatus.setText("Registration Successful!");
             }
             else {
@@ -91,7 +91,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    private void clearRegisterForm(ActionEvent event) {
+    private void clearRegisterForm() {
         registerEmail.clear();
         registerUsername.clear();
         registerPassword.clear();
@@ -99,7 +99,7 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    private void login(ActionEvent event) {
+    private void login() {
         if(loginUsername.getText().equals("test")) {
             controller.setScreen(DesktopCardGameGUI.tablesScreen);
         }
@@ -115,13 +115,13 @@ public class LoginGUIController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    private void clearLoginForm(ActionEvent event) {
+    private void clearLoginForm() {
         loginUsername.clear();
         loginPassword.clear();
     }
 
     @FXML
-    private void goToHomeScreen(ActionEvent event) {
+    private void goToHomeScreen() {
         controller.setScreen(DesktopCardGameGUI.homeScreen);
     }
 }

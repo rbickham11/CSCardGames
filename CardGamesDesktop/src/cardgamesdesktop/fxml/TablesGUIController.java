@@ -3,7 +3,6 @@ package cardgamesdesktop.fxml;
 import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 
 import javafx.scene.input.MouseEvent;
@@ -18,10 +17,11 @@ import cardgameslib.utilities.Game;
  *
  * @author Andrew Haeger
  */
-public class TablesGUIController implements Initializable, ControlledScreen {
+public class TablesGUIController implements Initializable, Screens {
 
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
     
     private static final int NAME_WIDTH = 259;
     private static final int NAME_HEIGHT = 22;
@@ -74,6 +74,16 @@ public class TablesGUIController implements Initializable, ControlledScreen {
         addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
         addNewHoldemTable("Mid Stakes Texas Hold'em", "Blinds: 500 / 1000", "Max Buy-in: 100,000", "0 / 9");
         addNewEuchreTable("Intermediate Euchre Table", "For a relaxed game.", "", "3 / 4");
+    }
+
+    @Override
+    public void setScreenController(ScreensController controller) {
+        this.controller = controller;
+    }
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
     }
 
     public void addNewHoldemTable(String tableName, String blind, String maxBuyIn, String capacity) {
@@ -181,19 +191,13 @@ public class TablesGUIController implements Initializable, ControlledScreen {
         return contain;
     }
     
-    
-    @Override
-    public void setScreenParent(ScreensController screenParent) {
-        controller = screenParent;
-    }
-
     @FXML
-    private void goToLoginScreen(ActionEvent event) {
+    private void goToLoginScreen() {
         controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
 
     @FXML
-    private void showHoldEmTables(ActionEvent event) {
+    private void showHoldEmTables() {
         fivecarddrawTables.setVisible(false);
         euchreTables.setVisible(false);
         blackjackTables.setVisible(false);
@@ -206,7 +210,7 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    private void showFiveCardDrawTables(ActionEvent event) {
+    private void showFiveCardDrawTables() {
         holdemTables.setVisible(false);
         euchreTables.setVisible(false);
         blackjackTables.setVisible(false);
@@ -219,7 +223,7 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    private void showEuchreTables(ActionEvent event) {
+    private void showEuchreTables() {
         holdemTables.setVisible(false);
         fivecarddrawTables.setVisible(false);
         blackjackTables.setVisible(false);
@@ -232,7 +236,7 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    private void showBlackjackTables(ActionEvent event) {
+    private void showBlackjackTables() {
         holdemTables.setVisible(false);
         fivecarddrawTables.setVisible(false);
         euchreTables.setVisible(false);
@@ -245,7 +249,7 @@ public class TablesGUIController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    private void goToAccountSettingsScreen(ActionEvent event) {
+    private void goToAccountSettingsScreen() {
         controller.setScreen(DesktopCardGameGUI.accountScreen);
     }
 }

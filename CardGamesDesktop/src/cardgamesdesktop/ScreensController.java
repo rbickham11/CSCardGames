@@ -5,6 +5,7 @@
  */
 package cardgamesdesktop;
 
+import java.io.IOException;
 import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -16,7 +17,7 @@ import javafx.scene.layout.StackPane;
  */
 public class ScreensController extends StackPane {
 
-    private HashMap<String, String> screens = new HashMap<>();
+    private final HashMap<String, String> screens = new HashMap<>();
 
     public ScreensController() {
         super();
@@ -39,15 +40,17 @@ public class ScreensController extends StackPane {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(screens.get(name)));
                 Parent loadScreen = (Parent) loader.load();
-                ControlledScreen controller = ((ControlledScreen) loader.getController());
-                controller.setScreenParent(this);
+                Screens controller = ((Screens) loader.getController());
+                controller.setScreenController(this);
                 if (!getChildren().isEmpty()) {
+                    controller.setPreviousScreen(getChildren().get(0).getId());
                     getChildren().remove(0);
                     getChildren().add(0, loadScreen);
                 } else {
+                    controller.setPreviousScreen("");
                     getChildren().add(loadScreen);
                 }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace(System.out);
                 System.out.println(e.getMessage());
             }
@@ -55,9 +58,6 @@ public class ScreensController extends StackPane {
     }
 }
 
-// Change HaseTable to String, String
-// Only load name, values into hash table.
-// On setScreen remove and get child, then load FXML and other items.
 // Change name of files and maybe method names to hide possible connection
 //  to website used to get basic idea of screen handler.
 

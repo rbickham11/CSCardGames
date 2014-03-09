@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cardgamesdesktop.fxml;
 
 import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.layout.AnchorPane;
 
@@ -17,10 +11,11 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class UserStatisticsGUIController implements Initializable, ControlledScreen {
+public class UserStatisticsGUIController implements Initializable, Screens {
 
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
     
     @FXML
     private AnchorPane overallStats;
@@ -44,12 +39,17 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     }
 
     @Override
-    public void setScreenParent(ScreensController screenParent) {
-        controller = screenParent;
+    public void setScreenController(ScreensController controller) {
+        this.controller = controller;
+    }
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
     }
     
     @FXML
-    private void showOverallStats(ActionEvent event) {
+    private void showOverallStats() {
         texasholdemStats.setVisible(false);
         euchreStats.setVisible(false);
         blackjackStats.setVisible(false);
@@ -59,7 +59,7 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     }
     
     @FXML
-    private void showTexasHoldemStats(ActionEvent event) {
+    private void showTexasHoldemStats() {
         overallStats.setVisible(false);
         euchreStats.setVisible(false);
         blackjackStats.setVisible(false);
@@ -69,7 +69,7 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     }
     
     @FXML
-    private void showEuchreStats(ActionEvent event) {
+    private void showEuchreStats() {
         overallStats.setVisible(false);
         texasholdemStats.setVisible(false);
         blackjackStats.setVisible(false);
@@ -79,7 +79,7 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     }
     
     @FXML
-    private void showBlackjackStats(ActionEvent event) {
+    private void showBlackjackStats() {
         overallStats.setVisible(false);
         texasholdemStats.setVisible(false);
         euchreStats.setVisible(false);
@@ -89,7 +89,7 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     }
     
     @FXML
-    private void showFiveCardDrawStats(ActionEvent event) {
+    private void showFiveCardDrawStats() {
         overallStats.setVisible(false);
         texasholdemStats.setVisible(false);
         euchreStats.setVisible(false);
@@ -100,7 +100,7 @@ public class UserStatisticsGUIController implements Initializable, ControlledScr
     }
     
     @FXML
-    private void goToEuchreTableScreen(ActionEvent event) {
+    private void goToEuchreTableScreen() {
         controller.setScreen(DesktopCardGameGUI.euchreScreen);
     }
 }

@@ -3,7 +3,6 @@ package cardgamesdesktop.fxml;
 import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class EuchreGUIController implements Initializable, ControlledScreen {
+public class EuchreGUIController implements Initializable, Screens {
 
     // Seat Configuration
     //      2
@@ -22,6 +21,7 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
     
     @FXML
     private Label loggedInHeader;
@@ -143,17 +143,22 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     }    
     
     @Override
-    public void setScreenParent(ScreensController screenParent) {
-        controller = screenParent;
+    public void setScreenController(ScreensController controller) {
+        this.controller = controller;
+    }
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
     }
     
     @FXML
-    private void goToTablesScreen(ActionEvent event) {
+    private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
-    private void goToLoginScreen(ActionEvent event) {
+    private void goToLoginScreen() {
         controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
     
@@ -163,17 +168,17 @@ public class EuchreGUIController implements Initializable, ControlledScreen {
     }
     
     @FXML
-    private void pass(ActionEvent event) {
+    private void pass() {
         
     }
     
     @FXML
-    private void call(ActionEvent event) {
+    private void call() {
         
     }
     
     @FXML
-    private void sendMessage(ActionEvent event) {
+    private void sendMessage() {
         
     }
 }

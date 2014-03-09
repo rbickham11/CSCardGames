@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.LoginGUIController">
+<AnchorPane id="login" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.fxml.LoginGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
@@ -103,6 +103,5 @@
     </AnchorPane>
     <Label fx:id="loginStatus" alignment="CENTER" font="$x4" layoutX="14.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="" textFill="RED" />
     <Label fx:id="registrationStatus" alignment="CENTER" font="$x4" layoutX="544.0" layoutY="40.0" prefHeight="34.0" prefWidth="497.0" text="" textFill="RED" />
-    <ProgressIndicator fx:id="progress" layoutX="500.0" layoutY="295.0" prefHeight="60.0" prefWidth="60.0" progress="-1.0" visible="false" />
   </children>
 </AnchorPane>

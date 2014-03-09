@@ -4,7 +4,6 @@ import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class FiveCardDrawGUIController implements Initializable, ControlledScreen {
+public class FiveCardDrawGUIController implements Initializable, Screens {
 
     // Seat Configuration
     //      7       1
@@ -23,6 +22,7 @@ public class FiveCardDrawGUIController implements Initializable, ControlledScree
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
     
     @FXML
     private Label loggedInHeader;
@@ -221,47 +221,52 @@ public class FiveCardDrawGUIController implements Initializable, ControlledScree
     }    
     
     @Override
-    public void setScreenParent(ScreensController screenParent) {
-        controller = screenParent;
+    public void setScreenController(ScreensController controller) {
+        this.controller = controller;
+    }
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
     }
     
     @FXML
-    private void goToTablesScreen(ActionEvent event) {
+    private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);
     }
     
     @FXML
-    private void goToLoginScreen(ActionEvent event) {
+    private void goToLoginScreen() {
         controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
     
     @FXML
-    private void bet(ActionEvent event) {
+    private void bet() {
         
     }
     
     @FXML
-    private void call(ActionEvent event) {
+    private void call() {
         
     }
     
     @FXML
-    private void raise(ActionEvent event) {
+    private void raise() {
         
     }
     
     @FXML
-    private void check(ActionEvent event) {
+    private void check() {
         
     }
     
     @FXML
-    private void fold(ActionEvent event) {
+    private void fold() {
         
     }
     
     @FXML
-    private void sendMessage(ActionEvent event) {
+    private void sendMessage() {
         
     }
 }

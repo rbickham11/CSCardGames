@@ -6,12 +6,13 @@
 package cardgamesdesktop;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.*;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import jfx.messagebox.MessageBox;
 
 /**
  *
@@ -39,7 +40,7 @@ public class DesktopCardGameGUI extends Application {
     public static String statisticsScreenFile = "fxml/UserStatisticsGUI.fxml";
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(final Stage stage) throws Exception {
         ScreensController container = new ScreensController();
         container.loadScreen(DesktopCardGameGUI.homeScreen, DesktopCardGameGUI.homeScreenFile);
         container.loadScreen(DesktopCardGameGUI.loginScreen, DesktopCardGameGUI.loginScreenFile);
@@ -64,12 +65,18 @@ public class DesktopCardGameGUI extends Application {
         stage.getIcons().add(new Image(DesktopCardGameGUI.class.getResourceAsStream("images/CardGameIcon.png")));
         stage.setTitle("Legion Games");
         
+        Platform.setImplicitExit(false);
+        
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
-            public void handle(WindowEvent t) {
+            public void handle(WindowEvent event) {
+                int result = MessageBox.show(stage, "Are you sure you want to quit?", "Are you sure?", MessageBox.ICON_QUESTION | MessageBox.YES | MessageBox.NO);
                 
-                //Platform.exit();
-                System.exit(0);
+                if(result == MessageBox.YES) {
+                    System.exit(0);
+                } else {
+                    event.consume();
+                }
             }
         });
     }
