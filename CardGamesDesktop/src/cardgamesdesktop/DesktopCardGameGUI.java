@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cardgamesdesktop;
 
 import javafx.application.Application;
@@ -41,7 +36,7 @@ public class DesktopCardGameGUI extends Application {
     
     @Override
     public void start(final Stage stage) throws Exception {
-        ScreensController container = new ScreensController();
+        ScreensController container = ScreensController.getInstance();
         container.loadScreen(DesktopCardGameGUI.homeScreen, DesktopCardGameGUI.homeScreenFile);
         container.loadScreen(DesktopCardGameGUI.loginScreen, DesktopCardGameGUI.loginScreenFile);
         container.loadScreen(DesktopCardGameGUI.tablesScreen, DesktopCardGameGUI.tablesScreenFile);

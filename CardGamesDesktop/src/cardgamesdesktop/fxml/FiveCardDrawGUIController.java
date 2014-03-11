@@ -209,6 +209,8 @@ public class FiveCardDrawGUIController implements Initializable, Screens {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controller = ScreensController.getInstance();
+        
         loggedInHeader.setVisible(false);
         betAmount.setText(Integer.toString((int)betAmountSlider.getValue()));
         
@@ -219,11 +221,6 @@ public class FiveCardDrawGUIController implements Initializable, Screens {
             }
         });
     }    
-    
-    @Override
-    public void setScreenController(ScreensController controller) {
-        this.controller = controller;
-    }
     
     @Override
     public void setPreviousScreen(String previous) {

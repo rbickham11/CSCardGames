@@ -46,14 +46,9 @@ public class LoginGUIController implements Initializable, Screens {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        controller = ScreensController.getInstance();
     }
 
-    @Override
-    public void setScreenController(ScreensController controller) {
-        this.controller = controller;
-    }
-    
     @Override
     public void setPreviousScreen(String previous) {
         this.previous = previous;

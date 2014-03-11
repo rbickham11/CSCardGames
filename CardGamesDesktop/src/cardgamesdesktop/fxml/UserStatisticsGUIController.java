@@ -35,14 +35,9 @@ public class UserStatisticsGUIController implements Initializable, Screens {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        controller = ScreensController.getInstance();
     }
 
-    @Override
-    public void setScreenController(ScreensController controller) {
-        this.controller = controller;
-    }
-    
     @Override
     public void setPreviousScreen(String previous) {
         this.previous = previous;

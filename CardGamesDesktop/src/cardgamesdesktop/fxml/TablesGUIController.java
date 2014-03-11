@@ -69,6 +69,8 @@ public class TablesGUIController implements Initializable, Screens {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controller = ScreensController.getInstance();
+        
         loggedInHeader.setVisible(false);
 
         addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
@@ -76,11 +78,6 @@ public class TablesGUIController implements Initializable, Screens {
         addNewEuchreTable("Intermediate Euchre Table", "For a relaxed game.", "", "3 / 4");
     }
 
-    @Override
-    public void setScreenController(ScreensController controller) {
-        this.controller = controller;
-    }
-    
     @Override
     public void setPreviousScreen(String previous) {
         this.previous = previous;

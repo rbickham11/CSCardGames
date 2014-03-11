@@ -217,6 +217,8 @@ public class HoldEmGUIController implements Initializable, Screens {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controller = ScreensController.getInstance();
+        
         loggedInHeader.setVisible(false);
         StringProperty chatBoxText = chatBox.textProperty();
         try{
@@ -230,11 +232,6 @@ public class HoldEmGUIController implements Initializable, Screens {
                 betAmount.setText(Integer.toString(newValue.intValue()));
             }
         });
-    }
-    
-    @Override
-    public void setScreenController(ScreensController controller) {
-        this.controller = controller;
     }
     
     @Override

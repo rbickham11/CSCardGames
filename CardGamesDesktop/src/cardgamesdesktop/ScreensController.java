@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cardgamesdesktop;
 
 import java.io.IOException;
@@ -18,11 +13,20 @@ import javafx.scene.layout.StackPane;
 public class ScreensController extends StackPane {
 
     private final HashMap<String, String> screens = new HashMap<>();
+    private static ScreensController instance = null;
 
-    public ScreensController() {
+    protected ScreensController() {
         super();
     }
 
+    public static ScreensController getInstance() {
+        if(instance == null) {
+            instance = new ScreensController();
+        }
+        
+        return instance;
+    }
+    
     public void addScreen(String name, String screen) {
         screens.put(name, screen);
     }
@@ -41,7 +45,6 @@ public class ScreensController extends StackPane {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(screens.get(name)));
                 Parent loadScreen = (Parent) loader.load();
                 Screens controller = ((Screens) loader.getController());
-                controller.setScreenController(this);
                 if (!getChildren().isEmpty()) {
                     controller.setPreviousScreen(getChildren().get(0).getId());
                     getChildren().remove(0);
@@ -57,11 +60,3 @@ public class ScreensController extends StackPane {
         }
     }
 }
-
-// Change name of files and maybe method names to hide possible connection
-//  to website used to get basic idea of screen handler.
-
-// Add "Are you sure?" prompt on closing of the form.  Figure out how to cancel
-// the close if use does not want to close.
-// https://blogs.oracle.com/javajungle/entry/dialogfx_a_new_approach_to
-// http://sourceforge.jp/projects/jfxmessagebox/wiki/JfxMessageBox
