@@ -1,15 +1,19 @@
 package cardgamesdesktop.utilities;
 
+import java.io.FileInputStream;
 import java.sql.*;
+import java.util.Properties;
 
 /**
  * For managing the connection to the database and querying the database
  * @author Ryan
  */
 public class DBMgr {
+    //Use for local database
     private static final String URL = "jdbc:mysql://localhost:3307/cardgamesdb";
     private static final String USER = "root";
     private static final String PASS = "cgadmin490";
+    //**
     
     private String query;
     private Statement statement;
@@ -21,7 +25,16 @@ public class DBMgr {
     public DBMgr() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(URL, USER, PASS);
+            //Use for remote database
+            Properties config = new Properties();
+            config.load(new FileInputStream("config.properties"));
+            Connection con = DriverManager.getConnection(
+                    config.getProperty("jdbc.url"),
+                    config.getProperty("jdbc.username"),
+                    config.getProperty("jdbc.password"));
+           //Use for local database
+           //Connection con = DriverManager.getConnection(URL, USER, PASS);
+            
             statement = con.createStatement();
             
         } catch(Exception ex) {

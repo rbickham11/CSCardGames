@@ -43,3 +43,6 @@
 
 #jfx-impl backup files
 jfx-impl_backup*.xml
+
+#Configuration Files
+config.properties
