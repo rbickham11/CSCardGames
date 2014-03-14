@@ -1,0 +1,279 @@
+.cardBlue{
+    -fx-background-image: url("../images/cards/blueBack.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardRed{
+    -fx-background-image: url("../images/cards/redBack.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card2C{
+    -fx-background-image: url("../images/cards/2C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card2D{
+    -fx-background-image: url("../images/cards/2D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card2H{
+    -fx-background-image: url("../images/cards/2H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card2S{
+    -fx-background-image: url("../images/cards/2S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card3C{
+    -fx-background-image: url("../images/cards/3C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card3D{
+    -fx-background-image: url("../images/cards/3D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card3H{ 
+    -fx-background-image: url("../images/cards/3H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card3S{
+    -fx-background-image: url("../images/cards/3S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card4C{
+    -fx-background-image: url("../images/cards/4C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card4D{
+    -fx-background-image: url("../images/cards/4D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card4H{
+    -fx-background-image: url("../images/cards/4H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card4S{
+    -fx-background-image: url("../images/cards/4S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card5C{
+    -fx-background-image: url("../images/cards/5C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card5D{
+    -fx-background-image: url("../images/cards/5D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card5H{
+    -fx-background-image: url("../images/cards/5H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card5S{
+    -fx-background-image: url("../images/cards/5S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card6C{
+    -fx-background-image: url("../images/cards/6C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card6D{
+    -fx-background-image: url("../images/cards/6D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card6H{
+    -fx-background-image: url("../images/cards/6H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card6S{
+    -fx-background-image: url("../images/cards/6S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card7C{
+    -fx-background-image: url("../images/cards/7C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card7D{
+    -fx-background-image: url("../images/cards/7D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card7H{
+    -fx-background-image: url("../images/cards/7H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card7S{
+    -fx-background-image: url("../images/cards/7S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card8C{
+    -fx-background-image: url("../images/cards/8C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card8D{
+    -fx-background-image: url("../images/cards/8D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card8H{
+    -fx-background-image: url("../images/cards/8H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card8S{
+    -fx-background-image: url("../images/cards/8S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card9C{
+    -fx-background-image: url("../images/cards/9C.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card9D{
+    -fx-background-image: url("../images/cards/9D.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card9H{
+    -fx-background-image: url("../images/cards/9H.png");
+    -fx-background-size: 100% 100%;
+}
+
+.card9S{
+    -fx-background-image: url("../images/cards/9S.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardTC{
+    -fx-background-image: url("../images/cards/TC.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardTD{
+    -fx-background-image: url("../images/cards/TD.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardTH{
+    -fx-background-image: url("../images/cards/TH.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardTS{
+    -fx-background-image: url("../images/cards/TS.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardJC{
+    -fx-background-image: url("../images/cards/JC.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardJD{
+    -fx-background-image: url("../images/cards/JD.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardJH{
+    -fx-background-image: url("../images/cards/JH.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardJS{
+    -fx-background-image: url("../images/cards/JS.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardQC{
+    -fx-background-image: url("../images/cards/QC.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardQD{
+    -fx-background-image: url("../images/cards/QD.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardQH{
+    -fx-background-image: url("../images/cards/QH.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardQS{
+    -fx-background-image: url("../images/cards/QS.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardKC{
+    -fx-background-image: url("../images/cards/KC.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardKD{
+    -fx-background-image: url("../images/cards/KD.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardKH{
+    -fx-background-image: url("../images/cards/KH.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardKS{
+    -fx-background-image: url("../images/cards/KS.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardAC{
+    -fx-background-image: url("../images/cards/AC.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardAD{
+    -fx-background-image: url("../images/cards/AD.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardAH{
+    -fx-background-image: url("../images/cards/AH.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardAS{
+    -fx-background-image: url("../images/cards/AS.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardJB{
+    -fx-background-image: url("../images/cards/JB.png");
+    -fx-background-size: 100% 100%;
+}
+
+.cardJR{
+    -fx-background-image: url("../images/cards/JR.png");
+    -fx-background-size: 100% 100%;
+}

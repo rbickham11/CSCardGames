@@ -40,80 +40,80 @@
     </AnchorPane>
     <AnchorPane layoutX="0.0" layoutY="40.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.5" prefWidth="1055.0" styleClass="tableImage">
       <children>
-        <AnchorPane layoutX="423.0" layoutY="350.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+        <AnchorPane id="player0" fx:id="player1" layoutX="423.0" layoutY="350.0" opacity="0.5" prefHeight="85.0" prefWidth="210.0">
           <children>
-            <AnchorPane id="player1Image" fx:id="player0Image" layoutX="0.0" layoutY="0.0" onMouseClicked="#showUserStatisticsScreen" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+            <AnchorPane id="player0Card1" fx:id="player1Card1" layoutX="84.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane fx:id="player1Image" layoutX="0.0" layoutY="0.0" onMouseClicked="#showUserStatisticsScreen" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
-            <Label fx:id="player0Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+            <AnchorPane id="player0Card2" fx:id="player1Card2" layoutX="105.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player0Card3" fx:id="player1Card3" layoutX="126.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player0Card4" fx:id="player1Card4" layoutX="147.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player0Card5" fx:id="player1Card5" layoutX="168.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <Label id="player0Name" fx:id="player1Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Label>
-            <AnchorPane fx:id="player0Card1" layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player0Card2" layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player0Card3" layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player0Card4" layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player0Card5" layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
           </children>
         </AnchorPane>
-        <AnchorPane layoutX="75.0" layoutY="188.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+        <AnchorPane id="player1" fx:id="player2" layoutX="75.0" layoutY="188.0" opacity="0.5" prefHeight="85.0" prefWidth="210.0">
           <children>
-            <AnchorPane fx:id="player1Image" layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+            <AnchorPane id="player1Image" fx:id="player2Image" layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
-            <Label fx:id="player1Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+            <AnchorPane id="player1Card1" fx:id="player2Card1" layoutX="84.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player1Card2" fx:id="player2Card2" layoutX="105.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player1Card3" fx:id="player2Card3" layoutX="126.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player1Card4" fx:id="player2Card4" layoutX="147.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player1Card5" fx:id="player2Card5" layoutX="168.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <Label id="player1Name" fx:id="player2Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Label>
-            <AnchorPane fx:id="player1Card1" layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player1Card2" layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player1Card3" layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player1Card4" layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player1Card5" layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
           </children>
         </AnchorPane>
-        <AnchorPane layoutX="423.0" layoutY="14.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+        <AnchorPane id="player2" fx:id="player3" layoutX="423.0" layoutY="14.0" opacity="0.5" prefHeight="85.0" prefWidth="210.0">
           <children>
-            <AnchorPane fx:id="player2Image" layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+            <AnchorPane id="player2Image" fx:id="player3Image" layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
-            <Label fx:id="player2Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+            <AnchorPane id="player2Card1" fx:id="player3Card1" layoutX="84.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player2Card2" fx:id="player3Card2" layoutX="105.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player2Card3" fx:id="player3Card3" layoutX="126.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player2Card4" fx:id="player3Card4" layoutX="147.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player2Card5" fx:id="player3Card5" layoutX="168.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <Label id="player2Name" fx:id="player3Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Label>
-            <AnchorPane fx:id="player2Card1" layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player2Card2" layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player2Card3" layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player2Card4" layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player2Card5" layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
           </children>
         </AnchorPane>
-        <AnchorPane layoutX="791.0" layoutY="188.0" opacity="1.0" prefHeight="85.0" prefWidth="210.0">
+        <AnchorPane id="player3" fx:id="player4" layoutX="791.0" layoutY="188.0" opacity="0.5" prefHeight="85.0" prefWidth="210.0">
           <children>
-            <AnchorPane fx:id="player3Image" layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
+            <AnchorPane id="player3Image" fx:id="player4Image" layoutX="0.0" layoutY="0.0" prefHeight="85.0" prefWidth="85.0" styleClass="userImage">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </AnchorPane>
-            <Label fx:id="player3Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
+            <AnchorPane id="player3Card1" fx:id="player4Card1" layoutX="84.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player3Card2" fx:id="player4Card2" layoutX="105.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player3Card3" fx:id="player4Card3" layoutX="126.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player3Card4" fx:id="player4Card4" layoutX="147.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <AnchorPane id="player3Card5" fx:id="player4Card5" layoutX="168.0" layoutY="0.0" prefHeight="56.0" prefWidth="42.0" />
+            <Label id="player3Name" fx:id="player4Name" layoutX="84.0" layoutY="46.0" prefHeight="39.0" prefWidth="126.0" styleClass="userName" text="Empty">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Label>
-            <AnchorPane fx:id="player3Card1" layoutX="84.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player3Card2" layoutX="105.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player3Card3" layoutX="126.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player3Card4" layoutX="147.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
-            <AnchorPane fx:id="player3Card5" layoutX="168.0" layoutY="0.0" prefHeight="46.0" prefWidth="42.0" />
           </children>
         </AnchorPane>
         <AnchorPane layoutX="14.0" layoutY="350.0" prefHeight="84.0" prefWidth="270.0">
@@ -187,14 +187,14 @@
             </AnchorPane>
           </children>
         </AnchorPane>
-        <AnchorPane fx:id="player0CardUp" layoutX="378.0" layoutY="304.0" prefHeight="46.0" prefWidth="45.0" />
-        <AnchorPane fx:id="player1CardUp" layoutX="306.0" layoutY="142.0" prefHeight="46.0" prefWidth="45.0" />
-        <AnchorPane fx:id="player2CardUp" layoutX="633.0" layoutY="99.0" prefHeight="46.0" prefWidth="45.0" />
-        <AnchorPane fx:id="player3CardUp" layoutX="714.0" layoutY="273.0" prefHeight="46.0" prefWidth="45.0" />
-        <AnchorPane fx:id="player0CardPlayed" layoutX="507.0" layoutY="252.0" prefHeight="46.0" prefWidth="42.0" />
-        <AnchorPane fx:id="player1CardPlayed" layoutX="463.0" layoutY="208.0" prefHeight="46.0" prefWidth="42.0" rotate="90.0" />
-        <AnchorPane fx:id="player2CardPlayed" layoutX="507.0" layoutY="164.0" prefHeight="46.0" prefWidth="42.0" rotate="180.0" />
-        <AnchorPane fx:id="player3CardPlayed" layoutX="551.0" layoutY="208.0" prefHeight="46.0" prefWidth="42.0" rotate="270.0" />
+        <AnchorPane id="player0CardUp" fx:id="player1CardUp" layoutX="378.0" layoutY="294.0" prefHeight="56.0" prefWidth="45.0" />
+        <AnchorPane id="player1CardUp" fx:id="player2CardUp" layoutX="306.0" layoutY="142.0" prefHeight="56.0" prefWidth="45.0" />
+        <AnchorPane id="player2CardUp" fx:id="player3CardUp" layoutX="633.0" layoutY="99.0" prefHeight="56.0" prefWidth="45.0" />
+        <AnchorPane id="player3CardUp" fx:id="player4CardUp" layoutX="714.0" layoutY="263.0" prefHeight="56.0" prefWidth="45.0" />
+        <AnchorPane id="player0CardPlayed" fx:id="player1CardPlayed" layoutX="507.0" layoutY="252.0" mouseTransparent="false" prefHeight="56.0" prefWidth="42.0" style="&#10;" />
+        <AnchorPane id="player1CardPlayed" fx:id="player2CardPlayed" layoutX="458.0" layoutY="203.0" prefHeight="56.0" prefWidth="42.0" rotate="90.0" style="" />
+        <AnchorPane id="player2CardPlayed" fx:id="player3CardPlayed" layoutX="507.0" layoutY="155.0" prefHeight="56.0" prefWidth="42.0" rotate="180.0" style="" />
+        <AnchorPane id="player3CardPlayed" fx:id="player4CardPlayed" layoutX="556.0" layoutY="203.0" prefHeight="56.0" prefWidth="42.0" rotate="270.0" style="" />
       </children>
       <stylesheets>
         <URL value="@../css/Euchre.css" />

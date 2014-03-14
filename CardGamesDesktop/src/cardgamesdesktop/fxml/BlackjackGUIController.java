@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class BlackjackGUIController implements Initializable, Screens {
+public class BlackjackGUIController extends GameControllerHelper implements Initializable, Screens {
 
     // Seat Configuration
     //  1   2   3   4   5
@@ -24,6 +24,9 @@ public class BlackjackGUIController implements Initializable, Screens {
     
     @FXML
     private Label loggedInHeader;
+    
+    @FXML
+    private AnchorPane player1;
     @FXML
     private AnchorPane player1Image;
     @FXML
@@ -40,6 +43,8 @@ public class BlackjackGUIController implements Initializable, Screens {
     private AnchorPane player1ChipBetImage;
     
     @FXML
+    private AnchorPane player2;
+    @FXML
     private AnchorPane player2Image;
     @FXML
     private AnchorPane player2Card1;
@@ -54,6 +59,8 @@ public class BlackjackGUIController implements Initializable, Screens {
     @FXML
     private AnchorPane player2ChipBetImage;
     
+    @FXML
+    private AnchorPane player3;
     @FXML
     private AnchorPane player3Image;
     @FXML
@@ -70,6 +77,8 @@ public class BlackjackGUIController implements Initializable, Screens {
     private AnchorPane player3ChipBetImage;
     
     @FXML
+    private AnchorPane player4;
+    @FXML
     private AnchorPane player4Image;
     @FXML
     private AnchorPane player4Card1;
@@ -84,6 +93,8 @@ public class BlackjackGUIController implements Initializable, Screens {
     @FXML
     private AnchorPane player4ChipBetImage;
     
+    @FXML
+    private AnchorPane player5;
     @FXML
     private AnchorPane player5Image;
     @FXML

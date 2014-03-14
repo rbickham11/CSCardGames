@@ -32,11 +32,11 @@ public class CardGamesServer {
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
         CardGamesServer server = new CardGamesServer();
         //server.runPokerGame();
-        //server.runEuchreGame();
-        server.runBlackjackGame();
+//        server.runEuchreGame();
+        //server.runBlackjackGame();
         
-        //registry = LocateRegistry.createRegistry(PORT);
-        //registerObject(ChatServer.class.getSimpleName(), new ChatServerImpl());
+        registry = LocateRegistry.createRegistry(PORT);
+        registerObject(ChatServer.class.getSimpleName(), new ChatServerImpl());
     }
     
     public static void registerObject(String name, Remote remoteObj) throws RemoteException, AlreadyBoundException {

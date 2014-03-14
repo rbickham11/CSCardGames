@@ -5,11 +5,11 @@ import java.util.*;
 
 //******Player Configuration******
 // 
-//                2
+//                3
 //
-//        1               3
+//        2               4
 //
-//                0
+//                1
 //
 //********************************
 //*********Card Breakdown*********
@@ -330,27 +330,27 @@ public class EuchreDealer {
 //------------------------------------------------------------------------------
 
     public void displayPlayersHands() {
-        System.out.print("                              Player 2: ");
+        System.out.print("                              Player 3: ");
         for (int cards : players.get(2).getHand()) {
             System.out.print(Deck.cardToString(cards));
             System.out.print(", ");
         }
         System.out.println("\n");
 
-        System.out.print("Player 1: ");
+        System.out.print("Player 2: ");
         for (int cards : players.get(1).getHand()) {
             System.out.print(Deck.cardToString(cards));
             System.out.print(", ");
         }
 
-        System.out.print("                              Player 3: ");
+        System.out.print("                              Player 4: ");
         for (int cards : players.get(3).getHand()) {
             System.out.print(Deck.cardToString(cards));
             System.out.print(", ");
         }
         System.out.println("\n");
 
-        System.out.print("                              Player 0: ");
+        System.out.print("                              Player 1: ");
         for (int cards : players.get(0).getHand()) {
             System.out.print(Deck.cardToString(cards));
             System.out.print(", ");

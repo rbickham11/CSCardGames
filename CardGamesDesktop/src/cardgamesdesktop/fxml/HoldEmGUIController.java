@@ -16,7 +16,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author Andrew Haeger
  */
-public class HoldEmGUIController implements Initializable, Screens {
+public class HoldEmGUIController extends GameControllerHelper implements Initializable, Screens {
 
     //  Seat Configuration
     //      9       1
@@ -30,6 +30,9 @@ public class HoldEmGUIController implements Initializable, Screens {
     
     @FXML
     private Label loggedInHeader;
+    
+    @FXML
+    private AnchorPane player1;
     @FXML
     private AnchorPane player1Image;
     @FXML
@@ -48,6 +51,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     private AnchorPane player1ChipBetImage;
     
     @FXML
+    private AnchorPane player2;
+    @FXML
     private AnchorPane player2Image;
     @FXML
     private AnchorPane player2Card1;
@@ -64,6 +69,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     @FXML
     private AnchorPane player2ChipBetImage;
     
+    @FXML
+    private AnchorPane player3;
     @FXML
     private AnchorPane player3Image;
     @FXML
@@ -82,6 +89,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     private AnchorPane player3ChipBetImage;
     
     @FXML
+    private AnchorPane player4;
+    @FXML
     private AnchorPane player4Image;
     @FXML
     private AnchorPane player4Card1;
@@ -98,6 +107,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     @FXML
     private AnchorPane player4ChipBetImage;
     
+    @FXML
+    private AnchorPane player5;
     @FXML
     private AnchorPane player5Image;
     @FXML
@@ -116,6 +127,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     private AnchorPane player5ChipBetImage;
     
     @FXML
+    private AnchorPane player6;
+    @FXML
     private AnchorPane player6Image;
     @FXML
     private AnchorPane player6Card1;
@@ -132,6 +145,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     @FXML
     private AnchorPane player6ChipBetImage;
     
+    @FXML
+    private AnchorPane player7;
     @FXML
     private AnchorPane player7Image;
     @FXML
@@ -150,6 +165,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     private AnchorPane player7ChipBetImage;
     
     @FXML
+    private AnchorPane player8;
+    @FXML
     private AnchorPane player8Image;
     @FXML
     private AnchorPane player8Card1;
@@ -166,6 +183,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     @FXML
     private AnchorPane player8ChipBetImage;
     
+    @FXML
+    private AnchorPane player9;
     @FXML
     private AnchorPane player9Image;
     @FXML
@@ -207,7 +226,8 @@ public class HoldEmGUIController implements Initializable, Screens {
     @FXML
     private Slider betAmountSlider;
     @FXML
-    private Label betAmount;    
+    private Label betAmount;
+    
     // </editor-fold>
     
     private ChatClient chatClient;
@@ -218,6 +238,11 @@ public class HoldEmGUIController implements Initializable, Screens {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = ScreensController.getInstance();
+        
+        activatePlayer(player5, "Andrew Haeger", "1,385,123");
+        showCard(player5Card1, "5C");
+        showCard(player5Card2, "AD");
+        removeCard(player5Card1);
         
         loggedInHeader.setVisible(false);
         StringProperty chatBoxText = chatBox.textProperty();

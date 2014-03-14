@@ -1,33 +1,33 @@
 .image
 {
-  -fx-background-image: url("../images/poker.jpg");
-  -fx-background-size: 100% 100%;
-  -fx-background-repeat: stretch;
+    -fx-background-image: url("../images/poker.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: stretch;
 }
 
 .header
 {
-  -fx-background-color: #222222;
-  -fx-border-color: #080808;
+    -fx-background-color: #222222;
+    -fx-border-color: #080808;
 }
 
 .headerButton
 {
-  -fx-text-fill: #999999;
-  -fx-background-color: #222222;
-  -fx-background-radius: 0px;
+    -fx-text-fill: #999999;
+    -fx-background-color: #222222;
+    -fx-background-radius: 0px;
 }
 
 .headerButton:hover
 {
-  -fx-text-fill: #FFFFFF;
-  -fx-cursor: hand;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
 }
 
 .loggedInHeader
 {
-	-fx-alignment: center-right;
-	-fx-pref-height: 17;
-	-fx-pref-width: 200;
-	-fx-text-fill: #999999;
+    -fx-alignment: center-right;
+    -fx-pref-height: 17;
+    -fx-pref-width: 200;
+    -fx-text-fill: #999999;
 }

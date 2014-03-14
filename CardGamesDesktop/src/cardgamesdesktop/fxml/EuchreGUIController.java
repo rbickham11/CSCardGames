@@ -12,12 +12,12 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class EuchreGUIController implements Initializable, Screens {
+public class EuchreGUIController extends GameControllerHelper implements Initializable, Screens {
 
     // Seat Configuration
-    //      2
-    //  1       3
-    //      0
+    //      3
+    //  2       4
+    //      1
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
@@ -27,24 +27,7 @@ public class EuchreGUIController implements Initializable, Screens {
     private Label loggedInHeader;
     
     @FXML
-    private AnchorPane player0Image;
-    @FXML
-    private AnchorPane player0Card1;
-    @FXML
-    private AnchorPane player0Card2;
-    @FXML
-    private AnchorPane player0Card3;
-    @FXML
-    private AnchorPane player0Card4;
-    @FXML
-    private AnchorPane player0Card5;
-    @FXML
-    private Label player0Name;
-    @FXML
-    private AnchorPane player0CardUp;
-    @FXML
-    private AnchorPane player0CardPlayed;
-    
+    private AnchorPane player1;
     @FXML
     private AnchorPane player1Image;
     @FXML
@@ -65,6 +48,8 @@ public class EuchreGUIController implements Initializable, Screens {
     private AnchorPane player1CardPlayed;
     
     @FXML
+    private AnchorPane player2;
+    @FXML
     private AnchorPane player2Image;
     @FXML
     private AnchorPane player2Card1;
@@ -84,6 +69,8 @@ public class EuchreGUIController implements Initializable, Screens {
     private AnchorPane player2CardPlayed;
     
     @FXML
+    private AnchorPane player3;
+    @FXML
     private AnchorPane player3Image;
     @FXML
     private AnchorPane player3Card1;
@@ -101,6 +88,27 @@ public class EuchreGUIController implements Initializable, Screens {
     private AnchorPane player3CardUp;
     @FXML
     private AnchorPane player3CardPlayed;
+    
+    @FXML
+    private AnchorPane player4;
+    @FXML
+    private AnchorPane player4Image;
+    @FXML
+    private AnchorPane player4Card1;
+    @FXML
+    private AnchorPane player4Card2;
+    @FXML
+    private AnchorPane player4Card3;
+    @FXML
+    private AnchorPane player4Card4;
+    @FXML
+    private AnchorPane player4Card5;
+    @FXML
+    private Label player4Name;
+    @FXML
+    private AnchorPane player4CardUp;
+    @FXML
+    private AnchorPane player4CardPlayed;
     
     @FXML
     private AnchorPane currentTrump;

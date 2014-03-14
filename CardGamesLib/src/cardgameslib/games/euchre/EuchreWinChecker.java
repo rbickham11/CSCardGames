@@ -35,8 +35,8 @@ public class EuchreWinChecker {
         playerLead = 0;
         teamOneTricks = 0;
         teamTwoTricks = 0;
-        teamOneScore = 0;           // Players 0 and 2
-        teamTwoScore = 0;           // Players 1 and 3
+        teamOneScore = 0;           // Players 1 and 3
+        teamTwoScore = 0;           // Players 2 and 4
     }
 
     public void setTrump(int trump) {
