@@ -1,4 +1,4 @@
-package cardgamesdesktop.fxml;
+package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import java.net.URL;
@@ -16,7 +16,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author Andrew Haeger
  */
-public class HoldEmGUIController extends GameControllerHelper implements Initializable, Screens {
+public class HoldEmGUIController extends GameController implements Initializable, Screens {
 
     //  Seat Configuration
     //      9       1

@@ -1,4 +1,4 @@
-package cardgamesdesktop.fxml;
+package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import java.net.URL;

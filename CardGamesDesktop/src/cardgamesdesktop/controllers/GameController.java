@@ -1,4 +1,4 @@
-package cardgamesdesktop;
+package cardgamesdesktop.controllers;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class GameControllerHelper {
+public class GameController {
     public void showCard(AnchorPane cardPos, String card) {
         cardPos.getStylesheets().add("cardgamesdesktop/css/Cards.css");
         cardPos.getStyleClass().add("card" + card);

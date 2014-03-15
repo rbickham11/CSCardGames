@@ -1,4 +1,4 @@
-package cardgamesdesktop.fxml;
+package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import java.net.URL;
@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class FiveCardDrawGUIController extends GameControllerHelper implements Initializable, Screens {
+public class FiveCardDrawGUIController extends GameController implements Initializable, Screens {
 
     // Seat Configuration
     //      7       1

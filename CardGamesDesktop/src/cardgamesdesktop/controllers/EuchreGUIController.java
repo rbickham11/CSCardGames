@@ -1,9 +1,8 @@
-package cardgamesdesktop.fxml;
+package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -13,10 +12,12 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class BlackjackGUIController extends GameControllerHelper implements Initializable, Screens {
+public class EuchreGUIController extends GameController implements Initializable, Screens {
 
     // Seat Configuration
-    //  1   2   3   4   5
+    //      3
+    //  2       4
+    //      1
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
@@ -34,13 +35,17 @@ public class BlackjackGUIController extends GameControllerHelper implements Init
     @FXML
     private AnchorPane player1Card2;
     @FXML
+    private AnchorPane player1Card3;
+    @FXML
+    private AnchorPane player1Card4;
+    @FXML
+    private AnchorPane player1Card5;
+    @FXML
     private Label player1Name;
     @FXML
-    private Label player1ChipCount;
+    private AnchorPane player1CardUp;
     @FXML
-    private Label player1BetAmount;
-    @FXML
-    private AnchorPane player1ChipBetImage;
+    private AnchorPane player1CardPlayed;
     
     @FXML
     private AnchorPane player2;
@@ -51,13 +56,17 @@ public class BlackjackGUIController extends GameControllerHelper implements Init
     @FXML
     private AnchorPane player2Card2;
     @FXML
+    private AnchorPane player2Card3;
+    @FXML
+    private AnchorPane player2Card4;
+    @FXML
+    private AnchorPane player2Card5;
+    @FXML
     private Label player2Name;
     @FXML
-    private Label player2ChipCount;
+    private AnchorPane player2CardUp;
     @FXML
-    private Label player2BetAmount;
-    @FXML
-    private AnchorPane player2ChipBetImage;
+    private AnchorPane player2CardPlayed;
     
     @FXML
     private AnchorPane player3;
@@ -68,13 +77,17 @@ public class BlackjackGUIController extends GameControllerHelper implements Init
     @FXML
     private AnchorPane player3Card2;
     @FXML
+    private AnchorPane player3Card3;
+    @FXML
+    private AnchorPane player3Card4;
+    @FXML
+    private AnchorPane player3Card5;
+    @FXML
     private Label player3Name;
     @FXML
-    private Label player3ChipCount;
+    private AnchorPane player3CardUp;
     @FXML
-    private Label player3BetAmount;
-    @FXML
-    private AnchorPane player3ChipBetImage;
+    private AnchorPane player3CardPlayed;
     
     @FXML
     private AnchorPane player4;
@@ -85,66 +98,58 @@ public class BlackjackGUIController extends GameControllerHelper implements Init
     @FXML
     private AnchorPane player4Card2;
     @FXML
+    private AnchorPane player4Card3;
+    @FXML
+    private AnchorPane player4Card4;
+    @FXML
+    private AnchorPane player4Card5;
+    @FXML
     private Label player4Name;
     @FXML
-    private Label player4ChipCount;
+    private AnchorPane player4CardUp;
     @FXML
-    private Label player4BetAmount;
-    @FXML
-    private AnchorPane player4ChipBetImage;
+    private AnchorPane player4CardPlayed;
     
     @FXML
-    private AnchorPane player5;
+    private AnchorPane currentTrump;
     @FXML
-    private AnchorPane player5Image;
+    private Label teamOneName;
     @FXML
-    private AnchorPane player5Card1;
+    private Label teamOneTricks;
     @FXML
-    private AnchorPane player5Card2;
+    private Label teamOnePoints;
     @FXML
-    private Label player5Name;
+    private Label teamTwoName;
     @FXML
-    private Label player5ChipCount;
+    private Label teamTwoTricks;
     @FXML
-    private Label player5BetAmount;
-    @FXML
-    private AnchorPane player5ChipBetImage;
-    
-    @FXML
-    private AnchorPane houseCard1;
-    @FXML
-    private AnchorPane houseCard2;
+    private Label teamTwoPoints;
     
     @FXML
     private TextArea gameInfo;
+    @FXML
+    private CheckBox goAlone;
+    @FXML
+    private RadioButton spades;
+    @FXML
+    private RadioButton hearts;
+    @FXML
+    private RadioButton diamonds;
+    @FXML
+    private RadioButton clubs;
     @FXML
     private Label handInformation;
     @FXML
     private TextArea chatBox;
     @FXML
     private TextField chatMessage;
-    @FXML
-    private Slider betAmountSlider;
-    @FXML
-    private Label betAmount;
     // </editor-fold>
     
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = ScreensController.getInstance();
         
         loggedInHeader.setVisible(false);
-        betAmount.setText(Integer.toString((int)betAmountSlider.getValue()));
-        
-        betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                betAmount.setText(Integer.toString(newValue.intValue()));
-            }
-        });
     }    
     
     @Override
@@ -163,37 +168,17 @@ public class BlackjackGUIController extends GameControllerHelper implements Init
     }
     
     @FXML
-    private void bet() {
+    private void showUserStatisticsScreen() {
+        controller.setScreen(DesktopCardGameGUI.statisticsScreen);
+    }
+    
+    @FXML
+    private void pass() {
         
     }
     
     @FXML
-    private void insurance() {
-        
-    }
-    
-    @FXML
-    private void split() {
-        
-    }
-    
-    @FXML
-    private void doubleDown() {
-        
-    }
-    
-    @FXML
-    private void hit() {
-        
-    }
-    
-    @FXML
-    private void stand() {
-        
-    }
-    
-    @FXML
-    private void surrender() {
+    private void call() {
         
     }
     
