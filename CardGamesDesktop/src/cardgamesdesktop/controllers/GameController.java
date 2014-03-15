@@ -31,11 +31,19 @@ public class GameController {
     public void activatePlayer(AnchorPane player, String name, String chips) {
         String id = player.getId();
         player.setOpacity(1);
-        
         ((Label)player.lookup("#" + id + "Name")).setText(name);
         
         if(player.lookup("#" + id + "ChipCount") != null) {
             ((Label)player.lookup("#" + id + "ChipCount")).setText(chips);
+        }
+    }
+    
+    public void showPlayersTurn(AnchorPane player, AnchorPane previous) {
+        player.getStylesheets().add("cardgamesdesktop/css/HoldEm.css");
+        player.getStyleClass().add("playersTurn");
+        
+        if(previous != null) {
+            previous.getStyleClass().remove(0);
         }
     }
 }

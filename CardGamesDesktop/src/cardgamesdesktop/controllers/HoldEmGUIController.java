@@ -11,8 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import cardgamesdesktop.utilities.*;
 import cardgameslib.games.poker.holdem.HoldemDealer;
 import cardgameslib.utilities.BettingPlayer;
+import cardgameslib.utilities.Deck;
 import java.rmi.RemoteException;
-import java.util.Arrays;
+import java.util.*;
 import javafx.beans.property.StringProperty;
 /**
  * FXML Controller class
@@ -282,6 +283,20 @@ public class HoldEmGUIController extends GameController implements Initializable
         for(BettingPlayer p : dealer.getPlayers()) {
             activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), Integer.toString(p.getChips()));
         }
+        showPlayersTurn(player5, null);
+        dealer.startHand();
+        dealHands();
+    }
+    
+    public void dealHands() {
+        List<AnchorPane> cards;
+        for(BettingPlayer p : dealer.getActivePlayers()) {
+            cards = playerPanes[p.getSeatNumber() - 1].getCards();
+            for(int i = 0; i < cards.size(); i++) {
+                showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
+            }
+        }
+        //showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), null);
     }
     
     @Override

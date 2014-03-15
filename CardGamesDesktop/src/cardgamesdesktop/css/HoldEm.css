@@ -44,3 +44,8 @@
     -fx-text-fill: #00E3FF;
     -fx-padding: 0 0 0 5;
 }
+
+.playersTurn
+{
+    -fx-border-color: #FFDE00;
+}
