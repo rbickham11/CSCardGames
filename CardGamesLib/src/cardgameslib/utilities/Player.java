@@ -10,8 +10,9 @@ import java.util.*;
  */
 public class Player implements Comparable<Player> {
 
-    protected int userId;
-    protected int seatNumber; //Player # on table (Player 1, Player 2, etc.)
+    protected final int userId;
+    protected final String username;
+    protected final int seatNumber; //Player # on table (Player 1, Player 2, etc.)
     protected List<Integer> hand;
 
     /**
@@ -20,8 +21,9 @@ public class Player implements Comparable<Player> {
      * @param id int to hold id of player
      * @param seatNum int holding seatnumber player is sitting at
      */
-    public Player(int id, int seatNum) {
+    public Player(int id, String name, int seatNum) {
         userId = id;
+        username = name;
         seatNumber = seatNum;
         hand = new ArrayList<>();
     }
@@ -35,6 +37,10 @@ public class Player implements Comparable<Player> {
         return userId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+    
     /**
      * Getter to return player's seat number
      *

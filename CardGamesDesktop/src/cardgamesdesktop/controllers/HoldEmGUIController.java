@@ -9,7 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import cardgamesdesktop.utilities.*;
+import cardgameslib.games.poker.holdem.HoldemDealer;
+import cardgameslib.utilities.BettingPlayer;
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import javafx.beans.property.StringProperty;
 /**
  * FXML Controller class
@@ -231,6 +234,9 @@ public class HoldEmGUIController extends GameController implements Initializable
     // </editor-fold>
     
     private ChatClient chatClient;
+    private HoldemDealer dealer;
+    private final int bigBlind = 200;
+    private PlayerPane[] playerPanes;
     
     /**
      * Initializes the controller class.
@@ -238,25 +244,44 @@ public class HoldEmGUIController extends GameController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = ScreensController.getInstance();
+        playerPanes = new PlayerPane[] {
+            new PlayerPane(player1, player1Image, Arrays.asList(player1Card1, player1Card2), player1Name, player1ChipCount),
+            new PlayerPane(player2, player2Image, Arrays.asList(player2Card1, player2Card2), player2Name, player2ChipCount),
+            new PlayerPane(player3, player3Image, Arrays.asList(player3Card1, player3Card2), player3Name, player3ChipCount),
+            new PlayerPane(player4, player4Image, Arrays.asList(player4Card1, player4Card2), player4Name, player4ChipCount),
+            new PlayerPane(player5, player5Image, Arrays.asList(player5Card1, player5Card2), player5Name, player5ChipCount),
+            new PlayerPane(player6, player6Image, Arrays.asList(player6Card1, player6Card2), player6Name, player6ChipCount),
+            new PlayerPane(player7, player7Image, Arrays.asList(player7Card1, player7Card2), player7Name, player7ChipCount),
+            new PlayerPane(player8, player8Image, Arrays.asList(player8Card1, player8Card2), player8Name, player8ChipCount),     
+            new PlayerPane(player9, player9Image, Arrays.asList(player9Card1, player9Card2), player9Name, player9ChipCount)
+        };
         
-        activatePlayer(player5, "Andrew Haeger", "1,385,123");
-        showCard(player5Card1, "5C");
-        showCard(player5Card2, "AD");
-        removeCard(player5Card1);
-        
-        loggedInHeader.setVisible(false);
         StringProperty chatBoxText = chatBox.textProperty();
         try{
             chatClient = new ChatClient(chatBoxText);
         }
         catch(RemoteException ex){ex.printStackTrace(System.out);}
         
+        loggedInHeader.setText(UserSessionVars.getUsername());
+        betAmountSlider.setMin(bigBlind);
+        betAmountSlider.setMajorTickUnit(bigBlind);
+        betAmountSlider.setMinorTickCount(0);
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 betAmount.setText(Integer.toString(newValue.intValue()));
             }
         });
+        
+        dealer = new HoldemDealer(20000, bigBlind);
+        dealer.addPlayer(111, "Ryan", 5, 20000);
+        dealer.addPlayer(222, "Andrew", 1, 18500);
+        dealer.addPlayer(333, "Nick", 7, 15000);
+        dealer.addPlayer(444, "RyanG", 3, 10000);
+        
+        for(BettingPlayer p : dealer.getPlayers()) {
+            activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), Integer.toString(p.getChips()));
+        }
     }
     
     @Override

@@ -53,7 +53,7 @@ public class CardGamesServer {
         Scanner s = new Scanner(System.in);
 
         for (int i = 1; i < 7; i++) {
-            dealer.addPlayer(1000 + i, i, 13000 + 1000 * i);
+            dealer.addPlayer(1000 + i, "Player " + i, i, 13000 + 1000 * i);
         }
 
         System.out.println("Welcome to Ryan's awesome poker game!");
@@ -145,10 +145,10 @@ public class CardGamesServer {
         EuchreDealer euchre = new EuchreDealer();
         Scanner temp = new Scanner(System.in);
 
-        euchre.addPlayer(1111, 0);
-        euchre.addPlayer(2222, 1);
-        euchre.addPlayer(3333, 2);
-        euchre.addPlayer(4444, 3);
+        euchre.addPlayer(1111, "Player 0", 0);
+        euchre.addPlayer(2222, "Player 1", 1);
+        euchre.addPlayer(3333, "Player 2", 2);
+        euchre.addPlayer(4444, "Player 3", 3);
 
         euchre.startNewEuchreGame();
         euchre.displayPlayersHands();
@@ -199,8 +199,8 @@ public class CardGamesServer {
         System.out.println("Welcome to Blackjack!");
         System.out.println("Actions: H-Hit, S-Stand, D-Double Down, P-Split, U-Surrender");
         List<BettingPlayer> players;
-        dealer.addPlayer(111, 1, 5000);
-        dealer.addPlayer(222, 4, 10000);
+        dealer.addPlayer(111, "Player 1", 1, 5000);
+        dealer.addPlayer(222, "Player 4", 4, 10000);
         
         while(true) {
             dealer.startHand();

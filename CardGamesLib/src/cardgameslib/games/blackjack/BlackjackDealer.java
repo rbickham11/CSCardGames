@@ -34,7 +34,7 @@ public class BlackjackDealer {
         handValues.put(0, new Integer[] {0, 0});  //Dealer hand
     }
     
-    public void addPlayer(int id, int seatNum, int startingChips) {
+    public void addPlayer(int id, String username, int seatNum, int startingChips) {
         if(seatNum < 1 || seatNum > MAX_PLAYERS) {
             throw new IllegalArgumentException("Invalid seat number");
         }
@@ -46,7 +46,7 @@ public class BlackjackDealer {
                     throw new IllegalArgumentException("Seat " + seatNum + " is taken.");
             }
     	}
-        players.add(new BettingPlayer(id, seatNum, startingChips));
+        players.add(new BettingPlayer(id, username, seatNum, startingChips));
         handValues.put(seatNum, new Integer[] {0, 0});
         Collections.sort(players);
     }
