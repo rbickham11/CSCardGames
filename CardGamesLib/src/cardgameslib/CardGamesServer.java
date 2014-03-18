@@ -110,7 +110,7 @@ public class CardGamesServer {
                 case 'B':
                     action = PokerAction.BET;
                     System.out.print("Bet amount: ");
-                    chipAmount = s.nextInt();
+                    chipAmount = s.nextInt(); 
                     break;
                 case 'C':
                     action = PokerAction.CALL;

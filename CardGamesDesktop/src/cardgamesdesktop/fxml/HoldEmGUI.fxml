@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="holdem" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.controllers.HoldEmGUIController">
+<AnchorPane id="holdem" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cardgamesdesktop.controllers.HoldEmGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
@@ -358,8 +358,7 @@
               </stylesheets>
             </Button>
             <Slider id="betAmount" fx:id="betAmountSlider" layoutX="10.0" layoutY="68.0" minorTickCount="1" prefWidth="350.0" showTickLabels="false" showTickMarks="false" snapToTicks="true" />
-            <Label fx:id="handInformation" alignment="CENTER" font="$x5" layoutX="14.0" layoutY="90.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?" />
-            <Label fx:id="betAmount" alignment="CENTER_RIGHT" labelFor="$betAmountSlider" layoutX="370.0" layoutY="63.0" prefHeight="25.0" prefWidth="80.0" style="-fx-border-color: #000000;&#10;" text="" />
+            <Label fx:id="handInformation" alignment="CENTER" font="$x5" layoutX="14.0" layoutY="90.0" prefHeight="38.0" prefWidth="436.0" text="Hand Information?" /><TextField fx:id="betAmount" layoutX="360.0" layoutY="62.0" prefHeight="25.0" prefWidth="92.0" />
           </children>
         </AnchorPane>
         <AnchorPane layoutX="758.0" layoutY="0.0" prefHeight="149.0" prefWidth="298.0">

@@ -47,5 +47,7 @@
 
 .playersTurn
 {
+    -fx-background-color: #191919;
     -fx-border-color: #FFDE00;
+    -fx-text-fill: #FFDE00;
 }

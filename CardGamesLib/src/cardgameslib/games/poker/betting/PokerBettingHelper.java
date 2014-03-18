@@ -199,8 +199,9 @@ public class PokerBettingHelper {
      * Handles a player calling another player's raise or bet
      */
     public void call() {
-        potSize += activeBet;
-        activePlayers.get(0).decrementChips(activeBet);
+        int additionalChips = activeBet - activePlayers.get(0).getCurrentBet();
+        potSize += additionalChips;
+        activePlayers.get(0).decrementChips(additionalChips);
         activePlayers.get(0).setCurrentBet(activeBet);
     }
     

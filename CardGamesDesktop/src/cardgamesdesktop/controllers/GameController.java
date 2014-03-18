@@ -39,11 +39,17 @@ public class GameController {
     }
     
     public void showPlayersTurn(AnchorPane player, AnchorPane previous) {
-        player.getStylesheets().add("cardgamesdesktop/css/HoldEm.css");
-        player.getStyleClass().add("playersTurn");
+        String id = player.getId();
+        
+        ((AnchorPane)player.lookup("#" + id + "Image")).getStyleClass().add("playersTurn");
+        ((Label)player.lookup("#" + id + "Name")).getStyleClass().add("playersTurn");
+        ((Label)player.lookup("#" + id + "ChipCount")).getStyleClass().add("playersTurn");
         
         if(previous != null) {
-            previous.getStyleClass().remove(0);
+            id = previous.getId();
+            ((AnchorPane)previous.lookup("#" + id + "Image")).getStyleClass().remove(1);
+            ((Label)previous.lookup("#" + id + "Name")).getStyleClass().remove(2);
+            ((Label)previous.lookup("#" + id + "ChipCount")).getStyleClass().remove(2);
         }
     }
 }

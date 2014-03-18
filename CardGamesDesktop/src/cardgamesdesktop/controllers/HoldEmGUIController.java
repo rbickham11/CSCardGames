@@ -9,10 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import cardgamesdesktop.utilities.*;
+import cardgameslib.games.poker.betting.PokerAction;
 import cardgameslib.games.poker.holdem.HoldemDealer;
 import cardgameslib.utilities.BettingPlayer;
 import cardgameslib.utilities.Deck;
-import java.rmi.RemoteException;
 import java.util.*;
 import javafx.beans.property.StringProperty;
 /**
@@ -230,7 +230,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     @FXML
     private Slider betAmountSlider;
     @FXML
-    private Label betAmount;
+    private TextField betAmount;
     
     // </editor-fold>
     
@@ -238,6 +238,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     private HoldemDealer dealer;
     private final int bigBlind = 200;
     private PlayerPane[] playerPanes;
+    private AnchorPane[] boardCardPanes;
     
     /**
      * Initializes the controller class.
@@ -246,25 +247,26 @@ public class HoldEmGUIController extends GameController implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
         controller = ScreensController.getInstance();
         playerPanes = new PlayerPane[] {
-            new PlayerPane(player1, player1Image, Arrays.asList(player1Card1, player1Card2), player1Name, player1ChipCount),
-            new PlayerPane(player2, player2Image, Arrays.asList(player2Card1, player2Card2), player2Name, player2ChipCount),
-            new PlayerPane(player3, player3Image, Arrays.asList(player3Card1, player3Card2), player3Name, player3ChipCount),
-            new PlayerPane(player4, player4Image, Arrays.asList(player4Card1, player4Card2), player4Name, player4ChipCount),
-            new PlayerPane(player5, player5Image, Arrays.asList(player5Card1, player5Card2), player5Name, player5ChipCount),
-            new PlayerPane(player6, player6Image, Arrays.asList(player6Card1, player6Card2), player6Name, player6ChipCount),
-            new PlayerPane(player7, player7Image, Arrays.asList(player7Card1, player7Card2), player7Name, player7ChipCount),
-            new PlayerPane(player8, player8Image, Arrays.asList(player8Card1, player8Card2), player8Name, player8ChipCount),     
-            new PlayerPane(player9, player9Image, Arrays.asList(player9Card1, player9Card2), player9Name, player9ChipCount)
+            new PlayerPane(player1, player1Image, Arrays.asList(player1Card1, player1Card2), player1Name, player1ChipCount, player1BetAmount),
+            new PlayerPane(player2, player2Image, Arrays.asList(player2Card1, player2Card2), player2Name, player2ChipCount, player2BetAmount),
+            new PlayerPane(player3, player3Image, Arrays.asList(player3Card1, player3Card2), player3Name, player3ChipCount, player3BetAmount),
+            new PlayerPane(player4, player4Image, Arrays.asList(player4Card1, player4Card2), player4Name, player4ChipCount, player4BetAmount),
+            new PlayerPane(player5, player5Image, Arrays.asList(player5Card1, player5Card2), player5Name, player5ChipCount, player5BetAmount),
+            new PlayerPane(player6, player6Image, Arrays.asList(player6Card1, player6Card2), player6Name, player6ChipCount, player6BetAmount),
+            new PlayerPane(player7, player7Image, Arrays.asList(player7Card1, player7Card2), player7Name, player7ChipCount, player7BetAmount),
+            new PlayerPane(player8, player8Image, Arrays.asList(player8Card1, player8Card2), player8Name, player8ChipCount, player8BetAmount),     
+            new PlayerPane(player9, player9Image, Arrays.asList(player9Card1, player9Card2), player9Name, player9ChipCount, player9BetAmount)
         };
-        
+        boardCardPanes = new AnchorPane[] { houseCard1, houseCard2, houseCard3, houseCard4, houseCard5 };
         StringProperty chatBoxText = chatBox.textProperty();
-        try{
-            chatClient = new ChatClient(chatBoxText);
-        }
-        catch(RemoteException ex){ex.printStackTrace(System.out);}
+//        try{
+//            chatClient = new ChatClient(chatBoxText);
+//        }
+//        catch(RemoteException ex){ex.printStackTrace(System.out);}
         
         loggedInHeader.setText(UserSessionVars.getUsername());
         betAmountSlider.setMin(bigBlind);
+        betAmountSlider.setMax(10000000);
         betAmountSlider.setMajorTickUnit(bigBlind);
         betAmountSlider.setMinorTickCount(0);
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -280,12 +282,17 @@ public class HoldEmGUIController extends GameController implements Initializable
         dealer.addPlayer(333, "Nick", 7, 15000);
         dealer.addPlayer(444, "RyanG", 3, 10000);
         
-        for(BettingPlayer p : dealer.getPlayers()) {
+        List<BettingPlayer> players = dealer.getPlayers();
+        for(BettingPlayer p : players) {
             activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), Integer.toString(p.getChips()));
         }
-        showPlayersTurn(player5, null);
         dealer.startHand();
         dealHands();
+        updateChipValues();
+        players = dealer.getActivePlayers();
+        playerPanes[players.get(players.size() - 1).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind));
+        playerPanes[players.get(players.size() - 2).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind / 2));
+        showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), null);
     }
     
     public void dealHands() {
@@ -296,7 +303,6 @@ public class HoldEmGUIController extends GameController implements Initializable
                 showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
             }
         }
-        //showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), null);
     }
     
     @Override
@@ -316,27 +322,98 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     @FXML
     private void bet() {
-        
+        handleAction(PokerAction.BET);
     }
     
     @FXML
     private void call() {
-        
+        handleAction(PokerAction.CALL);
     }
     
     @FXML
     private void raise() {
-        
+        handleAction(PokerAction.RAISE);
     }
     
     @FXML
     private void check() {
-        
+        handleAction(PokerAction.CHECK);
     }
     
     @FXML
     private void fold() {
+        handleAction(PokerAction.FOLD);
+    }
+    
+    private void handleAction(PokerAction action) {
+        int amount = 0;
+        int currentSeat = dealer.getActivePlayers().get(0).getSeatNumber();
         
+        switch(action) {
+            case BET:
+            case RAISE:
+                try {
+                    amount = Integer.parseInt(betAmount.getText());
+                }
+                catch(NumberFormatException ex) {
+                    ex.printStackTrace(System.out);
+                    return;
+                }
+                break;
+            case FOLD:
+                List<AnchorPane> cards = playerPanes[currentSeat - 1].getCards();
+                for(int i = 0; i < cards.size(); i++) {
+                    removeCard(cards.get(i));
+                }
+        }
+        try {
+            dealer.takeAction(action, amount);
+        }
+        catch(IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+            return;
+        }
+        
+        if(action != PokerAction.FOLD && action != PokerAction.CHECK) {
+            updateChipValues();
+        }        
+        
+        if(dealer.bettingComplete()) {
+            completeRound();
+        }
+        int nextSeat = dealer.getActivePlayers().get(0).getSeatNumber();
+        showPlayersTurn(playerPanes[nextSeat - 1].getContainer(), playerPanes[currentSeat - 1].getContainer());
+    }
+    
+    private void completeRound() {
+        for(PlayerPane p : playerPanes) {
+            p.getBetAmount().setText("");
+        }
+        List<Integer> board = dealer.getBoard();
+        if(board.isEmpty()) {
+            dealer.dealFlopToBoard();
+            for(int i = 0; i < 3; i++) {
+                showCard(boardCardPanes[i], Deck.cardToString(board.get(i)));
+            }
+        }
+        else if(board.size() == 5) {
+        
+        }
+        else {
+            dealer.dealCardToBoard();
+            int cardIndex = 3;
+            if(dealer.getBoard().size() == 5) {
+                cardIndex = 4;
+            }
+            showCard(boardCardPanes[cardIndex], Deck.cardToString(board.get(cardIndex)));
+        } 
+    }
+    
+    private void updateChipValues() {
+        BettingPlayer p = dealer.getActivePlayers().get(dealer.getActivePlayers().size() - 1);
+        playerPanes[p.getSeatNumber() - 1].getBetAmount().setText(Integer.toString(p.getCurrentBet()));
+        playerPanes[p.getSeatNumber() - 1].getChips().setText(Integer.toString(p.getChips()));
+        potSize.setText(String.format("Pot Size: $%d", dealer.getPotSize()));
     }
     
     @FXML
