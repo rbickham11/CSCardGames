@@ -31,7 +31,7 @@ public class CardGamesServer {
      */
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
         CardGamesServer server = new CardGamesServer();
-        //server.runPokerGame();
+        server.runPokerGame();
 //        server.runEuchreGame();
         //server.runBlackjackGame();
         

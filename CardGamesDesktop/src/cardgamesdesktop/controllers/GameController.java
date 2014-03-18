@@ -14,7 +14,9 @@ public class GameController {
     }
     
     public void removeCard(AnchorPane cardPos) {
-        cardPos.getStyleClass().remove(0);
+        if(!cardPos.getStyleClass().isEmpty()) {
+            cardPos.getStyleClass().remove(0);
+        }
     }
     
     public void deactivatePlayer(AnchorPane player) {

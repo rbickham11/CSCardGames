@@ -232,6 +232,17 @@ public class HoldEmGUIController extends GameController implements Initializable
     @FXML
     private TextField betAmount;
     
+    @FXML
+    private Button betButton;
+    @FXML
+    private Button callButton;
+    @FXML
+    private Button checkButton;
+    @FXML
+    private Button foldButton;
+    @FXML
+    private Button raiseButton;
+    
     // </editor-fold>
     
     private ChatClient chatClient;
@@ -259,14 +270,13 @@ public class HoldEmGUIController extends GameController implements Initializable
         };
         boardCardPanes = new AnchorPane[] { houseCard1, houseCard2, houseCard3, houseCard4, houseCard5 };
         StringProperty chatBoxText = chatBox.textProperty();
+
 //        try{
 //            chatClient = new ChatClient(chatBoxText);
 //        }
 //        catch(RemoteException ex){ex.printStackTrace(System.out);}
         
         loggedInHeader.setText(UserSessionVars.getUsername());
-        betAmountSlider.setMin(bigBlind);
-        betAmountSlider.setMax(10000000);
         betAmountSlider.setMajorTickUnit(bigBlind);
         betAmountSlider.setMinorTickCount(0);
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -282,9 +292,16 @@ public class HoldEmGUIController extends GameController implements Initializable
         dealer.addPlayer(333, "Nick", 7, 15000);
         dealer.addPlayer(444, "RyanG", 3, 10000);
         
+        startNewHand();
+    }
+    
+    public void startNewHand() {
         List<BettingPlayer> players = dealer.getPlayers();
         for(BettingPlayer p : players) {
             activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), Integer.toString(p.getChips()));
+        }
+        for(AnchorPane card : boardCardPanes) {
+            removeCard(card);
         }
         dealer.startHand();
         dealHands();
@@ -293,6 +310,10 @@ public class HoldEmGUIController extends GameController implements Initializable
         playerPanes[players.get(players.size() - 1).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind));
         playerPanes[players.get(players.size() - 2).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind / 2));
         showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), null);
+        betButton.setDisable(true);
+        checkButton.setDisable(true);
+        betAmountSlider.setMin(dealer.getCurrentBet());
+        betAmountSlider.setMax(dealer.getCurrentPlayer().getChips());
     }
     
     public void dealHands() {
@@ -347,7 +368,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     private void handleAction(PokerAction action) {
         int amount = 0;
-        int currentSeat = dealer.getActivePlayers().get(0).getSeatNumber();
+        int currentSeat = dealer.getCurrentPlayer().getSeatNumber();
         
         switch(action) {
             case BET:
@@ -377,36 +398,68 @@ public class HoldEmGUIController extends GameController implements Initializable
         if(action != PokerAction.FOLD && action != PokerAction.CHECK) {
             updateChipValues();
         }        
-        
+        if(action == PokerAction.BET) {
+            checkButton.setDisable(true);
+            betButton.setDisable(true);
+            callButton.setDisable(false);
+            raiseButton.setDisable(false);
+        }
         if(dealer.bettingComplete()) {
             completeRound();
         }
-        int nextSeat = dealer.getActivePlayers().get(0).getSeatNumber();
+        int nextSeat = dealer.getCurrentPlayer().getSeatNumber();
         showPlayersTurn(playerPanes[nextSeat - 1].getContainer(), playerPanes[currentSeat - 1].getContainer());
+        betAmountSlider.setMin(dealer.getCurrentBet());
+        betAmountSlider.setMax(dealer.getCurrentPlayer().getChips());
+        betAmount.setText("");
     }
     
     private void completeRound() {
         for(PlayerPane p : playerPanes) {
             p.getBetAmount().setText("");
         }
-        List<Integer> board = dealer.getBoard();
-        if(board.isEmpty()) {
-            dealer.dealFlopToBoard();
-            for(int i = 0; i < 3; i++) {
-                showCard(boardCardPanes[i], Deck.cardToString(board.get(i)));
-            }
-        }
-        else if(board.size() == 5) {
         
+        if(dealer.isWinner()) {
+            awardPot();
         }
         else {
-            dealer.dealCardToBoard();
-            int cardIndex = 3;
-            if(dealer.getBoard().size() == 5) {
-                cardIndex = 4;
+            List<Integer> board = dealer.getBoard();
+            if(board.isEmpty()) {
+                dealer.dealFlopToBoard();
+                for(int i = 0; i < 3; i++) {
+                    showCard(boardCardPanes[i], Deck.cardToString(board.get(i)));
+                }
             }
-            showCard(boardCardPanes[cardIndex], Deck.cardToString(board.get(cardIndex)));
-        } 
+            else if(board.size() == 5) {
+                dealer.findWinner();
+                awardPot();
+            }
+            else {
+                dealer.dealCardToBoard();
+                int cardIndex = 3;
+                if(dealer.getBoard().size() == 5) {
+                    cardIndex = 4;
+                }
+                showCard(boardCardPanes[cardIndex], Deck.cardToString(board.get(cardIndex)));
+            }
+            callButton.setDisable(true);
+            raiseButton.setDisable(true);
+            betButton.setDisable(false);
+            checkButton.setDisable(false);
+        }
+    }
+    
+    private void awardPot() {
+        updateChipValues();
+        //Implement 5 second delay, and show winning hand
+        playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getBetAmount().setText(Integer.toString(dealer.getPotSize()));       
+        try {
+            Thread.sleep(4000);        
+        }
+        catch(InterruptedException ex) {
+            ex.printStackTrace(System.out);
+        }
+        startNewHand();
     }
     
     private void updateChipValues() {

@@ -150,7 +150,7 @@ public class PokerBettingHelper {
                 if(activeBet == 0) {
                     throw new IllegalArgumentException("You cannot place a raise without an initial bet being placed");
                 }
-                raise(chipAmount);
+                raise(chipAmount - activeBet);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid action");
@@ -177,7 +177,6 @@ public class PokerBettingHelper {
      */
     public void awardPot(BettingPlayer player) {
         player.incrementChips(potSize);
-        potSize = 0;     
     }
     
     /**
@@ -201,6 +200,11 @@ public class PokerBettingHelper {
     public void call() {
         int additionalChips = activeBet - activePlayers.get(0).getCurrentBet();
         potSize += additionalChips;
+        if(additionalChips > activePlayers.get(0).getChips())
+        {
+            activePlayers.get(0).decrementChips(activePlayers.get(0).getChips());
+            activePlayers.get(0).setCurrentBet(activePlayers.get(0).getCurrentBet() + activePlayers.get(0).getChips());
+        }
         activePlayers.get(0).decrementChips(additionalChips);
         activePlayers.get(0).setCurrentBet(activeBet);
     }

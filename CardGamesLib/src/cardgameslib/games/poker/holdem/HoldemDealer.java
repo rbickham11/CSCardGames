@@ -237,6 +237,10 @@ public class HoldemDealer {
         return bettingHelper.isWinner();
     }
     
+    public void awardPot(BettingPlayer p) {
+        bettingHelper.awardPot(p);
+    }
+    
     /**
      * Function to figure out who won the hand
      */
@@ -250,8 +254,10 @@ public class HoldemDealer {
         if(winningRankString.equals("Pair") || winningRankString.equals("Straight") || winningRankString.equals("Flush") || winningRankString.equals("Full House") || winningRankString.equals("Straight Flush")) {
             a = "a ";
         }
+        
         for(BettingPlayer player : winningPlayers) {
             System.out.printf("\nThe winner is Player %d with %s%s", player.getSeatNumber(), a, winningRankString);
+            player.incrementChips(bettingHelper.getPotSize() / winningPlayers.size());
         }
     }
 }

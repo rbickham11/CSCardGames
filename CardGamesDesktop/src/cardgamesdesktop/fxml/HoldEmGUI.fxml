@@ -332,27 +332,27 @@
         </AnchorPane>
         <AnchorPane layoutX="298.0" layoutY="0.0" prefHeight="149.0" prefWidth="460.0">
           <children>
-            <Button font="$x2" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" onAction="#bet" prefWidth="80.0" styleClass="gameButtons" text="Bet">
+            <Button fx:id="betButton" font="$x2" layoutX="10.0" layoutY="28.0" mnemonicParsing="false" onAction="#bet" prefWidth="80.0" styleClass="gameButtons" text="Bet">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
-            <Button font="$x2" layoutX="100.0" layoutY="28.0" mnemonicParsing="false" onAction="#call" prefWidth="80.0" styleClass="gameButtons" text="Call">
+            <Button fx:id="callButton" font="$x2" layoutX="100.0" layoutY="28.0" mnemonicParsing="false" onAction="#call" prefWidth="80.0" styleClass="gameButtons" text="Call">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
-            <Button font="$x2" layoutX="190.0" layoutY="28.0" mnemonicParsing="false" onAction="#raise" prefWidth="80.0" styleClass="gameButtons" text="Raise">
+            <Button fx:id="raiseButton" font="$x2" layoutX="190.0" layoutY="28.0" mnemonicParsing="false" onAction="#raise" prefWidth="80.0" styleClass="gameButtons" text="Raise">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
-            <Button font="$x2" layoutX="280.0" layoutY="28.0" mnemonicParsing="false" onAction="#check" prefWidth="80.0" styleClass="gameButtons" text="Check">
+            <Button fx:id="checkButton" font="$x2" layoutX="280.0" layoutY="28.0" mnemonicParsing="false" onAction="#check" prefWidth="80.0" styleClass="gameButtons" text="Check">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </Button>
-            <Button font="$x2" layoutX="370.0" layoutY="28.0" mnemonicParsing="false" onAction="#fold" prefWidth="80.0" styleClass="gameButtons" text="Fold">
+            <Button fx:id="foldButton" font="$x2" layoutX="370.0" layoutY="28.0" mnemonicParsing="false" onAction="#fold" prefWidth="80.0" styleClass="gameButtons" text="Fold">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
