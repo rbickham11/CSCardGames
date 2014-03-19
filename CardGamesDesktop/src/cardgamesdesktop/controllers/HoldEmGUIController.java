@@ -2,19 +2,18 @@ package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.rmi.RemoteException;
+import java.util.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.beans.property.StringProperty;
 
 import cardgamesdesktop.utilities.*;
 import cardgameslib.games.poker.betting.PokerAction;
 import cardgameslib.games.poker.holdem.HoldemDealer;
-import cardgameslib.utilities.BettingPlayer;
-import cardgameslib.utilities.Deck;
-import java.util.*;
-import javafx.beans.property.StringProperty;
+import cardgameslib.utilities.*;
 /**
  * FXML Controller class
  *
@@ -271,10 +270,12 @@ public class HoldEmGUIController extends GameController implements Initializable
         boardCardPanes = new AnchorPane[] { houseCard1, houseCard2, houseCard3, houseCard4, houseCard5 };
         StringProperty chatBoxText = chatBox.textProperty();
 
-//        try{
-//            chatClient = new ChatClient(chatBoxText);
-//        }
-//        catch(RemoteException ex){ex.printStackTrace(System.out);}
+        try{
+            chatClient = new ChatClient(chatBoxText);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
         
         loggedInHeader.setText(UserSessionVars.getUsername());
         betAmountSlider.setMajorTickUnit(bigBlind);
@@ -303,6 +304,9 @@ public class HoldEmGUIController extends GameController implements Initializable
         for(AnchorPane card : boardCardPanes) {
             removeCard(card);
         }
+        for(PlayerPane p : playerPanes) {
+            p.getBetAmount().setText("");
+        }
         dealer.startHand();
         dealHands();
         updateChipValues();
@@ -310,8 +314,11 @@ public class HoldEmGUIController extends GameController implements Initializable
         playerPanes[players.get(players.size() - 1).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind));
         playerPanes[players.get(players.size() - 2).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind / 2));
         showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), null);
+        
         betButton.setDisable(true);
         checkButton.setDisable(true);
+        callButton.setDisable(false);
+        raiseButton.setDisable(false);
         betAmountSlider.setMin(dealer.getCurrentBet());
         betAmountSlider.setMax(dealer.getCurrentPlayer().getChips());
     }
@@ -387,6 +394,8 @@ public class HoldEmGUIController extends GameController implements Initializable
                     removeCard(cards.get(i));
                 }
         }
+        
+        BettingPlayer p = dealer.getCurrentPlayer();
         try {
             dealer.takeAction(action, amount);
         }
@@ -397,7 +406,8 @@ public class HoldEmGUIController extends GameController implements Initializable
         
         if(action != PokerAction.FOLD && action != PokerAction.CHECK) {
             updateChipValues();
-        }        
+        }      
+        updateGameSummary(p, action);
         if(action == PokerAction.BET) {
             checkButton.setDisable(true);
             betButton.setDisable(true);
@@ -414,32 +424,58 @@ public class HoldEmGUIController extends GameController implements Initializable
         betAmount.setText("");
     }
     
+    private void updateGameSummary(BettingPlayer player, PokerAction action) {
+        switch(action) {
+            case BET:
+                gameInfo.appendText(String.format("%s bets %d\n", player.getUsername(), player.getCurrentBet()));
+                return;
+            case CALL:
+                gameInfo.appendText(String.format("%s calls %d\n", player.getUsername(), player.getCurrentBet()));
+                return;
+            case CHECK:
+                gameInfo.appendText(String.format("%s checks\n", player.getUsername()));
+                return;
+            case FOLD:
+                gameInfo.appendText(String.format("%s folds\n", player.getUsername()));
+                return;
+            case RAISE:
+                gameInfo.appendText(String.format("%s raises to %d\n", player.getUsername(), player.getCurrentBet()));
+        }
+    }
+    
     private void completeRound() {
         for(PlayerPane p : playerPanes) {
             p.getBetAmount().setText("");
         }
         
         if(dealer.isWinner()) {
+            gameInfo.appendText(String.format("The winner is %s\n", dealer.getCurrentPlayer().getUsername()));
             awardPot();
         }
         else {
             List<Integer> board = dealer.getBoard();
             if(board.isEmpty()) {
                 dealer.dealFlopToBoard();
+                gameInfo.appendText("The flop is: ");
                 for(int i = 0; i < 3; i++) {
                     showCard(boardCardPanes[i], Deck.cardToString(board.get(i)));
+                    gameInfo.appendText(Deck.cardToString(board.get(i)) + " ");
                 }
+                gameInfo.appendText("\n");
             }
             else if(board.size() == 5) {
-                dealer.findWinner();
+                gameInfo.appendText(dealer.findWinner());
                 awardPot();
             }
             else {
                 dealer.dealCardToBoard();
                 int cardIndex = 3;
+                String street = "turn";
                 if(dealer.getBoard().size() == 5) {
+                    street = "river";
                     cardIndex = 4;
                 }
+                gameInfo.appendText(String.format("The %s is %s\n", street, Deck.cardToString(board.get(cardIndex))));
                 showCard(boardCardPanes[cardIndex], Deck.cardToString(board.get(cardIndex)));
             }
             callButton.setDisable(true);
@@ -453,12 +489,6 @@ public class HoldEmGUIController extends GameController implements Initializable
         updateChipValues();
         //Implement 5 second delay, and show winning hand
         playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getBetAmount().setText(Integer.toString(dealer.getPotSize()));       
-        try {
-            Thread.sleep(4000);        
-        }
-        catch(InterruptedException ex) {
-            ex.printStackTrace(System.out);
-        }
         startNewHand();
     }
     

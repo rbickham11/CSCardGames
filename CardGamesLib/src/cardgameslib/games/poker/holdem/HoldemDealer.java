@@ -243,8 +243,9 @@ public class HoldemDealer {
     
     /**
      * Function to figure out who won the hand
+     * @return A string representation of the winning player and hand.
      */
-    public void findWinner() {
+    public String findWinner() {
         HoldemWinChecker winChecker = new HoldemWinChecker();
         winChecker.findWinningHand(activePlayers, board);
         
@@ -255,10 +256,13 @@ public class HoldemDealer {
             a = "a ";
         }
         
+        String winMessage = "";
         for(BettingPlayer player : winningPlayers) {
-            System.out.printf("\nThe winner is Player %d with %s%s", player.getSeatNumber(), a, winningRankString);
+            winMessage += String.format("\nThe winner is %s with %s%s\n", player.getUsername(), a, winningRankString);
             player.incrementChips(bettingHelper.getPotSize() / winningPlayers.size());
         }
+        System.out.println(winMessage);
+        return winMessage;
     }
 }
 

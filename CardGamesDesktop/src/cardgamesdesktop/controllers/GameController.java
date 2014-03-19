@@ -16,6 +16,7 @@ public class GameController {
     public void removeCard(AnchorPane cardPos) {
         if(!cardPos.getStyleClass().isEmpty()) {
             cardPos.getStyleClass().remove(0);
+            cardPos.getStyleClass().add("cardDefault");
         }
     }
     
@@ -40,18 +41,18 @@ public class GameController {
         }
     }
     
-    public void showPlayersTurn(AnchorPane player, AnchorPane previous) {
-        String id = player.getId();
-        
-        ((AnchorPane)player.lookup("#" + id + "Image")).getStyleClass().add("playersTurn");
-        ((Label)player.lookup("#" + id + "Name")).getStyleClass().add("playersTurn");
-        ((Label)player.lookup("#" + id + "ChipCount")).getStyleClass().add("playersTurn");
-        
+    public void showPlayersTurn(AnchorPane player, AnchorPane previous) { 
+        String id;
         if(previous != null) {
             id = previous.getId();
             ((AnchorPane)previous.lookup("#" + id + "Image")).getStyleClass().remove(1);
             ((Label)previous.lookup("#" + id + "Name")).getStyleClass().remove(2);
             ((Label)previous.lookup("#" + id + "ChipCount")).getStyleClass().remove(2);
         }
+        
+        id = player.getId();
+        ((AnchorPane)player.lookup("#" + id + "Image")).getStyleClass().add("playersTurn");
+        ((Label)player.lookup("#" + id + "Name")).getStyleClass().add("playersTurn");
+        ((Label)player.lookup("#" + id + "ChipCount")).getStyleClass().add("playersTurn");
     }
 }

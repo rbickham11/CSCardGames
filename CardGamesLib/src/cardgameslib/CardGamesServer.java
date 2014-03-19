@@ -31,8 +31,8 @@ public class CardGamesServer {
      */
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
         CardGamesServer server = new CardGamesServer();
-        server.runPokerGame();
-//        server.runEuchreGame();
+        //server.runPokerGame();
+        //server.runEuchreGame();
         //server.runBlackjackGame();
         
         registry = LocateRegistry.createRegistry(PORT);
