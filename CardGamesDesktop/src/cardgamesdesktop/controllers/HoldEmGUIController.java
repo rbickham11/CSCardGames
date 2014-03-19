@@ -306,6 +306,8 @@ public class HoldEmGUIController extends GameController implements Initializable
         }
         for(PlayerPane p : playerPanes) {
             p.getBetAmount().setText("");
+            removeCard(p.getCards().get(0));
+            removeCard(p.getCards().get(1));
         }
         dealer.startHand();
         dealHands();
@@ -466,6 +468,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             else if(board.size() == 5) {
                 gameInfo.appendText(dealer.findWinner());
                 awardPot();
+                return;
             }
             else {
                 dealer.dealCardToBoard();
