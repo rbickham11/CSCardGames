@@ -277,6 +277,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             ex.printStackTrace(System.out);
         }
         
+        gameInfo.setEditable(false);
         loggedInHeader.setText(UserSessionVars.getUsername());
         betAmountSlider.setMajorTickUnit(bigBlind);
         betAmountSlider.setMinorTickCount(0);
