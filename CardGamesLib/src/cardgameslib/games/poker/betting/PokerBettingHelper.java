@@ -12,6 +12,7 @@ public class PokerBettingHelper {
     private List<BettingPlayer> activePlayers;
     private BettingPlayer firstToAct;
     private BettingPlayer lastToAct;
+    private BettingPlayer bbPlayer;
     
     private int potSize;
     private int activeBet;
@@ -20,7 +21,6 @@ public class PokerBettingHelper {
     private PokerAction lastAction;
     private boolean preflop;
     private boolean allActed;
-    private boolean firstActed;  //Whether or not the first player has acted
 
     /**
      * Constructor for PokerBettingHelper
@@ -33,7 +33,6 @@ public class PokerBettingHelper {
         potSize = 0;
         activeBet = 0;
         allActed = false;
-        firstActed = false;
     }
     
     /**
@@ -69,24 +68,17 @@ public class PokerBettingHelper {
     }
     
     /**
-     * Getter to return if the first player in a round has acted
-     * @return Action
-     */
-    public boolean getFirstActed() {
-    	return firstActed;
-    }
-    /**
      * Starts a new round of betting
      * @param preFlop boolean to determine whether or not it is the beginning of a hand
      */
     public void startNewRound(boolean preFlop) {
     	lastAction = PokerAction.CHECK;
-    	firstActed = false;
         preflop = preFlop;
         
         if(preflop){
             firstToAct = activePlayers.get(0);
             lastToAct = activePlayers.get(activePlayers.size() - 1);
+            bbPlayer = activePlayers.get(1);
         }
         activeBet = 0;
         allActed = false;
@@ -133,6 +125,10 @@ public class PokerBettingHelper {
                 call();
                 break;
             case CHECK: 
+                //Preflop big blind option
+                if(isBigBlindOption()) {
+                    break;
+                }
                 if(activeBet != 0) {
                     throw new IllegalArgumentException("You cannot check when a bet has been placed");
                 }
@@ -157,7 +153,6 @@ public class PokerBettingHelper {
         }
         
         lastAction = action;
-        firstActed = true;
         if(action != PokerAction.FOLD) {
             Collections.rotate(activePlayers, -1);
         }
@@ -231,6 +226,11 @@ public class PokerBettingHelper {
             return true;
         }
         
+        //Special case for preflop big blind option
+        if(isBigBlindOption()) {
+            return false;
+        }
+        
         if(!allActed) {
             return false;
         }
@@ -240,5 +240,9 @@ public class PokerBettingHelper {
             }
         }
         return true;
+    }
+    
+    public boolean isBigBlindOption() {
+        return preflop && activePlayers.get(0).equals(bbPlayer) && activeBet == bigBlind;
     }
 }

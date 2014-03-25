@@ -411,7 +411,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             updateChipValues();
         }      
         updateGameSummary(p, action);
-        if(action == PokerAction.BET) {
+        if(action == PokerAction.BET || action == PokerAction.RAISE) {
             checkButton.setDisable(true);
             betButton.setDisable(true);
             callButton.setDisable(false);
@@ -425,6 +425,12 @@ public class HoldEmGUIController extends GameController implements Initializable
         betAmountSlider.setMin(dealer.getCurrentBet());
         betAmountSlider.setMax(dealer.getCurrentPlayer().getChips());
         betAmount.setText("");
+        
+        //Preflop big blind option
+        if(dealer.isBigBlindOption()) {
+            checkButton.setDisable(false);
+            callButton.setDisable(true);
+        }
     }
     
     private void updateGameSummary(BettingPlayer player, PokerAction action) {

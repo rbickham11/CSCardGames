@@ -70,9 +70,10 @@ public class HoldemDealer {
     	return bettingHelper.getLastAction();
     }
     
-    public boolean getFirstActed() {
-    	return bettingHelper.getFirstActed();
+    public boolean isBigBlindOption() {
+        return bettingHelper.isBigBlindOption();
     }
+    
     /**
      * Function to handle adding a new player to the table
      * @param id int to hold player number
