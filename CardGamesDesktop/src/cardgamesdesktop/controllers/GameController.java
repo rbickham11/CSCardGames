@@ -47,12 +47,18 @@ public class GameController {
             id = previous.getId();
             ((AnchorPane)previous.lookup("#" + id + "Image")).getStyleClass().remove(1);
             ((Label)previous.lookup("#" + id + "Name")).getStyleClass().remove(2);
-            ((Label)previous.lookup("#" + id + "ChipCount")).getStyleClass().remove(2);
+            
+            if(previous.lookup("#" + id + "ChipCount") != null) {
+                ((Label)previous.lookup("#" + id + "ChipCount")).getStyleClass().remove(2);
+            }
         }
         
         id = player.getId();
         ((AnchorPane)player.lookup("#" + id + "Image")).getStyleClass().add("playersTurn");
         ((Label)player.lookup("#" + id + "Name")).getStyleClass().add("playersTurn");
-        ((Label)player.lookup("#" + id + "ChipCount")).getStyleClass().add("playersTurn");
+        
+        if(player.lookup("#" + id + "ChipCount") != null) {
+            ((Label)player.lookup("#" + id + "ChipCount")).getStyleClass().add("playersTurn");
+        }
     }
 }

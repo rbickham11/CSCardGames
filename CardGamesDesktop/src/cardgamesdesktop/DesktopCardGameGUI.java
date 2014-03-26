@@ -47,7 +47,7 @@ public class DesktopCardGameGUI extends Application {
         container.loadScreen(DesktopCardGameGUI.blackjackScreen, DesktopCardGameGUI.blackjackScreenFile);
         container.loadScreen(DesktopCardGameGUI.statisticsScreen, DesktopCardGameGUI.statisticsScreenFile);
 
-        container.setScreen(DesktopCardGameGUI.holdemScreen);
+        container.setScreen(DesktopCardGameGUI.euchreScreen);
         
         Group root = new Group();
         root.getChildren().addAll(container);

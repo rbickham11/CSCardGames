@@ -126,7 +126,7 @@ public class BlackjackGUIController extends GameController implements Initializa
     @FXML
     private Slider betAmountSlider;
     @FXML
-    private Label betAmount;
+    private TextField betAmount;
     // </editor-fold>
     
     /**

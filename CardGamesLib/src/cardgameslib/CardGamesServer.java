@@ -151,7 +151,8 @@ public class CardGamesServer {
         euchre.addPlayer(3333, "Player 2", 2);
         euchre.addPlayer(4444, "Player 3", 3);
 
-        euchre.startNewEuchreGame();
+        euchre.determineDealer();
+        euchre.startNewHand(true);
         euchre.displayPlayersHands();
         System.out.println("\nTop Card: " + euchre.getTopCard());
         System.out.println("Current Dealer: " + euchre.getCurrentDealer());

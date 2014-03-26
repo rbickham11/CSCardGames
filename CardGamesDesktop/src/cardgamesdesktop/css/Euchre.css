@@ -19,3 +19,37 @@
     -fx-text-fill: #00E3FF;
     -fx-padding: 0 0 0 3;
 }
+
+.gameButtons
+{
+    -fx-background-color: #191919;
+    -fx-border-color: #00E3FF;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #00E3FF;
+}
+
+.gameButtons:hover
+{
+    -fx-background-color: #00E3FF;
+    -fx-border-color: #191919;
+    -fx-text-fill: #191919;
+    -fx-cursor: hand;
+}
+
+.dealSequenceHeader
+{
+    -fx-font-family: "Arial";
+    -fx-font-size: 14;
+}
+
+.dealSequence
+{
+    -fx-font-family: "Arial";
+    -fx-font-size: 12;
+}
+
+.dealSequence, .dealSequenceHeader
+{
+    -fx-background-color: #222222;
+    -fx-text-fill: #00E3FF;
+}

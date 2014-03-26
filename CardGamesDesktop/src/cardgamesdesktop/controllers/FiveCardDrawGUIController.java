@@ -216,7 +216,7 @@ public class FiveCardDrawGUIController extends GameController implements Initial
     @FXML
     private Slider betAmountSlider;
     @FXML
-    private Label betAmount;
+    private TextField betAmount;
     // </editor-fold>
     
     /**

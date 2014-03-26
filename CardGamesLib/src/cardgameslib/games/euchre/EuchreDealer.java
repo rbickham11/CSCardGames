@@ -105,13 +105,8 @@ public class EuchreDealer {
         }
     }
 
-    public void startNewEuchreGame() {
-        determineDealer();
-        startNewHand(true);
-    }
-
     // Determine the first dealer for the game.
-    private void determineDealer() {
+    public void determineDealer() {
         Random rand = new Random();
         int randomPlayer = rand.nextInt(MIN_MAX_PLAYERS);
         int card = deck.dealCard();
@@ -161,10 +156,10 @@ public class EuchreDealer {
         alone = false;
         alonePlayer = -1;
         resetPlayersHands();
-        dealHands("3, 3, 3, 2");
+        //dealHands("3, 3, 3, 2");
     }
 
-    private void dealHands(String dealSequence) {
+    public void dealHands(String dealSequence) {
         if (players.size() == 4) {    // Make sure there are 4 players.
             playersTurn = nextPlayer(currentDealer);
             // Use the deal sequence that user has chosen.
@@ -230,10 +225,68 @@ public class EuchreDealer {
 
     private void sortHandsTrumpFirst() {
         for (int i = 0; i < MIN_MAX_PLAYERS; i++) {
-//            players.get(i).sortHandTrumpFirst(trump);
+            sortHandTrumpFirst(i);
         }
     }
 
+    public void sortHandTrumpFirst(int player) {
+        boolean containTrump = false;
+        int firstTrumpCard = 0;
+        int tempCard = 0;
+        List<Integer> hand = players.get(player).getHand();
+
+        for (Integer card : hand) {
+            if (card / 13 == trump) {
+                if (containTrump == false) {
+                    firstTrumpCard = card;
+                }
+                containTrump = true;
+            }
+        }
+
+        while (containTrump && (hand.get(0) != firstTrumpCard)) {
+            tempCard = hand.remove(0);
+            hand.add(tempCard);
+        }
+
+        switch (trump) {
+            case 1: // Diamonds
+                if (hand.contains(48)) {
+                    hand.add(0, hand.remove(hand.indexOf(48)));
+                }
+                if (hand.contains(22)) {
+                    hand.add(0, hand.remove(hand.indexOf(22)));
+                }
+                break;
+            case 3: // Hearts
+                if (hand.contains(22)) {
+                    hand.add(0, hand.remove(hand.indexOf(22)));
+                }
+                if (hand.contains(48)) {
+                    hand.add(0, hand.remove(hand.indexOf(48)));
+                }
+                break;
+            case 0: // Clubs
+                if (hand.contains(35)) {
+                    hand.add(0, hand.remove(hand.indexOf(35)));
+                }
+                if (hand.contains(9)) {
+                    hand.add(0, hand.remove(hand.indexOf(9)));
+                }
+                break;
+            case 2: // Spades
+                if (hand.contains(9)) {
+                    hand.add(0, hand.remove(hand.indexOf(9)));
+                }
+                if (hand.contains(35)) {
+                    hand.add(0, hand.remove(hand.indexOf(35)));
+                }
+                break;
+        }
+        players.get(player).resetHand();
+        players.get(player).giveCard(hand);
+    }
+    
     public void passOnCallingTrump() {
         if (playersTurn == currentDealer) {
             if (cardUp == true) {
@@ -312,14 +365,18 @@ public class EuchreDealer {
         return topCard;
     }
 
-    public int getCurrentDealer() {
-        return currentDealer;
+    public Player getCurrentDealer() {
+        return players.get(currentDealer);
     }
 
     public int getCurrentPlayer() {
         return playersTurn;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+    
     public void setCurrentPlayer(int player) {
         playersTurn = player;
     }
@@ -359,58 +416,3 @@ public class EuchreDealer {
     }
 //------------------------------------------------------------------------------
 }
-//
-//    public void sortHandTrumpFirst(int trump) {
-//        boolean containTrump = false;
-//        int firstTrumpCard = 0;
-//        int tempCard = 0;
-//
-//        for (Integer card : hand) {
-//            if (card / 13 == trump) {
-//                if (containTrump == false) {
-//                    firstTrumpCard = card;
-//                }
-//                containTrump = true;
-//            }
-//        }
-//
-//        while (containTrump && (hand.get(0) != firstTrumpCard)) {
-//            tempCard = hand.remove(0);
-//            giveCard(tempCard);
-//        }
-//
-//        switch (trump) {
-//            case 1: // Diamonds
-//                if (hand.contains(48)) {
-//                    hand.add(0, hand.remove(hand.indexOf(48)));
-//                }
-//                if (hand.contains(22)) {
-//                    hand.add(0, hand.remove(hand.indexOf(22)));
-//                }
-//                break;
-//            case 3: // Hearts
-//                if (hand.contains(22)) {
-//                    hand.add(0, hand.remove(hand.indexOf(22)));
-//                }
-//                if (hand.contains(48)) {
-//                    hand.add(0, hand.remove(hand.indexOf(48)));
-//                }
-//                break;
-//            case 0: // Clubs
-//                if (hand.contains(35)) {
-//                    hand.add(0, hand.remove(hand.indexOf(35)));
-//                }
-//                if (hand.contains(9)) {
-//                    hand.add(0, hand.remove(hand.indexOf(9)));
-//                }
-//                break;
-//            case 2: // Spades
-//                if (hand.contains(9)) {
-//                    hand.add(0, hand.remove(hand.indexOf(9)));
-//                }
-//                if (hand.contains(35)) {
-//                    hand.add(0, hand.remove(hand.indexOf(35)));
-//                }
-//                break;
-//        }
-//    }

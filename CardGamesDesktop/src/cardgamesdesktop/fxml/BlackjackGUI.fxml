@@ -191,7 +191,7 @@
         <URL value="@../css/Blackjack.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane layoutX="0.0" layoutY="501.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="1055.0">
+    <AnchorPane layoutX="0.0" layoutY="501.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="1055.0" style="-fx-background-color: #222222;">
       <children>
         <AnchorPane layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="298.0">
           <children>
@@ -200,57 +200,29 @@
                 <URL value="@../css/Main.css" />
               </stylesheets>
             </Label>
-            <TextArea fx:id="gameInfo" disable="true" layoutX="0.0" layoutY="22.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="298.0" wrapText="true">
+            <TextArea fx:id="gameInfo" disable="true" layoutX="0.0" layoutY="22.0" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="127.0" prefWidth="298.0" wrapText="true">
               <stylesheets>
                 <URL value="@../css/HoldEm.css" />
               </stylesheets>
             </TextArea>
           </children>
         </AnchorPane>
-        <AnchorPane layoutX="298.0" layoutY="1.0" prefHeight="149.0" prefWidth="460.0">
+        <AnchorPane layoutX="298.0" layoutY="1.0" prefHeight="149.0" prefWidth="460.0" style="-fx-background-color: #222222;">
           <children>
-            <Button font="$x1" layoutX="9.0" layoutY="16.0" mnemonicParsing="false" onAction="#bet" prefWidth="80.0" styleClass="gameButtons" text="Bet">
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </Button>
-            <Button font="$x1" layoutX="275.0" layoutY="16.0" mnemonicParsing="false" onAction="#hit" prefWidth="80.0" styleClass="gameButtons" text="Hit">
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </Button>
-            <Button font="$x1" layoutX="365.0" layoutY="16.0" mnemonicParsing="false" onAction="#stand" prefWidth="80.0" styleClass="gameButtons" text="Stand">
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </Button>
-            <Button font="$x1" layoutX="275.0" layoutY="53.0" mnemonicParsing="false" onAction="#surrender" prefWidth="168.0" styleClass="gameButtons" text="Surrender">
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </Button>
-            <Button font="$x1" layoutX="9.0" layoutY="53.0" mnemonicParsing="false" onAction="#split" prefWidth="80.0" styleClass="gameButtons" text="Split">
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </Button>
+            <Button font="$x1" layoutX="9.0" layoutY="16.0" mnemonicParsing="false" onAction="#bet" prefWidth="80.0" styleClass="gameButtons" text="Bet" />
+            <Button font="$x1" layoutX="275.0" layoutY="16.0" mnemonicParsing="false" onAction="#hit" prefWidth="80.0" styleClass="gameButtons" text="Hit" />
+            <Button font="$x1" layoutX="365.0" layoutY="16.0" mnemonicParsing="false" onAction="#stand" prefWidth="80.0" styleClass="gameButtons" text="Stand" />
+            <Button font="$x1" layoutX="275.0" layoutY="53.0" mnemonicParsing="false" onAction="#surrender" prefWidth="168.0" styleClass="gameButtons" text="Surrender" />
+            <Button font="$x1" layoutX="9.0" layoutY="53.0" mnemonicParsing="false" onAction="#split" prefWidth="80.0" styleClass="gameButtons" text="Split" />
             <Slider id="betAmount" fx:id="betAmountSlider" layoutX="8.0" layoutY="95.0" minorTickCount="1" prefWidth="350.0" showTickLabels="false" showTickMarks="false" snapToTicks="true" />
-            <Label fx:id="handInformation" alignment="CENTER" layoutX="14.0" layoutY="115.0" prefHeight="25.0" prefWidth="436.0" text="Hand Information?">
+            <Label fx:id="handInformation" alignment="CENTER" layoutX="14.0" layoutY="115.0" prefHeight="25.0" prefWidth="436.0" styleClass="dealSequence" text="Hand Information?">
               <font>
                 <Font name="Arial" size="12.0" />
               </font>
             </Label>
-            <Label fx:id="betAmount" alignment="CENTER_RIGHT" labelFor="$betAmountSlider" layoutX="368.0" layoutY="90.0" prefHeight="25.0" prefWidth="80.0" style="-fx-border-color: #000000;&#10;" text="" />
-            <Button font="$x1" layoutX="110.0" layoutY="16.0" mnemonicParsing="false" onAction="#insurance" prefWidth="119.0" styleClass="gameButtons" text="Insurance">
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </Button>
-            <Button font="$x1" layoutX="110.0" layoutY="53.0" mnemonicParsing="false" onAction="#doubleDown" prefWidth="119.0" styleClass="gameButtons" text="Double Down">
-              <stylesheets>
-                <URL value="@../css/HoldEm.css" />
-              </stylesheets>
-            </Button>
+            <Button font="$x1" layoutX="110.0" layoutY="16.0" mnemonicParsing="false" onAction="#insurance" prefWidth="119.0" styleClass="gameButtons" text="Insurance" />
+            <Button font="$x1" layoutX="110.0" layoutY="53.0" mnemonicParsing="false" onAction="#doubleDown" prefWidth="119.0" styleClass="gameButtons" text="Double Down" />
+            <TextField fx:id="betAmount" layoutX="360.0" layoutY="89.0" prefHeight="25.0" prefWidth="92.0" styleClass="scoreboardLabels" />
           </children>
         </AnchorPane>
         <AnchorPane layoutX="758.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="297.0">
@@ -278,6 +250,9 @@
           </children>
         </AnchorPane>
       </children>
+      <stylesheets>
+        <URL value="@../css/Euchre.css" />
+      </stylesheets>
     </AnchorPane>
   </children>
 </AnchorPane>

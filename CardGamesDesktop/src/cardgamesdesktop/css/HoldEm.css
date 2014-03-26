@@ -16,21 +16,6 @@
     -fx-border-color: #000000;
 }
 
-.gameButtons
-{
-    -fx-background-color: #428BCA;
-    -fx-border-color: #357EBD;
-    -fx-text-fill: #FFFFFF;
-}
-
-.gameButtons:hover
-{
-    -fx-background-color: #3276B1;
-    -fx-border-color: #285E8E;
-    -fx-text-fill: #FFFFFF;
-    -fx-cursor: hand;
-}
-
 .userImage, .userName, .chipCount
 {
     -fx-background-color: #191919;
