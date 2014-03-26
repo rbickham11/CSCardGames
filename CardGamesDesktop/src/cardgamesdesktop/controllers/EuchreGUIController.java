@@ -1,7 +1,9 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
+import cardgamesdesktop.utilities.*;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -144,12 +146,19 @@ public class EuchreGUIController extends GameController implements Initializable
     @FXML
     private TextField chatMessage;
     // </editor-fold>
+    private ChatClient chatClient;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = ScreensController.getInstance();
         
         loggedInHeader.setVisible(false);
+        try{
+            chatClient = new ChatClient("EuchreChatServer", chatBox.textProperty());
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
     }    
     
     @Override
@@ -184,6 +193,13 @@ public class EuchreGUIController extends GameController implements Initializable
     
     @FXML
     private void sendMessage() {
-        
+        try {
+            String message = UserSessionVars.getDisplayName() + ": " + chatMessage.getText();
+            chatClient.sendChatMessage(message);
+        }
+        catch(NullPointerException ex) {
+            chatBox.setText("The chat server is currently unavailable.");
+        }
+        chatMessage.setText("");
     }
 }

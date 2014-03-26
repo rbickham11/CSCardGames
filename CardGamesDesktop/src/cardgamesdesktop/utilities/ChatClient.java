@@ -21,11 +21,12 @@ public class ChatClient extends UnicastRemoteObject implements ChatListener, Ser
     
     /**
      * Establishes connection to the server class and adds itself as a chat listener
+     * @param remoteServerRef An rmi registry reference name to the remote server
      * @param chatBoxString A reference to the value in chat box to hold messages
      * @throws RemoteException 
      */
     @SuppressWarnings("LeakingThisInConstructor")
-    public ChatClient(StringProperty chatBoxString) throws RemoteException {
+    public ChatClient(String remoteServerRef, StringProperty chatBoxString) throws RemoteException {
         super();
         try {
             this.chatBoxString = chatBoxString;
@@ -33,7 +34,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatListener, Ser
             registry = LocateRegistry.getRegistry(HOST, PORT);
             
             //Get reference to concrete ChatServer implementation
-            chatServer = (ChatServer)registry.lookup(ChatServer.class.getSimpleName());
+            chatServer = (ChatServer)registry.lookup(remoteServerRef);
             chatServer.addChatListener(this);
         }
         catch(Exception ex) {

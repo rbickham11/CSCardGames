@@ -36,7 +36,8 @@ public class CardGamesServer {
         //server.runBlackjackGame();
         
         registry = LocateRegistry.createRegistry(PORT);
-        registerObject(ChatServer.class.getSimpleName(), new ChatServerImpl());
+        registerObject("HoldemChatServer", new ChatServerImpl());
+        registerObject("EuchreChatServer", new ChatServerImpl());
     }
     
     public static void registerObject(String name, Remote remoteObj) throws RemoteException, AlreadyBoundException {

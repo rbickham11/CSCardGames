@@ -271,7 +271,7 @@ public class HoldEmGUIController extends GameController implements Initializable
         StringProperty chatBoxText = chatBox.textProperty();
 
         try{
-            chatClient = new ChatClient(chatBoxText);
+            chatClient = new ChatClient("HoldemChatServer", chatBoxText);
         }
         catch(RemoteException ex) {
             ex.printStackTrace(System.out);
