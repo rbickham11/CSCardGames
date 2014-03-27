@@ -3,13 +3,15 @@ package cardgamesserver.games.blackjack;
 import cardgameslib.games.IBlackjackDealer;
 import cardgameslib.utilities.BettingPlayer;
 import cardgameslib.utilities.Deck;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 /**
  * Main blackjack game class
  * @author Ryan
  */
-public class BlackjackDealer implements IBlackjackDealer {
+public class BlackjackDealer extends UnicastRemoteObject implements IBlackjackDealer {
     public static final int MAX_PLAYERS = 5;
     public static final int DECK_COUNT = 6;
     
@@ -26,7 +28,7 @@ public class BlackjackDealer implements IBlackjackDealer {
     private boolean playerFinished;
     
     
-    public BlackjackDealer(int lowLimit, int highLimit) {
+    public BlackjackDealer(int lowLimit, int highLimit) throws RemoteException {
         this.lowLimit = lowLimit;
         this.highLimit = highLimit;
         for(int i = 1; i < DECK_COUNT; i++) {

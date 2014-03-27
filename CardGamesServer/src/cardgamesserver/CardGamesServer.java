@@ -54,7 +54,14 @@ public class CardGamesServer {
      * This function begins the poker game
      */
     public void runPokerGame() {
-        HoldemDealer dealer = new HoldemDealer(20000, 200);
+        HoldemDealer dealer;
+        try {
+            dealer = new HoldemDealer(20000, 200);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+            return;
+        }
         Scanner s = new Scanner(System.in);
 
         for (int i = 1; i < 7; i++) {
@@ -147,7 +154,14 @@ public class CardGamesServer {
     }
     
     public void runEuchreGame() {
-        EuchreDealer euchre = new EuchreDealer();
+        EuchreDealer euchre;
+        try {
+            euchre = new EuchreDealer();
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+            return;
+        }
         Scanner temp = new Scanner(System.in);
 
         euchre.addPlayer(1111, "Player 0", 0);
@@ -199,7 +213,15 @@ public class CardGamesServer {
     }
     
     public void runBlackjackGame() {
-        BlackjackDealer dealer = new BlackjackDealer(100, 10000);
+        BlackjackDealer dealer;
+        try {
+            dealer = new BlackjackDealer(100, 10000);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+            return;
+        }
+        
         Scanner s = new Scanner(System.in);
         
         System.out.println("Welcome to Blackjack!");

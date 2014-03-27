@@ -6,6 +6,8 @@ import cardgameslib.utilities.BettingPlayer;
 import cardgamesserver.games.poker.betting.*;
 import cardgameslib.utilities.PokerAction;
 import cardgameslib.games.IHoldemDealer;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import java.util.*;
 /**
@@ -13,7 +15,7 @@ import java.util.*;
  * @author Ryan Bickham
  *
  */
-public class HoldemDealer implements IHoldemDealer {
+public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     public static final int MAX_PLAYERS = 9;
    
     private final Deck deck = new Deck();
@@ -31,7 +33,7 @@ public class HoldemDealer implements IHoldemDealer {
      * @param maxChips int holding the chip limit for the table
      * @param bb int holding the value of the big blind for the table
      */
-    public HoldemDealer(int maxChips, int bb) {
+    public HoldemDealer(int maxChips, int bb) throws RemoteException {
         chipLimit = maxChips;
         bigBlind = bb;
         bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
@@ -52,6 +54,7 @@ public class HoldemDealer implements IHoldemDealer {
      * Getter to return list of players at table still playing (have not folded yet)
      * @return List<BettingPlayer>
      */
+    @Override
     public List<BettingPlayer> getActivePlayers() {
     	return activePlayers;
     }
@@ -83,6 +86,7 @@ public class HoldemDealer implements IHoldemDealer {
      * @param seatNum int to hold the seat the player is at
      * @param startingChips int to hold the number of chips the player starts with
      */
+    @Override
     public void addPlayer(int id, String username, int seatNum, int startingChips) {
     	if(seatNum < 1 || seatNum > MAX_PLAYERS) {
     		throw new IllegalArgumentException("Invalid seat number");
@@ -196,6 +200,7 @@ public class HoldemDealer implements IHoldemDealer {
      * @param action Action player is taking
      * @param chipAmount int to hold chip amount used in action
      */
+    @Override
     public void takeAction(PokerAction action, int chipAmount) {
         bettingHelper.takeAction(action, chipAmount);
     }
@@ -220,6 +225,7 @@ public class HoldemDealer implements IHoldemDealer {
      * Getter to return the pot size
      * @return int
      */
+    @Override
     public int getPotSize() {
         return bettingHelper.getPotSize();
     }

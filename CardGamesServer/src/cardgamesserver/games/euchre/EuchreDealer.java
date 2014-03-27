@@ -3,6 +3,8 @@ package cardgamesserver.games.euchre;
 import cardgameslib.games.IEuchreDealer;
 import cardgameslib.utilities.Player;
 import cardgameslib.utilities.Deck;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 //******Player Configuration******
@@ -49,7 +51,7 @@ import java.util.*;
 // 3, 3, 2, 2       2, 2, 3, 3
 // 3, 2, 3, 2       2, 3, 2, 3
 // 3, 2, 2, 3       2, 3, 3, 2
-public class EuchreDealer implements IEuchreDealer {
+public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
 
     public static final int MIN_MAX_PLAYERS = 4;
 
@@ -64,7 +66,7 @@ public class EuchreDealer implements IEuchreDealer {
     private String topCard;
     private boolean cardUp;
 
-    public EuchreDealer() {
+    public EuchreDealer() throws RemoteException {
         winChecker = new EuchreWinChecker(this);
         trump = -1;
         alone = false;
