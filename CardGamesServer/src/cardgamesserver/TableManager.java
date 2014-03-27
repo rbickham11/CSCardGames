@@ -8,12 +8,13 @@ import cardgamesserver.games.poker.holdem.HoldemDealer;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import cardgameslib.*;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * This class manages all active game tables
  * @author Ryan
  */
-public class TableManager implements ITableManager {
+public class TableManager extends UnicastRemoteObject implements ITableManager {
     private static TableManager instance;
     
     private static final String ALPHANUM_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -23,9 +24,9 @@ public class TableManager implements ITableManager {
     private final List<TableDescription> euchreTables = new ArrayList<>();
     private final List<TableDescription> blackjackTables = new ArrayList<>();
         
-    private TableManager() { }
+    private TableManager() throws RemoteException { }
     
-    public static TableManager getInstance() {
+    public static TableManager getInstance() throws RemoteException {
         if(instance == null) {
             instance = new TableManager();
         }
@@ -122,17 +123,17 @@ public class TableManager implements ITableManager {
     }
 
     @Override
-    public List<TableDescription> getHoldemTables() {
+    public List<TableDescription> getHoldemTables() throws RemoteException {
         return holdemTables;
     }
 
     @Override
-    public List<TableDescription> getEuchreTables() {
+    public List<TableDescription> getEuchreTables() throws RemoteException {
         return euchreTables;
     }
 
     @Override
-    public List<TableDescription> getBlackjackTables() {
+    public List<TableDescription> getBlackjackTables() throws RemoteException {
         return blackjackTables;
     }
 }

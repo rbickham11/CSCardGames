@@ -44,13 +44,13 @@ public class TablesGUIController implements Initializable, Screens {
     @FXML
     private Label loggedInHeader;
     @FXML
-    private ScrollPane holdemTables;
+    private ScrollPane holdemTableScroll;
     @FXML
-    private ScrollPane fivecarddrawTables;
+    private ScrollPane fivecarddrawTableScroll;
     @FXML
-    private ScrollPane euchreTables;
+    private ScrollPane euchreTableScroll;
     @FXML
-    private ScrollPane blackjackTables;
+    private ScrollPane blackjackTableScroll;
     
     @FXML
     private AnchorPane holdemTablesList;
@@ -76,18 +76,30 @@ public class TablesGUIController implements Initializable, Screens {
         
         loggedInHeader.setVisible(false);
 
+        List<TableDescription> holdemTables = new ArrayList<>();
+        List<TableDescription> euchreTables = new ArrayList<>();
+        List<TableDescription> blackjackTables = new ArrayList<>();
+        
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             ITableManager tableManager = (ITableManager)registry.lookup(ITableManager.class.getSimpleName());
-            List<TableDescription> holdemTables = tableManager.getHoldemTables();
-            List<TableDescription> euchreTables = tableManager.getEuchreTables();
+            holdemTables = tableManager.getHoldemTables();
+            euchreTables = tableManager.getEuchreTables();
+            blackjackTables = tableManager.getBlackjackTables();
         }
         catch(Exception ex) {
             ex.printStackTrace(System.out);
         }
-        addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
-        addNewHoldemTable("Mid Stakes Texas Hold'em", "Blinds: 500 / 1000", "Max Buy-in: 100,000", "0 / 9");
-        addNewEuchreTable("Intermediate Euchre Table", "For a relaxed game.", "", "3 / 4");
+        
+        for(TableDescription t : holdemTables) {
+            addNewHoldemTable(t.getCol1(), t.getCol2(), t.getCol3(), t.getCol4());
+        }
+        for(TableDescription t : euchreTables) {
+            addNewEuchreTable(t.getCol1(), t.getCol2(), t.getCol3(), t.getCol4());
+        }
+        for(TableDescription t : blackjackTables) {
+            addNewBlackjackTable(t.getCol1(), t.getCol2(), t.getCol3(), t.getCol4());
+        }
     }
 
     @Override
@@ -207,53 +219,53 @@ public class TablesGUIController implements Initializable, Screens {
 
     @FXML
     private void showHoldEmTables() {
-        fivecarddrawTables.setVisible(false);
-        euchreTables.setVisible(false);
-        blackjackTables.setVisible(false);
+        fivecarddrawTableScroll.setVisible(false);
+        euchreTableScroll.setVisible(false);
+        blackjackTableScroll.setVisible(false);
         
-        if (!holdemTables.isVisible()) {
-            holdemTables.setVisible(true);
+        if (!holdemTableScroll.isVisible()) {
+            holdemTableScroll.setVisible(true);
         } else {
-            holdemTables.setVisible(false);
+            holdemTableScroll.setVisible(false);
         }
     }
 
     @FXML
     private void showFiveCardDrawTables() {
-        holdemTables.setVisible(false);
-        euchreTables.setVisible(false);
-        blackjackTables.setVisible(false);
+        holdemTableScroll.setVisible(false);
+        euchreTableScroll.setVisible(false);
+        blackjackTableScroll.setVisible(false);
         
-        if (!fivecarddrawTables.isVisible()) {
-            fivecarddrawTables.setVisible(true);
+        if (!fivecarddrawTableScroll.isVisible()) {
+            fivecarddrawTableScroll.setVisible(true);
         } else {
-            fivecarddrawTables.setVisible(false);
+            fivecarddrawTableScroll.setVisible(false);
         }
     }
 
     @FXML
     private void showEuchreTables() {
-        holdemTables.setVisible(false);
-        fivecarddrawTables.setVisible(false);
-        blackjackTables.setVisible(false);
+        holdemTableScroll.setVisible(false);
+        fivecarddrawTableScroll.setVisible(false);
+        blackjackTableScroll.setVisible(false);
         
-        if (!euchreTables.isVisible()) {
-            euchreTables.setVisible(true);
+        if (!euchreTableScroll.isVisible()) {
+            euchreTableScroll.setVisible(true);
         } else {
-            euchreTables.setVisible(false);
+            euchreTableScroll.setVisible(false);
         }
     }
 
     @FXML
     private void showBlackjackTables() {
-        holdemTables.setVisible(false);
-        fivecarddrawTables.setVisible(false);
-        euchreTables.setVisible(false);
+        holdemTableScroll.setVisible(false);
+        fivecarddrawTableScroll.setVisible(false);
+        euchreTableScroll.setVisible(false);
         
-        if (!blackjackTables.isVisible()) {
-            blackjackTables.setVisible(true);
+        if (!blackjackTableScroll.isVisible()) {
+            blackjackTableScroll.setVisible(true);
         } else {
-            blackjackTables.setVisible(false);
+            blackjackTableScroll.setVisible(false);
         }
     }
     

@@ -41,7 +41,7 @@ public class CardGamesServer {
         tableManager.addHoldemTable(20000, 200, "Mid Stakes Texas Hold'em");
         tableManager.addHoldemTable(100000, 1000, "High Stakes Texas Hold'em");
         tableManager.addEuchreTable("Intermediate Euchre", "For a relaxed game");
-        registerObject(TableManager.class.getSimpleName(), tableManager);
+        registerObject(ITableManager.class.getSimpleName(), tableManager);
     }
     
     public static void registerObject(String name, Remote remoteObj) throws RemoteException, AlreadyBoundException {

@@ -182,7 +182,7 @@ public class EuchreGUIController extends GameController implements Initializable
     // </editor-fold>
     
     private ChatClient chatClient;
-    private EuchreDealer dealer;
+    //private EuchreDealer dealer;
     private PlayerPane[] playerPanes;
     private AnchorPane[] playedCards;
     
@@ -206,59 +206,59 @@ public class EuchreGUIController extends GameController implements Initializable
 //        catch(RemoteException ex) {
 //            ex.printStackTrace(System.out);
 //        }
-        
-        gameInfo.setEditable(false);
-        loggedInHeader.setText(UserSessionVars.getUsername());
-        
-        dealer = new EuchreDealer();
-        dealer.addPlayer(111, "Ryan Bickham", 1);
-        dealer.addPlayer(222, "Nick Borushko", 2);
-        dealer.addPlayer(333, "Ryan Gillett", 3);
-        dealer.addPlayer(444, "Andrew Haeger", 4);
-        
-        dealer.determineDealer();
-        showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), null);
-        startNewHand(true);
+//        
+//        gameInfo.setEditable(false);
+//        loggedInHeader.setText(UserSessionVars.getUsername());
+//        
+//        dealer = new EuchreDealer();
+//        dealer.addPlayer(111, "Ryan Bickham", 1);
+//        dealer.addPlayer(222, "Nick Borushko", 2);
+//        dealer.addPlayer(333, "Ryan Gillett", 3);
+//        dealer.addPlayer(444, "Andrew Haeger", 4);
+//        
+//        dealer.determineDealer();
+//        showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), null);
+//        startNewHand(true);
     }    
     
-    private void startNewHand(boolean newGame) {
-        List<Player> players = dealer.getPlayers();
-        
-        for(Player p : players) {
-            activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), "");
-        }
-        for(PlayerPane p : playerPanes) {
-            removeCard(p.getCards().get(0));
-            removeCard(p.getCards().get(1));
-            removeCard(p.getCards().get(2));
-            removeCard(p.getCards().get(3));
-            removeCard(p.getCards().get(4));
-        }
-        
-        dealer.startNewHand(newGame);
-        showDealSequencePanel();
-    }
-    
-    private void showDealSequencePanel() {
-        dealOrder.setVisible(true);
-        gameChoices.setVisible(false);
-    }
-    
-    private void showGameChoicesPanel() {
-        gameChoices.setVisible(true);
-        dealOrder.setVisible(false);
-    }
-    
-    private void dealHands() {
-        List<AnchorPane> cards;
-        for(Player p : dealer.getPlayers()) {
-            cards = playerPanes[p.getSeatNumber() - 1].getCards();
-            for(int i = 0; i < cards.size(); i++) {
-                showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
-            }
-        }
-    }
-    
+//    private void startNewHand(boolean newGame) {
+//        List<Player> players = dealer.getPlayers();
+//        
+//        for(Player p : players) {
+//            activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), "");
+//        }
+//        for(PlayerPane p : playerPanes) {
+//            removeCard(p.getCards().get(0));
+//            removeCard(p.getCards().get(1));
+//            removeCard(p.getCards().get(2));
+//            removeCard(p.getCards().get(3));
+//            removeCard(p.getCards().get(4));
+//        }
+//        
+//        dealer.startNewHand(newGame);
+//        showDealSequencePanel();
+//    }
+//    
+//    private void showDealSequencePanel() {
+//        dealOrder.setVisible(true);
+//        gameChoices.setVisible(false);
+//    }
+//    
+//    private void showGameChoicesPanel() {
+//        gameChoices.setVisible(true);
+//        dealOrder.setVisible(false);
+//    }
+//    
+//    private void dealHands() {
+//        List<AnchorPane> cards;
+//        for(Player p : dealer.getPlayers()) {
+//            cards = playerPanes[p.getSeatNumber() - 1].getCards();
+//            for(int i = 0; i < cards.size(); i++) {
+//                showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
+//            }
+//        }
+//    }
+//    
     @Override
     public void setPreviousScreen(String previous) {
         this.previous = previous;
@@ -321,11 +321,11 @@ public class EuchreGUIController extends GameController implements Initializable
             sequence += ", 3";
         }
         
-        dealer.dealHands(sequence);
-        showGameChoicesPanel();
-        
-        dealHands();
-        dealer.displayPlayersHands();
+//        dealer.dealHands(sequence);
+//        showGameChoicesPanel();
+//        
+//        dealHands();
+//        dealer.displayPlayersHands();
     }
     
     private void showTopCard() {

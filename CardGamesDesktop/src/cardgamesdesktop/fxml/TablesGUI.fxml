@@ -188,7 +188,7 @@
     </AnchorPane>
     <AnchorPane layoutX="0.0" layoutY="484.0" prefHeight="166.0" prefWidth="1055.0">
       <children>
-        <ScrollPane fx:id="holdemTables" depthTest="INHERIT" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="true">
+        <ScrollPane fx:id="holdemTableScroll" depthTest="INHERIT" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="true">
           <content>
             <AnchorPane id="Content" fx:id="holdemTablesList" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="true" prefHeight="0.0" prefWidth="943.0" styleClass="scrollContain">
               <stylesheets>
@@ -200,7 +200,7 @@
             <URL value="@../css/Tables.css" />
           </stylesheets>
         </ScrollPane>
-        <ScrollPane fx:id="fivecarddrawTables" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="false">
+        <ScrollPane fx:id="fivecarddrawTableScroll" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="false">
           <content>
             <AnchorPane id="Content" fx:id="fivecarddrawTablesList" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="true" prefHeight="0.0" prefWidth="943.0" styleClass="scrollContain" visible="true">
               <stylesheets>
@@ -212,7 +212,7 @@
             <URL value="@../css/Tables.css" />
           </stylesheets>
         </ScrollPane>
-        <ScrollPane fx:id="euchreTables" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="false">
+        <ScrollPane fx:id="euchreTableScroll" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="false">
           <content>
             <AnchorPane id="Content" fx:id="euchreTablesList" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="true" prefHeight="0.0" prefWidth="943.0" styleClass="scrollContain">
               <stylesheets>
@@ -224,7 +224,7 @@
             <URL value="@../css/Tables.css" />
           </stylesheets>
         </ScrollPane>
-        <ScrollPane fx:id="blackjackTables" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="false">
+        <ScrollPane fx:id="blackjackTableScroll" layoutX="55.0" layoutY="0.0" pannable="true" prefHeight="165.0" prefWidth="945.0" visible="false">
           <content>
             <AnchorPane id="Content" fx:id="blackjackTablesList" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="true" prefHeight="0.0" prefWidth="943.0" styleClass="scrollContain">
               <stylesheets>
