@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.beans.property.StringProperty;
 
 import cardgamesdesktop.utilities.*;
-import cardgameslib.games.euchre.EuchreDealer;
 import cardgameslib.utilities.*;
 
 

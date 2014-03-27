@@ -15,7 +15,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatListener, Ser
     private final static String HOST = "localhost";
     private final static int PORT = 1099;
     
-    private ChatServer chatServer;
+    private IChatServer chatServer;
     private Registry registry;
     private StringProperty chatBoxString;
     
@@ -34,7 +34,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatListener, Ser
             registry = LocateRegistry.getRegistry(HOST, PORT);
             
             //Get reference to concrete ChatServer implementation
-            chatServer = (ChatServer)registry.lookup(remoteServerRef);
+            chatServer = (IChatServer)registry.lookup(remoteServerRef);
             chatServer.addChatListener(this);
         }
         catch(Exception ex) {

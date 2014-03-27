@@ -1,4 +1,4 @@
-package cardgameslib.games.euchre;
+package cardgamesserver.games.euchre;
 
 import java.util.*;
 

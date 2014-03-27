@@ -1,5 +1,8 @@
-package cardgameslib.chatserver;
+package cardgamesserver.chatserver;
 
+import cardgameslib.chatserver.ChatEvent;
+import cardgameslib.chatserver.ChatListener;
+import cardgameslib.chatserver.IChatServer;
 import java.rmi.*;
 import java.rmi.server.*;
 import java.util.*;
@@ -8,10 +11,10 @@ import java.util.*;
  * Implementation of ChatServer that represents the server side of the chat session.
  * @author Ryan Bickham
  */
-public class ChatServerImpl extends UnicastRemoteObject implements ChatServer{
+public class ChatServer extends UnicastRemoteObject implements IChatServer{
     List<ChatListener> chatListeners = new ArrayList<>();
     
-    public ChatServerImpl() throws RemoteException{}
+    public ChatServer() throws RemoteException{}
     
     /**
      * Adds a client chat listener to the list of active clients

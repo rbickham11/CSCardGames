@@ -1,4 +1,4 @@
-package cardgameslib.games.poker.betting;
+package cardgameslib.utilities;
 
 /**
  * Enumeration type for available poker actions 

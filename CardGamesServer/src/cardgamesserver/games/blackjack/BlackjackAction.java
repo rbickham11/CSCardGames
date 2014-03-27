@@ -1,4 +1,4 @@
-package cardgameslib.games.blackjack;
+package cardgamesserver.games.blackjack;
 
 /**
  * Enumeration type for available blackjack actions

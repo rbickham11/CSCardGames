@@ -1,6 +1,7 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
+import cardgameslib.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.*;
@@ -12,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import cardgameslib.utilities.Game;
+import java.rmi.registry.*;
+import java.util.*;
 /**
  * FXML Controller class
  *
@@ -73,6 +76,15 @@ public class TablesGUIController implements Initializable, Screens {
         
         loggedInHeader.setVisible(false);
 
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            ITableManager tableManager = (ITableManager)registry.lookup(ITableManager.class.getSimpleName());
+            List<TableDescription> holdemTables = tableManager.getHoldemTables();
+            List<TableDescription> euchreTables = tableManager.getEuchreTables();
+        }
+        catch(Exception ex) {
+            ex.printStackTrace(System.out);
+        }
         addNewHoldemTable("Low Stakes Texas Hold'em", "Blinds: 100 / 200", "Max Buy-in: 20,000", "0 / 9");
         addNewHoldemTable("Mid Stakes Texas Hold'em", "Blinds: 500 / 1000", "Max Buy-in: 100,000", "0 / 9");
         addNewEuchreTable("Intermediate Euchre Table", "For a relaxed game.", "", "3 / 4");

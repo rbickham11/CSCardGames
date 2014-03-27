@@ -1,7 +1,11 @@
-package cardgameslib.games.poker.holdem;
+package cardgamesserver.games.poker.holdem;
 
-import cardgameslib.utilities.*;
-import cardgameslib.games.poker.betting.*;
+import cardgameslib.utilities.Deck;
+import cardgameslib.utilities.Player;
+import cardgameslib.utilities.BettingPlayer;
+import cardgamesserver.games.poker.betting.*;
+import cardgameslib.utilities.PokerAction;
+import cardgameslib.games.IHoldemDealer;
 
 import java.util.*;
 /**
@@ -9,8 +13,8 @@ import java.util.*;
  * @author Ryan Bickham
  *
  */
-public class HoldemDealer {
-    private static final int MAX_PLAYERS = 9;
+public class HoldemDealer implements IHoldemDealer {
+    public static final int MAX_PLAYERS = 9;
    
     private final Deck deck = new Deck();
     private final List<BettingPlayer> players = new ArrayList<>(MAX_PLAYERS);
@@ -34,8 +38,6 @@ public class HoldemDealer {
 
         Random r = new Random();
         Collections.rotate(players, r.nextInt(MAX_PLAYERS));
-        
-        System.out.println("HoldemDealer Instance Created!");
     }
   
     /**

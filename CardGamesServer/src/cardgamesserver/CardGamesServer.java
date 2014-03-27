@@ -1,16 +1,17 @@
-package cardgameslib;
+package cardgamesserver;
 
+import cardgameslib.utilities.PokerAction;
 import java.util.*;
 import java.rmi.*;
 import java.rmi.registry.*;
 
-import cardgameslib.games.poker.holdem.HoldemDealer;
-import cardgameslib.games.blackjack.BlackjackDealer;
-import cardgameslib.games.poker.betting.*;
-import cardgameslib.games.euchre.*;
-import cardgameslib.chatserver.*;
-import cardgameslib.games.blackjack.BlackjackAction;
-import cardgameslib.utilities.*;
+import cardgameslib.*;
+import cardgamesserver.games.blackjack.BlackjackAction;
+import cardgamesserver.games.blackjack.BlackjackDealer;
+import cardgamesserver.games.euchre.EuchreDealer;
+import cardgamesserver.games.poker.holdem.HoldemDealer;
+import cardgameslib.utilities.BettingPlayer;
+import cardgameslib.utilities.Deck;
 
 /**
  * Main class that starts the RMI registry. Also contains test console versions
@@ -23,8 +24,7 @@ public class CardGamesServer {
     private static Registry registry;
     
     /**
-     * Program entry point. Also creates RMI registry and registers a ChatServer
-     * instance. 
+     * Server side entry point. Initializes table manager and adds initial tables. 
      * @param args
      * @throws RemoteException
      * @throws AlreadyBoundException 
@@ -36,8 +36,12 @@ public class CardGamesServer {
         //server.runBlackjackGame();
         
         registry = LocateRegistry.createRegistry(PORT);
-        registerObject("HoldemChatServer", new ChatServerImpl());
-        registerObject("EuchreChatServer", new ChatServerImpl());
+        
+        TableManager tableManager = TableManager.getInstance();
+        tableManager.addHoldemTable(20000, 200, "Mid Stakes Texas Hold'em");
+        tableManager.addHoldemTable(100000, 1000, "High Stakes Texas Hold'em");
+        tableManager.addEuchreTable("Intermediate Euchre", "For a relaxed game");
+        registerObject(TableManager.class.getSimpleName(), tableManager);
     }
     
     public static void registerObject(String name, Remote remoteObj) throws RemoteException, AlreadyBoundException {

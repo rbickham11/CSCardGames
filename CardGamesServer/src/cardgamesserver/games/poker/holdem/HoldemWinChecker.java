@@ -1,4 +1,4 @@
-package cardgameslib.games.poker.holdem;
+package cardgamesserver.games.poker.holdem;
 
 import cardgameslib.utilities.BettingPlayer;
 import java.util.*;

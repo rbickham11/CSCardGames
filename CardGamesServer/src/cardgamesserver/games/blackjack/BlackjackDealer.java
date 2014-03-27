@@ -1,15 +1,17 @@
-package cardgameslib.games.blackjack;
+package cardgamesserver.games.blackjack;
 
+import cardgameslib.games.IBlackjackDealer;
+import cardgameslib.utilities.BettingPlayer;
+import cardgameslib.utilities.Deck;
 import java.util.*;
-import cardgameslib.utilities.*;
 
 /**
  * Main blackjack game class
  * @author Ryan
  */
-public class BlackjackDealer {
-    private static final int MAX_PLAYERS = 5;
-    private static final int DECK_COUNT = 6;
+public class BlackjackDealer implements IBlackjackDealer {
+    public static final int MAX_PLAYERS = 5;
+    public static final int DECK_COUNT = 6;
     
     private final int lowLimit;
     private final int highLimit;
