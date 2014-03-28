@@ -1,5 +1,6 @@
 package cardgamesdesktop;
 
+import cardgamesdesktop.controllers.GameController;
 import java.io.IOException;
 import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,28 @@ public class ScreensController extends StackPane {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(screens.get(name)));
                 Parent loadScreen = (Parent) loader.load();
                 Screens controller = ((Screens) loader.getController());
+                if (!getChildren().isEmpty()) {
+                    controller.setPreviousScreen(getChildren().get(0).getId());
+                    getChildren().remove(0);
+                    getChildren().add(0, loadScreen);
+                } else {
+                    controller.setPreviousScreen("");
+                    getChildren().add(loadScreen);
+                }
+            } catch (IOException e) {
+                e.printStackTrace(System.out);
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    public void setTableScreen(final String name, final String tableId, final String chatId) {
+        if (screens.get(name) != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(screens.get(name)));
+                Parent loadScreen = (Parent) loader.load();
+                GameController controller = loader.getController();
+                controller.connectTable(tableId, chatId);
                 if (!getChildren().isEmpty()) {
                     controller.setPreviousScreen(getChildren().get(0).getId());
                     getChildren().remove(0);

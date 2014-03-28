@@ -67,6 +67,9 @@ public class TablesGUIController implements Initializable, Screens {
     private ArrayList<AnchorPane> blackjack = new ArrayList<>();
     // </editor-fold>
     
+    private List<TableDescription> holdemTables = new ArrayList<>();
+    private List<TableDescription> euchreTables = new ArrayList<>();
+    private List<TableDescription> blackjackTables = new ArrayList<>();
     /**
      * Initializes the controller class.
      */
@@ -75,10 +78,6 @@ public class TablesGUIController implements Initializable, Screens {
         controller = ScreensController.getInstance();
         
         loggedInHeader.setVisible(false);
-
-        List<TableDescription> holdemTables = new ArrayList<>();
-        List<TableDescription> euchreTables = new ArrayList<>();
-        List<TableDescription> blackjackTables = new ArrayList<>();
         
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
@@ -184,7 +183,7 @@ public class TablesGUIController implements Initializable, Screens {
                 switch(game)
                 {
                     case HOLDEM:
-                        controller.setScreen(DesktopCardGameGUI.holdemScreen);
+                        controller.setTableScreen(DesktopCardGameGUI.holdemScreen, holdemTables.get(0).getTableId(), holdemTables.get(0).getChatId());
                         break;
                     case FIVECARDDRAW:
                         controller.setScreen(DesktopCardGameGUI.fivecarddrawScreen);

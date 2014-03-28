@@ -13,14 +13,13 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class BlackjackGUIController extends GameController implements Initializable, Screens {
+public class BlackjackGUIController extends GameController implements Initializable {
 
     // Seat Configuration
     //  1   2   3   4   5
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
-    String previous;
     
     @FXML
     private Label loggedInHeader;
@@ -145,12 +144,7 @@ public class BlackjackGUIController extends GameController implements Initializa
                 betAmount.setText(Integer.toString(newValue.intValue()));
             }
         });
-    }    
-    
-    @Override
-    public void setPreviousScreen(String previous) {
-        this.previous = previous;
-    }
+    }   
     
     @FXML
     private void goToTablesScreen() {
@@ -200,5 +194,10 @@ public class BlackjackGUIController extends GameController implements Initializa
     @FXML
     private void sendMessage() {
         
+    }
+
+    @Override
+    public void connectTable(String tableId, String chatId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

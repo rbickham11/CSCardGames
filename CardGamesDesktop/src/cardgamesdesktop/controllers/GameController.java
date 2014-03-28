@@ -1,5 +1,6 @@
 package cardgamesdesktop.controllers;
 
+import cardgamesdesktop.Screens;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -7,7 +8,16 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class GameController {
+public abstract class GameController implements Screens {
+    protected String previous;
+    
+    public abstract void connectTable(String tableId, String chatId);
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
+    }
+    
     public void showCard(AnchorPane cardPos, String card) {
         cardPos.getStylesheets().add("cardgamesdesktop/css/Cards.css");
         cardPos.getStyleClass().add("card" + card);

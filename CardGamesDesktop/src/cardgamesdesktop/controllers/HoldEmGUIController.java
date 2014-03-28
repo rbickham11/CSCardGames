@@ -11,7 +11,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.beans.property.StringProperty;
 
 import cardgamesdesktop.utilities.*;
+import cardgameslib.games.IHoldemDealer;
 import cardgameslib.utilities.*;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 /**
  * FXML Controller class
  *
@@ -27,7 +31,6 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
-    String previous;
     
     @FXML
     private Label loggedInHeader;
@@ -244,6 +247,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     private ChatClient chatClient;
     //private HoldemDealer dealer;
+    private IHoldemDealer dealer;
     private final int bigBlind = 200;
     private PlayerPane[] playerPanes;
     private AnchorPane[] boardCardPanes;
@@ -267,13 +271,6 @@ public class HoldEmGUIController extends GameController implements Initializable
         };
         boardCardPanes = new AnchorPane[] { houseCard1, houseCard2, houseCard3, houseCard4, houseCard5 };
         StringProperty chatBoxText = chatBox.textProperty();
-
-        try{
-            chatClient = new ChatClient("HoldemChatServer", chatBoxText);
-        }
-        catch(RemoteException ex) {
-            ex.printStackTrace(System.out);
-        }
         
         gameInfo.setEditable(false);
         loggedInHeader.setText(UserSessionVars.getUsername());
@@ -293,6 +290,22 @@ public class HoldEmGUIController extends GameController implements Initializable
 //        dealer.addPlayer(444, "RyanG", 3, 10000);
         
         //startNewHand();
+    }
+    
+    @Override
+    public void connectTable(String tableId, String chatId) {
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            dealer = (IHoldemDealer)registry.lookup(tableId);
+            chatClient = new ChatClient(chatId, chatBox.textProperty());
+        }
+        catch(NotBoundException ex) {
+            System.out.println("The requested remote object " + tableId + " was not found");
+            ex.printStackTrace(System.out);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
     }
     
 //    public void startNewHand() {
@@ -334,10 +347,6 @@ public class HoldEmGUIController extends GameController implements Initializable
 //        }
 //    }
     
-    @Override
-    public void setPreviousScreen(String previous) {
-        this.previous = previous;
-    }
     
     @FXML
     private void goToTablesScreen() {

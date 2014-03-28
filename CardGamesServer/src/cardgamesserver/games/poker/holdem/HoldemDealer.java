@@ -10,6 +10,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * This class handles Texas Hold'em style poker
  * @author Ryan Bickham
@@ -55,7 +57,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      * @return List<BettingPlayer>
      */
     @Override
-    public List<BettingPlayer> getActivePlayers() {
+    public List<BettingPlayer> getActivePlayers() throws RemoteException {
     	return activePlayers;
     }
     
@@ -87,7 +89,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      * @param startingChips int to hold the number of chips the player starts with
      */
     @Override
-    public void addPlayer(int id, String username, int seatNum, int startingChips) {
+    public void addPlayer(int id, String username, int seatNum, int startingChips) throws RemoteException {
     	if(seatNum < 1 || seatNum > MAX_PLAYERS) {
     		throw new IllegalArgumentException("Invalid seat number");
     	}
@@ -113,7 +115,8 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      * Handles removing player from Texas Hold'em table
      * @param id int to hold which player is being removed/leaving
      */
-    public void removePlayer(int id) {
+    @Override
+    public void removePlayer(int id) throws RemoteException {
         for(BettingPlayer player : players) {
             if(player.getUserId() == id) {
                 players.remove(player);
@@ -168,7 +171,12 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     public void dealFlopToBoard() {
         int card;
         deck.dealCard(); //Burn
-        System.out.printf("\nPot Size: %d\n", getPotSize());
+        try {
+            System.out.printf("\nPot Size: %d\n", getPotSize());
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
         System.out.print("Board: ");
         for(int i = 0; i < 3; i++) {
             card = deck.dealCard();
@@ -186,7 +194,11 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         deck.dealCard(); //Burn
         int card = deck.dealCard();
         board.add(card);
-        System.out.printf("\nPot Size: %d\n", getPotSize());     
+        try {     
+            System.out.printf("\nPot Size: %d\n", getPotSize());
+        } catch (RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
         System.out.print("Board: ");
         for(int boardCard : board) {
             System.out.print(Deck.cardToString(boardCard) + " ");
@@ -201,7 +213,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      * @param chipAmount int to hold chip amount used in action
      */
     @Override
-    public void takeAction(PokerAction action, int chipAmount) {
+    public void takeAction(PokerAction action, int chipAmount) throws RemoteException {
         bettingHelper.takeAction(action, chipAmount);
     }
     
@@ -226,7 +238,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      * @return int
      */
     @Override
-    public int getPotSize() {
+    public int getPotSize() throws RemoteException {
         return bettingHelper.getPotSize();
     }
     

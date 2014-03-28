@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Andrew Haeger
  */
-public class FiveCardDrawGUIController extends GameController implements Initializable, Screens {
+public class FiveCardDrawGUIController extends GameController implements Initializable {
 
     // Seat Configuration
     //      7       1
@@ -22,7 +22,6 @@ public class FiveCardDrawGUIController extends GameController implements Initial
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
-    String previous;
     
     @FXML
     private Label loggedInHeader;
@@ -237,11 +236,6 @@ public class FiveCardDrawGUIController extends GameController implements Initial
         });
     }    
     
-    @Override
-    public void setPreviousScreen(String previous) {
-        this.previous = previous;
-    }
-    
     @FXML
     private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);
@@ -280,5 +274,10 @@ public class FiveCardDrawGUIController extends GameController implements Initial
     @FXML
     private void sendMessage() {
         
+    }
+
+    @Override
+    public void connectTable(String tableId, String chatId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

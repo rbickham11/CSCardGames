@@ -19,7 +19,7 @@ import cardgameslib.utilities.*;
  *
  * @author Andrew Haeger
  */
-public class EuchreGUIController extends GameController implements Initializable, Screens {
+public class EuchreGUIController extends GameController implements Initializable {
 
     // Seat Configuration
     //      3
@@ -28,7 +28,6 @@ public class EuchreGUIController extends GameController implements Initializable
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
-    String previous;
     
     @FXML
     private Label loggedInHeader;
@@ -259,10 +258,6 @@ public class EuchreGUIController extends GameController implements Initializable
 //        }
 //    }
 //    
-    @Override
-    public void setPreviousScreen(String previous) {
-        this.previous = previous;
-    }
     
     @FXML
     private void goToTablesScreen() {
@@ -346,5 +341,10 @@ public class EuchreGUIController extends GameController implements Initializable
             chatBox.setText("The chat server is currently unavailable.");
         }
         chatMessage.setText("");
+    }
+
+    @Override
+    public void connectTable(String tableId, String chatId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

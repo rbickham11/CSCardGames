@@ -64,8 +64,13 @@ public class CardGamesServer {
         }
         Scanner s = new Scanner(System.in);
 
-        for (int i = 1; i < 7; i++) {
-            dealer.addPlayer(1000 + i, "Player " + i, i, 13000 + 1000 * i);
+        try {
+            for (int i = 1; i < 7; i++) {
+                dealer.addPlayer(1000 + i, "Player " + i, i, 13000 + 1000 * i);
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
         }
 
         System.out.println("Welcome to Ryan's awesome poker game!");
@@ -146,6 +151,8 @@ public class CardGamesServer {
                 dealer.takeAction(action, chipAmount);
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
+            } catch (RemoteException ex) {
+                ex.printStackTrace(System.out);
             }
         }
         if (dealer.isWinner()) {
