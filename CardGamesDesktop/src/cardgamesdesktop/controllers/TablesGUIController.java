@@ -184,23 +184,28 @@ public class TablesGUIController implements Initializable, Screens {
                 Button b = (Button)event.getSource();
                 ArrayList<AnchorPane> paneList;
                 List<TableDescription> tableList;
+                String screen;
                 
                 switch(game) {
                     case HOLDEM:
                         paneList = holdem;
                         tableList = holdemTables;
+                        screen = DesktopCardGameGUI.holdemScreen;
                         break;
                     case FIVECARDDRAW:
                         paneList = fivecarddraw;
                         tableList = fivecarddrawTables;
+                        screen = DesktopCardGameGUI.fivecarddrawScreen;
                         break;
                     case EUCHRE:
                         paneList = euchre;
                         tableList = euchreTables;
+                        screen = DesktopCardGameGUI.euchreScreen;
                         break;
                     case BLACKJACK:
                         paneList = blackjack;
                         tableList = blackjackTables;
+                        screen = DesktopCardGameGUI.blackjackScreen;
                         break;
                     default: 
                         throw new IllegalArgumentException("Invalid game");
@@ -208,7 +213,7 @@ public class TablesGUIController implements Initializable, Screens {
                 
                 for(int i = 0; i < paneList.size(); i++) {
                     if(paneList.get(i).getChildren().contains(b)) {
-                        controller.setTableScreen(DesktopCardGameGUI.holdemScreen, tableList.get(i).getTableId(), tableList.get(i).getChatId());
+                        controller.setTableScreen(screen, tableList.get(i).getTableId(), tableList.get(i).getChatId());
                         break;
                     }
                 }

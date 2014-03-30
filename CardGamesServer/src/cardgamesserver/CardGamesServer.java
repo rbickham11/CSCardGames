@@ -41,6 +41,7 @@ public class CardGamesServer {
         tableManager.addHoldemTable(20000, 200, "Mid Stakes Texas Hold'em");
         tableManager.addHoldemTable(100000, 1000, "High Stakes Texas Hold'em");
         tableManager.addEuchreTable("Intermediate Euchre", "For a relaxed game");
+        tableManager.addBlackjackTable(100, 10000, "Mid Stakes Blackjack");
         registerObject(ITableManager.class.getSimpleName(), tableManager);
     }
     

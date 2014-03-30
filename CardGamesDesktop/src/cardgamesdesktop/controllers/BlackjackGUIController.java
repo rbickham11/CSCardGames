@@ -1,7 +1,11 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
+import cardgamesdesktop.utilities.ChatClient;
+import cardgameslib.games.IBlackjackDealer;
 import java.net.URL;
+import java.rmi.*;
+import java.rmi.registry.*;
 import java.util.ResourceBundle;
 import javafx.beans.value.*;
 import javafx.fxml.*;
@@ -128,6 +132,9 @@ public class BlackjackGUIController extends GameController implements Initializa
     private TextField betAmount;
     // </editor-fold>
     
+    IBlackjackDealer dealer;
+    ChatClient chatClient;
+    
     /**
      * Initializes the controller class.
      */
@@ -145,6 +152,22 @@ public class BlackjackGUIController extends GameController implements Initializa
             }
         });
     }   
+    
+    @Override
+    public void connectTable(String tableId, String chatId) {
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            dealer = (IBlackjackDealer)registry.lookup(tableId);
+            chatClient = new ChatClient(chatId, chatBox.textProperty());
+        }
+        catch(NotBoundException ex) {
+            System.out.println("The requested remote object " + tableId + " was not found");
+            ex.printStackTrace(System.out);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
     
     @FXML
     private void goToTablesScreen() {
@@ -194,10 +217,5 @@ public class BlackjackGUIController extends GameController implements Initializa
     @FXML
     private void sendMessage() {
         
-    }
-
-    @Override
-    public void connectTable(String tableId, String chatId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -2,7 +2,8 @@ package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import java.net.URL;
-import java.rmi.RemoteException;
+import java.rmi.*;
+import java.rmi.registry.*;
 import java.util.*;
 import javafx.beans.value.*;
 import javafx.fxml.*;
@@ -13,9 +14,6 @@ import javafx.beans.property.StringProperty;
 import cardgamesdesktop.utilities.*;
 import cardgameslib.games.IHoldemDealer;
 import cardgameslib.utilities.*;
-import java.rmi.NotBoundException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 /**
  * FXML Controller class
  *

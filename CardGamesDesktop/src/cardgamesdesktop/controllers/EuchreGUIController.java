@@ -1,17 +1,17 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
-import cardgamesdesktop.utilities.*;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.beans.property.StringProperty;
+import java.rmi.*;
+import java.rmi.registry.*;
 
 import cardgamesdesktop.utilities.*;
-import cardgameslib.utilities.*;
+import cardgameslib.games.IEuchreDealer;
 
 
 /**
@@ -180,6 +180,7 @@ public class EuchreGUIController extends GameController implements Initializable
     private RadioButton self3;
     // </editor-fold>
     
+    private IEuchreDealer dealer;
     private ChatClient chatClient;
     //private EuchreDealer dealer;
     private PlayerPane[] playerPanes;
@@ -198,14 +199,7 @@ public class EuchreGUIController extends GameController implements Initializable
         playedCards = new AnchorPane[] { player1CardPlayed, player2CardPlayed, player3CardPlayed, player4CardPlayed };
         
         StringProperty chatBoxText = chatBox.textProperty();
-        
-//        try{
-//            chatClient = new ChatClient("EuchreChatServer", chatBox.textProperty());
-//        }
-//        catch(RemoteException ex) {
-//            ex.printStackTrace(System.out);
-//        }
-//        
+               
 //        gameInfo.setEditable(false);
 //        loggedInHeader.setText(UserSessionVars.getUsername());
 //        
@@ -219,6 +213,22 @@ public class EuchreGUIController extends GameController implements Initializable
 //        showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), null);
 //        startNewHand(true);
     }    
+    
+    @Override
+    public void connectTable(String tableId, String chatId) {
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            dealer = (IEuchreDealer)registry.lookup(tableId);
+            chatClient = new ChatClient(chatId, chatBox.textProperty());
+        }
+        catch(NotBoundException ex) {
+            System.out.println("The requested remote object " + tableId + " was not found");
+            ex.printStackTrace(System.out);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
     
 //    private void startNewHand(boolean newGame) {
 //        List<Player> players = dealer.getPlayers();
@@ -341,10 +351,5 @@ public class EuchreGUIController extends GameController implements Initializable
             chatBox.setText("The chat server is currently unavailable.");
         }
         chatMessage.setText("");
-    }
-
-    @Override
-    public void connectTable(String tableId, String chatId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
