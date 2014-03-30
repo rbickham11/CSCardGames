@@ -70,6 +70,7 @@ public class TablesGUIController implements Initializable, Screens {
     private List<TableDescription> holdemTables = new ArrayList<>();
     private List<TableDescription> euchreTables = new ArrayList<>();
     private List<TableDescription> blackjackTables = new ArrayList<>();
+    private List<TableDescription> fivecarddrawTables = new ArrayList<>();
     /**
      * Initializes the controller class.
      */
@@ -180,21 +181,36 @@ public class TablesGUIController implements Initializable, Screens {
         join.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                switch(game)
-                {
+                Button b = (Button)event.getSource();
+                ArrayList<AnchorPane> paneList;
+                List<TableDescription> tableList;
+                
+                switch(game) {
                     case HOLDEM:
-                        controller.setTableScreen(DesktopCardGameGUI.holdemScreen, holdemTables.get(0).getTableId(), holdemTables.get(0).getChatId());
+                        paneList = holdem;
+                        tableList = holdemTables;
                         break;
                     case FIVECARDDRAW:
-                        controller.setScreen(DesktopCardGameGUI.fivecarddrawScreen);
+                        paneList = fivecarddraw;
+                        tableList = fivecarddrawTables;
                         break;
                     case EUCHRE:
-                        controller.setScreen(DesktopCardGameGUI.euchreScreen);
+                        paneList = euchre;
+                        tableList = euchreTables;
                         break;
                     case BLACKJACK:
-                        controller.setScreen(DesktopCardGameGUI.blackjackScreen);
+                        paneList = blackjack;
+                        tableList = blackjackTables;
                         break;
-                    default: break;
+                    default: 
+                        throw new IllegalArgumentException("Invalid game");
+                }
+                
+                for(int i = 0; i < paneList.size(); i++) {
+                    if(paneList.get(i).getChildren().contains(b)) {
+                        controller.setTableScreen(DesktopCardGameGUI.holdemScreen, tableList.get(i).getTableId(), tableList.get(i).getChatId());
+                        break;
+                    }
                 }
             }
         });
