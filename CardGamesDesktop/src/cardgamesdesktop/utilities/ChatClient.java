@@ -16,7 +16,6 @@ public class ChatClient extends UnicastRemoteObject implements ChatListener, Ser
     private final static int PORT = 1099;
     
     private IChatServer chatServer;
-    private Registry registry;
     private StringProperty chatBoxString;
     
     /**
@@ -31,7 +30,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatListener, Ser
         try {
             this.chatBoxString = chatBoxString;
             //Connect to the server registry
-            registry = LocateRegistry.getRegistry(HOST, PORT);
+            Registry registry = RMIConnection.getInstance().getRegistry();
             
             //Get reference to concrete ChatServer implementation
             chatServer = (IChatServer)registry.lookup(remoteServerRef);

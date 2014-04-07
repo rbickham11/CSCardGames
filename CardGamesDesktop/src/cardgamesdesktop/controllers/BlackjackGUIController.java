@@ -2,6 +2,7 @@ package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import cardgamesdesktop.utilities.ChatClient;
+import cardgamesdesktop.utilities.RMIConnection;
 import cardgameslib.games.IBlackjackDealer;
 import java.net.URL;
 import java.rmi.*;
@@ -155,8 +156,8 @@ public class BlackjackGUIController extends GameController implements Initializa
     
     @Override
     public void connectTable(String tableId, String chatId) {
+        Registry registry = RMIConnection.getInstance().getRegistry();
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             dealer = (IBlackjackDealer)registry.lookup(tableId);
             chatClient = new ChatClient(chatId, chatBox.textProperty());
         }

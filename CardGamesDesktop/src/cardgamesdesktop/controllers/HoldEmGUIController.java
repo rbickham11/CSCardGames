@@ -292,8 +292,8 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     @Override
     public void connectTable(String tableId, String chatId) {
+        Registry registry = RMIConnection.getInstance().getRegistry();
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             dealer = (IHoldemDealer)registry.lookup(tableId);
             chatClient = new ChatClient(chatId, chatBox.textProperty());
         }
