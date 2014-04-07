@@ -85,16 +85,16 @@ public class EuchreWinChecker {
         }
     }
 
-    public void determineWinner() {
+    public boolean determineWinner() {
         List<Integer> filteredCards = new ArrayList<>();
-        int winner = -1;
-
+        int winner;
+        
         determineBowers();
         trumpCards(filteredCards);
         
         if (filteredCards.size() > 1) {           // Multiple Trump Cards
             determineHighestTrump(filteredCards);
-        } else if (filteredCards.size() == 0) {
+        } else if (filteredCards.isEmpty()) {
             determineHighestSuit(filteredCards);
         }
 
@@ -120,6 +120,8 @@ public class EuchreWinChecker {
         System.out.println("Winner: " + winner);
         game.setCurrentPlayer(winner);
         resetAfterTrick();
+        
+        return true;
     }
     
     private void awardTrickWin(int player){
@@ -233,5 +235,21 @@ public class EuchreWinChecker {
         rightBower = -1;
         leftBower = -1;
         alone = false;
+    }
+    
+    public int getTeamOneTricks() {
+        return teamOneTricks;
+    }
+    
+    public int getTeamTwoTricks() {
+        return teamTwoTricks;
+    }
+    
+    public int getTeamOneScore() {
+        return teamOneScore;
+    }
+    
+    public int getTeamTwoScore() {
+        return teamTwoScore;
     }
 }

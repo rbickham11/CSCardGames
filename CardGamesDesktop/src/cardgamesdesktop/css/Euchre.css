@@ -20,6 +20,12 @@
     -fx-padding: 0 0 0 3;
 }
 
+.trumpLabel
+{
+    -fx-background-color: #191919;
+    -fx-border-color: #00E3FF;
+}
+
 .gameButtons
 {
     -fx-background-color: #191919;

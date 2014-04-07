@@ -122,7 +122,7 @@ public class EuchreDealer {
         deck.shuffle();                     // Shuffle the deck.
     }
 
-    private int nextPlayer(int player) {
+    public int nextPlayer(int player) {
         // Increment the dealer to the next player at the table.
         player++;
         if (player >= MIN_MAX_PLAYERS) {
@@ -223,13 +223,13 @@ public class EuchreDealer {
         }
     }
 
-    private void sortHandsTrumpFirst() {
+    public void sortHandsTrumpFirst() {
         for (int i = 0; i < MIN_MAX_PLAYERS; i++) {
             sortHandTrumpFirst(i);
         }
     }
 
-    public void sortHandTrumpFirst(int player) {
+    private void sortHandTrumpFirst(int player) {
         boolean containTrump = false;
         int firstTrumpCard = 0;
         int tempCard = 0;
@@ -287,43 +287,42 @@ public class EuchreDealer {
         players.get(player).giveCard(hand);
     }
     
-    public void passOnCallingTrump() {
+    public String passOnCallingTrump() {
+        String action = "";
         if (playersTurn == currentDealer) {
             if (cardUp == true) {
                 cardUp = false;
-                topCard = "";
+                action = "down";
                 System.out.println("Card Turned Down");
             } else {
                 trump = 10;  // End loop for testing
+                action = "muck";
                 System.out.println("Muck Hand");
 //                startNewHand(false);
             }
         }
         playersTurn = nextPlayer(playersTurn);
+        return action;
     }
 
     public void callTrump(int trump, boolean alone) {
-        Scanner temp = new Scanner(System.in);
         // Set trump and start the hand
-        if (cardUp) {
-            this.trump = trump;
-            System.out.print("Player " + currentDealer + ".  What card do you want to discard. ");
-            getCardToReplace(temp.nextInt());
-        } else {
-            this.trump = trump;
-        }
+
+        this.trump = trump;
+        //getCardToReplace(temp.nextInt());
+
         this.alone = alone;
 
         if (alone) {
-            setAlonePlayer(getCurrentPlayer());
+            setAlonePlayer(playersTurn);
         }
-        sortHandsTrumpFirst();
-
-        displayPlayersHands();
-        winChecker.setPlayerCalledTrump(getCurrentPlayer());
-        setCurrentPlayer(nextPlayer(currentDealer));
-        startHand();
-
+//        sortHandsTrumpFirst();
+//
+//        displayPlayersHands();
+//        startHand();
+//
+        winChecker.setPlayerCalledTrump(playersTurn);
+//        setCurrentPlayer(nextPlayer(currentDealer));
         winChecker.setAlone(alone);
         winChecker.setTrump(trump);
     }
@@ -337,22 +336,23 @@ public class EuchreDealer {
         players.get(currentDealer).sortHand();
     }
 
-    private void startHand() {
+    public void startHand() {
         System.out.println("Start Hand");
-        winChecker.setPlayerLead(getCurrentPlayer());
+        winChecker.setPlayerLead(playersTurn);
     }
 
-    public void cardPlayed(int card) {
-        int player = getCurrentPlayer();
+    public boolean cardPlayed(int card) {
+        int player = playersTurn;
         int cardValue = players.get(player).getHand().get(card);
 
         winChecker.setCardPlayed(player, cardValue);
         players.get(player).removeCard(card);
         
         if ((alone && winChecker.getCardPlayedCount() == 3) || (!alone && winChecker.getCardPlayedCount() == 4)) {
-            winChecker.determineWinner();
+            return winChecker.determineWinner();
         }else{
             setCurrentPlayer(nextPlayer(player));
+            return false;
         }
     }
 
@@ -365,16 +365,40 @@ public class EuchreDealer {
         return topCard;
     }
 
+    public boolean isCardUp() {
+        return cardUp;
+    }
+    
     public Player getCurrentDealer() {
         return players.get(currentDealer);
     }
-
-    public int getCurrentPlayer() {
-        return playersTurn;
+    
+    public int getCurrentDealerPos() {
+        return currentDealer;
+    }
+    
+    public Player getCurrentPlayer() {
+        return players.get(playersTurn);
     }
 
     public List<Player> getPlayers() {
         return players;
+    }
+    
+    public int getTeamOneTricks() {
+        return winChecker.getTeamOneTricks();
+    }
+    
+    public int getTeamTwoTricks() {
+        return winChecker.getTeamTwoTricks();
+    }
+    
+    public int getTeamOneScore() {
+        return winChecker.getTeamOneScore();
+    }
+    
+    public int getTeamTwoScore() {
+        return winChecker.getTeamTwoScore();
     }
     
     public void setCurrentPlayer(int player) {

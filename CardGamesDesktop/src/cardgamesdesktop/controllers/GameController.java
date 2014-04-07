@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 public class GameController {
     public void showCard(AnchorPane cardPos, String card) {
         cardPos.getStylesheets().add("cardgamesdesktop/css/Cards.css");
+        cardPos.getStyleClass().clear();
         cardPos.getStyleClass().add("card" + card);
     }
     

@@ -2,17 +2,19 @@ package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import cardgamesdesktop.utilities.*;
-import java.net.URL;
-import java.rmi.RemoteException;
-import java.util.*;
-import javafx.fxml.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.beans.property.StringProperty;
-
 import cardgamesdesktop.utilities.*;
 import cardgameslib.games.euchre.EuchreDealer;
 import cardgameslib.utilities.*;
+import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.*;
+import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
+import javafx.fxml.*;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import jfx.messagebox.MessageBox;
 
 
 /**
@@ -180,12 +182,21 @@ public class EuchreGUIController extends GameController implements Initializable
     private RadioButton self2;
     @FXML
     private RadioButton self3;
+    
+    @FXML
+    private AnchorPane playDiscardCard;
+    @FXML
+    private Button discardCard;
+    @FXML
+    private Button playCard;
     // </editor-fold>
     
     private ChatClient chatClient;
     private EuchreDealer dealer;
     private PlayerPane[] playerPanes;
     private AnchorPane[] playedCards;
+    private boolean canPlayCard = false;
+    private AnchorPane activeCard = null;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -218,47 +229,10 @@ public class EuchreGUIController extends GameController implements Initializable
         dealer.addPlayer(444, "Andrew Haeger", 4);
         
         dealer.determineDealer();
+        updateGameSummary(dealer.getCurrentDealer(), "is the dealer.");
         showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), null);
         startNewHand(true);
     }    
-    
-    private void startNewHand(boolean newGame) {
-        List<Player> players = dealer.getPlayers();
-        
-        for(Player p : players) {
-            activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), "");
-        }
-        for(PlayerPane p : playerPanes) {
-            removeCard(p.getCards().get(0));
-            removeCard(p.getCards().get(1));
-            removeCard(p.getCards().get(2));
-            removeCard(p.getCards().get(3));
-            removeCard(p.getCards().get(4));
-        }
-        
-        dealer.startNewHand(newGame);
-        showDealSequencePanel();
-    }
-    
-    private void showDealSequencePanel() {
-        dealOrder.setVisible(true);
-        gameChoices.setVisible(false);
-    }
-    
-    private void showGameChoicesPanel() {
-        gameChoices.setVisible(true);
-        dealOrder.setVisible(false);
-    }
-    
-    private void dealHands() {
-        List<AnchorPane> cards;
-        for(Player p : dealer.getPlayers()) {
-            cards = playerPanes[p.getSeatNumber() - 1].getCards();
-            for(int i = 0; i < cards.size(); i++) {
-                showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
-            }
-        }
-    }
     
     @Override
     public void setPreviousScreen(String previous) {
@@ -280,19 +254,42 @@ public class EuchreGUIController extends GameController implements Initializable
         controller.setScreen(DesktopCardGameGUI.statisticsScreen);
     }
     
-    @FXML
-    private void pass() {
+    private void startNewHand(boolean newGame) {
+        canPlayCard = false;
+        activeCard = null;
+        List<Player> players = dealer.getPlayers();
         
+        for(Player p : players) {
+            activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), "");
+        }
+        for(PlayerPane p : playerPanes) {
+            removeCard(p.getCards().get(0));
+            removeCard(p.getCards().get(1));
+            removeCard(p.getCards().get(2));
+            removeCard(p.getCards().get(3));
+            removeCard(p.getCards().get(4));
+        }
+        
+        dealer.startNewHand(newGame);
+        showDealSequencePanel();
     }
     
-    @FXML
-    private void call() {
-        
+    private void dealHands() {
+        List<AnchorPane> cards;
+        for(Player p : dealer.getPlayers()) {
+            cards = playerPanes[p.getSeatNumber() - 1].getCards();
+            for(int i = 0; i < cards.size(); i++) {
+                removeCard(cards.get(i));
+                if(p.getHand().size() > i) {
+                    showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
+                }
+            }
+        }
     }
     
     @FXML
     private void dealCards() {
-        String sequence = "";
+        String sequence;
         
         // Left
         if(left2.isSelected()) {
@@ -300,21 +297,18 @@ public class EuchreGUIController extends GameController implements Initializable
         } else {
             sequence = "3";
         }
-        
         // Front
         if(front2.isSelected()) {
             sequence += ", 2";
         } else {
             sequence += ", 3";
         }
-        
         // Right
         if(right2.isSelected()) {
             sequence += ", 2";
         } else {
             sequence += ", 3";
         }
-        
         // Self
         if(self2.isSelected()) {
             sequence += ", 2";
@@ -324,17 +318,200 @@ public class EuchreGUIController extends GameController implements Initializable
         
         dealer.dealHands(sequence);
         showGameChoicesPanel();
-        
         dealHands();
-        dealer.displayPlayersHands();
+        disableAllTrumpChoices();
+        showTopCard();
+        showAvailableTrump();
+        showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer());
     }
     
     private void showTopCard() {
+        Player p = dealer.getCurrentDealer();
+        AnchorPane topCard = playerPanes[p.getSeatNumber() - 1].getTopCard();
+        showCard(topCard, dealer.getTopCard());
+    }
+    
+    private void downTopCard() {
+        Player p = dealer.getCurrentDealer();
+        AnchorPane topCard = playerPanes[p.getSeatNumber() - 1].getTopCard();
+        removeCard(topCard);
+    }
+    
+    @FXML
+    private void pass() {
+        String action;
+        AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+        updateGameSummary(dealer.getCurrentPlayer(), "passed.");
+        action = dealer.passOnCallingTrump();
+        showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), previousPlayer);
+        
+        switch (action) {
+            case "down":
+                updateGameSummary(dealer.getTopCard() + " was turned down.");
+                downTopCard();
+                toggleTrumpChoices();
+                break;
+            case "muck":
+                break;
+        }
+    }
+    
+    @FXML
+    private void call() {
+        boolean alone = goAlone.isSelected();
+        int trump;
+        String selectTrump = "";
+        
+        if(clubs.isSelected()) {
+            trump = 0;
+            selectTrump = "C";
+        } else if(diamonds.isSelected()) {
+            trump = 1;
+            selectTrump = "D";
+        } else if(spades.isSelected()) {
+            trump = 2;
+            selectTrump = "S";
+        } else if(hearts.isSelected()) {
+            trump = 3;
+            selectTrump = "H";
+        } else {
+            trump = 4;
+        }
+        
+        if(trump < 4) {
+            canPlayCard = true;
+            updateGameSummary(dealer.getCurrentPlayer(), "called " + selectTrump + "'s trump.");
+            if(dealer.isCardUp()) {
+                AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+                showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), previousPlayer);
+                dealer.setCurrentPlayer(dealer.getCurrentDealerPos());
+                showCardActions("discard");
+            }
+            dealer.callTrump(trump, alone);
+            showTrump(selectTrump);
+            
+            if(!dealer.isCardUp()) {
+                startHand();
+            }
+        } else{
+            MessageBox.show(null, "You did not select a suit.", "Error", MessageBox.ICON_ERROR | MessageBox.OK);
+        }
+    }
+    
+    private void showTrump(String trump) {
+        currentTrump.getStylesheets().add("cardgamesdesktop/css/Cards.css");
+        currentTrump.getStyleClass().add(trump);
         
     }
     
-    private void showAvailableTrump() {
+    private void removeTrump() {
+        currentTrump.getStyleClass().remove(1);
+    }
+    
+    @FXML
+    private void activeCard(MouseEvent event) {
+        AnchorPane card = (AnchorPane)event.getSource();
+        String source = card.getId();
+        String parent = source.substring(0, 7);
+        source = parent.replace("player", "");
         
+        if(source.equals(Integer.toString(dealer.getCurrentPlayer().getSeatNumber())) && !card.getStyleClass().isEmpty() && canPlayCard) {
+            if(card.getLayoutY() == -10) {
+                resetActiveCards(parent);
+                playCard.setDisable(true);
+            } else {
+                resetActiveCards(parent);
+                card.setLayoutY(-10);
+                activeCard = card;
+                playCard.setDisable(false);
+            }
+        }
+    }
+    
+    private void resetActiveCards(String player) {
+        AnchorPane playerContain = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+        
+        for(int i = 1; i <= 5; i++) {
+            playerContain.lookup("#" + player + "Card" + i).setLayoutY(0);
+        }
+        activeCard = null;
+    }
+    
+    @FXML
+    private void cardAction(ActionEvent event) {
+        Button action = (Button)event.getSource();
+        String id = action.getId();
+        
+        if(activeCard != null) {
+            switch(id) {
+                case "playCard":
+                    AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+                    AnchorPane playedCard = playedCards[dealer.getCurrentPlayer().getSeatNumber() - 1];
+                    boolean trickDone;
+                    
+                    showCard(playedCard, activeCard.getStyleClass().get(0).replace("card", ""));
+                    removeCard(activeCard);
+                    activeCard.setLayoutY(0);
+                    trickDone = dealer.cardPlayed(Integer.parseInt(activeCard.getId().substring(11)) - 1);
+                    activeCard = null;
+                    playCard.setDisable(true);
+                    showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), previousPlayer);
+                    
+                    if(trickDone) {
+                        resetAfterTrick();
+                    }
+                    break;
+                case "discardCard":
+                    dealer.getCardToReplace(Integer.parseInt(activeCard.getId().substring(11)) - 1);
+                    startHand();
+                    break;
+            }
+        } else {
+            MessageBox.show(null, "You did not select a card.", "Error", MessageBox.ICON_ERROR | MessageBox.OK);
+        }
+    }
+    
+    private void startHand() {
+        AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+        downTopCard();
+        dealer.sortHandsTrumpFirst();
+        if(activeCard != null) {
+            activeCard.setLayoutY(0);
+            activeCard = null;
+        }
+        dealer.setCurrentPlayer(dealer.nextPlayer(dealer.getCurrentDealerPos()));
+        showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), previousPlayer);
+        dealHands();
+        dealer.startHand();
+        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
+        canPlayCard = true;
+        showCardActions("play");
+        playCard.setDisable(true);
+    }
+    
+    private void resetAfterTrick() {
+        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
+        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
+        teamOneTricks.setText(Integer.toString(dealer.getTeamOneTricks()));
+        teamOnePoints.setText(Integer.toString(dealer.getTeamOneScore()));
+        teamTwoTricks.setText(Integer.toString(dealer.getTeamTwoTricks()));
+        teamTwoPoints.setText(Integer.toString(dealer.getTeamTwoScore()));
+        clearPlayedCards();
+        dealHands();
+    }
+    
+    private void clearPlayedCards() {
+        for(AnchorPane played : playedCards) {
+            removeCard(played);
+        }
+    }
+    
+    private void updateGameSummary(String action) {
+        gameInfo.appendText(String.format("%s\n", action));
+    }
+    
+    private void updateGameSummary(Player player, String action) {
+        gameInfo.appendText(String.format("%s %s\n", player.getUsername(), action));
     }
     
     @FXML
@@ -347,5 +524,96 @@ public class EuchreGUIController extends GameController implements Initializable
             chatBox.setText("The chat server is currently unavailable.");
         }
         chatMessage.setText("");
+    }
+    
+    private void showAvailableTrump() {
+        if(dealer.isCardUp()) {
+            switch (dealer.getTopCard().charAt(1)){
+                case 'C':
+                    changeClubsOption(false, true);
+                    break;
+                case 'D':
+                    changeDiamondsOption(false, true);
+                    break;
+                case 'S':
+                    changeSpadesOption(false, true);
+                    break;
+                case 'H':
+                    changeHeartsOption(false, true);
+                    break;
+            }
+        } else {
+            toggleTrumpChoices();
+        }
+    }
+    
+    private void disableAllTrumpChoices() {
+        changeSpadesOption(true, false);
+        changeHeartsOption(true, false);
+        changeDiamondsOption(true, false);
+        changeClubsOption(true, false);
+    }
+    
+    private void toggleTrumpChoices() {
+        changeSpadesOption(!spades.isDisabled(), false);
+        changeHeartsOption(!hearts.isDisabled(), false);
+        changeDiamondsOption(!diamonds.isDisabled(), false);
+        changeClubsOption(!clubs.isDisabled(), false);
+    }
+    
+    private void changeSpadesOption(boolean disable, boolean selected) {
+        spades.setDisable(disable);
+        spadesLabel.setDisable(disable);
+        spades.setSelected(selected);
+    }
+    
+    private void changeHeartsOption(boolean disable, boolean selected)  {
+        hearts.setDisable(disable);
+        heartsLabel.setDisable(disable);
+        hearts.setSelected(selected);
+    }
+    
+    private void changeDiamondsOption(boolean disable, boolean selected) {
+        diamonds.setDisable(disable);
+        diamondsLabel.setDisable(disable);
+        diamonds.setSelected(selected);
+    }
+    
+    private void changeClubsOption(boolean disable, boolean selected) {
+        clubs.setDisable(disable);
+        clubsLabel.setDisable(disable);
+        clubs.setSelected(selected);
+    }
+    
+    private void showDealSequencePanel() {
+        dealOrder.setVisible(true);
+        gameChoices.setVisible(false);
+        playDiscardCard.setVisible(false);
+    }
+    
+    private void showGameChoicesPanel() {
+        gameChoices.setVisible(true);
+        dealOrder.setVisible(false);
+        playDiscardCard.setVisible(false);
+    }
+    
+    private void showCardActions(String action) {
+        showCardActionPanel();
+        switch(action) {
+            case "discard":
+                discardCard.setVisible(true);
+                playCard.setVisible(false);
+                break;
+            case "play":
+                playCard.setVisible(true);
+                discardCard.setVisible(false);
+                break;
+        }
+    }
+    
+    private void showCardActionPanel() {
+        playDiscardCard.setVisible(true);
+        gameChoices.setVisible(false);
+        dealOrder.setVisible(false);
     }
 }
