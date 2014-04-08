@@ -35,6 +35,17 @@ public class HoldEmGUIController extends GameController implements Initializable
     private Label loggedInHeader;
     
     @FXML
+    private AnchorPane joinTableOverlay;
+    @FXML
+    private ComboBox joinTableOpenSeats;
+    @FXML
+    private TextField joinTableStartingChips;
+    @FXML
+    private Button joinTableCancel;
+    @FXML
+    private Button joinTableJoin;
+    
+    @FXML
     private AnchorPane player1;
     @FXML
     private AnchorPane player1Image;
