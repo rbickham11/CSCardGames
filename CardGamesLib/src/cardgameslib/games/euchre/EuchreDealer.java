@@ -64,6 +64,7 @@ public class EuchreDealer {
 
     public EuchreDealer() {
         winChecker = new EuchreWinChecker(this);
+        playersTurn = -1;
         trump = -1;
         alone = false;
         alonePlayer = -1;
@@ -128,7 +129,7 @@ public class EuchreDealer {
         if (player >= MIN_MAX_PLAYERS) {
             player = 0;
         }
-
+        
         if (alonePlayer > -1 && alonePlayer < 2) {
             if (player == (alonePlayer + 2)) {
                 player = nextPlayer(player);
@@ -138,7 +139,7 @@ public class EuchreDealer {
                 player = nextPlayer(player);
             }
         }
-
+        
         return player;
     }
 
@@ -146,7 +147,7 @@ public class EuchreDealer {
         // Only change dealer if this is the beginning
         // of a new game.
         if (!newGame) {
-            nextPlayer(currentDealer);
+            currentDealer = nextPlayer(currentDealer);
         }
 
         deck.collectCards();
@@ -338,10 +339,14 @@ public class EuchreDealer {
 
     public void startHand() {
         System.out.println("Start Hand");
+        startTrick();
+    }
+    
+    public void startTrick() {
         winChecker.setPlayerLead(playersTurn);
     }
 
-    public boolean cardPlayed(int card) {
+    public int cardPlayed(int card) {
         int player = playersTurn;
         int cardValue = players.get(player).getHand().get(card);
 
@@ -352,7 +357,7 @@ public class EuchreDealer {
             return winChecker.determineWinner();
         }else{
             setCurrentPlayer(nextPlayer(player));
-            return false;
+            return 0;
         }
     }
 
@@ -380,6 +385,10 @@ public class EuchreDealer {
     public Player getCurrentPlayer() {
         return players.get(playersTurn);
     }
+    
+    public int getCurrentPlayerPos() {
+        return playersTurn;
+    }
 
     public List<Player> getPlayers() {
         return players;
@@ -399,6 +408,10 @@ public class EuchreDealer {
     
     public int getTeamTwoScore() {
         return winChecker.getTeamTwoScore();
+    }
+    
+    public String getWinner() {
+        return winChecker.getWinner();
     }
     
     public void setCurrentPlayer(int player) {

@@ -22,6 +22,7 @@ public class EuchreWinChecker {
     private int teamTwoTricks;
     private int teamOneScore;
     private int teamTwoScore;
+    private String winner;
 
     public EuchreWinChecker(EuchreDealer game) {
         this.game = game;
@@ -85,9 +86,10 @@ public class EuchreWinChecker {
         }
     }
 
-    public boolean determineWinner() {
+    public int determineWinner() {
         List<Integer> filteredCards = new ArrayList<>();
         int winner;
+        int result = 1;
         
         determineBowers();
         trumpCards(filteredCards);
@@ -95,21 +97,14 @@ public class EuchreWinChecker {
         if (filteredCards.size() > 1) {           // Multiple Trump Cards
             determineHighestTrump(filteredCards);
         } else if (filteredCards.isEmpty()) {
+            for (Integer card : cardsPlayed) {
+                filteredCards.add(card);
+            }
             determineHighestSuit(filteredCards);
         }
 
         winner = cardsPlayed.indexOf(filteredCards.get(0));
         awardTrickWin(winner);
-        
-        if((teamOneTricks + teamTwoTricks) == 5){
-            determineHandWinner();
-            resetAfterHand();
-        }
-        
-        if((teamOneScore >= 10) || teamTwoScore >= 10){
-            determineGameWinner();
-            resetAfterHand();
-        }
         
         System.out.println("Team One Tricks: " + teamOneTricks);
         System.out.println("Team Two Tricks: " + teamTwoTricks);
@@ -121,7 +116,20 @@ public class EuchreWinChecker {
         game.setCurrentPlayer(winner);
         resetAfterTrick();
         
-        return true;
+        if((teamOneTricks + teamTwoTricks) == 5){
+            determineHandWinner();
+            resetAfterHand();
+            result = 2;
+        }
+        
+        if((teamOneScore >= 10) || teamTwoScore >= 10){
+            determineGameWinner();
+            resetAfterHand();
+            resetAfterGame();
+            result = 3;
+        }
+        
+        return result;
     }
     
     private void awardTrickWin(int player){
@@ -137,36 +145,48 @@ public class EuchreWinChecker {
             if(alone) {
                 if(teamOneTricks == 5) {
                     teamOneScore += 4;
+                    winner = "Team One won 4 points.";
                 }else if(teamOneTricks == 4 || teamOneTricks == 3) {
                     teamOneScore += 1;
+                    winner = "Team One won 1 point.";
                 }else if(teamOneTricks < 3) {
                     teamTwoScore += 2;
+                    winner = "Team Two won 2 points.  Team One got Euchred.";
                 }
             }else{
                 if(teamOneTricks == 5){
                     teamOneScore += 2;
+                    winner = "Team One won 2 points.";
                 }else if(teamOneTricks == 4 || teamOneTricks == 3) {
                     teamOneScore += 1;
+                    winner = "Team One won 1 point.";
                 }else if(teamOneTricks < 3) {
                     teamTwoScore += 2;
+                    winner = "Team Two won 2 points.  Team One got Euchred.";
                 }
             }
         }else if(playerCalledTrump == 1 || playerCalledTrump == 3) {
             if(alone) {
                 if(teamTwoTricks == 5) {
                     teamTwoScore += 4;
+                    winner = "Team Two won 4 points.";
                 }else if(teamTwoTricks == 4 || teamTwoTricks == 3) {
                     teamTwoScore += 1;
+                    winner = "Team Two won 1 point.";
                 }else if(teamOneTricks < 3) {
                     teamOneScore += 2;
+                    winner = "Team One won 2 points.  Team Two got Euchred.";
                 }
             }else{
                 if(teamTwoTricks == 5) {
                     teamTwoScore += 2;
+                    winner = "Team Two won 2 points.";
                 }else if(teamTwoTricks == 4 || teamTwoTricks == 3) {
                     teamTwoScore += 1;
+                    winner = "Team Two won 1 point.";
                 }else if(teamTwoTricks < 3) {
                     teamOneScore += 2;
+                    winner = "Team One won 2 points.  Team Two got Euchred.";
                 }
             }
         }
@@ -175,8 +195,10 @@ public class EuchreWinChecker {
     private void determineGameWinner(){
         if(teamOneScore >= 10) {
             System.out.println("Team One Wins!");
+            winner = "Team One Wins!";
         }else if(teamTwoScore >= 10) {
             System.out.println("Team Two Wins!");
+            winner = "Team Two Wins!";
         }
     }
 
@@ -206,17 +228,18 @@ public class EuchreWinChecker {
     
     private void determineHighestSuit(List<Integer> cards) {
         int highestCard = 0;
-        int trumpLead = cardsPlayed.get(playerLead) / 13;
+        int suitLead = cardsPlayed.get(playerLead) / 13;
         
         Collections.sort(cards, Collections.reverseOrder());
         
         for(Integer card : cards) {
-            if((card / 13) == trumpLead){
+            if((card / 13) == suitLead){
                 if(card > highestCard){
                     highestCard = card;
                 }
             }
         }
+        cards.clear();
         cards.add(highestCard);
     }
     
@@ -235,6 +258,13 @@ public class EuchreWinChecker {
         rightBower = -1;
         leftBower = -1;
         alone = false;
+        teamOneTricks = 0;
+        teamTwoTricks = 0;
+    }
+    
+    private void resetAfterGame() {
+        //teamOneScore = 0;
+        //teamTwoScore = 0;
     }
     
     public int getTeamOneTricks() {
@@ -251,5 +281,11 @@ public class EuchreWinChecker {
     
     public int getTeamTwoScore() {
         return teamTwoScore;
+    }
+    
+    public String getWinner() {
+        String temp = winner;
+        winner = "";
+        return temp;
     }
 }

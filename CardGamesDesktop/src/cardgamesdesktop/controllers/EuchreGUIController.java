@@ -8,12 +8,18 @@ import cardgameslib.utilities.*;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import jfx.messagebox.MessageBox;
 
 
@@ -230,7 +236,6 @@ public class EuchreGUIController extends GameController implements Initializable
         
         dealer.determineDealer();
         updateGameSummary(dealer.getCurrentDealer(), "is the dealer.");
-        showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), null);
         startNewHand(true);
     }    
     
@@ -269,8 +274,14 @@ public class EuchreGUIController extends GameController implements Initializable
             removeCard(p.getCards().get(3));
             removeCard(p.getCards().get(4));
         }
-        
         dealer.startNewHand(newGame);
+        
+        AnchorPane previousPlayer = null;
+        
+        if(dealer.getCurrentPlayerPos() != -1) {
+            previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+        }
+        showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), previousPlayer);
         showDealSequencePanel();
     }
     
@@ -282,6 +293,9 @@ public class EuchreGUIController extends GameController implements Initializable
                 removeCard(cards.get(i));
                 if(p.getHand().size() > i) {
                     showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
+                    cards.get(i).setVisible(true);
+                } else {
+                    cards.get(i).setVisible(false);
                 }
             }
         }
@@ -380,14 +394,26 @@ public class EuchreGUIController extends GameController implements Initializable
         
         if(trump < 4) {
             canPlayCard = true;
-            updateGameSummary(dealer.getCurrentPlayer(), "called " + selectTrump + "'s trump.");
+            if(alone) {
+                int curPlayer = dealer.getCurrentPlayerPos();
+                if(curPlayer > -1 && curPlayer < 2) {
+                    curPlayer += 2;
+                } else if(curPlayer > 1 && curPlayer < 4) {
+                    curPlayer -= 2;
+                }
+                playerPanes[curPlayer].getContainer().setOpacity(0.5);
+                updateGameSummary(dealer.getCurrentPlayer(), "called " + selectTrump + "'s trump and is going alone.");
+            } else {
+                updateGameSummary(dealer.getCurrentPlayer(), "called " + selectTrump + "'s trump.");
+            }
+            dealer.callTrump(trump, alone);
             if(dealer.isCardUp()) {
                 AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
                 showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), previousPlayer);
                 dealer.setCurrentPlayer(dealer.getCurrentDealerPos());
                 showCardActions("discard");
             }
-            dealer.callTrump(trump, alone);
+            
             showTrump(selectTrump);
             
             if(!dealer.isCardUp()) {
@@ -400,12 +426,13 @@ public class EuchreGUIController extends GameController implements Initializable
     
     private void showTrump(String trump) {
         currentTrump.getStylesheets().add("cardgamesdesktop/css/Cards.css");
+        currentTrump.getStyleClass().remove("cardDefault");
         currentTrump.getStyleClass().add(trump);
-        
     }
     
     private void removeTrump() {
         currentTrump.getStyleClass().remove(1);
+        currentTrump.getStyleClass().add("cardDefault");
     }
     
     @FXML
@@ -415,7 +442,7 @@ public class EuchreGUIController extends GameController implements Initializable
         String parent = source.substring(0, 7);
         source = parent.replace("player", "");
         
-        if(source.equals(Integer.toString(dealer.getCurrentPlayer().getSeatNumber())) && !card.getStyleClass().isEmpty() && canPlayCard) {
+        if(source.equals(Integer.toString(dealer.getCurrentPlayer().getSeatNumber())) && !card.getStyleClass().contains("cardDefault") && canPlayCard) {
             if(card.getLayoutY() == -10) {
                 resetActiveCards(parent);
                 playCard.setDisable(true);
@@ -447,18 +474,22 @@ public class EuchreGUIController extends GameController implements Initializable
                 case "playCard":
                     AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
                     AnchorPane playedCard = playedCards[dealer.getCurrentPlayer().getSeatNumber() - 1];
-                    boolean trickDone;
+                    int result;
                     
                     showCard(playedCard, activeCard.getStyleClass().get(0).replace("card", ""));
                     removeCard(activeCard);
                     activeCard.setLayoutY(0);
-                    trickDone = dealer.cardPlayed(Integer.parseInt(activeCard.getId().substring(11)) - 1);
+                    result = dealer.cardPlayed(Integer.parseInt(activeCard.getId().substring(11)) - 1);
                     activeCard = null;
                     playCard.setDisable(true);
                     showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), previousPlayer);
                     
-                    if(trickDone) {
+                    if(result == 1) {           // Trick Done
                         resetAfterTrick();
+                    } else if(result == 2) {    // Hand Done
+                        resetAfterHand();
+                    } else if(result == 3) {    // Game Done
+                        resetAfterGame();
                     }
                     break;
                 case "discardCard":
@@ -489,15 +520,37 @@ public class EuchreGUIController extends GameController implements Initializable
         playCard.setDisable(true);
     }
     
-    private void resetAfterTrick() {
-        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
-        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
+    private void updateTricksScores() {
         teamOneTricks.setText(Integer.toString(dealer.getTeamOneTricks()));
         teamOnePoints.setText(Integer.toString(dealer.getTeamOneScore()));
         teamTwoTricks.setText(Integer.toString(dealer.getTeamTwoTricks()));
         teamTwoPoints.setText(Integer.toString(dealer.getTeamTwoScore()));
+    }
+    
+    private void resetAfterTrick() {
+        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
+        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
+        updateTricksScores();
         clearPlayedCards();
         dealHands();
+        dealer.startTrick();
+    }
+    
+    private void resetAfterHand() {
+        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
+        updateGameSummary(null, dealer.getWinner());
+        updateTricksScores();
+        clearPlayedCards();
+        removeTrump();
+        startNewHand(false);
+    }
+    
+    private void resetAfterGame() {
+        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
+        updateGameSummary(null, dealer.getWinner());
+        updateTricksScores();
+        clearPlayedCards();
+        startNewHand(false);
     }
     
     private void clearPlayedCards() {
@@ -511,7 +564,11 @@ public class EuchreGUIController extends GameController implements Initializable
     }
     
     private void updateGameSummary(Player player, String action) {
-        gameInfo.appendText(String.format("%s %s\n", player.getUsername(), action));
+        if(player != null) {
+            gameInfo.appendText(String.format("%s %s\n", player.getUsername(), action));
+        } else {
+            gameInfo.appendText(String.format("%s\n", action));
+        }
     }
     
     @FXML
