@@ -4,7 +4,7 @@ import cardgameslib.utilities.BettingPlayer;
 import cardgameslib.utilities.PokerAction;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,5 +15,6 @@ public interface IHoldemDealer extends Remote {
     public void removePlayer(int id) throws RemoteException;
     public void takeAction(PokerAction action, int chipAmount) throws RemoteException;
     public int getPotSize() throws RemoteException;
-    public List<BettingPlayer> getActivePlayers() throws RemoteException;
+    public ArrayList<Integer> getAvailableSeats() throws RemoteException;
+    public ArrayList<BettingPlayer> getActivePlayers() throws RemoteException;
 }

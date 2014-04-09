@@ -19,7 +19,7 @@ import cardgameslib.utilities.*;
  *
  * @author Andrew Haeger
  */
-public class HoldEmGUIController extends GameController implements Initializable, Screens {
+public class HoldEmGUIController extends GameController implements Initializable {
 
     //  Seat Configuration
     //      9       1
@@ -32,6 +32,18 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     @FXML
     private Label loggedInHeader;
+    
+    @FXML
+    private AnchorPane joinTableOverlay;
+    @FXML
+    private ComboBox joinTableOpenSeats;
+    @FXML
+    private TextField joinTableStartingChips;
+    @FXML
+    private Button joinTableCancel;
+    @FXML
+    private Button joinTableJoin;
+ 
     
     @FXML
     private AnchorPane player1;
@@ -296,6 +308,8 @@ public class HoldEmGUIController extends GameController implements Initializable
         try {
             dealer = (IHoldemDealer)registry.lookup(tableId);
             chatClient = new ChatClient(chatId, chatBox.textProperty());
+            joinTableOpenSeats.getItems().clear();
+            joinTableOpenSeats.getItems().addAll(dealer.getAvailableSeats());
         }
         catch(NotBoundException ex) {
             System.out.println("The requested remote object " + tableId + " was not found");
@@ -354,6 +368,31 @@ public class HoldEmGUIController extends GameController implements Initializable
     @FXML
     private void goToLoginScreen() {
         controller.setScreen(DesktopCardGameGUI.loginScreen);
+    }
+    
+    @FXML
+    private void joinTable() {
+        try {
+            int startingChips = Integer.parseInt(joinTableStartingChips.getText());
+            int seatNumber = Integer.parseInt(joinTableOpenSeats.getSelectionModel().getSelectedItem().toString());
+            dealer.addPlayer(UserSessionVars.getUserId(), UserSessionVars.getUsername(), seatNumber, startingChips);
+            joinTableOverlay.setVisible(false);
+        }
+        catch(NumberFormatException ex) {
+            ex.printStackTrace(System.out);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+        catch(IllegalArgumentException ex) {
+            ex.printStackTrace(System.out);
+        }
+
+    }
+    
+    @FXML
+    private void cancelJoin() {
+        goToTablesScreen();
     }
     
     @FXML

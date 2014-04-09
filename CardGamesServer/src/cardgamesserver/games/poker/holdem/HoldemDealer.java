@@ -27,8 +27,9 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     private final int bigBlind;
     
     private PokerBettingHelper bettingHelper;
-    private List<BettingPlayer> activePlayers;
+    private ArrayList<BettingPlayer> activePlayers;
     private List<Integer> board;
+    private ArrayList<Integer> availableSeats;
    
     /**
      * Constructor for HoldemDealer
@@ -40,6 +41,10 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         bigBlind = bb;
         bettingHelper = new PokerBettingHelper(activePlayers, bigBlind);
 
+        availableSeats = new ArrayList<>();
+        for(int i = 1; i <= MAX_PLAYERS; i++) {
+            availableSeats.add(i);
+        }
         Random r = new Random();
         Collections.rotate(players, r.nextInt(MAX_PLAYERS));
     }
@@ -57,7 +62,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      * @return List<BettingPlayer>
      */
     @Override
-    public List<BettingPlayer> getActivePlayers() throws RemoteException {
+    public ArrayList<BettingPlayer> getActivePlayers() throws RemoteException {
     	return activePlayers;
     }
     
@@ -105,6 +110,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         
     	if(startingChips <= chipLimit) {
             players.add(new BettingPlayer(id, username, seatNum, startingChips));
+            availableSeats.remove(new Integer(seatNum));
             Collections.sort(players);
         } else {
             throw new IllegalArgumentException("Starting chip count exceeds maximum for this table");
@@ -121,6 +127,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             if(player.getUserId() == id) {
                 players.remove(player);
                 activePlayers.remove(player);
+                availableSeats.add(new Integer(player.getSeatNumber()));
                 return;
             }
         }
@@ -284,6 +291,11 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         }
         System.out.println(winMessage);
         return winMessage;
+    }
+
+    @Override
+    public ArrayList<Integer> getAvailableSeats() throws RemoteException {
+        return availableSeats;
     }
 }
 

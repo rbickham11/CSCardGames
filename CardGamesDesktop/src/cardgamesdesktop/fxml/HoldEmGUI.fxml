@@ -2,12 +2,13 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="holdem" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="cardgamesdesktop.controllers.HoldEmGUIController">
+<AnchorPane id="holdem" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cardgamesdesktop.controllers.HoldEmGUIController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1055.0" styleClass="header">
       <children>
@@ -370,6 +371,32 @@
           </children>
         </AnchorPane>
       </children>
+    </AnchorPane>
+    <AnchorPane fx:id="joinTableOverlay" layoutX="0.0" layoutY="0.0" prefHeight="650.0" prefWidth="1055.0" styleClass="joinTableOverlay">
+      <children>
+        <AnchorPane layoutX="347.0" layoutY="229.0" prefHeight="193.0" prefWidth="362.0" styleClass="joinTableContain">
+          <children>
+            <Label layoutX="121.0" layoutY="14.0" styleClass="joinTableHeader" text="Choose a Seat" />
+            <Label layoutX="83.0" layoutY="55.0" styleClass="joinTableLabel" text="Open Seats:" />
+            <ComboBox fx:id="joinTableOpenSeats" layoutX="162.0" layoutY="52.0" prefHeight="21.0" prefWidth="114.0">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Item 1" />
+                  <String fx:value="Item 2" />
+                  <String fx:value="Item 3" />
+                </FXCollections>
+              </items>
+            </ComboBox>
+            <Label layoutX="71.0" layoutY="90.0" styleClass="joinTableLabel" text="Starting Chips:" />
+            <TextField fx:id="joinTableStartingChips" layoutX="162.0" layoutY="85.0" prefWidth="114.0" />
+            <Button fx:id="joinTableCancel" layoutX="111.0" layoutY="134.0" mnemonicParsing="false" onAction="#cancelJoin" styleClass="joinTableButtons" text="Cancel" />
+            <Button fx:id="joinTableJoin" layoutX="199.0" layoutY="134.0" mnemonicParsing="false" onAction="#joinTable" styleClass="joinTableButtons" text="Join" />
+          </children>
+        </AnchorPane>
+      </children>
+      <stylesheets>
+        <URL value="@../css/HoldEm.css" />
+      </stylesheets>
     </AnchorPane>
   </children>
 </AnchorPane>

@@ -36,3 +36,44 @@
     -fx-border-color: #FFDE00;
     -fx-text-fill: #FFDE00;
 }
+
+.joinTableOverlay
+{
+    -fx-background-color: rgba(94, 94, 94, 0.5);
+}
+
+.joinTableContain
+{
+    -fx-background-color: #191919;
+    -fx-border-color: #00E3FF;
+}
+
+.joinTableHeader
+{
+    -fx-font-family: "Arial";
+    -fx-font-size: 18;
+    -fx-text-fill: #00E3FF;
+}
+
+.joinTableLabel
+{
+    -fx-font-family: "Arial";
+    -fx-font-size: 12;
+    -fx-text-fill: #00E3FF;
+}
+
+.joinTableButtons
+{
+    -fx-background-color: #191919;
+    -fx-border-color: #00E3FF;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #00E3FF;
+}
+
+.joinTableButtons:hover
+{
+    -fx-background-color: #00E3FF;
+    -fx-border-color: #191919;
+    -fx-text-fill: #191919;
+    -fx-cursor: hand;
+}
