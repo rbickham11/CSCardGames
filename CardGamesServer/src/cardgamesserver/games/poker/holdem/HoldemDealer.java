@@ -26,7 +26,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     private final int bigBlind;
     
     private PokerBettingHelper bettingHelper;
-    private ArrayList<BettingPlayer> activePlayers;
+    private ArrayList<BettingPlayer> activePlayers = new ArrayList<>();
     private List<Integer> board;
     private ArrayList<Integer> availableSeats;
     
@@ -54,8 +54,9 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      * Getter to return list of players at table
      * @return List<BettingPlayer>
      */
-    public List<BettingPlayer> getPlayers() {
-    	return players;
+    @Override
+    public ArrayList<BettingPlayer> getPlayers() throws RemoteException {
+    	return (ArrayList)players;
     }
     
     /**
@@ -117,7 +118,10 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             throw new IllegalArgumentException("Starting chip count exceeds maximum for this table");
         }
         for(IHoldemReceiver client : clients) {
-            client.updatePlayers();
+            client.initializePlayers();
+        }
+        if(players.size() == 2) {
+            startHand();
         }
     }
     

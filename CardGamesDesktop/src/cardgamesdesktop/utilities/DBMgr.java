@@ -28,12 +28,12 @@ public class DBMgr {
             //Use for remote database
             Properties config = new Properties();
             config.load(new FileInputStream("config.properties"));
-            Connection con = DriverManager.getConnection(
-                    config.getProperty("jdbc.url"),
-                    config.getProperty("jdbc.username"),
-                    config.getProperty("jdbc.password"));
+//            Connection con = DriverManager.getConnection(
+//                    config.getProperty("jdbc.url"),
+//                    config.getProperty("jdbc.username"),
+//                    config.getProperty("jdbc.password"));
            //Use for local database
-           //Connection con = DriverManager.getConnection(URL, USER, PASS);
+           Connection con = DriverManager.getConnection(URL, USER, PASS);
             
             statement = con.createStatement();
             

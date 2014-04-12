@@ -14,7 +14,6 @@ import javafx.beans.property.StringProperty;
 
 import cardgamesdesktop.utilities.*;
 import cardgameslib.games.IHoldemDealer;
-import cardgameslib.receivers.IHoldemReceiver;
 import cardgameslib.utilities.*;
 import javafx.application.Platform;
 /**
@@ -265,6 +264,8 @@ public class HoldEmGUIController extends GameController implements Initializable
     private PlayerPane[] playerPanes;
     private AnchorPane[] boardCardPanes;
     private HoldemReceiver client;
+    
+    private int thisPlayerSeat;
     /**
      * Initializes the controller class.
      */
@@ -314,7 +315,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             joinTableOpenSeats.getItems().clear();
             joinTableOpenSeats.getItems().addAll(dealer.getAvailableSeats());
             client = new HoldemReceiver(this);
-            dealer.addClient((IHoldemReceiver)client);
+            dealer.addClient(client);
         }
         catch(NotBoundException ex) {
             System.out.println("The requested remote object " + tableId + " was not found");
@@ -381,6 +382,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             int startingChips = Integer.parseInt(joinTableStartingChips.getText());
             int seatNumber = Integer.parseInt(joinTableOpenSeats.getSelectionModel().getSelectedItem().toString());
             dealer.addPlayer(UserSessionVars.getUserId(), UserSessionVars.getUsername(), seatNumber, startingChips);
+            thisPlayerSeat = seatNumber;
             joinTableOverlay.setVisible(false);
         }
         catch(NumberFormatException ex) {
@@ -570,11 +572,75 @@ public class HoldEmGUIController extends GameController implements Initializable
         chatMessage.setText("");
     }
     
-    public void updatePlayers() {
+    public void initializePlayers() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                potSize.setText("IT WORKS!!!");
+                try {
+                    for(BettingPlayer p : dealer.getPlayers()) {
+                        PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
+                        activatePlayer(pane.getContainer(), p.getUsername(), Integer.toString(p.getChips()));
+                        pane.getName().setText(p.getUsername());
+                        //Update image
+                    }
+                    for(BettingPlayer p : dealer.getActivePlayers()) {
+                        updateChipValues(p);
+                    }
+                    displayCards();
+                }
+                catch(RemoteException ex) {
+                    ex.printStackTrace(System.out);
+                }
+            }
+        });
+    }
+    
+    public void displayCards() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for(BettingPlayer p : dealer.getActivePlayers()) {
+                        List<AnchorPane> cardPanes = playerPanes[p.getSeatNumber() - 1].getCards();
+                        if(p.getSeatNumber() == thisPlayerSeat) {
+                            for(int i = 0; i < cardPanes.size(); i++) {
+                                removeCard(cardPanes.get(i));
+                                showCard(cardPanes.get(i), Deck.cardToString(p.getHand().get(i)));
+                            }
+                        }
+                        else {
+                            for(int i = 0; i < cardPanes.size(); i++) {
+                                removeCard(cardPanes.get(i));
+                                showCard(cardPanes.get(i), "Blue");
+                            }           
+                        }
+                    }
+                }
+                catch(RemoteException ex) {
+                    ex.printStackTrace(System.out);
+                }
+            }
+        });
+    }
+    
+    public void foldHand(final BettingPlayer p) {
+    
+    }
+    
+    public void updateChipValues(final BettingPlayer p) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    List<BettingPlayer> activePlayers = dealer.getActivePlayers();
+                    PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
+                    pane.getChips().setText(Integer.toString(p.getChips()));
+                    pane.getBetAmount().setText(Integer.toString(p.getCurrentBet()));
+                    potSize.setText(String.format("Pot Size: $%d", dealer.getPotSize()));
+                }
+                catch(RemoteException ex) {
+                    ex.printStackTrace(System.out);
+                }
             }
         });
     }

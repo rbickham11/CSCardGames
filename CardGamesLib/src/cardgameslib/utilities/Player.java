@@ -1,5 +1,6 @@
 package cardgameslib.utilities;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,12 +9,12 @@ import java.util.*;
  * @author Ryan Bickham
  *
  */
-public class Player implements Comparable<Player> {
+public class Player implements Comparable<Player>, Serializable {
 
     protected final int userId;
     protected final String username;
     protected final int seatNumber; //Player # on table (Player 1, Player 2, etc.)
-    protected List<Integer> hand;
+    protected ArrayList<Integer> hand;
 
     /**
      * Constructor for Player
@@ -55,7 +56,7 @@ public class Player implements Comparable<Player> {
      *
      * @return List<Integer>
      */
-    public List<Integer> getHand() {
+    public ArrayList<Integer> getHand() {
         return hand;
     }
 
