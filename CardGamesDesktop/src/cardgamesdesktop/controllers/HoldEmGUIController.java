@@ -1,6 +1,7 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
+import cardgamesdesktop.receivers.HoldemReceiver;
 import java.net.URL;
 import java.rmi.*;
 import java.rmi.registry.*;
@@ -13,7 +14,9 @@ import javafx.beans.property.StringProperty;
 
 import cardgamesdesktop.utilities.*;
 import cardgameslib.games.IHoldemDealer;
+import cardgameslib.receivers.IHoldemReceiver;
 import cardgameslib.utilities.*;
+import javafx.application.Platform;
 /**
  * FXML Controller class
  *
@@ -261,7 +264,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     private final int bigBlind = 200;
     private PlayerPane[] playerPanes;
     private AnchorPane[] boardCardPanes;
-    
+    private HoldemReceiver client;
     /**
      * Initializes the controller class.
      */
@@ -310,6 +313,8 @@ public class HoldEmGUIController extends GameController implements Initializable
             chatClient = new ChatClient(chatId, chatBox.textProperty());
             joinTableOpenSeats.getItems().clear();
             joinTableOpenSeats.getItems().addAll(dealer.getAvailableSeats());
+            client = new HoldemReceiver(this);
+            dealer.addClient((IHoldemReceiver)client);
         }
         catch(NotBoundException ex) {
             System.out.println("The requested remote object " + tableId + " was not found");
@@ -563,5 +568,14 @@ public class HoldEmGUIController extends GameController implements Initializable
             chatBox.setText("The chat server is currently unavailable.");
         }
         chatMessage.setText("");
+    }
+    
+    public void updatePlayers() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                potSize.setText("IT WORKS!!!");
+            }
+        });
     }
 }

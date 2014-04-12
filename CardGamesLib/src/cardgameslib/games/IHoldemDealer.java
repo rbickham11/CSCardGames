@@ -1,5 +1,6 @@
 package cardgameslib.games;
 
+import cardgameslib.receivers.IHoldemReceiver;
 import cardgameslib.utilities.BettingPlayer;
 import cardgameslib.utilities.PokerAction;
 import java.rmi.Remote;
@@ -17,4 +18,6 @@ public interface IHoldemDealer extends Remote {
     public int getPotSize() throws RemoteException;
     public ArrayList<Integer> getAvailableSeats() throws RemoteException;
     public ArrayList<BettingPlayer> getActivePlayers() throws RemoteException;
+    public void addClient(IHoldemReceiver client) throws RemoteException;
+    public void removeClient(IHoldemReceiver client) throws RemoteException;
 }

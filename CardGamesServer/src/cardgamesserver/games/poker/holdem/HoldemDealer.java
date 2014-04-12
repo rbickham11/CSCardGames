@@ -6,12 +6,11 @@ import cardgameslib.utilities.BettingPlayer;
 import cardgamesserver.games.poker.betting.*;
 import cardgameslib.utilities.PokerAction;
 import cardgameslib.games.IHoldemDealer;
+import cardgameslib.receivers.IHoldemReceiver;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  * This class handles Texas Hold'em style poker
  * @author Ryan Bickham
@@ -30,6 +29,8 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     private ArrayList<BettingPlayer> activePlayers;
     private List<Integer> board;
     private ArrayList<Integer> availableSeats;
+    
+    private List<IHoldemReceiver> clients = new ArrayList<>();
    
     /**
      * Constructor for HoldemDealer
@@ -114,6 +115,9 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             Collections.sort(players);
         } else {
             throw new IllegalArgumentException("Starting chip count exceeds maximum for this table");
+        }
+        for(IHoldemReceiver client : clients) {
+            client.updatePlayers();
         }
     }
     
@@ -296,6 +300,16 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     @Override
     public ArrayList<Integer> getAvailableSeats() throws RemoteException {
         return availableSeats;
+    }
+    
+    @Override
+    public void addClient(IHoldemReceiver client) throws RemoteException {
+        clients.add(client);
+    }
+    
+    @Override
+    public void removeClient(IHoldemReceiver client) throws RemoteException {
+        clients.remove(client);
     }
 }
 
