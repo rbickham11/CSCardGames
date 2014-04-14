@@ -258,7 +258,6 @@ public class HoldEmGUIController extends GameController implements Initializable
     // </editor-fold>
     
     private ChatClient chatClient;
-    //private HoldemDealer dealer;
     private IHoldemDealer dealer;
     private final int bigBlind = 200;
     private PlayerPane[] playerPanes;
@@ -296,14 +295,6 @@ public class HoldEmGUIController extends GameController implements Initializable
                 betAmount.setText(Integer.toString(newValue.intValue()));
             }
         });
-        
-//        dealer = new HoldemDealer(20000, bigBlind);
-//        dealer.addPlayer(111, "Ryan", 5, 20000);
-//        dealer.addPlayer(222, "Andrew", 1, 18500);
-//        dealer.addPlayer(333, "Nick", 7, 15000);
-//        dealer.addPlayer(444, "RyanG", 3, 10000);
-        
-        //startNewHand();
     }
     
     @Override
@@ -325,46 +316,6 @@ public class HoldEmGUIController extends GameController implements Initializable
             ex.printStackTrace(System.out);
         }
     }
-    
-//    public void startNewHand() {
-//        List<BettingPlayer> players = dealer.getPlayers();
-//        for(BettingPlayer p : players) {
-//            activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), Integer.toString(p.getChips()));
-//        }
-//        for(AnchorPane card : boardCardPanes) {
-//            removeCard(card);
-//        }
-//        for(PlayerPane p : playerPanes) {
-//            p.getBetAmount().setText("");
-//            removeCard(p.getCards().get(0));
-//            removeCard(p.getCards().get(1));
-//        }
-//        dealer.startHand();
-//        dealHands();
-//        updateChipValues();
-//        players = dealer.getActivePlayers();
-//        playerPanes[players.get(players.size() - 1).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind));
-//        playerPanes[players.get(players.size() - 2).getSeatNumber() - 1].getBetAmount().setText(Integer.toString(bigBlind / 2));
-//        showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), null);
-//        
-//        betButton.setDisable(true);
-//        checkButton.setDisable(true);
-//        callButton.setDisable(false);
-//        raiseButton.setDisable(false);
-//        betAmountSlider.setMin(dealer.getCurrentBet());
-//        betAmountSlider.setMax(dealer.getCurrentPlayer().getChips());
-//    }
-//    
-//    public void dealHands() {
-//        List<AnchorPane> cards;
-//        for(BettingPlayer p : dealer.getActivePlayers()) {
-//            cards = playerPanes[p.getSeatNumber() - 1].getCards();
-//            for(int i = 0; i < cards.size(); i++) {
-//                showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
-//            }
-//        }
-//    }
-    
     
     @FXML
     private void goToTablesScreen() {
@@ -428,60 +379,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     }
     
     private void handleAction(PokerAction action) {
-//        int amount = 0;
-//        int currentSeat = dealer.getCurrentPlayer().getSeatNumber();
-//        
-//        switch(action) {
-//            case BET:
-//            case RAISE:
-//                try {
-//                    amount = Integer.parseInt(betAmount.getText());
-//                }
-//                catch(NumberFormatException ex) {
-//                    ex.printStackTrace(System.out);
-//                    return;
-//                }
-//                break;
-//            case FOLD:
-//                List<AnchorPane> cards = playerPanes[currentSeat - 1].getCards();
-//                for(int i = 0; i < cards.size(); i++) {
-//                    removeCard(cards.get(i));
-//                }
-//        }
-//        
-//        BettingPlayer p = dealer.getCurrentPlayer();
-//        try {
-//            dealer.takeAction(action, amount);
-//        }
-//        catch(IllegalArgumentException ex) {
-//            System.out.println(ex.getMessage());
-//            return;
-//        }
-//        
-//        if(action != PokerAction.FOLD && action != PokerAction.CHECK) {
-//            updateChipValues();
-//        }      
-//        updateGameSummary(p, action);
-//        if(action == PokerAction.BET || action == PokerAction.RAISE) {
-//            checkButton.setDisable(true);
-//            betButton.setDisable(true);
-//            callButton.setDisable(false);
-//            raiseButton.setDisable(false);
-//        }
-//        if(dealer.bettingComplete()) {
-//            completeRound();
-//        }
-//        int nextSeat = dealer.getCurrentPlayer().getSeatNumber();
-//        showPlayersTurn(playerPanes[nextSeat - 1].getContainer(), playerPanes[currentSeat - 1].getContainer());
-//        betAmountSlider.setMin(dealer.getCurrentBet());
-//        betAmountSlider.setMax(dealer.getCurrentPlayer().getChips());
-//        betAmount.setText("");
-//        
-//        //Preflop big blind option
-//        if(dealer.isBigBlindOption()) {
-//            checkButton.setDisable(false);
-//            callButton.setDisable(true);
-//        }
+
     }
     
     private void updateGameSummary(BettingPlayer player, PokerAction action) {
@@ -502,63 +400,6 @@ public class HoldEmGUIController extends GameController implements Initializable
                 gameInfo.appendText(String.format("%s raises to %d\n", player.getUsername(), player.getCurrentBet()));
         }
     }
-    
-//    private void completeRound() {
-//        for(PlayerPane p : playerPanes) {
-//            p.getBetAmount().setText("");
-//        }
-//        
-//        if(dealer.isWinner()) {
-//            gameInfo.appendText(String.format("The winner is %s\n", dealer.getCurrentPlayer().getUsername()));
-//            awardPot();
-//        }
-//        else {
-//            List<Integer> board = dealer.getBoard();
-//            if(board.isEmpty()) {
-//                dealer.dealFlopToBoard();
-//                gameInfo.appendText("The flop is: ");
-//                for(int i = 0; i < 3; i++) {
-//                    showCard(boardCardPanes[i], Deck.cardToString(board.get(i)));
-//                    gameInfo.appendText(Deck.cardToString(board.get(i)) + " ");
-//                }
-//                gameInfo.appendText("\n");
-//            }
-//            else if(board.size() == 5) {
-//                gameInfo.appendText(dealer.findWinner());
-//                awardPot();
-//                return;
-//            }
-//            else {
-//                dealer.dealCardToBoard();
-//                int cardIndex = 3;
-//                String street = "turn";
-//                if(dealer.getBoard().size() == 5) {
-//                    street = "river";
-//                    cardIndex = 4;
-//                }
-//                gameInfo.appendText(String.format("The %s is %s\n", street, Deck.cardToString(board.get(cardIndex))));
-//                showCard(boardCardPanes[cardIndex], Deck.cardToString(board.get(cardIndex)));
-//            }
-//            callButton.setDisable(true);
-//            raiseButton.setDisable(true);
-//            betButton.setDisable(false);
-//            checkButton.setDisable(false);
-//        }
-//    }
-    
-//    private void awardPot() {
-//        updateChipValues();
-//        //Implement 5 second delay, and show winning hand
-//        playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getBetAmount().setText(Integer.toString(dealer.getPotSize()));       
-//        startNewHand();
-//    }
-//    
-//    private void updateChipValues() {
-//        BettingPlayer p = dealer.getActivePlayers().get(dealer.getActivePlayers().size() - 1);
-//        playerPanes[p.getSeatNumber() - 1].getBetAmount().setText(Integer.toString(p.getCurrentBet()));
-//        playerPanes[p.getSeatNumber() - 1].getChips().setText(Integer.toString(p.getChips()));
-//        potSize.setText(String.format("Pot Size: $%d", dealer.getPotSize()));
-//    }
     
     @FXML
     private void sendMessage() {
