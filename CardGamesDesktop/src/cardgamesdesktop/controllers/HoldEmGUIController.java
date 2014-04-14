@@ -354,6 +354,11 @@ public class HoldEmGUIController extends GameController implements Initializable
         this.previous = previous;
     }
     
+    @Override
+    public void closingApplication() {
+        System.out.println("Exiting Holdem");
+    }
+    
     @FXML
     private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);

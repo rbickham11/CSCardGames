@@ -152,6 +152,11 @@ public class BlackjackGUIController extends GameController implements Initializa
         this.previous = previous;
     }
     
+    @Override
+    public void closingApplication() {
+        
+    }
+    
     @FXML
     private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);

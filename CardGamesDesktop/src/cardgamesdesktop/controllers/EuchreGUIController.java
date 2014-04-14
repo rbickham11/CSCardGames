@@ -8,18 +8,12 @@ import cardgameslib.utilities.*;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import jfx.messagebox.MessageBox;
 
 
@@ -127,15 +121,21 @@ public class EuchreGUIController extends GameController implements Initializable
     private AnchorPane player4CardPlayed;
     
     @FXML
+    private AnchorPane scoreboard;
+    @FXML
     private AnchorPane currentTrump;
     @FXML
-    private Label teamOneName;
+    private Label team1Name1;
+    @FXML
+    private Label team1Name3;
     @FXML
     private Label teamOneTricks;
     @FXML
     private Label teamOnePoints;
     @FXML
-    private Label teamTwoName;
+    private Label team2Name2;
+    @FXML
+    private Label team2Name4;
     @FXML
     private Label teamTwoTricks;
     @FXML
@@ -244,6 +244,11 @@ public class EuchreGUIController extends GameController implements Initializable
         this.previous = previous;
     }
     
+    @Override
+    public void closingApplication() {
+        System.out.println("Exiting Euchre");
+    }
+    
     @FXML
     private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);
@@ -266,6 +271,12 @@ public class EuchreGUIController extends GameController implements Initializable
         
         for(Player p : players) {
             activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), "");
+            int seat = p.getSeatNumber();
+            if (seat % 2 == 0) {
+                ((Label)scoreboard.lookup("#team2Name" + seat)).setText(p.getUsername());
+            }else{
+                ((Label)scoreboard.lookup("#team1Name" + seat)).setText(p.getUsername());
+            }
         }
         for(PlayerPane p : playerPanes) {
             removeCard(p.getCards().get(0));
@@ -366,6 +377,8 @@ public class EuchreGUIController extends GameController implements Initializable
                 toggleTrumpChoices();
                 break;
             case "muck":
+                updateGameSummary("Hand was mucked.");
+                resetAfterMuck();
                 break;
         }
     }
@@ -534,6 +547,10 @@ public class EuchreGUIController extends GameController implements Initializable
         clearPlayedCards();
         dealHands();
         dealer.startTrick();
+    }
+    
+    private void resetAfterMuck() {
+        startNewHand(false);
     }
     
     private void resetAfterHand() {

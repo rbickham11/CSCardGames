@@ -242,6 +242,11 @@ public class FiveCardDrawGUIController extends GameController implements Initial
         this.previous = previous;
     }
     
+    @Override
+    public void closingApplication() {
+        
+    }
+    
     @FXML
     private void goToTablesScreen() {
         controller.setScreen(DesktopCardGameGUI.tablesScreen);

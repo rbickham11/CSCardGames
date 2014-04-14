@@ -43,6 +43,11 @@ public class UserStatisticsGUIController implements Initializable, Screens {
         this.previous = previous;
     }
     
+    @Override
+    public void closingApplication() {
+        
+    }
+    
     @FXML
     private void showOverallStats() {
         texasholdemStats.setVisible(false);

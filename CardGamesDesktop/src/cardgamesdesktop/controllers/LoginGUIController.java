@@ -54,6 +54,11 @@ public class LoginGUIController implements Initializable, Screens {
         this.previous = previous;
     }
 
+    @Override
+    public void closingApplication() {
+        
+    }
+    
     @FXML
     private void registerNewUser() {
         String user = registerUsername.getText();

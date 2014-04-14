@@ -69,6 +69,11 @@ public class ManageAccountGUIController implements Initializable, Screens {
         this.previous = previous;
     }
     
+    @Override
+    public void closingApplication() {
+        
+    }
+    
     @FXML
     private void showChangePassword() {
         changeDisplayName.setVisible(false);

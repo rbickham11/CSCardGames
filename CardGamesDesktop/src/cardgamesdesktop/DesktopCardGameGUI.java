@@ -1,8 +1,13 @@
 package cardgamesdesktop;
 
+import cardgamesdesktop.controllers.EuchreGUIController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -47,7 +52,7 @@ public class DesktopCardGameGUI extends Application {
         container.loadScreen(DesktopCardGameGUI.blackjackScreen, DesktopCardGameGUI.blackjackScreenFile);
         container.loadScreen(DesktopCardGameGUI.statisticsScreen, DesktopCardGameGUI.statisticsScreenFile);
 
-        container.setScreen(DesktopCardGameGUI.homeScreen);
+        container.setScreen(DesktopCardGameGUI.holdemScreen);
         
         Group root = new Group();
         root.getChildren().addAll(container);
@@ -68,6 +73,16 @@ public class DesktopCardGameGUI extends Application {
                 int result = MessageBox.show(stage, "Are you sure you want to quit?", "Are you sure?", MessageBox.ICON_QUESTION | MessageBox.YES | MessageBox.NO);
                 
                 if(result == MessageBox.YES) {
+                    try {
+                        ScreensController temp = ((ScreensController)stage.getScene().getRoot().getChildrenUnmodifiable().get(0));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(temp.getScreen(temp.getChildren().get(0).getId())));
+                        Parent loadScreen = (Parent) loader.load();
+                        Screens controller = ((Screens) loader.getController());
+                        controller.closingApplication();
+                    } catch (IOException ex) {
+                        // Do nothing at this point
+                    }
+                    
                     System.exit(0);
                 } else {
                     event.consume();

@@ -83,6 +83,11 @@ public class TablesGUIController implements Initializable, Screens {
         this.previous = previous;
     }
 
+    @Override
+    public void closingApplication() {
+        
+    }
+    
     public void addNewHoldemTable(String tableName, String blind, String maxBuyIn, String capacity) {
         AnchorPane contain = createNewTableEntry(Game.HOLDEM, tableName, blind, maxBuyIn, capacity);
         contain.setLayoutY((holdem.size()) * 50);
