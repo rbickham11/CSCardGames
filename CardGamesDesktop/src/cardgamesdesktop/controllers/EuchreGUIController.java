@@ -2,7 +2,6 @@ package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import cardgamesdesktop.utilities.*;
-import cardgamesdesktop.utilities.*;
 import cardgameslib.games.euchre.EuchreDealer;
 import cardgameslib.utilities.*;
 import java.net.URL;
@@ -425,6 +424,7 @@ public class EuchreGUIController extends GameController implements Initializable
                 showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), previousPlayer);
                 dealer.setCurrentPlayer(dealer.getCurrentDealerPos());
                 showCardActions("discard");
+                discardCard.setDisable(true);
             }
             
             showTrump(selectTrump);
@@ -455,15 +455,17 @@ public class EuchreGUIController extends GameController implements Initializable
         String parent = source.substring(0, 7);
         source = parent.replace("player", "");
         
-        if(source.equals(Integer.toString(dealer.getCurrentPlayer().getSeatNumber())) && !card.getStyleClass().contains("cardDefault") && canPlayCard) {
+        if(source.equals(Integer.toString(dealer.getCurrentPlayer().getSeatNumber())) && !card.getStyleClass().contains("cardDefault") && (card.getOpacity() != 0.7) && canPlayCard) {
             if(card.getLayoutY() == -10) {
                 resetActiveCards(parent);
                 playCard.setDisable(true);
+                discardCard.setDisable(true);
             } else {
                 resetActiveCards(parent);
                 card.setLayoutY(-10);
                 activeCard = card;
                 playCard.setDisable(false);
+                discardCard.setDisable(false);
             }
         }
     }
@@ -472,7 +474,9 @@ public class EuchreGUIController extends GameController implements Initializable
         AnchorPane playerContain = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
         
         for(int i = 1; i <= 5; i++) {
-            playerContain.lookup("#" + player + "Card" + i).setLayoutY(0);
+            if(playerContain.lookup("#" + player + "Card" + i).getLayoutY() == -10) {
+                playerContain.lookup("#" + player + "Card" + i).setLayoutY(0);
+            }
         }
         activeCard = null;
     }
@@ -486,6 +490,7 @@ public class EuchreGUIController extends GameController implements Initializable
             switch(id) {
                 case "playCard":
                     AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+                    resetFollowSuit(dealer.getCurrentPlayer().getSeatNumber());
                     AnchorPane playedCard = playedCards[dealer.getCurrentPlayer().getSeatNumber() - 1];
                     int result;
                     
@@ -496,7 +501,7 @@ public class EuchreGUIController extends GameController implements Initializable
                     activeCard = null;
                     playCard.setDisable(true);
                     showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), previousPlayer);
-                    
+                    followSuit(dealer.getCurrentPlayer().getSeatNumber());
                     if(result == 1) {           // Trick Done
                         resetAfterTrick();
                     } else if(result == 2) {    // Hand Done
@@ -506,6 +511,7 @@ public class EuchreGUIController extends GameController implements Initializable
                     }
                     break;
                 case "discardCard":
+                    discardCard.setDisable(false);
                     dealer.getCardToReplace(Integer.parseInt(activeCard.getId().substring(11)) - 1);
                     startHand();
                     break;
@@ -531,6 +537,63 @@ public class EuchreGUIController extends GameController implements Initializable
         canPlayCard = true;
         showCardActions("play");
         playCard.setDisable(true);
+        discardCard.setDisable(true);
+    }
+    
+    private void followSuit(int player) {
+        List<AnchorPane> cards = playerPanes[player - 1].getCards();
+        int count = dealer.getCurrentPlayer().getHand().size();
+        String leftBower = "";
+        String trump = "";
+        
+        switch(dealer.getTrump()) {
+            case 0: //C
+                leftBower = "JS";
+                trump = "C";
+                break;
+            case 1: //D
+                leftBower = "JH";
+                trump = "D";
+                break;
+            case 2: //S
+                leftBower = "JC";
+                trump = "S";
+                break;
+            case 3: //H
+                leftBower = "JD";
+                trump = "H";
+                break;
+        }
+        
+        for (AnchorPane card : cards) {
+            if(!card.getStyleClass().contains("cardDefault")) {
+                String playedTrump = card.getStyleClass().get(0).substring(5);
+                if((!playedTrump.equals(dealer.getLeadSuit())) || ((!trump.equals(dealer.getLeadSuit())) && card.getStyleClass().get(0).substring(4).equals(leftBower))){
+                    card.setOpacity(0.7);
+                    card.setLayoutY(10);
+                    count -= 1;
+                }
+                if(trump.equals(dealer.getLeadSuit()) && card.getStyleClass().get(0).substring(4).equals(leftBower)){
+                    card.setOpacity(1);
+                    card.setLayoutY(0);
+                    count += 1;
+                }
+            }
+        }
+        if(count == 0) {
+            resetFollowSuit(player);
+        }
+    }
+    
+    private void resetFollowSuit(int player) {
+        List<AnchorPane> cards = playerPanes[player - 1].getCards();
+        
+        for (AnchorPane card : cards) {
+            if(!card.getStyleClass().contains("cardDefault")) {
+                card.setOpacity(1);
+                card.setLayoutY(0);
+            }
+        }
     }
     
     private void updateTricksScores() {

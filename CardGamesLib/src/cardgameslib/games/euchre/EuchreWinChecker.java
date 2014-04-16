@@ -61,6 +61,10 @@ public class EuchreWinChecker {
         cardsPlayedCount += 1;
     }
 
+    public int getPlayerLead() {
+        return playerLead;
+    }
+    
     public void setPlayerLead(int lead) {
         playerLead = lead;
     }

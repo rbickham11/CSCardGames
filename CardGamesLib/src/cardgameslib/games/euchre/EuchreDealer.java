@@ -61,6 +61,7 @@ public class EuchreDealer {
     private int alonePlayer;
     private String topCard;
     private boolean cardUp;
+    private String leadSuit;
 
     public EuchreDealer() {
         winChecker = new EuchreWinChecker(this);
@@ -69,6 +70,7 @@ public class EuchreDealer {
         alone = false;
         alonePlayer = -1;
         topCard = "";
+        leadSuit = "";
         players = new ArrayList<>(MIN_MAX_PLAYERS);
         prepareEuchreDeck();
     }
@@ -156,6 +158,7 @@ public class EuchreDealer {
         topCard = "";
         alone = false;
         alonePlayer = -1;
+        leadSuit = "";
         resetPlayersHands();
         //dealHands("3, 3, 3, 2");
     }
@@ -353,7 +356,12 @@ public class EuchreDealer {
         winChecker.setCardPlayed(player, cardValue);
         players.get(player).removeCard(card);
         
+        if(player == winChecker.getPlayerLead()) {
+            leadSuit = Deck.cardToString(cardValue).substring(1);
+        }
+        
         if ((alone && winChecker.getCardPlayedCount() == 3) || (!alone && winChecker.getCardPlayedCount() == 4)) {
+            leadSuit = "";
             return winChecker.determineWinner();
         }else{
             setCurrentPlayer(nextPlayer(player));
@@ -372,6 +380,10 @@ public class EuchreDealer {
 
     public boolean isCardUp() {
         return cardUp;
+    }
+    
+    public String getLeadSuit() {
+        return leadSuit;
     }
     
     public Player getCurrentDealer() {
