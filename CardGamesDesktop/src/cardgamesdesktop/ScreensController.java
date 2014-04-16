@@ -15,6 +15,7 @@ public class ScreensController extends StackPane {
 
     private final HashMap<String, String> screens = new HashMap<>();
     private static ScreensController instance = null;
+    private static Screens currentController;
 
     protected ScreensController() {
         super();
@@ -46,6 +47,7 @@ public class ScreensController extends StackPane {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(screens.get(name)));
                 Parent loadScreen = (Parent) loader.load();
                 Screens controller = ((Screens) loader.getController());
+                currentController = controller;
                 if (!getChildren().isEmpty()) {
                     controller.setPreviousScreen(getChildren().get(0).getId());
                     getChildren().remove(0);
@@ -68,6 +70,7 @@ public class ScreensController extends StackPane {
                 Parent loadScreen = (Parent) loader.load();
                 GameController controller = loader.getController();
                 controller.connectTable(tableId, chatId);
+                currentController = controller;
                 if (!getChildren().isEmpty()) {
                     controller.setPreviousScreen(getChildren().get(0).getId());
                     getChildren().remove(0);
@@ -81,5 +84,9 @@ public class ScreensController extends StackPane {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    
+    public Screens getCurrentController() {
+        return currentController;
     }
 }

@@ -38,7 +38,7 @@ public class DesktopCardGameGUI extends Application {
     
     @Override
     public void start(final Stage stage) throws Exception {
-        ScreensController container = ScreensController.getInstance();
+        final ScreensController container = ScreensController.getInstance();
         container.loadScreen(DesktopCardGameGUI.homeScreen, DesktopCardGameGUI.homeScreenFile);
         container.loadScreen(DesktopCardGameGUI.loginScreen, DesktopCardGameGUI.loginScreenFile);
         container.loadScreen(DesktopCardGameGUI.tablesScreen, DesktopCardGameGUI.tablesScreenFile);
@@ -70,15 +70,7 @@ public class DesktopCardGameGUI extends Application {
                 int result = MessageBox.show(stage, "Are you sure you want to quit?", "Are you sure?", MessageBox.ICON_QUESTION | MessageBox.YES | MessageBox.NO);
                 
                 if(result == MessageBox.YES) {
-                    try {
-                        ScreensController temp = ((ScreensController)stage.getScene().getRoot().getChildrenUnmodifiable().get(0));
-                         FXMLLoader loader = new FXMLLoader(getClass().getResource(temp.getScreen(temp.getChildren().get(0).getId())));
-                         Parent loadScreen = (Parent) loader.load();
-                         Screens controller = ((Screens) loader.getController());
-                         controller.closingApplication();
-                     } catch (IOException ex) {
-                         // Do nothing at this point
-                     }
+                    container.getCurrentController().closingApplication();
                 } else {
                     event.consume();
                 }
