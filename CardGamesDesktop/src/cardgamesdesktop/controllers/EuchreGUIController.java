@@ -542,46 +542,17 @@ public class EuchreGUIController extends GameController implements Initializable
     
     private void followSuit(int player) {
         List<AnchorPane> cards = playerPanes[player - 1].getCards();
-        int count = dealer.getCurrentPlayer().getHand().size();
-        String leftBower = "";
-        String trump = "";
-        
-        switch(dealer.getTrump()) {
-            case 0: //C
-                leftBower = "JS";
-                trump = "C";
-                break;
-            case 1: //D
-                leftBower = "JH";
-                trump = "D";
-                break;
-            case 2: //S
-                leftBower = "JC";
-                trump = "S";
-                break;
-            case 3: //H
-                leftBower = "JD";
-                trump = "H";
-                break;
-        }
-        
-        for (AnchorPane card : cards) {
-            if(!card.getStyleClass().contains("cardDefault")) {
-                String playedTrump = card.getStyleClass().get(0).substring(5);
-                if((!playedTrump.equals(dealer.getLeadSuit())) || ((!trump.equals(dealer.getLeadSuit())) && card.getStyleClass().get(0).substring(4).equals(leftBower))){
-                    card.setOpacity(0.7);
-                    card.setLayoutY(10);
-                    count -= 1;
-                }
-                if(trump.equals(dealer.getLeadSuit()) && card.getStyleClass().get(0).substring(4).equals(leftBower)){
-                    card.setOpacity(1);
-                    card.setLayoutY(0);
-                    count += 1;
+        List<String> canNotPlay = dealer.followSuit(player - 1);
+        System.out.println(canNotPlay.toString());
+        if(!canNotPlay.isEmpty()) {
+            for(AnchorPane card : cards) {
+                if(!card.getStyleClass().contains("cardDefault")) {
+                    if(canNotPlay.contains(card.getStyleClass().get(0).substring(4))){
+                        card.setOpacity(0.7);
+                        card.setLayoutY(10);
+                    }
                 }
             }
-        }
-        if(count == 0) {
-            resetFollowSuit(player);
         }
     }
     

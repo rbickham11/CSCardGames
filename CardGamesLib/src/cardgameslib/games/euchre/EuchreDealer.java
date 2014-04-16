@@ -61,7 +61,7 @@ public class EuchreDealer {
     private int alonePlayer;
     private String topCard;
     private boolean cardUp;
-    private String leadSuit;
+    private int leadSuit;
 
     public EuchreDealer() {
         winChecker = new EuchreWinChecker(this);
@@ -70,7 +70,7 @@ public class EuchreDealer {
         alone = false;
         alonePlayer = -1;
         topCard = "";
-        leadSuit = "";
+        leadSuit = -1;
         players = new ArrayList<>(MIN_MAX_PLAYERS);
         prepareEuchreDeck();
     }
@@ -158,7 +158,7 @@ public class EuchreDealer {
         topCard = "";
         alone = false;
         alonePlayer = -1;
-        leadSuit = "";
+        leadSuit = -1;
         resetPlayersHands();
         //dealHands("3, 3, 3, 2");
     }
@@ -349,6 +349,41 @@ public class EuchreDealer {
         winChecker.setPlayerLead(playersTurn);
     }
 
+    public List<String> followSuit(int player) {
+        List<String> canNotPlay = new ArrayList<>();
+        int numOfCards = players.get(player).getHand().size();
+        int leftBower = 0;
+        
+        switch (trump) {
+            case 0:                 // Clubs
+                leftBower = 35;
+                break;
+            case 1:                 // Diamonds
+                leftBower = 48;
+                break;
+            case 2:                 // Spades
+                leftBower = 9;
+                break;
+            case 3:                 // Hearts
+                leftBower = 22;
+                break;
+        }
+        
+        for(int card : players.get(player).getHand()) {
+            int suit = card / 13;
+            if((suit != leadSuit) || (trump != leadSuit && card == leftBower)){
+                canNotPlay.add(Deck.cardToString(card));
+            }
+            if(trump == leadSuit && card == leftBower){
+                canNotPlay.remove(Deck.cardToString(card));
+            }
+        }
+        if(canNotPlay.size() == numOfCards) {
+            canNotPlay.clear();
+        }
+        return canNotPlay;
+    }
+    
     public int cardPlayed(int card) {
         int player = playersTurn;
         int cardValue = players.get(player).getHand().get(card);
@@ -357,11 +392,11 @@ public class EuchreDealer {
         players.get(player).removeCard(card);
         
         if(player == winChecker.getPlayerLead()) {
-            leadSuit = Deck.cardToString(cardValue).substring(1);
+            leadSuit = cardValue / 13;
         }
         
         if ((alone && winChecker.getCardPlayedCount() == 3) || (!alone && winChecker.getCardPlayedCount() == 4)) {
-            leadSuit = "";
+            leadSuit = -1;
             return winChecker.determineWinner();
         }else{
             setCurrentPlayer(nextPlayer(player));
@@ -380,10 +415,6 @@ public class EuchreDealer {
 
     public boolean isCardUp() {
         return cardUp;
-    }
-    
-    public String getLeadSuit() {
-        return leadSuit;
     }
     
     public Player getCurrentDealer() {
