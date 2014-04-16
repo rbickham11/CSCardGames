@@ -175,4 +175,8 @@ public class ManageAccountGUIController implements Initializable, Screens {
         newEmail.clear();
         newEmail.setStyle(textInputStyle);
     }
+
+    @Override
+    public void closingApplication() {
+    }
 }

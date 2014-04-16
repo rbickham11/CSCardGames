@@ -293,4 +293,8 @@ public class TablesGUIController implements Initializable, Screens {
     private void goToAccountSettingsScreen() {
         controller.setScreen(DesktopCardGameGUI.accountScreen);
     }
+
+    @Override
+    public void closingApplication() {
+    }
 }

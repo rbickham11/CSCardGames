@@ -1,8 +1,10 @@
 package cardgamesdesktop;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -68,7 +70,15 @@ public class DesktopCardGameGUI extends Application {
                 int result = MessageBox.show(stage, "Are you sure you want to quit?", "Are you sure?", MessageBox.ICON_QUESTION | MessageBox.YES | MessageBox.NO);
                 
                 if(result == MessageBox.YES) {
-                    System.exit(0);
+                    try {
+                        ScreensController temp = ((ScreensController)stage.getScene().getRoot().getChildrenUnmodifiable().get(0));
+                         FXMLLoader loader = new FXMLLoader(getClass().getResource(temp.getScreen(temp.getChildren().get(0).getId())));
+                         Parent loadScreen = (Parent) loader.load();
+                         Screens controller = ((Screens) loader.getController());
+                         controller.closingApplication();
+                     } catch (IOException ex) {
+                         // Do nothing at this point
+                     }
                 } else {
                     event.consume();
                 }

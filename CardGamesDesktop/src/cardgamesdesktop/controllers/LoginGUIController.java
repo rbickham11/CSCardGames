@@ -119,4 +119,8 @@ public class LoginGUIController implements Initializable, Screens {
     private void goToHomeScreen() {
         controller.setScreen(DesktopCardGameGUI.homeScreen);
     }
+
+    @Override
+    public void closingApplication() {
+    }
 }

@@ -485,4 +485,16 @@ public class HoldEmGUIController extends GameController implements Initializable
             }
         });
     }
+
+    @Override
+    public void closingApplication() {
+//        try {
+//            dealer.removePlayer(UserSessionVars.getUserId());
+//            dealer.removeClient(client);
+//            chatClient.closeConnection();
+//        }
+//        catch(RemoteException ex) {
+//            ex.printStackTrace(System.out);
+//        }  
+    }
 }

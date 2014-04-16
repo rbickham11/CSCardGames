@@ -28,9 +28,9 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     private PokerBettingHelper bettingHelper;
     private ArrayList<BettingPlayer> activePlayers = new ArrayList<>();
     private List<Integer> board;
-    private ArrayList<Integer> availableSeats;
     
-    private List<IHoldemReceiver> clients = new ArrayList<>();
+    private final ArrayList<Integer> availableSeats;
+    private final List<IHoldemReceiver> clients = new ArrayList<>();
    
     /**
      * Constructor for HoldemDealer
@@ -314,6 +314,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     @Override
     public void removeClient(IHoldemReceiver client) throws RemoteException {
         clients.remove(client);
+        System.out.println("Removing holdem client");
     }
 }
 

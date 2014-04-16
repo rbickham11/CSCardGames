@@ -98,4 +98,8 @@ public class UserStatisticsGUIController implements Initializable, Screens {
     private void goToEuchreTableScreen() {
         controller.setScreen(DesktopCardGameGUI.euchreScreen);
     }
+
+    @Override
+    public void closingApplication() {
+    }
 }

@@ -352,4 +352,8 @@ public class EuchreGUIController extends GameController implements Initializable
         }
         chatMessage.setText("");
     }
+
+    @Override
+    public void closingApplication() {
+    }
 }

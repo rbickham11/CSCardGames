@@ -280,4 +280,8 @@ public class FiveCardDrawGUIController extends GameController implements Initial
     public void connectTable(String tableId, String chatId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void closingApplication() {
+    }
 }

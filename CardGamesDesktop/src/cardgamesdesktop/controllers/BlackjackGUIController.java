@@ -219,4 +219,8 @@ public class BlackjackGUIController extends GameController implements Initializa
     private void sendMessage() {
         
     }
+
+    @Override
+    public void closingApplication() {
+    }
 }
