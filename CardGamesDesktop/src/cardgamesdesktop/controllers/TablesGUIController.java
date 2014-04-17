@@ -92,13 +92,13 @@ public class TablesGUIController implements Initializable, Screens {
         }
         
         for(TableDescription t : holdemTables) {
-            addNewHoldemTable(t.getCol1(), t.getCol2(), t.getCol3(), t.getCol4());
+            addNewHoldemTable(t.getCol1(), t.getCol2(), t.getCol3(), String.format("%d / %d", t.getPlayerCount(), t.getMaxPlayers()));
         }
         for(TableDescription t : euchreTables) {
-            addNewEuchreTable(t.getCol1(), t.getCol2(), t.getCol3(), t.getCol4());
+            addNewEuchreTable(t.getCol1(), t.getCol2(), t.getCol3(), String.format("%d / %d", t.getPlayerCount(), t.getMaxPlayers()));
         }
         for(TableDescription t : blackjackTables) {
-            addNewBlackjackTable(t.getCol1(), t.getCol2(), t.getCol3(), t.getCol4());
+            addNewBlackjackTable(t.getCol1(), t.getCol2(), t.getCol3(), String.format("%d / %d", t.getPlayerCount(), t.getMaxPlayers()));
         }
     }
 

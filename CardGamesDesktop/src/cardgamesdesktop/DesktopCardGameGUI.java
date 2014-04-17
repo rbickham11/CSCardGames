@@ -71,6 +71,7 @@ public class DesktopCardGameGUI extends Application {
                 
                 if(result == MessageBox.YES) {
                     container.getCurrentController().closingApplication();
+                    System.exit(0);
                 } else {
                     event.consume();
                 }

@@ -31,18 +31,18 @@ public class CardGamesServer {
      */
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
         CardGamesServer server = new CardGamesServer();
-        server.runPokerGame();
+        //server.runPokerGame();
 //        server.runEuchreGame();
 //        server.runBlackjackGame();
         
-//        registry = LocateRegistry.createRegistry(PORT);
-//        
-//        TableManager tableManager = TableManager.getInstance();
-//        tableManager.addHoldemTable(20000, 200, "Mid Stakes Texas Hold'em");
-//        tableManager.addHoldemTable(100000, 1000, "High Stakes Texas Hold'em");
-//        tableManager.addEuchreTable("Intermediate Euchre", "For a relaxed game");
-//        tableManager.addBlackjackTable(100, 10000, "Mid Stakes Blackjack");
-//        registerObject(ITableManager.class.getSimpleName(), tableManager);
+        registry = LocateRegistry.createRegistry(PORT);
+        
+        TableManager tableManager = TableManager.getInstance();
+        tableManager.addHoldemTable(20000, 200, "Mid Stakes Texas Hold'em");
+        tableManager.addHoldemTable(100000, 1000, "High Stakes Texas Hold'em");
+        tableManager.addEuchreTable("Intermediate Euchre", "For a relaxed game");
+        tableManager.addBlackjackTable(100, 10000, "Mid Stakes Blackjack");
+        registerObject(ITableManager.class.getSimpleName(), tableManager);
     }
     
     public static void registerObject(String name, Remote remoteObj) throws RemoteException, AlreadyBoundException {

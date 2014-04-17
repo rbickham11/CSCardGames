@@ -8,6 +8,12 @@ import cardgamesserver.games.poker.holdem.HoldemDealer;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import cardgameslib.*;
+import cardgameslib.games.IBlackjackDealer;
+import cardgameslib.games.IEuchreDealer;
+import cardgameslib.games.IHoldemDealer;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
@@ -56,8 +62,7 @@ public class TableManager extends UnicastRemoteObject implements ITableManager {
         }
 
         holdemTables.add(new TableDescription(tableId, chatId, description, 
-                String.format("Blinds: %d / %d", bb / 2, bb), String.format("Max Buy-in: %d", maxChips), 
-                String.format("%d / %d", 0, HoldemDealer.MAX_PLAYERS)));
+                String.format("Blinds: %d / %d", bb / 2, bb), String.format("Max Buy-in: %d", maxChips), HoldemDealer.MAX_PLAYERS));
     }
     
     public void addEuchreTable(String description1, String description2) {
@@ -83,7 +88,7 @@ public class TableManager extends UnicastRemoteObject implements ITableManager {
         }
 
         euchreTables.add(new TableDescription(tableId, chatId, description1, 
-                description2, "", String.format("%d / %d", 0, EuchreDealer.MIN_MAX_PLAYERS)));
+                description2, "", EuchreDealer.MIN_MAX_PLAYERS));
     }
     
     public void addBlackjackTable(int lowLimit, int highLimit, String description) {
@@ -109,8 +114,7 @@ public class TableManager extends UnicastRemoteObject implements ITableManager {
         }
 
         blackjackTables.add(new TableDescription(tableId, chatId, description, 
-                String.format("Minimum Bet: %d", lowLimit), String.format("Maximum Bet: %d", highLimit), 
-                String.format("%d / %d", 0, BlackjackDealer.MAX_PLAYERS)));
+                String.format("Minimum Bet: %d", lowLimit), String.format("Maximum Bet: %d", highLimit), BlackjackDealer.MAX_PLAYERS));
     }
         
     public String getRandomIdString() {
@@ -124,16 +128,46 @@ public class TableManager extends UnicastRemoteObject implements ITableManager {
 
     @Override
     public List<TableDescription> getHoldemTables() throws RemoteException {
+        Registry r = LocateRegistry.getRegistry(CardGamesServer.PORT);
+        for(TableDescription desc : holdemTables) {
+            try {
+                IHoldemDealer d = (IHoldemDealer)r.lookup(desc.getTableId());
+                desc.setPlayerCount(d.getPlayers().size());
+            }
+            catch(NotBoundException | RemoteException ex) {
+                ex.printStackTrace(System.out);
+            }
+        }
         return holdemTables;
     }
 
     @Override
     public List<TableDescription> getEuchreTables() throws RemoteException {
+        Registry r = LocateRegistry.getRegistry(CardGamesServer.PORT);
+        for(TableDescription desc : euchreTables) {
+            try {
+                IEuchreDealer d = (IEuchreDealer)r.lookup(desc.getTableId());
+                desc.setPlayerCount(d.getPlayers().size());
+            }
+            catch(NotBoundException | RemoteException ex) {
+                ex.printStackTrace(System.out);
+            }
+        }
         return euchreTables;
     }
 
     @Override
     public List<TableDescription> getBlackjackTables() throws RemoteException {
+        Registry r = LocateRegistry.getRegistry(CardGamesServer.PORT);
+        for(TableDescription desc : blackjackTables) {
+            try {
+                IBlackjackDealer d = (IBlackjackDealer)r.lookup(desc.getTableId());
+                desc.setPlayerCount(d.getPlayers().size());
+            }
+            catch(NotBoundException | RemoteException ex) {
+                ex.printStackTrace(System.out);
+            }
+        }
         return blackjackTables;
     }
 }

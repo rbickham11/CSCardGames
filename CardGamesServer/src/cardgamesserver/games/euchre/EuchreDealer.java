@@ -377,8 +377,8 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         return playersTurn;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public ArrayList<Player> getPlayers() {
+        return (ArrayList)players;
     }
     
     public void setCurrentPlayer(int player) {

@@ -13,15 +13,16 @@ public class TableDescription implements Serializable {
     private String col1;
     private String col2;
     private String col3;
-    private String col4;
+    private int playerCount = 0;
+    private final int maxPlayers;
     
-    public TableDescription(String tableId, String chatId, String col1, String col2, String col3, String col4) {
+    public TableDescription(String tableId, String chatId, String col1, String col2, String col3, int maxPlayers) {
         this.tableId = tableId;
         this.chatId = chatId;
         this.col1 = col1;
         this.col2 = col2;
         this.col3 = col3;
-        this.col4 = col4;
+        this.maxPlayers = maxPlayers;
     }
     
     public String getTableId() { return tableId; }
@@ -29,5 +30,7 @@ public class TableDescription implements Serializable {
     public String getCol1() { return col1; }
     public String getCol2() { return col2; }
     public String getCol3() { return col3; }
-    public String getCol4() { return col4; }
+    public int getPlayerCount() { return playerCount; }
+    public int getMaxPlayers() { return maxPlayers; }
+    public void setPlayerCount(int playerCount) { this.playerCount = playerCount; }
 }

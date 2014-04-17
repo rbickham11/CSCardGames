@@ -23,7 +23,6 @@ public class BlackjackDealer extends UnicastRemoteObject implements IBlackjackDe
     
     private final Map<Integer, Integer[]> handValues = new HashMap<>();
 
-    
     private List<BettingPlayer> activePlayers = new ArrayList<>();
     private boolean playerFinished;
     
@@ -236,6 +235,7 @@ public class BlackjackDealer extends UnicastRemoteObject implements IBlackjackDe
 
     }
     
+    public ArrayList<BettingPlayer> getPlayers() { return (ArrayList)players; }
     public List<BettingPlayer> getActivePlayers() {return activePlayers;}
     public List<Integer> getDealerHand() {return dealerHand;}
     public boolean getPlayerFinished() {return playerFinished;}
