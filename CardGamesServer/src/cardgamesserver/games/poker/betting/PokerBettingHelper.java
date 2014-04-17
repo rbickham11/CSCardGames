@@ -79,7 +79,12 @@ public class PokerBettingHelper {
         if(preflop){
             firstToAct = activePlayers.get(0);
             lastToAct = activePlayers.get(activePlayers.size() - 1);
-            bbPlayer = activePlayers.get(1);
+            if(activePlayers.size() == 2) {
+                bbPlayer = activePlayers.get(0);
+            }
+            else {
+                bbPlayer = activePlayers.get(1);
+            }
         }
         activeBet = 0;
         allActed = false;
@@ -93,6 +98,9 @@ public class PokerBettingHelper {
         }
         
         if(preflop) {
+            if(activePlayers.size() == 2) {
+                Collections.rotate(activePlayers, -1);
+            }
             bet(bigBlind / 2);
             Collections.rotate(activePlayers, -1);
             bet(bigBlind);

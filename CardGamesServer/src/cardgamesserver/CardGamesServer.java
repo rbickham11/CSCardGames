@@ -66,7 +66,7 @@ public class CardGamesServer {
         Scanner s = new Scanner(System.in);
 
         try {
-            for (int i = 1; i < 5; i++) {
+            for (int i = 1; i < 3; i++) {
                 dealer.addPlayer(1000 + i, "Player " + i, i, 13000 + 1000 * i);
             }
         }

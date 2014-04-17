@@ -259,7 +259,6 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     private ChatClient chatClient;
     private IHoldemDealer dealer;
-    private final int bigBlind = 200;
     private PlayerPane[] playerPanes;
     private AnchorPane[] boardCardPanes;
     private HoldemReceiver client;
@@ -287,7 +286,6 @@ public class HoldEmGUIController extends GameController implements Initializable
         
         gameInfo.setEditable(false);
         loggedInHeader.setText(UserSessionVars.getUsername());
-        betAmountSlider.setMajorTickUnit(bigBlind);
         betAmountSlider.setMinorTickCount(0);
         betAmountSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -315,16 +313,6 @@ public class HoldEmGUIController extends GameController implements Initializable
         catch(RemoteException ex) {
             ex.printStackTrace(System.out);
         }
-    }
-    
-    @FXML
-    private void goToTablesScreen() {
-        controller.setScreen(DesktopCardGameGUI.tablesScreen);
-    }
-    
-    @FXML
-    private void goToLoginScreen() {
-        controller.setScreen(DesktopCardGameGUI.loginScreen);
     }
     
     @FXML
@@ -486,6 +474,18 @@ public class HoldEmGUIController extends GameController implements Initializable
         });
     }
 
+    @FXML
+    private void goToTablesScreen() {
+        closingApplication();
+        controller.setScreen(DesktopCardGameGUI.tablesScreen);
+    }
+    
+    @FXML
+    private void goToLoginScreen() {
+        closingApplication();
+        controller.setScreen(DesktopCardGameGUI.loginScreen);
+    }
+    
     @Override
     public void closingApplication() {
         try {
