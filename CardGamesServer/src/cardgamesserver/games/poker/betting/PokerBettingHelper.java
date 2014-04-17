@@ -196,13 +196,14 @@ public class PokerBettingHelper {
     public void call() {
         int additionalChips = activeBet - activePlayers.get(0).getCurrentBet();
         potSize += additionalChips;
-        if(additionalChips > activePlayers.get(0).getChips())
-        {
+        if(additionalChips > activePlayers.get(0).getChips()) {
             activePlayers.get(0).decrementChips(activePlayers.get(0).getChips());
             activePlayers.get(0).setCurrentBet(activePlayers.get(0).getCurrentBet() + activePlayers.get(0).getChips());
         }
-        activePlayers.get(0).decrementChips(additionalChips);
-        activePlayers.get(0).setCurrentBet(activeBet);
+        else {
+            activePlayers.get(0).decrementChips(additionalChips);
+            activePlayers.get(0).setCurrentBet(activeBet);
+        }
     }
     
     /**
@@ -236,7 +237,7 @@ public class PokerBettingHelper {
             return false;
         }
         for(BettingPlayer player : activePlayers) {
-            if(player.getCurrentBet() != activeBet) {
+            if(player.getCurrentBet() != activeBet && player.getChips() != 0) {
                 return false;
             }
         }
