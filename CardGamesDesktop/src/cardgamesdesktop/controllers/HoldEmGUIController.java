@@ -437,7 +437,6 @@ public class HoldEmGUIController extends GameController implements Initializable
                     for(BettingPlayer p : dealer.getPlayers()) {
                         PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
                         activatePlayer(pane.getContainer(), p.getUsername(), Integer.toString(p.getChips()));
-                        pane.getName().setText(p.getUsername());
                         //Update image
                     }
                     for(BettingPlayer p : dealer.getActivePlayers()) {

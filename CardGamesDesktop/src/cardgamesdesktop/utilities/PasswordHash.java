@@ -1,10 +1,40 @@
 package cardgamesdesktop.utilities;
 
-import java.security.*;
+/* 
+ * Password Hashing With PBKDF2 (http://crackstation.net/hashing-security.htm).
+ * Copyright (c) 2013, Taylor Hornby
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, 
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation 
+ * and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+import java.security.SecureRandom;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.SecretKeyFactory;
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import javax.xml.bind.DatatypeConverter;
 
 /*
  * PBKDF2 salted password hashing.
@@ -20,9 +50,9 @@ public class PasswordHash
     public static final int HASH_BYTE_SIZE = 24;
     public static final int PBKDF2_ITERATIONS = 1000;
 
-    public static final int ITERATION_INDEX = 0;
-    public static final int SALT_INDEX = 1;
-    public static final int PBKDF2_INDEX = 2;
+    public static final int ITERATION_INDEX = 1;
+    public static final int SALT_INDEX = 2;
+    public static final int PBKDF2_INDEX = 3;
 
     /**
      * Returns a salted PBKDF2 hash of the password.
@@ -53,7 +83,7 @@ public class PasswordHash
         // Hash the password
         byte[] hash = pbkdf2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
         // format iterations:salt:hash
-        return PBKDF2_ITERATIONS + ":" + toHex(salt) + ":" +  toHex(hash);
+        return "sha1:" + PBKDF2_ITERATIONS + ":" + toBase64(salt) + ":" +  toBase64(hash);
     }
 
     /**
@@ -82,8 +112,8 @@ public class PasswordHash
         // Decode the hash into its parameters
         String[] params = correctHash.split(":");
         int iterations = Integer.parseInt(params[ITERATION_INDEX]);
-        byte[] salt = fromHex(params[SALT_INDEX]);
-        byte[] hash = fromHex(params[PBKDF2_INDEX]);
+        byte[] salt = fromBase64(params[SALT_INDEX]);
+        byte[] hash = fromBase64(params[PBKDF2_INDEX]);
         // Compute the hash of the provided password, using the same salt, 
         // iteration count, and hash length
         byte[] testHash = pbkdf2(password, salt, iterations, hash.length);
@@ -132,14 +162,9 @@ public class PasswordHash
      * @param   hex         the hex string
      * @return              the hex string decoded into a byte array
      */
-    private static byte[] fromHex(String hex)
+    private static byte[] fromBase64(String hex)
     {
-        byte[] binary = new byte[hex.length() / 2];
-        for(int i = 0; i < binary.length; i++)
-        {
-            binary[i] = (byte)Integer.parseInt(hex.substring(2*i, 2*i+2), 16);
-        }
-        return binary;
+        return DatatypeConverter.parseBase64Binary(hex);
     }
 
     /**
@@ -148,14 +173,55 @@ public class PasswordHash
      * @param   array       the byte array to convert
      * @return              a length*2 character string encoding the byte array
      */
-    private static String toHex(byte[] array)
+    private static String toBase64(byte[] array)
     {
-        BigInteger bi = new BigInteger(1, array);
-        String hex = bi.toString(16);
-        int paddingLength = (array.length * 2) - hex.length();
-        if(paddingLength > 0)
-            return String.format("%0" + paddingLength + "d", 0) + hex;
-        else
-            return hex;
+        return DatatypeConverter.printBase64Binary(array);
     }
+
+    /**
+     * Tests the basic functionality of the PasswordHash class
+     *
+     * @param   args        ignored
+     */
+    public static void main(String[] args)
+    {
+        try
+        {
+            // Print out 10 hashes
+            for(int i = 0; i < 10; i++)
+                System.out.println(PasswordHash.createHash("p\r\nassw0Rd!"));
+
+            // Test password validation
+            boolean failure = false;
+            System.out.println("Running tests...");
+            for(int i = 0; i < 100; i++)
+            {
+                String password = ""+i;
+                String hash = createHash(password);
+                String secondHash = createHash(password);
+                if(hash.equals(secondHash)) {
+                    System.out.println("FAILURE: TWO HASHES ARE EQUAL!");
+                    failure = true;
+                }
+                String wrongPassword = ""+(i+1);
+                if(validatePassword(wrongPassword, hash)) {
+                    System.out.println("FAILURE: WRONG PASSWORD ACCEPTED!");
+                    failure = true;
+                }
+                if(!validatePassword(password, hash)) {
+                    System.out.println("FAILURE: GOOD PASSWORD NOT ACCEPTED!");
+                    failure = true;
+                }
+            }
+            if(failure)
+                System.out.println("TESTS FAILED!");
+            else
+                System.out.println("TESTS PASSED!");
+        }
+        catch(Exception ex)
+        {
+            System.out.println("ERROR: " + ex);
+        }
+    }
+
 }
