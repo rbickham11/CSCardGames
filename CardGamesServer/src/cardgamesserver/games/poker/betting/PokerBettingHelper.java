@@ -19,9 +19,9 @@ public class PokerBettingHelper {
     private int activeBet;
     private int bigBlind;
     
-    private PokerAction lastAction;
     private boolean preflop;
     private boolean allActed;
+    private ArrayList<PokerAction> availableActions;
 
     /**
      * Constructor for PokerBettingHelper
@@ -59,13 +59,9 @@ public class PokerBettingHelper {
     public int getPotSize() {
         return potSize;
     }
-    
-    /**
-     * Getter to return the last action taken
-     * @return Action
-     */
-    public PokerAction getLastAction() {
-    	return lastAction;
+
+    public ArrayList<PokerAction> getAvailableActions() {
+        return availableActions;
     }
     
     /**
@@ -73,10 +69,9 @@ public class PokerBettingHelper {
      * @param preFlop boolean to determine whether or not it is the beginning of a hand
      */
     public void startNewRound(boolean preFlop) {
-    	lastAction = PokerAction.CHECK;
         preflop = preFlop;
         
-        if(preflop){
+        if(preflop) {
             firstToAct = activePlayers.get(0);
             lastToAct = activePlayers.get(activePlayers.size() - 1);
             if(activePlayers.size() == 2) {
@@ -86,6 +81,8 @@ public class PokerBettingHelper {
                 bbPlayer = activePlayers.get(1);
             }
         }
+        
+        availableActions = new ArrayList<>(Arrays.asList(PokerAction.BET, PokerAction.CHECK, PokerAction.FOLD));
         activeBet = 0;
         allActed = false;
         
@@ -161,7 +158,6 @@ public class PokerBettingHelper {
                 throw new IllegalArgumentException("Invalid action");
         }
         
-        lastAction = action;
         if(action != PokerAction.FOLD) {
             Collections.rotate(activePlayers, -1);
         }
@@ -196,6 +192,7 @@ public class PokerBettingHelper {
         activePlayers.get(0).decrementChips(chipAmount);
         activePlayers.get(0).setCurrentBet(chipAmount);
         activeBet = chipAmount;
+        availableActions = new ArrayList<>(Arrays.asList(PokerAction.CALL, PokerAction.FOLD, PokerAction.RAISE));
     }
     
     /**
@@ -211,6 +208,9 @@ public class PokerBettingHelper {
         else {
             activePlayers.get(0).decrementChips(additionalChips);
             activePlayers.get(0).setCurrentBet(activeBet);
+        }
+        if(isBigBlindOption()) {
+            availableActions = new ArrayList<>(Arrays.asList(PokerAction.CHECK, PokerAction.RAISE, PokerAction.FOLD));
         }
     }
     

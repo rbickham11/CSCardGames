@@ -76,14 +76,6 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     	return board;
     }
     
-    /**
-     * Getter to return action of last player
-     * @return Action
-     */
-    public PokerAction getLastAction() {
-    	return bettingHelper.getLastAction();
-    }
-    
     public boolean isBigBlindOption() {
         return bettingHelper.isBigBlindOption();
     }
@@ -162,6 +154,10 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         System.out.printf("The dealer is Player %d\n", players.get(players.size() - 1).getSeatNumber());
         dealHands();
         bettingHelper.startNewRound(true);
+        for(BettingPlayer p : activePlayers) {
+            disableActions(p);
+        }
+        offerActions();
     }
     
     /**
@@ -229,7 +225,32 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      */
     @Override
     public void takeAction(PokerAction action, int chipAmount) throws RemoteException {
+        disableActions(getCurrentPlayer());
         bettingHelper.takeAction(action, chipAmount);
+        for(IHoldemReceiver client : clients) {
+            client.updateChipValues(activePlayers.get(activePlayers.size() - 1));
+        }
+        if(bettingHelper.bettingComplete()) {
+            if(isWinner()) {
+                startHand();
+                return;
+            }
+            else if(board.isEmpty()) {
+                dealFlopToBoard();
+            }
+            else if (board.size() == 5) {
+                findWinner();
+                startHand();
+                return;
+            }
+            else {
+                dealCardToBoard();
+            }
+            bettingHelper.startNewRound(false);
+        }
+        else {
+            offerActions();
+        }
     }
     
     /**
@@ -315,6 +336,38 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     public void removeClient(IHoldemReceiver client) throws RemoteException {
         clients.remove(client);
         System.out.println("Removing holdem client");
+    }
+    
+    public void offerActions() {
+        try {
+            findClientById(getCurrentPlayer().getUserId()).offerActions(bettingHelper.getAvailableActions());
+        }            
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+    
+    public void disableActions(BettingPlayer player) {
+        try {
+            findClientById(player.getUserId()).disableActions();
+        }
+        catch(RemoteException ex) {
+        
+        }
+    }
+    
+    private IHoldemReceiver findClientById(int id) {
+        try {
+            for(IHoldemReceiver client : clients) {
+                if(client.getPlayerId() == id) {
+                    return client;
+                }
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+        throw new IllegalArgumentException("Client with id " + id + " not found.");
     }
 }
 

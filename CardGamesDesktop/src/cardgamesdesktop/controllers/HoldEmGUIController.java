@@ -303,7 +303,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             chatClient = new ChatClient(chatId, chatBox.textProperty());
             joinTableOpenSeats.getItems().clear();
             joinTableOpenSeats.getItems().addAll(dealer.getAvailableSeats());
-            client = new HoldemReceiver(this);
+            client = new HoldemReceiver(this, UserSessionVars.getUserId());
             dealer.addClient(client);
         }
         catch(NotBoundException ex) {
@@ -367,7 +367,35 @@ public class HoldEmGUIController extends GameController implements Initializable
     }
     
     private void handleAction(PokerAction action) {
-
+        int amount = 0;
+        switch(action) {
+            case BET:
+            case RAISE:
+                try {
+                    amount = Integer.parseInt(betAmount.getText());
+                }
+                catch(NumberFormatException ex) {
+                    ex.printStackTrace(System.out);
+                    return;
+                }
+            case FOLD:
+                List<AnchorPane> cards = playerPanes[thisPlayerSeat - 1].getCards();
+                for(int i = 0; i < cards.size(); i++) {
+                    removeCard(cards.get(i));
+                }
+        }
+        
+        try {
+            dealer.takeAction(action, amount);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+            return;
+        }
+        catch(IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+            return;
+        }
     }
     
     private void updateGameSummary(BettingPlayer player, PokerAction action) {
@@ -461,7 +489,6 @@ public class HoldEmGUIController extends GameController implements Initializable
             @Override
             public void run() {
                 try{
-                    List<BettingPlayer> activePlayers = dealer.getActivePlayers();
                     PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
                     pane.getChips().setText(Integer.toString(p.getChips()));
                     pane.getBetAmount().setText(Integer.toString(p.getCurrentBet()));
@@ -496,5 +523,32 @@ public class HoldEmGUIController extends GameController implements Initializable
         catch(RemoteException ex) {
             ex.printStackTrace(System.out);
         }  
+    }
+    
+    public void setAvailableActions(ArrayList<PokerAction> actions) {
+        Map<PokerAction, Button> buttonMap = new HashMap<PokerAction, Button>() {{
+            put(PokerAction.BET, betButton);
+            put(PokerAction.CALL, callButton);
+            put(PokerAction.CHECK, checkButton);
+            put(PokerAction.FOLD, foldButton);
+            put(PokerAction.RAISE, raiseButton);
+        }};       
+        
+        for(PokerAction key : buttonMap.keySet()) {
+            if(actions.contains(key)) {
+                buttonMap.get(key).setDisable(false);
+            }
+            else {
+                buttonMap.get(key).setDisable(true);
+            }
+        }
+    }
+    
+    public void disableActions() {
+        betButton.setDisable(true);
+        callButton.setDisable(true);
+        checkButton.setDisable(true);
+        foldButton.setDisable(true);
+        raiseButton.setDisable(true);
     }
 }
