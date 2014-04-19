@@ -160,12 +160,16 @@ public class PokerBettingHelper {
         
         if(action != PokerAction.FOLD) {
             Collections.rotate(activePlayers, -1);
+            if(isBigBlindOption()) {
+                availableActions = new ArrayList<>(Arrays.asList(PokerAction.CHECK, PokerAction.RAISE, PokerAction.FOLD));
+            }
         }
     }
     
     /**
      * Returns whether or not someone has won from other players folding
      * @return boolean
+
      */
     public boolean isWinner() {
         return activePlayers.size() == 1;
@@ -208,9 +212,6 @@ public class PokerBettingHelper {
         else {
             activePlayers.get(0).decrementChips(additionalChips);
             activePlayers.get(0).setCurrentBet(activeBet);
-        }
-        if(isBigBlindOption()) {
-            availableActions = new ArrayList<>(Arrays.asList(PokerAction.CHECK, PokerAction.RAISE, PokerAction.FOLD));
         }
     }
     

@@ -31,6 +31,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     
     private final ArrayList<Integer> availableSeats;
     private final List<IHoldemReceiver> clients = new ArrayList<>();
+    
    
     /**
      * Constructor for HoldemDealer
@@ -196,6 +197,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         }
         System.out.print("\n");
         bettingHelper.startNewRound(false);
+        offerActions();
     }
     
     /**
@@ -216,6 +218,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         }
         System.out.print("\n");
         bettingHelper.startNewRound(false);
+        offerActions();
     }
     
     /**
@@ -237,6 +240,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             }
             else if(board.isEmpty()) {
                 dealFlopToBoard();
+                updateBoardCards();
             }
             else if (board.size() == 5) {
                 findWinner();
@@ -245,6 +249,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             }
             else {
                 dealCardToBoard();
+                updateBoardCards();
             }
             bettingHelper.startNewRound(false);
         }
@@ -353,6 +358,17 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         }
         catch(RemoteException ex) {
         
+        }
+    }
+    
+    public void updateBoardCards() {
+        try {
+            for(IHoldemReceiver client : clients) {
+                client.updateBoardCards((ArrayList)board);
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
         }
     }
     

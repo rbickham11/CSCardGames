@@ -264,6 +264,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     private HoldemReceiver client;
     
     private int thisPlayerSeat;
+    
     /**
      * Initializes the controller class.
      */
@@ -490,7 +491,13 @@ public class HoldEmGUIController extends GameController implements Initializable
                 try{
                     PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
                     pane.getChips().setText(Integer.toString(p.getChips()));
-                    pane.getBetAmount().setText(Integer.toString(p.getCurrentBet()));
+                    if(p.getCurrentBet() == 0) {
+                        pane.getBetAmount().setText("");
+                    }
+                    else {
+                        pane.getBetAmount().setText(Integer.toString(p.getCurrentBet()));
+                    }
+                
                     potSize.setText(String.format("Pot Size: $%d", dealer.getPotSize()));
                 }
                 catch(RemoteException ex) {
@@ -524,30 +531,57 @@ public class HoldEmGUIController extends GameController implements Initializable
         }  
     }
     
-    public void setAvailableActions(ArrayList<PokerAction> actions) {
-        Map<PokerAction, Button> buttonMap = new HashMap<PokerAction, Button>() {{
-            put(PokerAction.BET, betButton);
-            put(PokerAction.CALL, callButton);
-            put(PokerAction.CHECK, checkButton);
-            put(PokerAction.FOLD, foldButton);
-            put(PokerAction.RAISE, raiseButton);
-        }};       
-        
-        for(PokerAction key : buttonMap.keySet()) {
-            if(actions.contains(key)) {
-                buttonMap.get(key).setDisable(false);
+    public void setAvailableActions(final ArrayList<PokerAction> actions) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Map<PokerAction, Button> buttonMap = new HashMap<PokerAction, Button>() {{
+                    put(PokerAction.BET, betButton);
+                    put(PokerAction.CALL, callButton);
+                    put(PokerAction.CHECK, checkButton);
+                    put(PokerAction.FOLD, foldButton);
+                    put(PokerAction.RAISE, raiseButton);
+                }};       
+
+                for(PokerAction key : buttonMap.keySet()) {
+                    if(actions.contains(key)) {
+                        buttonMap.get(key).setDisable(false);
+                    }
+                    else {
+                        buttonMap.get(key).setDisable(true);
+                    }
+                }
             }
-            else {
-                buttonMap.get(key).setDisable(true);
-            }
-        }
+        });
     }
     
     public void disableActions() {
-        betButton.setDisable(true);
-        callButton.setDisable(true);
-        checkButton.setDisable(true);
-        foldButton.setDisable(true);
-        raiseButton.setDisable(true);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                betButton.setDisable(true);
+                callButton.setDisable(true);
+                checkButton.setDisable(true);
+                foldButton.setDisable(true);
+                raiseButton.setDisable(true);
+            }
+        });
+    }
+    
+    public void updateBoardCards(final ArrayList<Integer> cards) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                for(AnchorPane cardPane : boardCardPanes) {
+                    removeCard(cardPane);
+                }
+                for(int i = 0; i < cards.size(); i++) {
+                    showCard(boardCardPanes[i], Deck.cardToString(cards.get(i)));
+                }
+                for(PlayerPane p : playerPanes) {
+                    p.getBetAmount().setText("");
+                }
+            }
+        });
     }
 }

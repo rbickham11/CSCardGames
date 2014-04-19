@@ -17,4 +17,5 @@ public interface IHoldemReceiver extends Remote {
     public void offerActions(ArrayList<PokerAction> actions) throws RemoteException;
     public void disableActions() throws RemoteException;
     public int getPlayerId() throws RemoteException;
+    public void updateBoardCards(ArrayList<Integer> cards) throws RemoteException;
 }

@@ -50,4 +50,9 @@ public class HoldemReceiver extends UnicastRemoteObject implements IHoldemReceiv
     public int getPlayerId() throws RemoteException {
         return playerId;
     }
+    
+    @Override
+    public void updateBoardCards(ArrayList<Integer> cards) {
+        controller.updateBoardCards(cards);
+    }
 }
