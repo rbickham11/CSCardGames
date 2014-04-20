@@ -55,4 +55,9 @@ public class HoldemReceiver extends UnicastRemoteObject implements IHoldemReceiv
     public void updateBoardCards(ArrayList<Integer> cards) {
         controller.updateBoardCards(cards);
     }
+    
+    @Override
+    public void showActivePlayer(int currentSeat, int lastSeat) {
+        controller.showActivePlayer(currentSeat, lastSeat);
+    }
 }
