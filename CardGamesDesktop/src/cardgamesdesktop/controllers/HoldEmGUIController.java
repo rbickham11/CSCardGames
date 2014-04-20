@@ -379,6 +379,7 @@ public class HoldEmGUIController extends GameController implements Initializable
                     ex.printStackTrace(System.out);
                     return;
                 }
+                break;
             case FOLD:
                 List<AnchorPane> cards = playerPanes[thisPlayerSeat - 1].getCards();
                 for(int i = 0; i < cards.size(); i++) {
@@ -443,7 +444,6 @@ public class HoldEmGUIController extends GameController implements Initializable
                     for(BettingPlayer p : dealer.getActivePlayers()) {
                         updateChipValues(p);
                     }
-                    displayCards();
                 }
                 catch(RemoteException ex) {
                     ex.printStackTrace(System.out);
@@ -489,6 +489,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             @Override
             public void run() {
                 try{
+                    System.out.println("Chip update");
                     PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
                     pane.getChips().setText(Integer.toString(p.getChips()));
                     if(p.getCurrentBet() == 0) {
@@ -497,7 +498,6 @@ public class HoldEmGUIController extends GameController implements Initializable
                     else {
                         pane.getBetAmount().setText(Integer.toString(p.getCurrentBet()));
                     }
-                
                     potSize.setText(String.format("Pot Size: $%d", dealer.getPotSize()));
                 }
                 catch(RemoteException ex) {
@@ -571,12 +571,23 @@ public class HoldEmGUIController extends GameController implements Initializable
     public void updateBoardCards(final ArrayList<Integer> cards) {
         Platform.runLater(new Runnable() {
             @Override
-            public void run() {
-                for(AnchorPane cardPane : boardCardPanes) {
-                    removeCard(cardPane);
-                }
-                for(int i = 0; i < cards.size(); i++) {
-                    showCard(boardCardPanes[i], Deck.cardToString(cards.get(i)));
+            public void run() { 
+                switch(cards.size()) {
+                    case 0:
+                        for(AnchorPane cardPane : boardCardPanes) {
+                            removeCard(cardPane);
+                        }
+                        break;
+                    case 3:
+                        for(int i = 0; i < cards.size(); i++) {
+                            showCard(boardCardPanes[i], Deck.cardToString(cards.get(i)));
+                        }
+                        break;
+                    case 4:
+                        showCard(boardCardPanes[3], Deck.cardToString(cards.get(3)));
+                        break;
+                    case 5:
+                        showCard(boardCardPanes[4], Deck.cardToString(cards.get(4)));
                 }
                 for(PlayerPane p : playerPanes) {
                     p.getBetAmount().setText("");

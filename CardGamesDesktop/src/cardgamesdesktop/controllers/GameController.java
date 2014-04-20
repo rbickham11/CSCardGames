@@ -1,6 +1,8 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.Screens;
+import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
