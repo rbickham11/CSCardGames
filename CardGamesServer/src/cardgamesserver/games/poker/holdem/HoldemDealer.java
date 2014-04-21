@@ -172,6 +172,14 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             ex.printStackTrace(System.out);
         }
         updateBoardCards();
+        try {
+            for(IHoldemReceiver client : clients) {
+                client.showActivePlayer(getCurrentPlayer().getSeatNumber(), 0);
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
         offerActions();
     }
     
@@ -242,6 +250,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      */
     @Override
     public void takeAction(PokerAction action, int chipAmount) throws RemoteException {
+        int lastPlayerSeatNumber = getCurrentPlayer().getSeatNumber();
         disableActions(getCurrentPlayer());
         bettingHelper.takeAction(action, chipAmount);
         for(IHoldemReceiver client : clients) {
@@ -268,6 +277,9 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         }
         else {
             offerActions();
+        }
+        for(IHoldemReceiver client : clients) {
+            client.showActivePlayer(getCurrentPlayer().getSeatNumber(), lastPlayerSeatNumber);
         }
     }
     

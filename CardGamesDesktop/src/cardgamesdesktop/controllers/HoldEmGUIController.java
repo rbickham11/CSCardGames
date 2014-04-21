@@ -595,4 +595,15 @@ public class HoldEmGUIController extends GameController implements Initializable
             }
         });
     }
+    
+    public void showActivePlayer(int currentSeat, int lastSeat) {
+        AnchorPane lastContainer;
+        if(lastSeat == 0) {
+            lastContainer = null;
+        } 
+        else {
+            lastContainer = playerPanes[lastSeat - 1].getContainer();
+        }
+        showPlayersTurn(playerPanes[currentSeat - 1].getContainer(), lastContainer);
+    }
 }

@@ -18,4 +18,5 @@ public interface IHoldemReceiver extends Remote {
     public void disableActions() throws RemoteException;
     public int getPlayerId() throws RemoteException;
     public void updateBoardCards(ArrayList<Integer> cards) throws RemoteException;
+    public void showActivePlayer(int currentSeat, int lastSeat) throws RemoteException;
 }
