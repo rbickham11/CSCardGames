@@ -2,11 +2,13 @@ package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
 import cardgamesdesktop.utilities.*;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -27,6 +29,9 @@ public class ManageAccountGUIController implements Initializable, Screens {
     private AnchorPane changeDisplayName;
     @FXML 
     private AnchorPane changeEmail;
+    @FXML
+    private AnchorPane changeProfilePicture;
+    
     @FXML
     private PasswordField oldPassword;
     @FXML
@@ -49,6 +54,9 @@ public class ManageAccountGUIController implements Initializable, Screens {
     private TextField newEmail;
     @FXML
     private Label emailSuccess;
+    
+    @FXML
+    private AnchorPane newProfilePicture;
     // </editor-fold>
        
     private String textInputStyle;
@@ -73,6 +81,7 @@ public class ManageAccountGUIController implements Initializable, Screens {
     private void showChangePassword() {
         changeDisplayName.setVisible(false);
         changeEmail.setVisible(false);
+        changeProfilePicture.setVisible(false);
         
         changePassword.setVisible(true);
         clearPasswordForm();
@@ -84,6 +93,7 @@ public class ManageAccountGUIController implements Initializable, Screens {
         currentDisplayName.setText(UserSessionVars.getDisplayName());
         changePassword.setVisible(false);
         changeEmail.setVisible(false);
+        changeProfilePicture.setVisible(false);
         
         changeDisplayName.setVisible(true);
         clearDisplayNameForm();
@@ -95,10 +105,31 @@ public class ManageAccountGUIController implements Initializable, Screens {
         currentEmail.setText(UserSessionVars.getEmail());
         changePassword.setVisible(false);
         changeDisplayName.setVisible(false);
+        changeProfilePicture.setVisible(false);
         
         changeEmail.setVisible(true);
         clearEmailForm();
         emailSuccess.setVisible(false);
+    }
+    
+    @FXML
+    private void showChangeProfilePicture() {
+        changePassword.setVisible(false);
+        changeDisplayName.setVisible(false);
+        changeEmail.setVisible(false);
+        
+        changeProfilePicture.setVisible(true);
+    }
+    
+    @FXML
+    private void showFileBrowser() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Find Profile Picture");              
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.tiff")
+        );
+        File file = fileChooser.showOpenDialog(null);
+        
     }
     
     @FXML
