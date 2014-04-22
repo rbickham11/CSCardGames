@@ -32,6 +32,8 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
     private final ArrayList<Integer> availableSeats;
     private final List<IHoldemReceiver> clients = new ArrayList<>();
     
+    private int lastPlayerSeat = 0;
+    
    
     /**
      * Constructor for HoldemDealer
@@ -158,7 +160,8 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         for(BettingPlayer p : activePlayers) {
             disableActions(p);
         }
-        
+        updateBoardCards();
+
         try {
             for(IHoldemReceiver client : clients) {
                 client.displayCards();
@@ -171,10 +174,9 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         catch(RemoteException ex) {
             ex.printStackTrace(System.out);
         }
-        updateBoardCards();
         try {
             for(IHoldemReceiver client : clients) {
-                client.showActivePlayer(getCurrentPlayer().getSeatNumber(), 0);
+                client.showActivePlayer(getCurrentPlayer().getSeatNumber(), lastPlayerSeat);
             }
         }
         catch(RemoteException ex) {
@@ -218,6 +220,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             System.out.print(Deck.cardToString(card) + " ");
         }
         System.out.print("\n");
+        sendBoardSummaryMessage();
         bettingHelper.startNewRound(false);
         offerActions();
     }
@@ -239,6 +242,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             System.out.print(Deck.cardToString(boardCard) + " ");
         }
         System.out.print("\n");
+        sendBoardSummaryMessage();
         bettingHelper.startNewRound(false);
         offerActions();
     }
@@ -250,14 +254,17 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
      */
     @Override
     public void takeAction(PokerAction action, int chipAmount) throws RemoteException {
-        int lastPlayerSeatNumber = getCurrentPlayer().getSeatNumber();
+        lastPlayerSeat = getCurrentPlayer().getSeatNumber();
         disableActions(getCurrentPlayer());
+        BettingPlayer thisPlayer = getCurrentPlayer();
         bettingHelper.takeAction(action, chipAmount);
+        sendActionSummaryMessage(thisPlayer, action, chipAmount);
         for(IHoldemReceiver client : clients) {
             client.updateChipValues(activePlayers.get(activePlayers.size() - 1));
         }
         if(bettingHelper.bettingComplete()) {
             if(isWinner()) {
+                sendSummaryMessage(String.format("The winner is %s", getCurrentPlayer().getUsername()));
                 startHand();
                 return;
             }
@@ -265,7 +272,7 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
                 dealFlopToBoard();
             }
             else if (board.size() == 5) {
-                findWinner();
+                sendSummaryMessage(findWinner());
                 startHand();
                 return;
             }
@@ -278,8 +285,9 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         else {
             offerActions();
         }
+        
         for(IHoldemReceiver client : clients) {
-            client.showActivePlayer(getCurrentPlayer().getSeatNumber(), lastPlayerSeatNumber);
+            client.showActivePlayer(getCurrentPlayer().getSeatNumber(), lastPlayerSeat);
         }
     }
     
@@ -411,5 +419,57 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
         }
         throw new IllegalArgumentException("Client with id " + id + " not found.");
     }
-}
+    
+    private void sendActionSummaryMessage(BettingPlayer player, PokerAction action, int chipAmount) {
+        String message = "";
+        switch(action) {
+            case BET:
+                message = String.format("%s bets %d", player.getUsername(), player.getCurrentBet());
+                break;
+            case CALL:
+                message = String.format("%s calls %d", player.getUsername(), player.getCurrentBet());
+                break;
+            case CHECK:
+                message = String.format("%s checks", player.getUsername());
+                break;
+            case FOLD:
+                message = String.format("%s folds", player.getUsername());
+                break;
+            case RAISE:
+                message = String.format("%s raises to %d", player.getUsername(), player.getCurrentBet());
+        }
+        
+        sendSummaryMessage(message);
+    }
+    
+    public void sendBoardSummaryMessage() {
+        String message;
+        
+        if(board.size() == 3) {
+            String cards = "";
+            for(int card : board) {
+                cards += Deck.cardToString(card) + " ";
+            }
+            message = String.format("The flop is %s", cards);
+        }
+        else if(board.size() == 4) {
+            message = String.format("The turn is %s", Deck.cardToString(board.get(3)));
+        }
+        else {
+            message = String.format("The river is %s", Deck.cardToString(board.get(4)));
+        }
+        sendSummaryMessage(message);
+    }
+    
+    public void sendSummaryMessage(String message) {
+        try {
+            for(IHoldemReceiver client : clients) {
+                client.sendSummaryMessage(message);
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+}   
 

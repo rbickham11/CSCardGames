@@ -1,6 +1,7 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
+import cardgamesdesktop.utilities.RMIConnection;
 import cardgameslib.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -81,7 +82,7 @@ public class TablesGUIController implements Initializable, Screens {
         loggedInHeader.setVisible(false);
         
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            Registry registry = RMIConnection.getInstance().getRegistry();
             ITableManager tableManager = (ITableManager)registry.lookup(ITableManager.class.getSimpleName());
             holdemTables = tableManager.getHoldemTables();
             euchreTables = tableManager.getEuchreTables();

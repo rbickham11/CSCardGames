@@ -60,4 +60,9 @@ public class HoldemReceiver extends UnicastRemoteObject implements IHoldemReceiv
     public void showActivePlayer(int currentSeat, int lastSeat) {
         controller.showActivePlayer(currentSeat, lastSeat);
     }
+    
+    @Override
+    public void sendSummaryMessage(String message) {
+        controller.updateSummary(message);
+    }
 }

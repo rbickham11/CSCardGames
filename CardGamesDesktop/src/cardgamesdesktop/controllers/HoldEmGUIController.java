@@ -298,6 +298,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     
     @Override
     public void connectTable(String tableId, String chatId) {
+        System.out.println("This is " + UserSessionVars.getUsername() + "'s table");
         Registry registry = RMIConnection.getInstance().getRegistry();
         try {
             dealer = (IHoldemDealer)registry.lookup(tableId);
@@ -400,25 +401,6 @@ public class HoldEmGUIController extends GameController implements Initializable
         }
     }
     
-    private void updateGameSummary(BettingPlayer player, PokerAction action) {
-        switch(action) {
-            case BET:
-                gameInfo.appendText(String.format("%s bets %d\n", player.getUsername(), player.getCurrentBet()));
-                return;
-            case CALL:
-                gameInfo.appendText(String.format("%s calls %d\n", player.getUsername(), player.getCurrentBet()));
-                return;
-            case CHECK:
-                gameInfo.appendText(String.format("%s checks\n", player.getUsername()));
-                return;
-            case FOLD:
-                gameInfo.appendText(String.format("%s folds\n", player.getUsername()));
-                return;
-            case RAISE:
-                gameInfo.appendText(String.format("%s raises to %d\n", player.getUsername(), player.getCurrentBet()));
-        }
-    }
-    
     @FXML
     private void sendMessage() {
         try {
@@ -440,9 +422,6 @@ public class HoldEmGUIController extends GameController implements Initializable
                         PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
                         activatePlayer(pane.getContainer(), p.getUsername(), Integer.toString(p.getChips()));
                         //Update image
-                    }
-                    for(BettingPlayer p : dealer.getActivePlayers()) {
-                        updateChipValues(p);
                     }
                 }
                 catch(RemoteException ex) {
@@ -489,14 +468,13 @@ public class HoldEmGUIController extends GameController implements Initializable
             @Override
             public void run() {
                 try{
-                    System.out.println("Chip update");
                     PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
                     pane.getChips().setText(Integer.toString(p.getChips()));
                     if(p.getCurrentBet() == 0) {
                         pane.getBetAmount().setText("");
                     }
                     else {
-                        pane.getBetAmount().setText(Integer.toString(p.getCurrentBet()));
+                        pane.getBetAmount().setText(Integer.toString(p.getCurrentBet()));                                              
                     }
                     potSize.setText(String.format("Pot Size: $%d", dealer.getPotSize()));
                 }
@@ -605,5 +583,9 @@ public class HoldEmGUIController extends GameController implements Initializable
             lastContainer = playerPanes[lastSeat - 1].getContainer();
         }
         showPlayersTurn(playerPanes[currentSeat - 1].getContainer(), lastContainer);
+    }
+    
+    public void updateSummary(String message) {
+        gameInfo.appendText(message + "\n");
     }
 }
