@@ -172,10 +172,10 @@ public class CardGamesServer {
         }
         Scanner temp = new Scanner(System.in);
 
-        euchre.addPlayer(1111, "Player 0", 0);
-        euchre.addPlayer(2222, "Player 1", 1);
-        euchre.addPlayer(3333, "Player 2", 2);
-        euchre.addPlayer(4444, "Player 3", 3);
+        //euchre.addPlayer(1111, "Player 0", 0);
+        //euchre.addPlayer(2222, "Player 1", 1);
+        //euchre.addPlayer(3333, "Player 2", 2);
+        //euchre.addPlayer(4444, "Player 3", 3);
 
         euchre.determineDealer();
         euchre.startNewHand(true);

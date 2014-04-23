@@ -1,8 +1,9 @@
 package cardgamesserver.games.euchre;
 
 import cardgameslib.games.IEuchreDealer;
-import cardgameslib.utilities.Player;
+import cardgameslib.receivers.IEuchreReceiver;
 import cardgameslib.utilities.Deck;
+import cardgameslib.utilities.Player;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -60,19 +61,30 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
     private List<Player> players;
     private int currentDealer;
     private int playersTurn;
+    private int previousPlayer;
     private int trump;
     private boolean alone;
     private int alonePlayer;
     private String topCard;
     private boolean cardUp;
+    
+    private final ArrayList<Integer> availableSeats;
+    private final List<IEuchreReceiver> clients = new ArrayList<>();
 
     public EuchreDealer() throws RemoteException {
         winChecker = new EuchreWinChecker(this);
+        previousPlayer = 0;
         trump = -1;
         alone = false;
         alonePlayer = -1;
         topCard = "";
         players = new ArrayList<>(MIN_MAX_PLAYERS);
+        
+        availableSeats = new ArrayList<>();
+        for(int i = 1; i <= MIN_MAX_PLAYERS; i++) {
+            availableSeats.add(i);
+        }
+        
         prepareEuchreDeck();
     }
 
@@ -87,16 +99,26 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         deck = new Deck(euchreCards);
         deck.shuffle();
     }
-
-    public void addPlayer(int id , String username, int seat) {
+    
+    @Override
+    public void addPlayer(int id , String username, int seat) throws RemoteException {
         players.add(new Player(id, username, seat));
+        availableSeats.remove(new Integer(seat));
         Collections.sort(players);
+        
+        for(IEuchreReceiver client : clients) {
+            client.initializePlayers();
+        }
+        if(players.size() == 4) {
+            startNewHand(true);
+        }
     }
 
     public void removePlayer(int id) {
         for (Player player : players) {
             if (player.getUserId() == id) {
                 players.set(players.indexOf(player), null);
+                availableSeats.add(player.getSeatNumber());
                 return;
             }
         }
@@ -122,11 +144,14 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         }
 
         currentDealer = randomPlayer;       // Set the current dealer.
+        playersTurn = currentDealer;
+        previousPlayer = 0;
         deck.collectCards();                // Collect the cards.
         deck.shuffle();                     // Shuffle the deck.
     }
 
     private int nextPlayer(int player) {
+        previousPlayer = getCurrentPlayer().getSeatNumber();
         // Increment the dealer to the next player at the table.
         player++;
         if (player >= MIN_MAX_PLAYERS) {
@@ -142,7 +167,6 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
                 player = nextPlayer(player);
             }
         }
-
         return player;
     }
 
@@ -151,6 +175,8 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         // of a new game.
         if (!newGame) {
             nextPlayer(currentDealer);
+        } else {
+            determineDealer();
         }
 
         deck.collectCards();
@@ -160,9 +186,17 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         alone = false;
         alonePlayer = -1;
         resetPlayersHands();
-        //dealHands("3, 3, 3, 2");
+        
+        for(Player p : players) {
+            hidePlayerOptions(p);
+        }
+        
+        updateActivePlayer();
+        showDealerOption(getCurrentPlayer());
+        setCanPlayCard(false);
     }
 
+    @Override
     public void dealHands(String dealSequence) {
         if (players.size() == 4) {    // Make sure there are 4 players.
             playersTurn = nextPlayer(currentDealer);
@@ -181,9 +215,82 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
 
             cardUp = true;
             topCard = deck.getTopCard();
+            updateCards();
+            showPassCallOption(getCurrentPlayer());
+            updateActivePlayer();
+            showAvailableTrump();
+            showTopCard();
+        }
+    }
+    
+    public void showAvailableTrump() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.showAvailableTrump();
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+    
+    public void updateActivePlayer() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.showActivePlayer(getCurrentPlayer().getSeatNumber(), previousPlayer);
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+    
+    public void setCanPlayCard(boolean can) {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.setCanPlayCard(can);
+            }
+        } catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    } 
+    
+    public void updateCards() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.displayCards();
+            }
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
         }
     }
 
+    public void showTopCard() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.showTopCard(getCurrentDealer().getSeatNumber(), getTopCard());
+            }
+        } catch(RemoteException ex) {}
+    }
+    
+    public void downTopCard() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.downTopCard(getCurrentDealer().getSeatNumber());
+            }
+        } catch(RemoteException ex) {}
+    }
+    
+    public void showTrump() {
+        List<String> suitValues = Arrays.asList("C", "D", "S", "H");
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.showTrump(suitValues.get(trump));
+            }
+        } catch(RemoteException ex) {}
+    }
+    
     private int[] convertSequence(String sequence) {
         // Convert the string sequence into integer numbers.
         int[] deal = new int[4];
@@ -291,63 +398,77 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         players.get(player).giveCard(hand);
     }
     
+    @Override
     public void passOnCallingTrump() {
         if (playersTurn == currentDealer) {
             if (cardUp == true) {
                 cardUp = false;
                 topCard = "";
+                downTopCard();
+                showAvailableTrump();
                 System.out.println("Card Turned Down");
             } else {
-                trump = 10;  // End loop for testing
                 System.out.println("Muck Hand");
-//                startNewHand(false);
+                startNewHand(false);
             }
         }
+        hidePlayerOptions(getCurrentPlayer());
         playersTurn = nextPlayer(playersTurn);
+        updateActivePlayer();
+        showPassCallOption(getCurrentPlayer());
     }
 
     public void callTrump(int trump, boolean alone) {
-        Scanner temp = new Scanner(System.in);
         // Set trump and start the hand
-        if (cardUp) {
-            this.trump = trump;
-            System.out.print("Player " + currentDealer + ".  What card do you want to discard. ");
-            getCardToReplace(temp.nextInt());
-        } else {
-            this.trump = trump;
-        }
+        this.trump = trump;
         this.alone = alone;
-
-        if (alone) {
-            setAlonePlayer(getCurrentPlayer());
-        }
-        sortHandsTrumpFirst();
-
-        displayPlayersHands();
-        winChecker.setPlayerCalledTrump(getCurrentPlayer());
-        setCurrentPlayer(nextPlayer(currentDealer));
-        startHand();
-
+        
+        showTrump();
+        winChecker.setPlayerCalledTrump(playersTurn);
         winChecker.setAlone(alone);
         winChecker.setTrump(trump);
+        hidePlayerOptions(getCurrentPlayer());
+        
+        if (alone) {
+            setAlonePlayer(playersTurn);
+        }
+        
+        setCanPlayCard(true);
+        
+        if (cardUp) {
+            previousPlayer = getCurrentPlayer().getSeatNumber();
+            setCurrentPlayer(currentDealer);
+            updateActivePlayer();
+            showCardAction(getCurrentPlayer(), "discard");
+        } else {
+            startHand();
+        }
     }
 
+    @Override
     public void getCardToReplace(int card) {
-        // If the "top card" is called as trump,
-        // have the dealer replace a card from his hand
-        // with that top card.
+        hidePlayerOptions(getCurrentPlayer());
         players.get(currentDealer).giveCard(deck.dealCard());
         players.get(currentDealer).removeCard(card);
         players.get(currentDealer).sortHand();
+        startHand();
     }
 
     private void startHand() {
         System.out.println("Start Hand");
-        winChecker.setPlayerLead(getCurrentPlayer());
+        sortHandsTrumpFirst();
+        downTopCard();
+        
+        playersTurn = nextPlayer(currentDealer);
+        winChecker.setPlayerLead(getCurrentPlayerPos());
+        updateActivePlayer();
+        
+        updateCards();
+        showCardAction(getCurrentPlayer(), "play");
     }
 
     public void cardPlayed(int card) {
-        int player = getCurrentPlayer();
+        int player = getCurrentPlayerPos();
         int cardValue = players.get(player).getHand().get(card);
 
         winChecker.setCardPlayed(player, cardValue);
@@ -360,7 +481,61 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         }
     }
 
-//*******************************************************************************  
+    @Override
+    public void addClient(IEuchreReceiver client) throws RemoteException {
+        clients.add(client);
+    }
+    
+    @Override
+    public void removeClient(IEuchreReceiver client) throws RemoteException {
+        clients.remove(client);
+        System.out.println("Removing euchre client");
+    }
+    
+    public void showDealerOption(Player player) {
+        try {
+            findClientById(player.getUserId()).showDealerOption();
+        } catch(RemoteException ex) {}
+    }
+    
+    public void hidePlayerOptions(Player player) {
+        try {
+            findClientById(player.getUserId()).hidePlayerOptions();
+        } catch(RemoteException ex) {}
+    }
+    
+    public void showPassCallOption(Player player) {
+        try {
+            findClientById(player.getUserId()).showPassCallOption();
+        } catch(RemoteException ex) {}
+    }
+    
+    public void showCardAction(Player player, String action) {
+        try {
+            findClientById(player.getUserId()).showCardActions(action);
+        } catch(RemoteException ex) {}
+    }
+    
+    private IEuchreReceiver findClientById(int id) {
+        try {
+            for(IEuchreReceiver client : clients) {
+                if(client.getPlayerId() == id) {
+                    return client;
+                }
+            }
+        } catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+        throw new IllegalArgumentException("Client with id " + id + " not found.");
+    }
+    
+//*******************************************************************************
+    @Override
+    public ArrayList<Integer> getAvailableSeats() throws RemoteException {
+        Collections.sort(availableSeats);
+        return availableSeats;
+    }
+    
     public int getTrump() {
         return trump;
     }
@@ -369,17 +544,49 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         return topCard;
     }
 
+    public boolean isCardUp() {
+        return cardUp;
+    }
+    
     public Player getCurrentDealer() {
         return players.get(currentDealer);
     }
-
-    public int getCurrentPlayer() {
+    
+    public int getCurrentDealerPos() {
+        return currentDealer;
+    }
+    
+    public Player getCurrentPlayer() {
+        return players.get(playersTurn);
+    }
+    
+    public int getCurrentPlayerPos() {
         return playersTurn;
     }
 
     public ArrayList<Player> getPlayers() {
         return (ArrayList)players;
     }
+    
+//    public int getTeamOneTricks() {
+//        return winChecker.getTeamOneTricks();
+//    }
+//    
+//    public int getTeamTwoTricks() {
+//        return winChecker.getTeamTwoTricks();
+//    }
+//    
+//    public int getTeamOneScore() {
+//        return winChecker.getTeamOneScore();
+//    }
+//    
+//    public int getTeamTwoScore() {
+//        return winChecker.getTeamTwoScore();
+//    }
+//    
+//    public String getWinner() {
+//        return winChecker.getWinner();
+//    }
     
     public void setCurrentPlayer(int player) {
         playersTurn = player;

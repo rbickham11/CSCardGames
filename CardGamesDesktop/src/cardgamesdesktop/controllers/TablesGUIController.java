@@ -3,19 +3,18 @@ package cardgamesdesktop.controllers;
 import cardgamesdesktop.*;
 import cardgamesdesktop.utilities.RMIConnection;
 import cardgameslib.*;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.*;
-
-import javafx.scene.input.MouseEvent;
-import java.util.ArrayList;
-import javafx.event.EventHandler;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-
 import cardgameslib.utilities.Game;
+import java.net.URL;
 import java.rmi.registry.*;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.event.EventHandler;
+import javafx.fxml.*;
+
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 /**
  * FXML Controller class
  *

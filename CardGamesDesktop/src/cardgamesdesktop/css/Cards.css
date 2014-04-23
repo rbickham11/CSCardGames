@@ -12,6 +12,30 @@
     -fx-background-size: 100% 100%;
 }
 
+.S{
+    -fx-background-image: url("../images/cards/spade.png");
+    -fx-background-size: 45px 45px;
+    -fx-background-repeat: space;
+}
+
+.H{
+    -fx-background-image: url("../images/cards/heart.png");
+    -fx-background-size: 45px 45px;
+    -fx-background-repeat: space;
+}
+
+.C{
+    -fx-background-image: url("../images/cards/club.png");
+    -fx-background-size: 45px 45px;
+    -fx-background-repeat: space;
+}
+
+.D{
+    -fx-background-image: url("../images/cards/diamond.png");
+    -fx-background-size: 45px 45px;
+    -fx-background-repeat: space;
+}
+
 .card2C{
     -fx-background-image: url("../images/cards/2C.png");
     -fx-background-size: 100% 100%;

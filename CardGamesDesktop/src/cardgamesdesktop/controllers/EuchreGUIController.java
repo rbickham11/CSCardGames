@@ -1,17 +1,23 @@
 package cardgamesdesktop.controllers;
 
 import cardgamesdesktop.*;
-import java.net.URL;
-import java.util.*;
-import javafx.fxml.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.beans.property.StringProperty;
-import java.rmi.*;
-import java.rmi.registry.*;
-
+import cardgamesdesktop.receivers.EuchreReceiver;
 import cardgamesdesktop.utilities.*;
 import cardgameslib.games.IEuchreDealer;
+import cardgameslib.utilities.*;
+import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
+import java.util.*;
+import javafx.application.Platform;
+import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
+import javafx.fxml.*;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import jfx.messagebox.MessageBox;
 
 
 /**
@@ -28,10 +34,22 @@ public class EuchreGUIController extends GameController implements Initializable
     
     // <editor-fold defaultstate="collapsed" desc="GUI Components">
     ScreensController controller;
+    String previous;
     
     @FXML
     private Label loggedInHeader;
     
+    @FXML
+    private AnchorPane joinTableOverlay;
+    @FXML
+    private ComboBox joinTableOpenSeats;
+    @FXML
+    private TextField joinTableStartingChips;
+    @FXML
+    private Button joinTableCancel;
+    @FXML
+    private Button joinTableJoin;
+ 
     @FXML
     private AnchorPane player1;
     @FXML
@@ -117,15 +135,21 @@ public class EuchreGUIController extends GameController implements Initializable
     private AnchorPane player4CardPlayed;
     
     @FXML
+    private AnchorPane scoreboard;
+    @FXML
     private AnchorPane currentTrump;
     @FXML
-    private Label teamOneName;
+    private Label team1Name1;
+    @FXML
+    private Label team1Name3;
     @FXML
     private Label teamOneTricks;
     @FXML
     private Label teamOnePoints;
     @FXML
-    private Label teamTwoName;
+    private Label team2Name2;
+    @FXML
+    private Label team2Name4;
     @FXML
     private Label teamTwoTricks;
     @FXML
@@ -178,13 +202,24 @@ public class EuchreGUIController extends GameController implements Initializable
     private RadioButton self2;
     @FXML
     private RadioButton self3;
+    
+    @FXML
+    private AnchorPane playDiscardCard;
+    @FXML
+    private Button discardCard;
+    @FXML
+    private Button playCard;
     // </editor-fold>
     
-    private IEuchreDealer dealer;
     private ChatClient chatClient;
-    //private EuchreDealer dealer;
+    private IEuchreDealer dealer;
     private PlayerPane[] playerPanes;
     private AnchorPane[] playedCards;
+    private boolean canPlayCard = false;
+    private AnchorPane activeCard = null;
+    private EuchreReceiver client;
+    
+    private int thisPlayerSeat;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -199,20 +234,33 @@ public class EuchreGUIController extends GameController implements Initializable
         playedCards = new AnchorPane[] { player1CardPlayed, player2CardPlayed, player3CardPlayed, player4CardPlayed };
         
         StringProperty chatBoxText = chatBox.textProperty();
-               
-//        gameInfo.setEditable(false);
-//        loggedInHeader.setText(UserSessionVars.getUsername());
-//        
-//        dealer = new EuchreDealer();
-//        dealer.addPlayer(111, "Ryan Bickham", 1);
-//        dealer.addPlayer(222, "Nick Borushko", 2);
-//        dealer.addPlayer(333, "Ryan Gillett", 3);
-//        dealer.addPlayer(444, "Andrew Haeger", 4);
-//        
-//        dealer.determineDealer();
-//        showPlayersTurn(playerPanes[dealer.getCurrentDealer().getSeatNumber() - 1].getContainer(), null);
-//        startNewHand(true);
+
+        gameInfo.setEditable(false);
+        loggedInHeader.setText(UserSessionVars.getUsername());
     }    
+    
+    public void initializePlayers() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for(Player p : dealer.getPlayers()) {
+                        PlayerPane pane = playerPanes[p.getSeatNumber() - 1];
+                        activatePlayer(pane.getContainer(), p.getUsername(), "");
+                        activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), "");
+                        int seat = p.getSeatNumber();
+                        if (seat % 2 == 0) {
+                            ((Label)scoreboard.lookup("#team2Name" + seat)).setText(p.getUsername());
+                        }else{
+                            ((Label)scoreboard.lookup("#team1Name" + seat)).setText(p.getUsername());
+                        }
+                    }
+                } catch(RemoteException ex) {
+                    ex.printStackTrace(System.out);
+                }
+            }
+        });
+    }
     
     @Override
     public void connectTable(String tableId, String chatId) {
@@ -220,6 +268,10 @@ public class EuchreGUIController extends GameController implements Initializable
         try {
             dealer = (IEuchreDealer)registry.lookup(tableId);
             chatClient = new ChatClient(chatId, chatBox.textProperty());
+            joinTableOpenSeats.getItems().clear();
+            joinTableOpenSeats.getItems().addAll(dealer.getAvailableSeats());
+            client = new EuchreReceiver(this, UserSessionVars.getUserId());
+            dealer.addClient(client);
         }
         catch(NotBoundException ex) {
             System.out.println("The requested remote object " + tableId + " was not found");
@@ -230,44 +282,39 @@ public class EuchreGUIController extends GameController implements Initializable
         }
     }
     
-//    private void startNewHand(boolean newGame) {
-//        List<Player> players = dealer.getPlayers();
-//        
-//        for(Player p : players) {
-//            activatePlayer(playerPanes[p.getSeatNumber() - 1].getContainer(), p.getUsername(), "");
-//        }
-//        for(PlayerPane p : playerPanes) {
-//            removeCard(p.getCards().get(0));
-//            removeCard(p.getCards().get(1));
-//            removeCard(p.getCards().get(2));
-//            removeCard(p.getCards().get(3));
-//            removeCard(p.getCards().get(4));
-//        }
-//        
-//        dealer.startNewHand(newGame);
-//        showDealSequencePanel();
-//    }
-//    
-//    private void showDealSequencePanel() {
-//        dealOrder.setVisible(true);
-//        gameChoices.setVisible(false);
-//    }
-//    
-//    private void showGameChoicesPanel() {
-//        gameChoices.setVisible(true);
-//        dealOrder.setVisible(false);
-//    }
-//    
-//    private void dealHands() {
-//        List<AnchorPane> cards;
-//        for(Player p : dealer.getPlayers()) {
-//            cards = playerPanes[p.getSeatNumber() - 1].getCards();
-//            for(int i = 0; i < cards.size(); i++) {
-//                showCard(cards.get(i), Deck.cardToString(p.getHand().get(i)));
-//            }
-//        }
-//    }
-//    
+    @FXML
+    private void joinTable() {
+        try {
+            int seatNumber = Integer.parseInt(joinTableOpenSeats.getSelectionModel().getSelectedItem().toString());
+            dealer.addPlayer(UserSessionVars.getUserId(), UserSessionVars.getUsername(), seatNumber);
+            thisPlayerSeat = seatNumber;
+            joinTableOverlay.setVisible(false);
+        }
+        catch(NumberFormatException ex) {
+            ex.printStackTrace(System.out);
+        }
+        catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+        catch(IllegalArgumentException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+    
+    @FXML
+    private void cancelJoin() {
+        goToTablesScreen();
+    }
+    
+    @Override
+    public void setPreviousScreen(String previous) {
+        this.previous = previous;
+    }
+    
+    @Override
+    public void closingApplication() {
+        System.out.println("Exiting Euchre");
+    }
     
     @FXML
     private void goToTablesScreen() {
@@ -284,19 +331,61 @@ public class EuchreGUIController extends GameController implements Initializable
         controller.setScreen(DesktopCardGameGUI.statisticsScreen);
     }
     
-    @FXML
-    private void pass() {
-        
+    private void startNewHand(boolean newGame) {
+//        canPlayCard = false;
+//        activeCard = null;
+//
+//        for(PlayerPane p : playerPanes) {
+//            removeCard(p.getCards().get(0));
+//            removeCard(p.getCards().get(1));
+//            removeCard(p.getCards().get(2));
+//            removeCard(p.getCards().get(3));
+//            removeCard(p.getCards().get(4));
+//        }
+//        AnchorPane previousPlayer = null;
+//        
+//        showDealSequencePanel();
     }
     
-    @FXML
-    private void call() {
-        
+    public void dealHands() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for(Player p : dealer.getPlayers()) {
+                        List<AnchorPane> cardPanes = playerPanes[p.getSeatNumber() - 1].getCards();
+                        if(p.getSeatNumber() == thisPlayerSeat) {
+                            for(int i = 0; i < cardPanes.size(); i++) {
+                                removeCard(cardPanes.get(i));
+                                if(p.getHand().size() > i) {
+                                    showCard(cardPanes.get(i), Deck.cardToString(p.getHand().get(i)));
+                                    cardPanes.get(i).setVisible(true);
+                                } else {
+                                    cardPanes.get(i).setVisible(false);
+                                }
+                            }
+                        } else {
+                            for(int i = 0; i < cardPanes.size(); i++) {
+                                removeCard(cardPanes.get(i));
+                                if(p.getHand().size() > i) {
+                                    showCard(cardPanes.get(i), "Red");
+                                    cardPanes.get(i).setVisible(true);
+                                } else {
+                                    cardPanes.get(i).setVisible(false);
+                                }
+                            }          
+                        }
+                    }
+                } catch(RemoteException ex) {
+                    ex.printStackTrace(System.out);
+                }
+            }
+        });
     }
     
     @FXML
     private void dealCards() {
-        String sequence = "";
+        String sequence;
         
         // Left
         if(left2.isSelected()) {
@@ -304,21 +393,18 @@ public class EuchreGUIController extends GameController implements Initializable
         } else {
             sequence = "3";
         }
-        
         // Front
         if(front2.isSelected()) {
             sequence += ", 2";
         } else {
             sequence += ", 3";
         }
-        
         // Right
         if(right2.isSelected()) {
             sequence += ", 2";
         } else {
             sequence += ", 3";
         }
-        
         // Self
         if(self2.isSelected()) {
             sequence += ", 2";
@@ -326,19 +412,244 @@ public class EuchreGUIController extends GameController implements Initializable
             sequence += ", 3";
         }
         
-//        dealer.dealHands(sequence);
-//        showGameChoicesPanel();
-//        
+        try {
+            dealer.dealHands(sequence);
+        } catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+        
+        hidePlayerOptions();
+    }
+    
+    public void showTopCard(int dealer, String topCard) {
+        AnchorPane topCardContain = playerPanes[dealer - 1].getTopCard();
+        showCard(topCardContain, topCard);
+    }
+    
+    public void downTopCard(int dealer) {
+        AnchorPane topCardContain = playerPanes[dealer - 1].getTopCard();
+        removeCard(topCardContain);
+    }
+    
+    @FXML
+    private void pass() {
+//        updateGameSummary(dealer.getCurrentPlayer(), "passed.");
+        try {
+            dealer.passOnCallingTrump();
+        } catch(RemoteException ex) {}
+//        switch (action) {
+//            case "down":
+//                updateGameSummary(dealer.getTopCard() + " was turned down.");
+        toggleTrumpChoices();
+//            case "muck":
+//                updateGameSummary("Hand was mucked.");
+//                break;
+//        }
+    }
+    
+    @FXML
+    private void call() {
+        boolean alone = goAlone.isSelected();
+        int trump;
+        
+        if(clubs.isSelected()) {
+            trump = 0;
+        } else if(diamonds.isSelected()) {
+            trump = 1;
+        } else if(spades.isSelected()) {
+            trump = 2;
+        } else if(hearts.isSelected()) {
+            trump = 3;
+        } else {
+            trump = 4;
+        }
+        
+        if(trump < 4) {
+//            if(alone) {
+//                updateGameSummary(dealer.getCurrentPlayer(), "called " + selectTrump + "'s trump and is going alone.");
+//            } else {
+//                updateGameSummary(dealer.getCurrentPlayer(), "called " + selectTrump + "'s trump.");
+//            }
+            try {
+                dealer.callTrump(trump, alone);
+            } catch(RemoteException ex) {}
+        } else{
+            MessageBox.show(null, "You did not select a suit.", "Error", MessageBox.ICON_ERROR | MessageBox.OK);
+        }
+    }
+    
+    public void showTrump(String trump) {
+        currentTrump.getStylesheets().add("cardgamesdesktop/css/Cards.css");
+        currentTrump.getStyleClass().remove("cardDefault");
+        currentTrump.getStyleClass().add(trump);
+    }
+    
+    private void removeTrump() {
+        currentTrump.getStyleClass().remove(1);
+        currentTrump.getStyleClass().add("cardDefault");
+    }
+    
+    @FXML
+    private void activeCard(MouseEvent event) {
+        AnchorPane card = (AnchorPane)event.getSource();
+        String source = card.getId();
+        String parent = source.substring(0, 7);
+        
+        if(playerPanes[thisPlayerSeat - 1].getName().getStyleClass().contains("playersTurn") && !card.getStyleClass().contains("cardDefault") && (card.getOpacity() != 0.7) && canPlayCard) {
+            if(card.getLayoutY() == -10) {
+                resetActiveCards(parent);
+                playCard.setDisable(true);
+                discardCard.setDisable(true);
+            } else {
+                resetActiveCards(parent);
+                card.setLayoutY(-10);
+                activeCard = card;
+                playCard.setDisable(false);
+                discardCard.setDisable(false);
+            }
+        }
+    }
+    
+    private void resetActiveCards(String player) {
+        AnchorPane playerContain = playerPanes[thisPlayerSeat - 1].getContainer();
+        
+        for(int i = 1; i <= 5; i++) {
+            if(playerContain.lookup("#" + player + "Card" + i).getLayoutY() == -10) {
+                playerContain.lookup("#" + player + "Card" + i).setLayoutY(0);
+            }
+        }
+        activeCard = null;
+    }
+    
+    @FXML
+    private void cardAction(ActionEvent event) {
+        Button action = (Button)event.getSource();
+        String id = action.getId();
+        
+        if(activeCard != null) {
+            switch(id) {
+                case "playCard":
+//                    AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
+//                    resetFollowSuit(dealer.getCurrentPlayer().getSeatNumber());
+//                    AnchorPane playedCard = playedCards[dealer.getCurrentPlayer().getSeatNumber() - 1];
+//                    int result;
+//                    
+//                    showCard(playedCard, activeCard.getStyleClass().get(0).replace("card", ""));
+//                    removeCard(activeCard);
+//                    activeCard.setLayoutY(0);
+//                    result = dealer.cardPlayed(Integer.parseInt(activeCard.getId().substring(11)) - 1);
+//                    activeCard = null;
+//                    playCard.setDisable(true);
+//                    showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), previousPlayer);
+//                    followSuit(dealer.getCurrentPlayer().getSeatNumber());
+//                    if(result == 1) {           // Trick Done
+//                        resetAfterTrick();
+//                    } else if(result == 2) {    // Hand Done
+//                        resetAfterHand();
+//                    } else if(result == 3) {    // Game Done
+//                        resetAfterGame();
+//                    }
+                    break;
+                case "discardCard":
+                    try {
+                        discardCard.setDisable(false);
+                        dealer.getCardToReplace(Integer.parseInt(activeCard.getId().substring(11)) - 1);
+                        if(activeCard != null) {
+                            activeCard.setLayoutY(0);
+                            activeCard = null;
+                        }
+                    } catch(RemoteException ex) {}
+                    break;
+            }
+        } else {
+            MessageBox.show(null, "You did not select a card.", "Error", MessageBox.ICON_ERROR | MessageBox.OK);
+        }
+    }
+    
+    private void startHand() {
+//        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
+    }
+    
+    private void followSuit(int player) {
+//        List<AnchorPane> cards = playerPanes[player - 1].getCards();
+//        List<String> canNotPlay = dealer.followSuit(player - 1);
+//        System.out.println(canNotPlay.toString());
+//        if(!canNotPlay.isEmpty()) {
+//            for(AnchorPane card : cards) {
+//                if(!card.getStyleClass().contains("cardDefault")) {
+//                    if(canNotPlay.contains(card.getStyleClass().get(0).substring(4))){
+//                        card.setOpacity(0.7);
+//                        card.setLayoutY(10);
+//                    }
+//                }
+//            }
+//        }
+    }
+    
+    private void resetFollowSuit(int player) {
+        List<AnchorPane> cards = playerPanes[player - 1].getCards();
+        
+        for (AnchorPane card : cards) {
+            if(!card.getStyleClass().contains("cardDefault")) {
+                card.setOpacity(1);
+                card.setLayoutY(0);
+            }
+        }
+    }
+    
+    private void updateTricksScores() {
+//        teamOneTricks.setText(Integer.toString(dealer.getTeamOneTricks()));
+//        teamOnePoints.setText(Integer.toString(dealer.getTeamOneScore()));
+//        teamTwoTricks.setText(Integer.toString(dealer.getTeamTwoTricks()));
+//        teamTwoPoints.setText(Integer.toString(dealer.getTeamTwoScore()));
+    }
+    
+    private void resetAfterTrick() {
+//        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
+//        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
+//        updateTricksScores();
+//        clearPlayedCards();
 //        dealHands();
-//        dealer.displayPlayersHands();
+//        dealer.startTrick();
     }
     
-    private void showTopCard() {
-        
+    private void resetAfterMuck() {
+        startNewHand(false);
     }
     
-    private void showAvailableTrump() {
-        
+    private void resetAfterHand() {
+//        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
+//        updateGameSummary(null, dealer.getWinner());
+//        updateTricksScores();
+//        clearPlayedCards();
+//        removeTrump();
+//        startNewHand(false);
+    }
+    
+    private void resetAfterGame() {
+//        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
+//        updateGameSummary(null, dealer.getWinner());
+//        updateTricksScores();
+//        clearPlayedCards();
+//        startNewHand(false);
+    }
+    
+    private void clearPlayedCards() {
+        for(AnchorPane played : playedCards) {
+            removeCard(played);
+        }
+    }
+    
+    private void updateGameSummary(String action) {
+        gameInfo.appendText(String.format("%s\n", action));
+    }
+    
+    private void updateGameSummary(Player player, String action) {
+        if(player != null) {
+            gameInfo.appendText(String.format("%s %s\n", player.getUsername(), action));
+        } else {
+            gameInfo.appendText(String.format("%s\n", action));
+        }
     }
     
     @FXML
@@ -352,8 +663,121 @@ public class EuchreGUIController extends GameController implements Initializable
         }
         chatMessage.setText("");
     }
-
-    @Override
-    public void closingApplication() {
+    
+    public void showAvailableTrump() {
+        try{
+            if(dealer.isCardUp()) {
+                disableAllTrumpChoices();
+                switch (dealer.getTopCard().charAt(1)){
+                    case 'C':
+                        changeClubsOption(false, true);
+                        break;
+                    case 'D':
+                        changeDiamondsOption(false, true);
+                        break;
+                    case 'S':
+                        changeSpadesOption(false, true);
+                        break;
+                    case 'H':
+                        changeHeartsOption(false, true);
+                        break;
+                }
+            } else {
+                toggleTrumpChoices();
+            }
+        } catch(RemoteException ex) {}
+    }
+    
+    private void disableAllTrumpChoices() {
+        changeSpadesOption(true, false);
+        changeHeartsOption(true, false);
+        changeDiamondsOption(true, false);
+        changeClubsOption(true, false);
+    }
+    
+    private void toggleTrumpChoices() {
+        changeSpadesOption(!spades.isDisabled(), false);
+        changeHeartsOption(!hearts.isDisabled(), false);
+        changeDiamondsOption(!diamonds.isDisabled(), false);
+        changeClubsOption(!clubs.isDisabled(), false);
+    }
+    
+    private void changeSpadesOption(boolean disable, boolean selected) {
+        spades.setDisable(disable);
+        spadesLabel.setDisable(disable);
+        spades.setSelected(selected);
+    }
+    
+    private void changeHeartsOption(boolean disable, boolean selected)  {
+        hearts.setDisable(disable);
+        heartsLabel.setDisable(disable);
+        hearts.setSelected(selected);
+    }
+    
+    private void changeDiamondsOption(boolean disable, boolean selected) {
+        diamonds.setDisable(disable);
+        diamondsLabel.setDisable(disable);
+        diamonds.setSelected(selected);
+    }
+    
+    private void changeClubsOption(boolean disable, boolean selected) {
+        clubs.setDisable(disable);
+        clubsLabel.setDisable(disable);
+        clubs.setSelected(selected);
+    }
+    
+    public void hidePlayerOptions() {
+        dealOrder.setVisible(false);
+        gameChoices.setVisible(false);
+        playDiscardCard.setVisible(false);
+    }
+    
+    public void showDealSequencePanel() {
+        dealOrder.setVisible(true);
+        gameChoices.setVisible(false);
+        playDiscardCard.setVisible(false);
+    }
+    
+    public void showGameChoicesPanel() {
+        gameChoices.setVisible(true);
+        dealOrder.setVisible(false);
+        playDiscardCard.setVisible(false);
+    }
+    
+    public void showCardActions(String action) {
+        showCardActionPanel();
+        switch(action) {
+            case "discard":
+                discardCard.setVisible(true);
+                playCard.setVisible(false);
+                discardCard.setDisable(true);
+                break;
+            case "play":
+                playCard.setVisible(true);
+                discardCard.setVisible(false);
+                playCard.setDisable(true);
+                break;
+        }
+    }
+    
+    private void showCardActionPanel() {
+        playDiscardCard.setVisible(true);
+        gameChoices.setVisible(false);
+        dealOrder.setVisible(false);
+    }
+    
+    public void setCanPlayCard(boolean can) {
+        canPlayCard = can;
+    }
+    
+    public void showActivePlayer(int currentSeat, int lastSeat) {
+        AnchorPane lastContainer;
+        if(lastSeat == 0) {
+            lastContainer = null;
+        } 
+        else {
+            lastContainer = playerPanes[lastSeat - 1].getContainer();
+        }
+        showPlayersTurn(playerPanes[currentSeat - 1].getContainer(), lastContainer);
     }
 }
