@@ -1,6 +1,6 @@
-=============================================
-Project CardGamesDesktop build script updated
-=============================================
+=====================================
+CardGamesDesktop build script updated
+=====================================
 
 Project build script file jfx-impl.xml in nbproject sub-directory has not been recognized
 as compliant with this version of NetBeans JavaFX support module. To ensure correct
@@ -16,7 +16,7 @@ Remark: The auto-update mechanism can be disabled by setting property
 javafx.disable.autoupdate=true
 Automatic opening of this notification when project files are updated can be disabled by setting property
 javafx.disable.autoupdate.notification=true
-(in build.properties, private.properties or project.properties).
+(in build.properties, private.properties ot project.properties).
 
 Remark: Files nbproject/jfx-impl_backup*.xml and this file nbproject/UPDATED.TXT
 are not used when building the project and can be freely deleted.
