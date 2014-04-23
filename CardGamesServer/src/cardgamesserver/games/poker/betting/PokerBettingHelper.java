@@ -160,9 +160,9 @@ public class PokerBettingHelper {
         
         if(action != PokerAction.FOLD) {
             Collections.rotate(activePlayers, -1);
-            if(isBigBlindOption()) {
-                availableActions = new ArrayList<>(Arrays.asList(PokerAction.CHECK, PokerAction.RAISE, PokerAction.FOLD));
-            }
+        }
+        if(isBigBlindOption()) {
+            availableActions = new ArrayList<>(Arrays.asList(PokerAction.CHECK, PokerAction.RAISE, PokerAction.FOLD));
         }
     }
     
@@ -222,6 +222,9 @@ public class PokerBettingHelper {
     public void raise(int chipAmount) {
         if(chipAmount < activeBet)
             throw new IllegalArgumentException("Invalid raise");
+        if(isBigBlindOption()) {
+            availableActions = new ArrayList<>(Arrays.asList(PokerAction.CALL, PokerAction.FOLD, PokerAction.RAISE));
+        }
         activeBet += chipAmount;
         potSize += activeBet;
         activePlayers.get(0).decrementChips(activeBet);

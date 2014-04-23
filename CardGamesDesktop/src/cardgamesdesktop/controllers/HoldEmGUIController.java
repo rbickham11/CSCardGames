@@ -42,6 +42,9 @@ public class HoldEmGUIController extends GameController implements Initializable
     @FXML
     private TextField joinTableStartingChips;
     @FXML
+    private Label startingChipsLabel;
+    
+    @FXML
     private Button joinTableCancel;
     @FXML
     private Button joinTableJoin;
@@ -255,6 +258,7 @@ public class HoldEmGUIController extends GameController implements Initializable
     @FXML
     private Button raiseButton;
     
+    
     // </editor-fold>
     
     private ChatClient chatClient;
@@ -305,6 +309,7 @@ public class HoldEmGUIController extends GameController implements Initializable
             chatClient = new ChatClient(chatId, chatBox.textProperty());
             joinTableOpenSeats.getItems().clear();
             joinTableOpenSeats.getItems().addAll(dealer.getAvailableSeats());
+            startingChipsLabel.setText("Starting Chips (Max " + Integer.toString(dealer.getMaxChips()) + "): ");
             client = new HoldemReceiver(this, UserSessionVars.getUserId());
             dealer.addClient(client);
         }
@@ -500,7 +505,9 @@ public class HoldEmGUIController extends GameController implements Initializable
     @Override
     public void closingApplication() {
         try {
-            dealer.removePlayer(UserSessionVars.getUserId());
+            if(!joinTableOverlay.isVisible()) {
+                dealer.removePlayer(UserSessionVars.getUserId());
+            }
             dealer.removeClient(client);
             chatClient.closeConnection();
         }

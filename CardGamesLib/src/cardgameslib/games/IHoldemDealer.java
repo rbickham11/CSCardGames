@@ -21,4 +21,5 @@ public interface IHoldemDealer extends Remote {
     public ArrayList<BettingPlayer> getPlayers() throws RemoteException;
     public void addClient(IHoldemReceiver client) throws RemoteException;
     public void removeClient(IHoldemReceiver client) throws RemoteException;
+    public int getMaxChips() throws RemoteException;
 }

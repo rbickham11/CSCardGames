@@ -471,5 +471,10 @@ public class HoldemDealer extends UnicastRemoteObject implements IHoldemDealer {
             ex.printStackTrace(System.out);
         }
     }
+    
+    @Override
+    public int getMaxChips() throws RemoteException {
+        return chipLimit;
+    }
 }   
 
