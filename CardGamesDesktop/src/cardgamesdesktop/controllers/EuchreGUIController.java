@@ -347,6 +347,21 @@ public class EuchreGUIController extends GameController implements Initializable
 //        showDealSequencePanel();
     }
     
+    public void resetPlayersCards() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                for(PlayerPane p : playerPanes) {
+                    removeCard(p.getCards().get(0));
+                    removeCard(p.getCards().get(1));
+                    removeCard(p.getCards().get(2));
+                    removeCard(p.getCards().get(3));
+                    removeCard(p.getCards().get(4));
+                }
+            }
+        });
+    }
+    
     public void dealHands() {
         Platform.runLater(new Runnable() {
             @Override
@@ -421,14 +436,24 @@ public class EuchreGUIController extends GameController implements Initializable
         hidePlayerOptions();
     }
     
-    public void showTopCard(int dealer, String topCard) {
-        AnchorPane topCardContain = playerPanes[dealer - 1].getTopCard();
-        showCard(topCardContain, topCard);
+    public void showTopCard(final int dealer, final String topCard) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                AnchorPane topCardContain = playerPanes[dealer - 1].getTopCard();
+                showCard(topCardContain, topCard);
+            }
+        });
     }
     
-    public void downTopCard(int dealer) {
-        AnchorPane topCardContain = playerPanes[dealer - 1].getTopCard();
-        removeCard(topCardContain);
+    public void downTopCard(final int dealer) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                AnchorPane topCardContain = playerPanes[dealer - 1].getTopCard();
+                removeCard(topCardContain);
+            }
+        });
     }
     
     @FXML
@@ -440,7 +465,6 @@ public class EuchreGUIController extends GameController implements Initializable
 //        switch (action) {
 //            case "down":
 //                updateGameSummary(dealer.getTopCard() + " was turned down.");
-        toggleTrumpChoices();
 //            case "muck":
 //                updateGameSummary("Hand was mucked.");
 //                break;
@@ -478,10 +502,15 @@ public class EuchreGUIController extends GameController implements Initializable
         }
     }
     
-    public void showTrump(String trump) {
-        currentTrump.getStylesheets().add("cardgamesdesktop/css/Cards.css");
-        currentTrump.getStyleClass().remove("cardDefault");
-        currentTrump.getStyleClass().add(trump);
+    public void showTrump(final String trump) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                currentTrump.getStylesheets().add("cardgamesdesktop/css/Cards.css");
+                currentTrump.getStyleClass().remove("cardDefault");
+                currentTrump.getStyleClass().add(trump);
+            }
+        });
     }
     
     private void removeTrump() {
@@ -529,26 +558,18 @@ public class EuchreGUIController extends GameController implements Initializable
         if(activeCard != null) {
             switch(id) {
                 case "playCard":
-//                    AnchorPane previousPlayer = playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer();
-//                    resetFollowSuit(dealer.getCurrentPlayer().getSeatNumber());
-//                    AnchorPane playedCard = playedCards[dealer.getCurrentPlayer().getSeatNumber() - 1];
-//                    int result;
-//                    
-//                    showCard(playedCard, activeCard.getStyleClass().get(0).replace("card", ""));
-//                    removeCard(activeCard);
-//                    activeCard.setLayoutY(0);
-//                    result = dealer.cardPlayed(Integer.parseInt(activeCard.getId().substring(11)) - 1);
-//                    activeCard = null;
-//                    playCard.setDisable(true);
-//                    showPlayersTurn(playerPanes[dealer.getCurrentPlayer().getSeatNumber() - 1].getContainer(), previousPlayer);
-//                    followSuit(dealer.getCurrentPlayer().getSeatNumber());
-//                    if(result == 1) {           // Trick Done
-//                        resetAfterTrick();
-//                    } else if(result == 2) {    // Hand Done
-//                        resetAfterHand();
-//                    } else if(result == 3) {    // Game Done
-//                        resetAfterGame();
-//                    }
+                    try {
+                        resetFollowSuit(thisPlayerSeat);
+                        //AnchorPane playedCard = playedCards[thisPlayerSeat - 1];
+                        
+                        //showCard(playedCard, activeCard.getStyleClass().get(0).replace("card", ""));
+                        removeCard(activeCard);
+                        
+                        dealer.cardPlayed(Integer.parseInt(activeCard.getId().substring(11)) - 1);
+                        playCard.setDisable(true);
+                        activeCard.setLayoutY(0);
+                        activeCard = null;
+                    } catch(RemoteException ex) {}
                     break;
                 case "discardCard":
                     try {
@@ -570,20 +591,23 @@ public class EuchreGUIController extends GameController implements Initializable
 //        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
     }
     
-    private void followSuit(int player) {
-//        List<AnchorPane> cards = playerPanes[player - 1].getCards();
-//        List<String> canNotPlay = dealer.followSuit(player - 1);
-//        System.out.println(canNotPlay.toString());
-//        if(!canNotPlay.isEmpty()) {
-//            for(AnchorPane card : cards) {
-//                if(!card.getStyleClass().contains("cardDefault")) {
-//                    if(canNotPlay.contains(card.getStyleClass().get(0).substring(4))){
-//                        card.setOpacity(0.7);
-//                        card.setLayoutY(10);
-//                    }
-//                }
-//            }
-//        }
+    public void followSuit(final List<String> canNotPlay) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                List<AnchorPane> cards = playerPanes[thisPlayerSeat - 1].getCards();
+                if(!canNotPlay.isEmpty()) {
+                    for(AnchorPane card : cards) {
+                        if(!card.getStyleClass().contains("cardDefault")) {
+                            if(canNotPlay.contains(card.getStyleClass().get(0).substring(4))){
+                                card.setOpacity(0.7);
+                                card.setLayoutY(10);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
     
     private void resetFollowSuit(int player) {
@@ -598,40 +622,53 @@ public class EuchreGUIController extends GameController implements Initializable
     }
     
     private void updateTricksScores() {
-//        teamOneTricks.setText(Integer.toString(dealer.getTeamOneTricks()));
-//        teamOnePoints.setText(Integer.toString(dealer.getTeamOneScore()));
-//        teamTwoTricks.setText(Integer.toString(dealer.getTeamTwoTricks()));
-//        teamTwoPoints.setText(Integer.toString(dealer.getTeamTwoScore()));
+        try {
+            teamOneTricks.setText(Integer.toString(dealer.getTeamOneTricks()));
+            teamOnePoints.setText(Integer.toString(dealer.getTeamOneScore()));
+            teamTwoTricks.setText(Integer.toString(dealer.getTeamTwoTricks()));
+            teamTwoPoints.setText(Integer.toString(dealer.getTeamTwoScore()));
+        } catch(RemoteException ex) {}
     }
     
-    private void resetAfterTrick() {
+    public void resetAfterTrick() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
 //        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
 //        updateGameSummary(dealer.getCurrentPlayer(), "'s lead.");
-//        updateTricksScores();
-//        clearPlayedCards();
-//        dealHands();
+                updateTricksScores();
+                clearPlayedCards();
+                dealHands();
 //        dealer.startTrick();
+            }
+        });
     }
     
-    private void resetAfterMuck() {
-        startNewHand(false);
-    }
-    
-    private void resetAfterHand() {
+    public void resetAfterHand() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
 //        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
 //        updateGameSummary(null, dealer.getWinner());
-//        updateTricksScores();
-//        clearPlayedCards();
-//        removeTrump();
+                updateTricksScores();
+                clearPlayedCards();
+                removeTrump();
 //        startNewHand(false);
+            }
+        });
     }
     
-    private void resetAfterGame() {
+    public void resetAfterGame() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
 //        updateGameSummary(dealer.getCurrentPlayer(), "won the trick.");
 //        updateGameSummary(null, dealer.getWinner());
-//        updateTricksScores();
-//        clearPlayedCards();
+                updateTricksScores();
+                clearPlayedCards();
 //        startNewHand(false);
+            }
+        });
     }
     
     private void clearPlayedCards() {
@@ -665,27 +702,33 @@ public class EuchreGUIController extends GameController implements Initializable
     }
     
     public void showAvailableTrump() {
-        try{
-            if(dealer.isCardUp()) {
-                disableAllTrumpChoices();
-                switch (dealer.getTopCard().charAt(1)){
-                    case 'C':
-                        changeClubsOption(false, true);
-                        break;
-                    case 'D':
-                        changeDiamondsOption(false, true);
-                        break;
-                    case 'S':
-                        changeSpadesOption(false, true);
-                        break;
-                    case 'H':
-                        changeHeartsOption(false, true);
-                        break;
-                }
-            } else {
-                toggleTrumpChoices();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    if(dealer.isCardUp()) {
+                        disableAllTrumpChoices();
+                        switch (dealer.getTopCard().charAt(1)){
+                            case 'C':
+                                changeClubsOption(false, true);
+                                break;
+                            case 'D':
+                                changeDiamondsOption(false, true);
+                                break;
+                            case 'S':
+                                changeSpadesOption(false, true);
+                                break;
+                            case 'H':
+                                changeHeartsOption(false, true);
+                                break;
+                        }
+                    } else {
+                        toggleTrumpChoices();
+                    }
+                } catch(RemoteException ex) {}
+        
             }
-        } catch(RemoteException ex) {}
+        });
     }
     
     private void disableAllTrumpChoices() {
@@ -727,37 +770,57 @@ public class EuchreGUIController extends GameController implements Initializable
     }
     
     public void hidePlayerOptions() {
-        dealOrder.setVisible(false);
-        gameChoices.setVisible(false);
-        playDiscardCard.setVisible(false);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                dealOrder.setVisible(false);
+                gameChoices.setVisible(false);
+                playDiscardCard.setVisible(false);
+            }
+        });
     }
     
     public void showDealSequencePanel() {
-        dealOrder.setVisible(true);
-        gameChoices.setVisible(false);
-        playDiscardCard.setVisible(false);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                dealOrder.setVisible(true);
+                gameChoices.setVisible(false);
+                playDiscardCard.setVisible(false);
+            }
+        });
     }
     
     public void showGameChoicesPanel() {
-        gameChoices.setVisible(true);
-        dealOrder.setVisible(false);
-        playDiscardCard.setVisible(false);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                gameChoices.setVisible(true);
+                dealOrder.setVisible(false);
+                playDiscardCard.setVisible(false);
+            }
+        });
     }
     
-    public void showCardActions(String action) {
-        showCardActionPanel();
-        switch(action) {
-            case "discard":
-                discardCard.setVisible(true);
-                playCard.setVisible(false);
-                discardCard.setDisable(true);
-                break;
-            case "play":
-                playCard.setVisible(true);
-                discardCard.setVisible(false);
-                playCard.setDisable(true);
-                break;
-        }
+    public void showCardActions(final String action) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                showCardActionPanel();
+                switch(action) {
+                    case "discard":
+                        discardCard.setVisible(true);
+                        playCard.setVisible(false);
+                        discardCard.setDisable(true);
+                        break;
+                    case "play":
+                        playCard.setVisible(true);
+                        discardCard.setVisible(false);
+                        playCard.setDisable(true);
+                        break;
+                }
+            }
+        });
     }
     
     private void showCardActionPanel() {
@@ -766,18 +829,38 @@ public class EuchreGUIController extends GameController implements Initializable
         dealOrder.setVisible(false);
     }
     
-    public void setCanPlayCard(boolean can) {
-        canPlayCard = can;
+    public void showPlayedCard(final int player, final String card) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                AnchorPane playedCard = playedCards[player - 1];
+                showCard(playedCard, card);
+            }
+        });
     }
     
-    public void showActivePlayer(int currentSeat, int lastSeat) {
-        AnchorPane lastContainer;
-        if(lastSeat == 0) {
-            lastContainer = null;
-        } 
-        else {
-            lastContainer = playerPanes[lastSeat - 1].getContainer();
-        }
-        showPlayersTurn(playerPanes[currentSeat - 1].getContainer(), lastContainer);
+    public void setCanPlayCard(final boolean can) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                canPlayCard = can;
+            }
+        });
+    }
+    
+    public void showActivePlayer(final int currentSeat, final int lastSeat) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                AnchorPane lastContainer;
+                if(lastSeat == 0) {
+                    lastContainer = null;
+                } 
+                else {
+                    lastContainer = playerPanes[lastSeat - 1].getContainer();
+                }
+                showPlayersTurn(playerPanes[currentSeat - 1].getContainer(), lastContainer);
+            }
+        });
     }
 }
