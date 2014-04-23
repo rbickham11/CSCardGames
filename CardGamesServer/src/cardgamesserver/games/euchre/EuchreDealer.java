@@ -56,9 +56,9 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
 
     public static final int MIN_MAX_PLAYERS = 4;
 
-    private EuchreWinChecker winChecker;
+    private final EuchreWinChecker winChecker;
     private Deck deck;
-    private List<Player> players;
+    private final List<Player> players;
     private int currentDealer;
     private int playersTurn;
     private int previousPlayer;
@@ -67,6 +67,7 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
     private int alonePlayer;
     private String topCard;
     private boolean cardUp;
+    private int leadSuit;
     
     private final ArrayList<Integer> availableSeats;
     private final List<IEuchreReceiver> clients = new ArrayList<>();
@@ -78,6 +79,7 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         alone = false;
         alonePlayer = -1;
         topCard = "";
+        leadSuit = -1;
         players = new ArrayList<>(MIN_MAX_PLAYERS);
         
         availableSeats = new ArrayList<>();
@@ -174,7 +176,7 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         // Only change dealer if this is the beginning
         // of a new game.
         if (!newGame) {
-            nextPlayer(currentDealer);
+            playersTurn = nextPlayer(currentDealer);
         } else {
             determineDealer();
         }
@@ -185,12 +187,14 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         topCard = "";
         alone = false;
         alonePlayer = -1;
+        leadSuit = -1;
         resetPlayersHands();
         
         for(Player p : players) {
             hidePlayerOptions(p);
         }
         
+        resetPlayersCards();
         updateActivePlayer();
         showDealerOption(getCurrentPlayer());
         setCanPlayCard(false);
@@ -230,6 +234,16 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
             }
         }
         catch(RemoteException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+    
+    public void resetPlayersCards() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.resetPlayersCards();
+            }
+        } catch(RemoteException ex) {
             ex.printStackTrace(System.out);
         }
     }
@@ -289,6 +303,38 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
                 client.showTrump(suitValues.get(trump));
             }
         } catch(RemoteException ex) {}
+    }
+    
+    public void showPlayedCard(int player, String card) {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.showPlayedCard(player, card);
+            }
+        } catch(RemoteException ex) {}
+    }
+    
+    public void resetAfterTrick() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.resetAfterTrick();
+            }
+        } catch(RemoteException ex) {} 
+    }
+    
+    public void resetAfterHand() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.resetAfterHand();
+            }
+        } catch(RemoteException ex) {} 
+    }
+    
+    public void resetAfterGame() {
+        try {
+            for(IEuchreReceiver client : clients) {
+                client.resetAfterGame();
+            }
+        } catch(RemoteException ex) {} 
     }
     
     private int[] convertSequence(String sequence) {
@@ -400,6 +446,7 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
     
     @Override
     public void passOnCallingTrump() {
+        boolean isMuck = false;
         if (playersTurn == currentDealer) {
             if (cardUp == true) {
                 cardUp = false;
@@ -409,15 +456,20 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
                 System.out.println("Card Turned Down");
             } else {
                 System.out.println("Muck Hand");
+                isMuck = true;
                 startNewHand(false);
             }
         }
-        hidePlayerOptions(getCurrentPlayer());
-        playersTurn = nextPlayer(playersTurn);
-        updateActivePlayer();
-        showPassCallOption(getCurrentPlayer());
+        
+        if(!isMuck) {
+            hidePlayerOptions(getCurrentPlayer());
+            playersTurn = nextPlayer(playersTurn);
+            updateActivePlayer();
+            showPassCallOption(getCurrentPlayer());
+        }
     }
 
+    @Override
     public void callTrump(int trump, boolean alone) {
         // Set trump and start the hand
         this.trump = trump;
@@ -432,7 +484,6 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         if (alone) {
             setAlonePlayer(playersTurn);
         }
-        
         setCanPlayCard(true);
         
         if (cardUp) {
@@ -458,27 +509,92 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         System.out.println("Start Hand");
         sortHandsTrumpFirst();
         downTopCard();
+        setCanPlayCard(true);
         
         playersTurn = nextPlayer(currentDealer);
         winChecker.setPlayerLead(getCurrentPlayerPos());
         updateActivePlayer();
+        showFollowSuit(getCurrentPlayer());
         
         updateCards();
         showCardAction(getCurrentPlayer(), "play");
     }
 
+    public List<String> followSuit(int player) {
+        List<String> canNotPlay = new ArrayList<>();
+        int numOfCards = players.get(player).getHand().size();
+        int leftBower = 0;
+        
+        switch (trump) {
+            case 0:                 // Clubs
+                leftBower = 35;
+                break;
+            case 1:                 // Diamonds
+                leftBower = 48;
+                break;
+            case 2:                 // Spades
+                leftBower = 9;
+                break;
+            case 3:                 // Hearts
+                leftBower = 22;
+                break;
+        }
+        
+        for(int card : players.get(player).getHand()) {
+            int suit = card / 13;
+            if((suit != leadSuit) || (trump != leadSuit && card == leftBower)){
+                canNotPlay.add(Deck.cardToString(card));
+            }
+            if(trump == leadSuit && card == leftBower){
+                canNotPlay.remove(Deck.cardToString(card));
+            }
+        }
+        if(canNotPlay.size() == numOfCards) {
+            canNotPlay.clear();
+        }
+        return canNotPlay;
+    }
+    
+    @Override
     public void cardPlayed(int card) {
         int player = getCurrentPlayerPos();
         int cardValue = players.get(player).getHand().get(card);
 
+        hidePlayerOptions(getCurrentPlayer());
         winChecker.setCardPlayed(player, cardValue);
         players.get(player).removeCard(card);
+        showPlayedCard(getCurrentPlayer().getSeatNumber(), Deck.cardToString(cardValue));
+        
+        if(player == winChecker.getPlayerLead()) {
+            leadSuit = cardValue / 13;
+        }
         
         if ((alone && winChecker.getCardPlayedCount() == 3) || (!alone && winChecker.getCardPlayedCount() == 4)) {
-            winChecker.determineWinner();
+            leadSuit = -1;
+            switch(winChecker.determineWinner()) {
+                case 1:
+                    // reset after trick
+                    resetAfterTrick();
+                    winChecker.setPlayerLead(getCurrentPlayerPos());
+                    break;
+                case 2:
+                    // reset after hand
+                    resetAfterHand();
+                    startNewHand(false);
+                    break;
+                case 3:
+                    // reset after game
+                    resetAfterGame();
+                    startNewHand(false);
+                    break;
+            }
         }else{
             setCurrentPlayer(nextPlayer(player));
         }
+        
+        updateActivePlayer();
+        showFollowSuit(getCurrentPlayer());
+        showCardAction(getCurrentPlayer(), "play");
     }
 
     @Override
@@ -516,6 +632,12 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         } catch(RemoteException ex) {}
     }
     
+    public void showFollowSuit(Player player) {
+        try {
+            findClientById(player.getUserId()).showFollowSuit(followSuit(getCurrentPlayerPos()));
+        } catch(RemoteException ex) {}
+    }
+    
     private IEuchreReceiver findClientById(int id) {
         try {
             for(IEuchreReceiver client : clients) {
@@ -540,10 +662,12 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         return trump;
     }
 
+    @Override
     public String getTopCard() {
         return topCard;
     }
 
+    @Override
     public boolean isCardUp() {
         return cardUp;
     }
@@ -564,32 +688,37 @@ public class EuchreDealer extends UnicastRemoteObject implements IEuchreDealer {
         return playersTurn;
     }
 
+    @Override
     public ArrayList<Player> getPlayers() {
         return (ArrayList)players;
     }
     
-//    public int getTeamOneTricks() {
-//        return winChecker.getTeamOneTricks();
-//    }
-//    
-//    public int getTeamTwoTricks() {
-//        return winChecker.getTeamTwoTricks();
-//    }
-//    
-//    public int getTeamOneScore() {
-//        return winChecker.getTeamOneScore();
-//    }
-//    
-//    public int getTeamTwoScore() {
-//        return winChecker.getTeamTwoScore();
-//    }
-//    
-//    public String getWinner() {
-//        return winChecker.getWinner();
-//    }
+    public int getTeamOneTricks() {
+        return winChecker.getTeamOneTricks();
+    }
+    
+    public int getTeamTwoTricks() {
+        return winChecker.getTeamTwoTricks();
+    }
+    
+    public int getTeamOneScore() {
+        return winChecker.getTeamOneScore();
+    }
+    
+    public int getTeamTwoScore() {
+        return winChecker.getTeamTwoScore();
+    }
+    
+    public String getWinner() {
+        return winChecker.getWinner();
+    }
     
     public void setCurrentPlayer(int player) {
         playersTurn = player;
+    }
+    
+    public void setPreviousPlayer(int player) {
+        previousPlayer = player;
     }
 
     private void setAlonePlayer(int player) {

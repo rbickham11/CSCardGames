@@ -22,4 +22,9 @@ public interface IEuchreDealer extends Remote {
     public void passOnCallingTrump() throws RemoteException;
     public void callTrump(int trump, boolean alone) throws RemoteException;
     public void getCardToReplace(int card) throws RemoteException;
+    public void cardPlayed(int card) throws RemoteException;
+    public int getTeamOneTricks() throws RemoteException;
+    public int getTeamTwoTricks() throws RemoteException;
+    public int getTeamOneScore() throws RemoteException;
+    public int getTeamTwoScore() throws RemoteException;
 }

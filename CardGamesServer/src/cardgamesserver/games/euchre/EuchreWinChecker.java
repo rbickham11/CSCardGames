@@ -92,7 +92,7 @@ public class EuchreWinChecker {
 
     public int determineWinner() {
         List<Integer> filteredCards = new ArrayList<>();
-        int winner;
+        int iWinner;
         int result = 1;
         
         determineBowers();
@@ -107,8 +107,8 @@ public class EuchreWinChecker {
             determineHighestSuit(filteredCards);
         }
 
-        winner = cardsPlayed.indexOf(filteredCards.get(0));
-        awardTrickWin(winner);
+        iWinner = cardsPlayed.indexOf(filteredCards.get(0));
+        awardTrickWin(iWinner);
         
         System.out.println("Team One Tricks: " + teamOneTricks);
         System.out.println("Team Two Tricks: " + teamTwoTricks);
@@ -116,8 +116,9 @@ public class EuchreWinChecker {
         System.out.println("Team One Score: " + teamOneScore);
         System.out.println("Team Two Score: " + teamTwoScore);
         System.out.println();
-        System.out.println("Winner: " + winner);
-        game.setCurrentPlayer(winner);
+        System.out.println("Winner: " + iWinner);
+        game.setPreviousPlayer(game.getCurrentPlayer().getSeatNumber());
+        game.setCurrentPlayer(iWinner);
         resetAfterTrick();
         
         if((teamOneTricks + teamTwoTricks) == 5){
